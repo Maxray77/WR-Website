@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { SPECIES_LIST } from "@/lib/species-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
 
+export const dynamic = "force-static";
+
 const BASE_URL = "https://www.raptorrescue.org";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -19,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/videos`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/gallery`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/species`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/annual-reports`, lastModified: now, changeFrequency: "quarterly", priority: 0.7 },
+    { url: `${BASE_URL}/annual-reports`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/media`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/volunteer`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
