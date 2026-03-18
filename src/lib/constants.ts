@@ -100,7 +100,7 @@ export const FILM_DETAILS = {
   premiere: "Sundance Film Festival, January 22, 2022",
   streaming: "HBO Max / Max",
   officialSite: "https://allthatbreathes.com",
-  trailerUrl: "https://www.youtube.com/embed/X_bDAFfCRnE",
+  trailerUrl: "https://www.youtube.com/embed/GoTlULspDyY",
 };
 
 // ─── Featured In Media ───

@@ -12,7 +12,7 @@ const FEATURED_VIDEO = {
   title: "All That Breathes — Official Trailer",
   description:
     "The Oscar-nominated documentary that follows brothers Nadeem and Saud as they rescue Black Kites in Delhi.",
-  embedUrl: "https://www.youtube.com/embed/X_bDAFfCRnE",
+  embedUrl: "https://www.youtube.com/embed/GoTlULspDyY",
   source: "HBO Documentary Films",
 };
 
