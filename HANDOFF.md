@@ -1,7 +1,7 @@
 # Wildlife Rescue Website — Handoff Guide
 
 **Last updated:** March 19, 2026
-**Status:** Phases 1–4 complete. 20 routes, all working. 40 source files.
+**Status:** Phases 1–4 complete. 20 routes, all working. 40+ source files.
 **Live preview:** https://wildlife-rescue-preview.netlify.app
 **Branch:** `claude/stoic-shirley` (git worktree)
 **Backup:** `C:\Users\maxra\Documents\Code\WR Website\`
@@ -41,7 +41,7 @@ src/
 │   ├── all-that-breathes/    # Documentary page — trailer, accolades, streaming
 │   ├── our-specialty/        # Surgical techniques, equipment, medical conditions
 │   ├── special-cases/        # 6 rescue stories with case numbers
-│   ├── videos/               # Featured trailer + 8 categorized video cards
+│   ├── videos/               # Featured HBO trailer + 8 categorized video cards
 │   ├── gallery/              # 16-photo masonry grid, category filter, lightbox
 │   ├── species/
 │   │   ├── page.tsx          # Species listing — 8 cards
@@ -64,12 +64,12 @@ src/
 │   ├── SectionHeading.tsx    # Consistent section titles
 │   ├── ImpactCounter.tsx     # Animated stat counters (client component)
 │   ├── NewsletterSignup.tsx  # Banner + inline variants, wired to /api/newsletter
-│   ├── InstagramFeed.tsx     # 6-post grid with hover overlays
+│   ├── InstagramFeed.tsx     # 6-post grid with hover overlays (@wildliferescueindia)
 │   ├── ContactForm.tsx       # Contact form, wired to /api/contact
 │   ├── JsonLd.tsx            # Organization + WebSite structured data
 │   └── SkipNav.tsx           # Accessibility skip-to-content link
 └── lib/
-    ├── constants.ts          # IMPACT_STATS, RESCUE_BY_YEAR, CONTACT, etc.
+    ├── constants.ts          # IMPACT_STATS, RESCUE_BY_YEAR, CONTACT, social links
     ├── metadata.ts           # Site-wide SEO metadata
     ├── species-data.ts       # 8 species with full profile data
     └── blog-data.ts          # 5 blog posts (static — replace with CMS)
@@ -113,9 +113,21 @@ src/
 4. **No real images yet** — all pages use gradient placeholders with descriptive text. Replace with actual photos using Next.js `<Image>` component.
 5. **Video trailers are live** — The official HBO "All That Breathes" trailer (`GoTlULspDyY`) is embedded on the homepage, All That Breathes page, and Videos page.
 6. **API routes are dev-only** — `/api/contact`, `/api/volunteer`, `/api/newsletter` log to console and store in memory. Each has TODO comments showing how to wire to Formspree, Mailchimp, etc.
-7. **Instagram feed** uses placeholder data. Needs real Instagram API integration.
+7. **Instagram** — Currently shows placeholder grid. Account is `@wildliferescueindia`. Needs real Instagram API integration for live feed.
 8. **Donate page** shows payment info but has no payment processing (Stripe/Razorpay not integrated yet).
 9. **Blog posts are static** — stored in `lib/blog-data.ts`. Replace with CMS (Sanity.io) queries when ready.
+10. **Static export for Netlify** — API routes must be temporarily disabled for Netlify deploys. See Deployment section below.
+
+---
+
+## Social Links (Current)
+
+| Platform | URL | File |
+|----------|-----|------|
+| Instagram | https://www.instagram.com/wildliferescueindia | `constants.ts`, `InstagramFeed.tsx`, `JsonLd.tsx` |
+| Facebook | https://facebook.com/wildliferescue.in | `constants.ts` |
+| YouTube | `#` (placeholder) | `constants.ts` |
+| WhatsApp | https://wa.me/919810029698 | `constants.ts` |
 
 ---
 
@@ -131,7 +143,7 @@ src/
 ### Phase 2 — Content Pages ✅
 - Our Specialty (5 technique/equipment cards, medical conditions breakdown)
 - Special Cases (6 detailed rescue stories with case numbers)
-- Video Clips (featured trailer + 8 categorized videos)
+- Video Clips (featured HBO trailer + 8 categorized videos)
 - Photo Gallery (16 photos, masonry grid, category filter, lightbox)
 - Species (8 species listing + dynamic profile pages with habitat/diet/threats/fun facts)
 - Annual Reports (intake bar chart 2010–2025, financial tables, expenditure breakdown, 5 growth phases)
@@ -140,7 +152,7 @@ src/
 - Media & Press (awards timeline, 8 press cards, press kit section)
 - Volunteer (6 roles with requirements, application form wired to API, 5 FAQs)
 - Newsletter component (reusable, banner + inline variants, wired to API)
-- Instagram feed component (6-post grid, homepage integration)
+- Instagram feed component (6-post grid, homepage integration, @wildliferescueindia)
 - GA4 analytics + Open Graph + Twitter Card meta tags
 - Header redesign (dropdown menus for "Our Work" and "Media")
 
@@ -157,24 +169,25 @@ src/
 ## What's Left (Phase 5 — Production Readiness)
 
 ### High Priority
-1. **Real photo/video assets** — Replace all gradient placeholders with actual images. Use Next.js `<Image>` component for optimization. Every page has descriptive placeholder text indicating what photo goes where.
+1. **Real photo/video assets** — Replace all gradient placeholders with actual images. Use Next.js `<Image>` component for optimization. See CONTENT-GUIDE.md for step-by-step instructions.
 2. **Stripe + Razorpay integration** — Wire up the Donate page. Stripe for international, Razorpay for India. The 6-tab UI is built and ready.
 3. **Production form backends** — Replace in-memory API routes with real services:
    - Contact form → Formspree or SendGrid
    - Newsletter → Mailchimp or Resend (see TODO in `/api/newsletter/route.ts`)
    - Volunteer form → same as contact, or a Google Sheets integration
 4. **Production deployment** — Currently on Netlify (static preview). For full-featured deploy with API routes, use Vercel (free for nonprofits). Set `NEXT_PUBLIC_GA_ID` env var. Domain: raptorrescue.org.
+5. **YouTube channel URL** — Currently placeholder `#` in constants.ts. Update when confirmed.
 
 ### Medium Priority
-5. **CMS (Sanity.io)** — For staff-managed content: blog posts, rescue stories, gallery, team bios, impact stats. Replace static data in `lib/blog-data.ts` and `lib/species-data.ts`. The Overhaul Plan has full schema recommendations.
-6. **Instagram API** — Replace placeholder `InstagramFeed` with live API data from `@wildliferescue_wr`.
-7. **Full image alt text** — When real images are added, ensure every `<Image>` has descriptive alt text.
+6. **CMS (Sanity.io)** — For staff-managed content: blog posts, rescue stories, gallery, team bios, impact stats. Replace static data in `lib/blog-data.ts` and `lib/species-data.ts`. The Overhaul Plan has full schema recommendations.
+7. **Instagram API** — Replace placeholder `InstagramFeed` with live API data from `@wildliferescueindia`.
+8. **Full image alt text** — When real images are added, ensure every `<Image>` has descriptive alt text.
 
 ### Lower Priority
-8. **i18n** — Hindi translation (organization works in Delhi).
-9. **Category filtering** — Videos and Gallery pages have category pills rendered but not interactive yet (static "All" selected). Wire up with `useState` filtering or URL params.
-10. **Email templates** — Design HTML email templates for form submission confirmations.
-11. **Error pages** — Custom 404 and 500 pages matching the site design.
+9. **i18n** — Hindi translation (organization works in Delhi).
+10. **Category filtering** — Videos and Gallery pages have category pills rendered but not interactive yet (static "All" selected). Wire up with `useState` filtering or URL params. (Gallery already has working filter.)
+11. **Email templates** — Design HTML email templates for form submission confirmations.
+12. **Error pages** — Custom 404 and 500 pages matching the site design.
 
 ---
 
@@ -188,12 +201,16 @@ All in `C:\Users\maxra\Documents\Claude\WR website\`:
 | `Wildlife-Rescue-Website-Overhaul-Plan.md` | Full overhaul plan with sitemap, CMS schemas, SEO strategy |
 | `Intake-Data-Analysis-Findings.md` | Detailed analysis of 16 years of intake data |
 | `Wildlife-Rescue-Impact-Data-2010-2026.md` | Raw impact statistics used throughout the site |
+| `CONTENT-GUIDE.md` | Step-by-step guide for adding real photos, videos, and data corrections |
 
 ---
 
 ## Git History
 
 ```
+fc01099 Update Instagram handle to @wildliferescueindia
+6a7175d Add CONTENT-GUIDE.md — step-by-step guide for adding photos, videos, and data
+3ff706b Update HANDOFF.md — add trailer info and latest git history
 1d6d039 Fix homepage trailer — embed actual HBO YouTube video
 f7f1942 Update trailer to official HBO version (All That Breathes)
 42abd9b Update HANDOFF.md — add live preview URL and deployment instructions
@@ -207,7 +224,6 @@ d0dcd61 Initial commit from Create Next App
 ```
 
 Branch: `claude/stoic-shirley`
-All commits are clean (no uncommitted changes).
 
 ---
 
@@ -221,15 +237,16 @@ All commits are clean (no uncommitted changes).
 
 ### To redeploy after changes:
 ```bash
-# 1. Temporarily enable static export
-#    In next.config.ts, set: output: "export"
+# 1. Temporarily enable static export — in next.config.ts, set: output: "export"
 # 2. Move API routes out (they break static export)
-mkdir -p src/app/_api-disabled && cp -r src/app/api/* src/app/_api-disabled/ && rm -rf src/app/api
-# 3. Build and deploy
-npm run build
-netlify deploy --prod --dir=out --no-build
-# 4. Restore API routes and remove output: "export"
-mkdir -p src/app/api && cp -r src/app/_api-disabled/* src/app/api/ && rm -rf src/app/_api-disabled
+mv src/app/api src/app/_api-disabled
+# 3. Clear cache and build
+rm -rf .next out
+NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 npx next build
+# 4. Deploy
+npx netlify deploy --prod --dir=out --no-build
+# 5. Restore API routes and remove output: "export" from next.config.ts
+mv src/app/_api-disabled src/app/api
 ```
 
 ### For production: Vercel (recommended)
@@ -237,3 +254,13 @@ mkdir -p src/app/api && cp -r src/app/_api-disabled/* src/app/api/ && rm -rf src
 - Free tier for nonprofits
 - Just `vercel deploy` — no config changes needed
 - Set env var: `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX`
+
+---
+
+## For New Team Members / Claude Sessions
+
+If picking this up in a new Claude session, say:
+
+> "I'm continuing the Wildlife Rescue website project. Read HANDOFF.md and CONTENT-GUIDE.md in the project root, plus the memory file at `~/.claude/projects/.../memory/project_wildlife_rescue.md`. The site is on branch `claude/stoic-shirley`. Phase 5 (production readiness) is next."
+
+This gives full context to continue seamlessly.
