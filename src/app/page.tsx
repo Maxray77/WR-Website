@@ -5,6 +5,8 @@ import { ArrowRight, Play, Heart } from "lucide-react";
 import ImpactCounter from "@/components/ImpactCounter";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import InstagramFeed from "@/components/InstagramFeed";
 import {
   IMPACT_STATS,
   FEATURED_RESCUES,
@@ -267,34 +269,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Instagram Feed ─── */}
+      <InstagramFeed />
+
       {/* ─── Newsletter Signup ─── */}
-      <section className="py-16 lg:py-20 bg-teal">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl font-bold text-white font-[family-name:var(--font-poppins)]">
-            Get Monthly Rescue Updates
-          </h2>
-          <p className="mt-3 text-white/80">
-            Join our community and receive stories of hope, recovery, and
-            conservation directly in your inbox.
-          </p>
-          <form
-            className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            action="#"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-amber"
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 bg-amber hover:bg-amber-light text-charcoal font-semibold rounded-full transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
+      <NewsletterSignup />
     </>
   );
 }

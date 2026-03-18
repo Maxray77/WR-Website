@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import { CONTACT } from "@/lib/constants";
+import NewsletterSignup from "./NewsletterSignup";
 
 export default function Footer() {
   return (
@@ -41,7 +42,11 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 { href: "/about", label: "About Us" },
+                { href: "/our-specialty", label: "Our Specialty" },
+                { href: "/species", label: "Species" },
                 { href: "/donate", label: "Donate" },
+                { href: "/volunteer", label: "Volunteer" },
+                { href: "/media", label: "Press & Media" },
                 { href: "/all-that-breathes", label: "All That Breathes" },
                 { href: "/contact", label: "Contact" },
               ].map((link) => (
@@ -87,19 +92,7 @@ export default function Footer() {
             <p className="text-teal-light text-sm mb-3">
               Get monthly rescue updates and conservation news.
             </p>
-            <form className="flex gap-2" action="#">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:border-amber"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-amber hover:bg-amber-light text-charcoal font-semibold rounded-lg text-sm transition-colors shrink-0"
-              >
-                Subscribe
-              </button>
-            </form>
+            <NewsletterSignup variant="inline" />
           </div>
         </div>
       </div>

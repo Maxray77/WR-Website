@@ -1,21 +1,100 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 
-const NAV_LINKS = [
+interface NavItem {
+  href?: string;
+  label: string;
+  children?: { href: string; label: string }[];
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  {
+    label: "Our Work",
+    children: [
+      { href: "/our-specialty", label: "Our Specialty" },
+      { href: "/species", label: "Species We Treat" },
+      { href: "/special-cases", label: "Rescue Stories" },
+      { href: "/annual-reports", label: "Annual Reports" },
+    ],
+  },
+  {
+    label: "Media",
+    children: [
+      { href: "/gallery", label: "Photo Gallery" },
+      { href: "/videos", label: "Video Clips" },
+      { href: "/media", label: "Press & Awards" },
+      { href: "/all-that-breathes", label: "All That Breathes" },
+    ],
+  },
+  { href: "/volunteer", label: "Volunteer" },
+  { href: "/contact", label: "Contact" },
+];
+
+// Flat list for mobile
+const MOBILE_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/our-specialty", label: "Our Specialty" },
-  { href: "/species", label: "Species" },
-  { href: "/special-cases", label: "Stories" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/videos", label: "Videos" },
+  { href: "/species", label: "Species We Treat" },
+  { href: "/special-cases", label: "Rescue Stories" },
+  { href: "/annual-reports", label: "Annual Reports" },
+  { href: "/gallery", label: "Photo Gallery" },
+  { href: "/videos", label: "Video Clips" },
+  { href: "/media", label: "Press & Awards" },
   { href: "/all-that-breathes", label: "All That Breathes" },
-  { href: "/annual-reports", label: "Reports" },
+  { href: "/volunteer", label: "Volunteer" },
   { href: "/contact", label: "Contact" },
 ];
+
+function DropdownMenu({ item }: { item: NavItem }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 px-4 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light"
+      >
+        {item.label}
+        <ChevronDown
+          size={14}
+          className={`transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 py-2 min-w-[200px] z-50">
+          {item.children!.map((child) => (
+            <Link
+              key={child.href}
+              href={child.href}
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 text-sm text-charcoal hover:text-teal hover:bg-teal-light transition-colors"
+            >
+              {child.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -40,16 +119,20 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-4 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav className="hidden lg:flex items-center gap-0.5">
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <DropdownMenu key={item.label} item={item} />
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href!}
+                  className="px-4 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Desktop CTA */}
@@ -90,9 +173,9 @@ export default function Header() {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg max-h-[80vh] overflow-y-auto">
           <nav className="px-4 py-4 space-y-1">
-            {NAV_LINKS.map((link) => (
+            {MOBILE_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
