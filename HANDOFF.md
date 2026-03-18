@@ -2,6 +2,7 @@
 
 **Last updated:** March 19, 2026
 **Status:** Phases 1–4 complete. 20 routes, all working. 40 source files.
+**Live preview:** https://wildlife-rescue-preview.netlify.app
 **Branch:** `claude/stoic-shirley` (git worktree)
 **Backup:** `C:\Users\maxra\Documents\Code\WR Website\`
 
@@ -161,7 +162,7 @@ src/
    - Contact form → Formspree or SendGrid
    - Newsletter → Mailchimp or Resend (see TODO in `/api/newsletter/route.ts`)
    - Volunteer form → same as contact, or a Google Sheets integration
-4. **Deployment** — Vercel (free for nonprofits). Set `NEXT_PUBLIC_GA_ID` env var. Domain: raptorrescue.org.
+4. **Production deployment** — Currently on Netlify (static preview). For full-featured deploy with API routes, use Vercel (free for nonprofits). Set `NEXT_PUBLIC_GA_ID` env var. Domain: raptorrescue.org.
 
 ### Medium Priority
 5. **CMS (Sanity.io)** — For staff-managed content: blog posts, rescue stories, gallery, team bios, impact stats. Replace static data in `lib/blog-data.ts` and `lib/species-data.ts`. The Overhaul Plan has full schema recommendations.
@@ -192,6 +193,8 @@ All in `C:\Users\maxra\Documents\Claude\WR website\`:
 ## Git History
 
 ```
+f15f75d Deploy to Netlify — fix sitemap/robots for static export compatibility
+be4edd2 Update HANDOFF.md — reflect Phase 4 completion
 cce8372 Phase 4: Form backends, blog, SEO, loading skeletons, accessibility
 f698a04 Add HANDOFF.md — continuation guide for team members
 0c8f955 Phase 3: Enhancement pages — media, volunteer, newsletter, Instagram, analytics
@@ -201,3 +204,32 @@ d0dcd61 Initial commit from Create Next App
 
 Branch: `claude/stoic-shirley`
 All commits are clean (no uncommitted changes).
+
+---
+
+## Deployment
+
+### Current: Netlify static preview
+- **URL:** https://wildlife-rescue-preview.netlify.app
+- **Method:** Static export (`output: "export"` in next.config.ts) deployed via `netlify deploy --prod --dir=out --no-build`
+- **Limitation:** API routes (`/api/*`) don't work in static mode. Forms show UI but don't submit.
+- **Netlify site ID:** `bfcd9eba-fc68-4cc2-a001-0517a55ce612`
+
+### To redeploy after changes:
+```bash
+# 1. Temporarily enable static export
+#    In next.config.ts, set: output: "export"
+# 2. Move API routes out (they break static export)
+mkdir -p src/app/_api-disabled && cp -r src/app/api/* src/app/_api-disabled/ && rm -rf src/app/api
+# 3. Build and deploy
+npm run build
+netlify deploy --prod --dir=out --no-build
+# 4. Restore API routes and remove output: "export"
+mkdir -p src/app/api && cp -r src/app/_api-disabled/* src/app/api/ && rm -rf src/app/_api-disabled
+```
+
+### For production: Vercel (recommended)
+- Vercel natively supports Next.js API routes, SSR, and ISR
+- Free tier for nonprofits
+- Just `vercel deploy` — no config changes needed
+- Set env var: `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX`
