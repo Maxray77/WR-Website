@@ -164,15 +164,14 @@ export default function Home() {
       <section className="py-16 lg:py-24 bg-charcoal text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden relative group cursor-pointer">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 bg-amber/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play size={32} className="text-charcoal ml-1" fill="currentColor" />
-                </div>
-              </div>
-              <p className="absolute bottom-4 left-4 text-white/60 text-sm">
-                Official Trailer — &quot;All That Breathes&quot;
-              </p>
+            <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/GoTlULspDyY"
+                title="All That Breathes | Official Trailer | HBO"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
             </div>
 
             <div>
