@@ -48,13 +48,13 @@ export default function InstagramFeed() {
         {/* Follow button */}
         <div className="mt-8 text-center">
           <a
-            href="https://www.instagram.com/wildliferescue_wr/"
+            href="https://www.instagram.com/wildliferescueindia"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold rounded-full hover:opacity-90 transition-opacity text-sm"
           >
             <Instagram size={18} />
-            Follow @wildliferescue_wr
+            Follow @wildliferescueindia
             <ExternalLink size={14} />
           </a>
         </div>

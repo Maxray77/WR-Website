@@ -45,7 +45,7 @@ export function OrganizationJsonLd() {
     ],
     sameAs: [
       "https://www.facebook.com/profile.php?id=100064413298498",
-      "https://www.instagram.com/wildliferescue_wr/",
+      "https://www.instagram.com/wildliferescueindia",
       "https://www.youtube.com/@WildlifeRescueDelhi",
     ],
     nonprofitStatus: "Nonprofit501c3",
