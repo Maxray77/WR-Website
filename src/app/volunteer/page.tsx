@@ -92,6 +92,8 @@ const FAQ = [
 export default function VolunteerPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <>
@@ -191,11 +193,42 @@ export default function VolunteerPage() {
           ) : (
             <form
               className="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 space-y-5"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                setFormSubmitted(true);
+                setLoading(true);
+                setError("");
+                const form = e.currentTarget;
+                const data = new FormData(form);
+                try {
+                  const res = await fetch("/api/volunteer", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      name: data.get("name"),
+                      email: data.get("email"),
+                      phone: data.get("phone"),
+                      location: data.get("location"),
+                      role: selectedRole,
+                      dates: data.get("dates"),
+                      about: data.get("about"),
+                    }),
+                  });
+                  const result = await res.json();
+                  if (!res.ok) throw new Error(result.error);
+                  setFormSubmitted(true);
+                } catch (err) {
+                  setError(err instanceof Error ? err.message : "Something went wrong");
+                } finally {
+                  setLoading(false);
+                }
               }}
             >
+              {error && (
+                <div className="flex items-center gap-2 bg-danger/10 text-danger rounded-lg p-3 text-sm">
+                  {error}
+                </div>
+              )}
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-charcoal mb-1">
@@ -203,6 +236,7 @@ export default function VolunteerPage() {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                     placeholder="Your name"
@@ -214,6 +248,7 @@ export default function VolunteerPage() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                     placeholder="you@email.com"
@@ -228,6 +263,7 @@ export default function VolunteerPage() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                     placeholder="+91 ..."
                   />
@@ -238,6 +274,7 @@ export default function VolunteerPage() {
                   </label>
                   <input
                     type="text"
+                    name="location"
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                     placeholder="City, Country"
                   />
@@ -270,6 +307,7 @@ export default function VolunteerPage() {
                 </label>
                 <input
                   type="text"
+                  name="dates"
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
                   placeholder="e.g., June 2026, 2 weeks"
                 />
@@ -280,6 +318,7 @@ export default function VolunteerPage() {
                   Tell Us About Yourself *
                 </label>
                 <textarea
+                  name="about"
                   required
                   rows={4}
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal resize-none"
@@ -289,9 +328,10 @@ export default function VolunteerPage() {
 
               <button
                 type="submit"
-                className="w-full sm:w-auto px-8 py-3 bg-teal text-white font-bold rounded-full hover:bg-teal-dark transition-colors flex items-center justify-center gap-2 text-sm"
+                disabled={loading}
+                className="w-full sm:w-auto px-8 py-3 bg-teal text-white font-bold rounded-full hover:bg-teal-dark transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-60"
               >
-                <Send size={16} /> Submit Application
+                <Send size={16} /> {loading ? "Submitting..." : "Submit Application"}
               </button>
             </form>
           )}

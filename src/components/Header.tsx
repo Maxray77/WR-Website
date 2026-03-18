@@ -31,6 +31,7 @@ const NAV_ITEMS: NavItem[] = [
       { href: "/all-that-breathes", label: "All That Breathes" },
     ],
   },
+  { href: "/blog", label: "Blog" },
   { href: "/volunteer", label: "Volunteer" },
   { href: "/contact", label: "Contact" },
 ];
@@ -47,6 +48,7 @@ const MOBILE_LINKS = [
   { href: "/videos", label: "Video Clips" },
   { href: "/media", label: "Press & Awards" },
   { href: "/all-that-breathes", label: "All That Breathes" },
+  { href: "/blog", label: "Blog & News" },
   { href: "/volunteer", label: "Volunteer" },
   { href: "/contact", label: "Contact" },
 ];

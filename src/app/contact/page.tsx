@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Phone, MessageCircle, MapPin, Clock, Mail, Send } from "lucide-react";
+import { Phone, MessageCircle, MapPin, Clock, Mail } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import ContactForm from "@/components/ContactForm";
 import { CONTACT } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -152,62 +153,7 @@ export default function ContactPage() {
             subtitle="For general inquiries, volunteering, media requests, or any questions."
           />
 
-          <form className="bg-white rounded-2xl p-6 lg:p-10 shadow-sm border border-gray-100 space-y-6">
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold text-charcoal mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-teal text-charcoal"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-charcoal mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-teal text-charcoal"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-charcoal mb-2">
-                Subject
-              </label>
-              <select className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-teal text-charcoal bg-white">
-                <option>General Inquiry</option>
-                <option>Volunteer / Intern</option>
-                <option>Media / Press</option>
-                <option>Donation Question</option>
-                <option>Report an Injured Bird</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-charcoal mb-2">
-                Message
-              </label>
-              <textarea
-                rows={5}
-                placeholder="How can we help?"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-teal text-charcoal resize-none"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-teal hover:bg-teal-dark text-white font-semibold px-8 py-3 rounded-lg transition-colors"
-            >
-              <Send size={16} />
-              Send Message
-            </button>
-          </form>
+          <ContactForm />
         </div>
       </section>
     </>

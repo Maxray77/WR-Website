@@ -4,6 +4,8 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
+import SkipNav from "@/components/SkipNav";
 import { siteMetadata } from "@/lib/metadata";
 
 // Replace with your actual GA4 Measurement ID
@@ -56,8 +58,11 @@ export default function RootLayout({
         <meta name="twitter:site" content="@wildliferescue" />
       </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
+        <SkipNav />
+        <OrganizationJsonLd />
+        <WebsiteJsonLd />
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main id="main-content" className="min-h-screen" role="main">{children}</main>
         <Footer />
       </body>
     </html>
