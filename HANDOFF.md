@@ -111,10 +111,11 @@ src/
 2. **Server Components** can't have `onClick`, `onSubmit`, etc. Use `"use client"` directive. Interactive forms are extracted to client components (`ContactForm.tsx`, `NewsletterSignup.tsx`).
 3. **Next.js 16** dynamic route `params` are async — must `await params` in page components (see `species/[slug]/page.tsx`, `blog/[slug]/page.tsx`).
 4. **No real images yet** — all pages use gradient placeholders with descriptive text. Replace with actual photos using Next.js `<Image>` component.
-5. **API routes are dev-only** — `/api/contact`, `/api/volunteer`, `/api/newsletter` log to console and store in memory. Each has TODO comments showing how to wire to Formspree, Mailchimp, etc.
-6. **Instagram feed** uses placeholder data. Needs real Instagram API integration.
-7. **Donate page** shows payment info but has no payment processing (Stripe/Razorpay not integrated yet).
-8. **Blog posts are static** — stored in `lib/blog-data.ts`. Replace with CMS (Sanity.io) queries when ready.
+5. **Video trailers are live** — The official HBO "All That Breathes" trailer (`GoTlULspDyY`) is embedded on the homepage, All That Breathes page, and Videos page.
+6. **API routes are dev-only** — `/api/contact`, `/api/volunteer`, `/api/newsletter` log to console and store in memory. Each has TODO comments showing how to wire to Formspree, Mailchimp, etc.
+7. **Instagram feed** uses placeholder data. Needs real Instagram API integration.
+8. **Donate page** shows payment info but has no payment processing (Stripe/Razorpay not integrated yet).
+9. **Blog posts are static** — stored in `lib/blog-data.ts`. Replace with CMS (Sanity.io) queries when ready.
 
 ---
 
@@ -193,6 +194,9 @@ All in `C:\Users\maxra\Documents\Claude\WR website\`:
 ## Git History
 
 ```
+1d6d039 Fix homepage trailer — embed actual HBO YouTube video
+f7f1942 Update trailer to official HBO version (All That Breathes)
+42abd9b Update HANDOFF.md — add live preview URL and deployment instructions
 f15f75d Deploy to Netlify — fix sitemap/robots for static export compatibility
 be4edd2 Update HANDOFF.md — reflect Phase 4 completion
 cce8372 Phase 4: Form backends, blog, SEO, loading skeletons, accessibility
