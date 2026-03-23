@@ -1,9 +1,9 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** March 19, 2026
-**Status:** Phases 1–4 complete. 20 routes, all working. 40+ source files.
+**Last updated:** March 23, 2026
+**Status:** Phases 1–4 complete + Wingman AI chatbot. 21 routes, all working. 45+ source files.
 **Live preview:** https://wildlife-rescue-preview.netlify.app
-**Branch:** `claude/stoic-shirley` (git worktree)
+**Branches:** `claude/stoic-shirley` (Phases 1–4), `claude/clever-khayyam` (+ Wingman chatbot)
 **Backup:** `C:\Users\maxra\Documents\Code\WR Website\`
 
 ---
@@ -17,9 +17,10 @@ npm run dev
 # → http://localhost:3000
 ```
 
-**Environment variables (optional):**
+**Environment variables:**
 ```
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Google Analytics 4 Measurement ID
+OPENAI_API_KEY=sk-...            # Required for Wingman chatbot (OpenAI GPT-4o-mini)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4 Measurement ID
 ```
 
 ---
@@ -54,12 +55,14 @@ src/
 │   │   ├── page.tsx          # Blog listing — featured post + grid
 │   │   └── [slug]/page.tsx   # Dynamic blog posts with markdown-like rendering
 │   └── api/
+│       ├── chat/route.ts     # POST — Wingman AI chatbot streaming endpoint (AI SDK v6 + OpenAI)
 │       ├── contact/route.ts  # POST — validates & logs contact form submissions
 │       ├── volunteer/route.ts # POST — validates & logs volunteer applications
 │       └── newsletter/route.ts # POST — validates & logs email subscriptions
 ├── components/
 │   ├── Header.tsx            # Sticky header with dropdown nav ("Our Work", "Media")
 │   ├── Footer.tsx            # 4-column footer with newsletter inline
+│   ├── Wingman.tsx           # Floating AI chatbot widget (bottom-right corner)
 │   ├── DonateButton.tsx      # Reusable CTA button
 │   ├── SectionHeading.tsx    # Consistent section titles
 │   ├── ImpactCounter.tsx     # Animated stat counters (client component)
@@ -71,6 +74,7 @@ src/
 └── lib/
     ├── constants.ts          # IMPACT_STATS, RESCUE_BY_YEAR, CONTACT, social links
     ├── metadata.ts           # Site-wide SEO metadata
+    ├── wingman-prompt.ts     # Wingman system prompt — full WR knowledge base
     ├── species-data.ts       # 8 species with full profile data
     └── blog-data.ts          # 5 blog posts (static — replace with CMS)
 ```
@@ -85,6 +89,7 @@ src/
 | Styling | Tailwind CSS v4 | CSS-based config via `@theme inline` in `globals.css`. NO `tailwind.config.ts` |
 | Icons | lucide-react | Tree-shakeable, consistent with design |
 | Animations | framer-motion | Installed but used sparingly (ImpactCounter) |
+| AI Chatbot | AI SDK v6 + OpenAI | `ai@^6`, `@ai-sdk/react@^3`, `@ai-sdk/openai@^3`. GPT-4o-mini |
 | Analytics | GA4 | Set `NEXT_PUBLIC_GA_ID` env var. Script in layout.tsx |
 | Fonts | Inter (body) + Poppins (headings) | Google Fonts via `next/font` |
 
@@ -116,7 +121,9 @@ src/
 7. **Instagram** — Currently shows placeholder grid. Account is `@wildliferescueindia`. Needs real Instagram API integration for live feed.
 8. **Donate page** shows payment info but has no payment processing (Stripe/Razorpay not integrated yet).
 9. **Blog posts are static** — stored in `lib/blog-data.ts`. Replace with CMS (Sanity.io) queries when ready.
-10. **Static export for Netlify** — API routes must be temporarily disabled for Netlify deploys. See Deployment section below.
+10. **Static export for Netlify** — API routes (including `/api/chat`) must be temporarily disabled for Netlify deploys. See Deployment section below.
+11. **Wingman chatbot** — Requires `OPENAI_API_KEY` env var. The widget renders on every page but chat won't work without the key. For Netlify static deploys, the chatbot API route won't work — it needs a server runtime (Vercel or self-hosted).
+12. **Wingman knowledge base** — If site content changes (new species, updated stats, new team members), update `src/lib/wingman-prompt.ts` to keep the chatbot accurate.
 
 ---
 
@@ -155,6 +162,15 @@ src/
 - Instagram feed component (6-post grid, homepage integration, @wildliferescueindia)
 - GA4 analytics + Open Graph + Twitter Card meta tags
 - Header redesign (dropdown menus for "Our Work" and "Media")
+
+### Wingman AI Chatbot ✅ (added March 23, 2026)
+- **Floating chat widget** — bird icon in bottom-right corner, opens chat panel
+- **Powered by AI SDK v6 + OpenAI GPT-4o-mini** — streaming responses via `/api/chat`
+- **Comprehensive knowledge base** in `src/lib/wingman-prompt.ts` — knows about the organization, all 8 species, donation methods (INR + USD), volunteering, the documentary, contact info, and emergency bird rescue instructions
+- **UI features:** suggested quick questions, typing indicator, conversation reset, keyboard support (Enter to send), inline bold/link formatting
+- **Branded:** uses teal/amber color scheme matching the site design
+- **Requires:** `OPENAI_API_KEY` in `.env.local` — without it the chatbot widget appears but responses will fail
+- **Future:** Can switch from direct OpenAI to Vercel AI Gateway for cost tracking + failover when deploying to Vercel
 
 ### Phase 4 — Backends, Blog, SEO, Performance, Accessibility ✅
 - **API routes:** `/api/contact`, `/api/volunteer`, `/api/newsletter` — validation, error handling, dev logging
@@ -208,6 +224,8 @@ All in `C:\Users\maxra\Documents\Claude\WR website\`:
 ## Git History
 
 ```
+6822db0 Add Wingman AI chatbot — floating assistant for Wildlife Rescue  ← claude/clever-khayyam
+9af2b3b Update HANDOFF.md — Instagram fix, social links table, deploy instructions
 fc01099 Update Instagram handle to @wildliferescueindia
 6a7175d Add CONTENT-GUIDE.md — step-by-step guide for adding photos, videos, and data
 3ff706b Update HANDOFF.md — add trailer info and latest git history
@@ -223,7 +241,7 @@ f698a04 Add HANDOFF.md — continuation guide for team members
 d0dcd61 Initial commit from Create Next App
 ```
 
-Branch: `claude/stoic-shirley`
+Branches: `claude/stoic-shirley` (Phases 1–4), `claude/clever-khayyam` (+ Wingman chatbot)
 
 ---
 
@@ -261,6 +279,6 @@ mv src/app/_api-disabled src/app/api
 
 If picking this up in a new Claude session, say:
 
-> "I'm continuing the Wildlife Rescue website project. Read HANDOFF.md and CONTENT-GUIDE.md in the project root, plus the memory file at `~/.claude/projects/.../memory/project_wildlife_rescue.md`. The site is on branch `claude/stoic-shirley`. Phase 5 (production readiness) is next."
+> "I'm continuing the Wildlife Rescue website project. Read HANDOFF.md and CONTENT-GUIDE.md in the project root. The latest code is on branch `claude/clever-khayyam` (includes Wingman chatbot). Phase 5 (production readiness) is next. Set OPENAI_API_KEY in .env.local to test the chatbot."
 
 This gives full context to continue seamlessly.
