@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import SkipNav from "@/components/SkipNav";
+import Wingman from "@/components/Wingman";
 import { siteMetadata } from "@/lib/metadata";
 
 // Replace with your actual GA4 Measurement ID
@@ -64,6 +65,7 @@ export default function RootLayout({
         <Header />
         <main id="main-content" className="min-h-screen" role="main">{children}</main>
         <Footer />
+        <Wingman />
       </body>
     </html>
   );
