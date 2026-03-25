@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Scissors, Microscope, Syringe, Award, ArrowRight, Camera } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -202,10 +203,14 @@ export default function OurSpecialtyPage() {
             across Delhi — collecting injured birds from partner hospitals,
             community hotspots, and citizen rescuers.
           </p>
-          <div className="mt-8 aspect-[16/7] max-w-2xl mx-auto bg-white rounded-xl flex items-center justify-center border border-gray-200">
-            <p className="text-slate text-sm">
-              Rescue Vehicle Photo Placeholder
-            </p>
+          <div className="mt-8 max-w-2xl mx-auto rounded-xl overflow-hidden border border-gray-200">
+            <Image
+              src="/rescue-vehicle.jpg"
+              alt="Wildlife Rescue emergency vehicle — Tata EV with owl logo branding, parked outside the rescue center on Street No. 9, Wazirabad Village"
+              width={1280}
+              height={560}
+              className="w-full h-auto object-cover"
+            />
           </div>
         </div>
       </section>
