@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Award, Film, Calendar, Globe, Play, ExternalLink, Trophy } from "lucide-react";
+import Image from "next/image";
+import { Award, Film, Calendar, Globe, Play, ExternalLink, Trophy, Instagram } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 import {
@@ -173,6 +174,56 @@ export default function AllThatBreathesPage() {
                 {festival}
               </span>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Fan Art Gallery ─── */}
+      <section className="bg-charcoal py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Through an Artist's Eyes"
+            subtitle="Hand-drawn illustrations inspired by scenes from the film."
+            light
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { src: "/mahi-art/IMG_4781.jpg", alt: "Nadeem gazing over the Yamuna at dusk — Hindi quote about saving kites" },
+              { src: "/mahi-art/IMG_4782.jpg", alt: "The brothers installing the Wildlife Rescue signboard together" },
+              { src: "/mahi-art/IMG_4783.jpg", alt: "Saud caring for injured birds at night — quote about the species barrier" },
+              { src: "/mahi-art/IMG_4784.jpg", alt: "Close-up of an injured Black Kite — quote about kites using cigarette butts as parasite repellent" },
+              { src: "/mahi-art/IMG_4785.jpg", alt: "Kites perched on rooftops at dusk — quote about kites being creatures of tradition" },
+              { src: "/mahi-art/IMG_4786.jpg", alt: "A Black Kite flying over Delhi — illustration of freedom after rehabilitation" },
+            ].map((img) => (
+              <div
+                key={img.src}
+                className="rounded-xl overflow-hidden bg-gray-900 hover:scale-[1.02] transition-transform duration-300"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={600}
+                  height={600}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-white/50 text-sm">
+              Illustrations by <span className="text-amber font-semibold">Mahi Khatri</span>
+            </p>
+            <a
+              href="https://www.instagram.com/_mahji.kahtri"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-2 text-amber hover:text-amber-light text-sm font-semibold transition-colors"
+            >
+              <Instagram size={16} />
+              @_mahji.kahtri
+            </a>
           </div>
         </div>
       </section>
