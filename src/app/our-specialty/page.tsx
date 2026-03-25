@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Scissors, Microscope, Zap, Syringe, Activity, Award, ArrowRight } from "lucide-react";
+import { Scissors, Microscope, Syringe, Award, ArrowRight, Camera } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 
@@ -17,22 +17,6 @@ const TECHNIQUES = [
     detail:
       "Presented at NWRA Annual Symposium 2018 (Los Angeles) and refined technique at NWRA 2025 (Seattle). Now adopted by rehabilitators and veterinarians globally.",
     icon: <Scissors size={28} />,
-  },
-  {
-    title: "Laser Treatment Therapy",
-    description:
-      "Using VAYMED Class 4 laser equipment for tissue regeneration, pain management, and accelerated healing of soft tissue injuries common in manja-injured raptors.",
-    detail:
-      "Reduces recovery time significantly for wing and soft tissue injuries, enabling faster release back to the wild.",
-    icon: <Zap size={28} />,
-  },
-  {
-    title: "Microwave Ablation Therapy",
-    description:
-      "Advanced microwave ablation device used for treating specific tissue conditions and tumors in raptors — a rare capability among wildlife rehabilitation centers.",
-    detail:
-      "One of the few raptor rescue facilities in Asia equipped with this technology.",
-    icon: <Activity size={28} />,
   },
   {
     title: "Diagnostic Imaging",
@@ -222,6 +206,79 @@ export default function OurSpecialtyPage() {
             <p className="text-slate text-sm">
               Rescue Vehicle Photo Placeholder
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Case Studies ─── */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Case Studies"
+            subtitle="Real cases showcasing our techniques in action."
+          />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                caseNo: "#12674",
+                title: "Black Kite — Manja Wing Laceration",
+                description:
+                  "Severe wing damage from glass-coated kite string. Novel surgical technique used to repair severed tendons and muscles. Full flight capability restored after 6 weeks of rehabilitation.",
+                outcome: "Released",
+              },
+              {
+                caseNo: "#12869",
+                title: "Black Kite — Compound Wing Fracture",
+                description:
+                  "Complex fracture requiring surgical pin placement and careful post-operative care. X-ray imaging guided the procedure. Bird regained flight after 8 weeks.",
+                outcome: "Released",
+              },
+              {
+                caseNo: "#12879",
+                title: "Black Kite — Electrocution Burns",
+                description:
+                  "Severe burns from wet-wire electrocution during monsoon. Required wound management, infection control, and extended rehabilitation period.",
+                outcome: "Released",
+              },
+            ].map((study) => (
+              <div
+                key={study.caseNo}
+                className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow"
+              >
+                <div className="aspect-[3/2] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
+                  <div className="text-center">
+                    <Camera size={32} className="text-teal/30 mx-auto mb-2" />
+                    <span className="text-slate text-sm">Photo / Video Placeholder</span>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-mono text-slate bg-gray-100 px-2 py-0.5 rounded">
+                      {study.caseNo}
+                    </span>
+                    <span className="text-xs font-semibold px-2.5 py-0.5 bg-green-50 text-success rounded-full">
+                      {study.outcome}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    {study.title}
+                  </h3>
+                  <p className="text-sm text-slate mt-2 leading-relaxed">
+                    {study.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <a
+              href="/special-cases"
+              className="inline-flex items-center gap-2 text-teal font-semibold hover:gap-3 transition-all"
+            >
+              View All Rescue Stories <ArrowRight size={16} />
+            </a>
           </div>
         </div>
       </section>

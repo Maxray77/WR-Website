@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react";
 import { CONTACT } from "@/lib/constants";
 import NewsletterSignup from "./NewsletterSignup";
@@ -13,13 +14,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* About */}
           <div>
-            <h3 className="text-lg font-bold mb-4 font-[family-name:var(--font-poppins)]">
-              Wildlife Rescue
-            </h3>
+            <Image
+              src="/logo-white.png"
+              alt="Wildlife Rescue"
+              width={120}
+              height={60}
+              className="mb-3 object-contain"
+            />
             <p className="text-teal-light text-sm leading-relaxed mb-4">
               The world&apos;s largest raptor rescue facility, based in Delhi, India.
               Featured in the Oscar-nominated documentary &quot;All That Breathes.&quot;
-              38,000+ birds rescued since 2010.
+              38,500+ birds rescued since 2010.
             </p>
             <div className="flex gap-3">
               <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
@@ -45,7 +50,6 @@ export default function Footer() {
                 { href: "/our-specialty", label: "Our Specialty" },
                 { href: "/species", label: "Species" },
                 { href: "/donate", label: "Donate" },
-                { href: "/volunteer", label: "Volunteer" },
                 { href: "/media", label: "Press & Media" },
                 { href: "/all-that-breathes", label: "All That Breathes" },
                 { href: "/contact", label: "Contact" },

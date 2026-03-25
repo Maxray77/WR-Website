@@ -1,9 +1,9 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** March 23, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot. 21 routes, all working. 45+ source files.
+**Last updated:** March 25, 2026
+**Status:** Phases 1–4 complete + Wingman AI chatbot + website updates (logo, nav, stats). 20 routes, all working. 45+ source files.
 **Live preview:** https://wildlife-rescue-preview.netlify.app
-**Branches:** `claude/stoic-shirley` (Phases 1–4), `claude/clever-khayyam` (+ Wingman chatbot)
+**Branches:** `claude/stoic-shirley` (Phases 1–4), `claude/clever-khayyam` (+ Wingman chatbot), `claude/vigilant-mccarthy` (latest — logo, nav updates, 2026 stats)
 **Backup:** `C:\Users\maxra\Documents\Code\WR Website\`
 
 ---
@@ -173,12 +173,27 @@ src/
 - **Future:** Can switch from direct OpenAI to Vercel AI Gateway for cost tracking + failover when deploying to Vercel
 
 ### Phase 4 — Backends, Blog, SEO, Performance, Accessibility ✅
-- **API routes:** `/api/contact`, `/api/volunteer`, `/api/newsletter` — validation, error handling, dev logging
-- **Frontend wiring:** ContactForm, Volunteer form, and NewsletterSignup all POST to API with loading/error/success states
+- **API routes:** `/api/contact`, `/api/newsletter` — validation, error handling, dev logging
+- **Frontend wiring:** ContactForm and NewsletterSignup POST to API with loading/error/success states
 - **Blog:** `/blog` listing (featured + grid) + `/blog/[slug]` detail pages. 5 starter posts. "More Posts" related section.
 - **SEO:** `sitemap.ts` (all pages + blog + species), `robots.ts`, JSON-LD Organization + WebSite schemas
 - **Performance:** Loading skeletons for root and species pages
 - **Accessibility:** SkipNav component, `id="main-content"`, `role="main"`
+
+### Website Updates ✅ (March 25, 2026)
+Applied all updates from "List of updates for the website.docx":
+- **Logo added** — Owl logo (`logo-black.png`) in header, (`logo-white.png`) in footer. Favicon set to `favicon.png`
+- **"All That Breathes" below awards** — Italic text under the 26 awards counter on homepage
+- **9 team members** — Updated team list (3 named + 6 placeholder slots for bios/photos)
+- **Case studies on Our Specialty** — 3 case study cards with photo/video placeholders
+- **Laser Treatment & Microwave Ablation removed** from Our Specialty
+- **106+ species** — Updated throughout (was 26+)
+- **All That Breathes in main nav** — Top-level nav item, not hidden in Media dropdown
+- **Volunteer tab removed** — Page deleted, API route deleted, removed from nav/sitemap/footer
+- **Office hours** — Contact page shows Mon–Sat 10AM–6PM, Sunday closed, "We are not a 24/7 hospital"
+- **Emergency renamed to Contact Us** — All references updated
+- **2026 intake data** — 951 cases (Jan–Mar) from `Cases 2026.xlsx`. Total updated to 38,500+
+- **RESCUE_BY_YEAR** — Added 2026 partial year entry
 
 ---
 
@@ -190,9 +205,9 @@ src/
 3. **Production form backends** — Replace in-memory API routes with real services:
    - Contact form → Formspree or SendGrid
    - Newsletter → Mailchimp or Resend (see TODO in `/api/newsletter/route.ts`)
-   - Volunteer form → same as contact, or a Google Sheets integration
 4. **Production deployment** — Currently on Netlify (static preview). For full-featured deploy with API routes, use Vercel (free for nonprofits). Set `NEXT_PUBLIC_GA_ID` env var. Domain: raptorrescue.org.
 5. **YouTube channel URL** — Currently placeholder `#` in constants.ts. Update when confirmed.
+6. **Team member bios & photos** — 6 of 9 team slots are placeholders. Need real names, roles, bios, and photos.
 
 ### Medium Priority
 6. **CMS (Sanity.io)** — For staff-managed content: blog posts, rescue stories, gallery, team bios, impact stats. Replace static data in `lib/blog-data.ts` and `lib/species-data.ts`. The Overhaul Plan has full schema recommendations.
