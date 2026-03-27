@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 
@@ -14,7 +13,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/all-that-breathes", label: "All That Breathes" },
   {
     label: "Our Work",
     children: [
@@ -30,17 +28,18 @@ const NAV_ITEMS: NavItem[] = [
       { href: "/gallery", label: "Photo Gallery" },
       { href: "/videos", label: "Video Clips" },
       { href: "/media", label: "Press & Awards" },
+      { href: "/all-that-breathes", label: "All That Breathes" },
     ],
   },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/volunteer", label: "Volunteer" },
+  { href: "/contact", label: "Contact" },
 ];
 
 // Flat list for mobile
 const MOBILE_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/all-that-breathes", label: "All That Breathes" },
   { href: "/our-specialty", label: "Our Specialty" },
   { href: "/species", label: "Species We Treat" },
   { href: "/special-cases", label: "Rescue Stories" },
@@ -48,8 +47,10 @@ const MOBILE_LINKS = [
   { href: "/gallery", label: "Photo Gallery" },
   { href: "/videos", label: "Video Clips" },
   { href: "/media", label: "Press & Awards" },
+  { href: "/all-that-breathes", label: "All That Breathes" },
   { href: "/blog", label: "Blog & News" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/volunteer", label: "Volunteer" },
+  { href: "/contact", label: "Contact" },
 ];
 
 function DropdownMenu({ item }: { item: NavItem }) {
@@ -106,14 +107,9 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <Image
-              src="/logo-black.png"
-              alt="Wildlife Rescue"
-              width={48}
-              height={48}
-              className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
-              priority
-            />
+            <div className="w-10 h-10 bg-teal rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-lg">W</span>
+            </div>
             <div className="hidden sm:block">
               <span className="text-teal-dark font-bold text-lg leading-tight block font-[family-name:var(--font-poppins)]">
                 Wildlife Rescue
@@ -148,7 +144,7 @@ export default function Header() {
               className="flex items-center gap-1.5 text-sm text-danger font-semibold hover:underline"
             >
               <Phone size={14} />
-              Contact Us
+              Emergency
             </a>
             <Link
               href="/donate"
@@ -203,7 +199,7 @@ export default function Header() {
               className="flex items-center justify-center gap-2 px-4 py-3 text-danger font-semibold mt-1"
             >
               <Phone size={16} />
-              Contact Us: +91 98100 29698
+              Report Injured Bird: +91 98100 29698
             </a>
           </nav>
         </div>

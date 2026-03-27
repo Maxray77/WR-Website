@@ -10,15 +10,15 @@ export const metadata: Metadata = pageMetadata.contact;
 export default function ContactPage() {
   return (
     <>
-      {/* ─── Contact Us Banner ─── */}
-      <section className="bg-gradient-to-br from-teal-dark to-teal py-12 lg:py-16">
+      {/* ─── Emergency Banner ─── */}
+      <section className="bg-danger py-8 lg:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-[family-name:var(--font-poppins)]">
-            Contact Us
+            Report an Injured Bird
           </h1>
           <p className="mt-3 text-white/90 text-lg max-w-xl mx-auto">
-            Get in touch with Wildlife Rescue. Found an injured bird? Call us
-            during office hours.
+            Found an injured bird? Call us immediately. We operate 24/7, 365
+            days a year.
           </p>
 
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -40,9 +40,9 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <p className="mt-4 text-white/80 text-sm">
+          <p className="mt-4 text-white/70 text-sm">
             If you find an injured bird, please keep it in a dark, quiet box
-            with air holes. Do not try to feed it. Call us during office hours.
+            with air holes. Do not try to feed it. Call us right away.
           </p>
         </div>
       </section>
@@ -103,15 +103,12 @@ export default function ContactPage() {
                     <Clock size={20} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-charcoal">Office Hours</h3>
+                    <h3 className="font-bold text-charcoal">Operating Hours</h3>
                     <p className="text-slate text-sm mt-1">
-                      Monday – Saturday: 10:00 AM – 6:00 PM
+                      Open 24/7, 365 days a year
                     </p>
                     <p className="text-slate text-sm">
-                      Sunday: Closed (emergencies only by phone)
-                    </p>
-                    <p className="text-xs text-amber font-semibold mt-1">
-                      We are not a 24/7 hospital
+                      Visiting hours: 10:00 AM – 5:00 PM daily
                     </p>
                   </div>
                 </div>

@@ -12,7 +12,7 @@ export function OrganizationJsonLd() {
     url: "https://www.raptorrescue.org",
     logo: "https://www.raptorrescue.org/logo.png",
     description:
-      "The world's largest raptor rescue facility. Based in Delhi, India. Featured in the Oscar-nominated documentary 'All That Breathes.' 38,500+ birds rescued since 2010.",
+      "The world's largest raptor rescue facility. Based in Delhi, India. Featured in the Oscar-nominated documentary 'All That Breathes.' 38,000+ birds rescued since 2010.",
     foundingDate: "2003",
     address: {
       "@type": "PostalAddress",

@@ -180,6 +180,24 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ─── Bird Brothers Book ─── */}
+      <section className="py-16 lg:py-20 bg-teal-light">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <BookOpen size={48} className="text-teal mx-auto mb-4" />
+          <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+            &quot;Bird Brothers: A Delhi Story&quot;
+          </h2>
+          <p className="mt-3 text-slate max-w-lg mx-auto">
+            A children&apos;s illustration book by Rina Singh, illustrated by
+            Barkha Lohia, telling the story of Nadeem and Saud&apos;s first
+            rescue — the injured Black Kite that started it all.
+          </p>
+          <p className="mt-4 text-sm text-slate">
+            Available on Amazon USA, UK, and Australia
+          </p>
+        </div>
+      </section>
+
       {/* ─── CTA ─── */}
       <section className="py-16 lg:py-20 bg-gradient-to-r from-teal-dark to-teal text-center">
         <div className="max-w-2xl mx-auto px-4">

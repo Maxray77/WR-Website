@@ -1,6 +1,6 @@
 // ─── Impact Stats ───
 export const IMPACT_STATS = [
-  { number: 38500, suffix: "+", label: "Birds Rescued Since 2010" },
+  { number: 38000, suffix: "+", label: "Birds Rescued Since 2010" },
   { number: 106, suffix: "+", label: "Species Treated" },
   { number: 20, suffix: "+", label: "Years of Service" },
   { number: 26, suffix: "", label: "International Awards" },
@@ -41,36 +41,6 @@ export const TEAM = [
     name: "Salik Rehman",
     role: "Team Member",
     bio: "A dedicated member of the Wildlife Rescue team, Salik plays a vital role in the daily rescue and rehabilitation operations, helping care for thousands of birds each year.",
-  },
-  {
-    name: "Team Member 4",
-    role: "Rescue Operations",
-    bio: "Bio and photo to be added.",
-  },
-  {
-    name: "Team Member 5",
-    role: "Rehabilitation Specialist",
-    bio: "Bio and photo to be added.",
-  },
-  {
-    name: "Team Member 6",
-    role: "Veterinary Assistant",
-    bio: "Bio and photo to be added.",
-  },
-  {
-    name: "Team Member 7",
-    role: "Field Rescue Coordinator",
-    bio: "Bio and photo to be added.",
-  },
-  {
-    name: "Team Member 8",
-    role: "Community Outreach",
-    bio: "Bio and photo to be added.",
-  },
-  {
-    name: "Team Member 9",
-    role: "Administration",
-    bio: "Bio and photo to be added.",
   },
 ];
 
@@ -167,7 +137,6 @@ export const RESCUE_BY_YEAR = [
   { year: 2023, total: 3398 },
   { year: 2024, total: 3670 },
   { year: 2025, total: 4184 },
-  { year: 2026, total: 951 }, // Partial year (Jan–Mar)
 ];
 
 // ─── Donation Amounts ───
