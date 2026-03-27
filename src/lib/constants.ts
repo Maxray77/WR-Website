@@ -193,7 +193,7 @@ export const BANK_DETAILS = {
   ifsc: "HDFC0000558",
   branch: "Ajmeri Gate, Delhi – 110006",
   accountType: "Savings Bank",
-  upiId: "wildliferescue@hdfcbank",
+  upiId: "9810029698@okbizaxis",
 };
 
 // ─── Timeline ───

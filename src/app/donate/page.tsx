@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import {
   DONATION_AMOUNTS_INR,
-  DONATION_AMOUNTS_USD,
   BANK_DETAILS,
   CONTACT,
   FEATURED_RESCUES,
@@ -22,10 +22,23 @@ const TABS = [
 
 export default function DonatePage() {
   const [activeTab, setActiveTab] = useState("upi");
-  const [currency, setCurrency] = useState<"inr" | "usd">("inr");
+  const razorpayRef = useRef<HTMLDivElement>(null);
 
-  const amounts = currency === "inr" ? DONATION_AMOUNTS_INR : DONATION_AMOUNTS_USD;
-  const symbol = currency === "inr" ? "₹" : "$";
+  // Load Razorpay payment button script when Online tab is active
+  useEffect(() => {
+    if (activeTab === "online" && razorpayRef.current) {
+      // Clear previous content
+      razorpayRef.current.innerHTML = "";
+
+      const form = document.createElement("form");
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/payment-button.js";
+      script.setAttribute("data-payment_button_id", "pl_H4Jwn7xLqMgktI");
+      script.async = true;
+      form.appendChild(script);
+      razorpayRef.current.appendChild(form);
+    }
+  }, [activeTab]);
 
   return (
     <>
@@ -69,76 +82,23 @@ export default function DonatePage() {
             {activeTab === "online" && (
               <div>
                 <h2 className="text-2xl font-bold text-charcoal mb-6 font-[family-name:var(--font-poppins)]">
-                  Donate Online
+                  Donate Online (₹ INR)
                 </h2>
-
-                {/* Currency Toggle */}
-                <div className="flex gap-2 mb-6">
-                  <button
-                    onClick={() => setCurrency("inr")}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      currency === "inr"
-                        ? "bg-teal text-white"
-                        : "bg-offwhite text-slate"
-                    }`}
-                  >
-                    ₹ INR
-                  </button>
-                  <button
-                    onClick={() => setCurrency("usd")}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      currency === "usd"
-                        ? "bg-teal text-white"
-                        : "bg-offwhite text-slate"
-                    }`}
-                  >
-                    $ USD
-                  </button>
-                </div>
 
                 {/* Amount Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                  {amounts.map((item) => (
-                    <button
+                  {DONATION_AMOUNTS_INR.map((item) => (
+                    <div
                       key={item.amount}
-                      className="p-4 rounded-xl border-2 border-gray-200 hover:border-amber text-center transition-all hover:shadow-md group"
+                      className="p-4 rounded-xl border-2 border-gray-200 text-center"
                     >
-                      <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)] group-hover:text-amber transition-colors">
-                        {symbol}
-                        {item.amount.toLocaleString()}
+                      <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
+                        ₹{item.amount.toLocaleString()}
                       </div>
                       <p className="text-xs text-slate mt-1">{item.label}</p>
-                    </button>
+                    </div>
                   ))}
                 </div>
-
-                {/* Custom Amount */}
-                <div className="mb-6">
-                  <label className="block text-sm font-semibold text-charcoal mb-2">
-                    Custom Amount
-                  </label>
-                  <div className="flex">
-                    <span className="inline-flex items-center px-4 bg-offwhite border border-r-0 border-gray-200 rounded-l-lg text-slate font-semibold">
-                      {symbol}
-                    </span>
-                    <input
-                      type="number"
-                      placeholder="Enter amount"
-                      className="flex-1 px-4 py-3 border border-gray-200 rounded-r-lg focus:outline-none focus:border-teal text-charcoal"
-                    />
-                  </div>
-                </div>
-
-                {/* Monthly Toggle */}
-                <label className="flex items-center gap-3 mb-8 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="w-5 h-5 rounded border-gray-300 text-teal focus:ring-teal"
-                  />
-                  <span className="text-charcoal font-medium">
-                    Make this a monthly donation
-                  </span>
-                </label>
 
                 {/* Razorpay Payment Button */}
                 <div className="bg-offwhite rounded-xl p-6 text-center">
@@ -148,11 +108,7 @@ export default function DonatePage() {
                   <p className="text-sm text-slate mb-4">
                     Credit card, debit card, net banking, and UPI supported
                   </p>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_H4Jwn7xLqMgktI" async> </script> </form>`,
-                    }}
-                  />
+                  <div ref={razorpayRef} className="flex justify-center" />
                   <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate">
                     <Shield size={14} />
                     <span>Secured by Razorpay — 256-bit encryption</span>
@@ -198,11 +154,15 @@ export default function DonatePage() {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   {/* QR Code */}
                   <div className="text-center">
-                    <div className="w-56 h-56 bg-offwhite rounded-xl mx-auto mb-4 flex items-center justify-center border-2 border-dashed border-teal/30">
-                      <div className="text-center">
-                        <Smartphone size={48} className="text-teal mx-auto mb-2" />
-                        <span className="text-slate text-sm">QR Code Coming Soon</span>
-                      </div>
+                    <div className="bg-white rounded-xl mx-auto mb-4 border border-gray-200 shadow-sm overflow-hidden inline-block">
+                      <Image
+                        src="/upi-qr.png"
+                        alt="Wildlife Rescue UPI QR Code — Scan to pay via Google Pay, PhonePe, Paytm, or any UPI app"
+                        width={280}
+                        height={280}
+                        className="w-64 h-auto"
+                        priority
+                      />
                     </div>
                     <div className="bg-teal-light rounded-lg px-4 py-3 inline-block">
                       <p className="text-sm text-teal font-medium">UPI ID</p>
