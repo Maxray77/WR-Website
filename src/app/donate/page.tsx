@@ -140,14 +140,24 @@ export default function DonatePage() {
                   </span>
                 </label>
 
-                {/* Donate Button */}
-                <button className="w-full bg-amber hover:bg-amber-light text-charcoal font-bold py-4 rounded-xl text-lg transition-all hover:shadow-lg">
-                  Donate {symbol}
-                  {amounts[0].amount.toLocaleString()}
-                </button>
-                <p className="text-xs text-slate text-center mt-3">
-                  Secure payment via Stripe / Razorpay (coming soon)
-                </p>
+                {/* Razorpay Payment Button */}
+                <div className="bg-offwhite rounded-xl p-6 text-center">
+                  <h3 className="text-lg font-semibold text-charcoal mb-2">
+                    Pay Securely via Razorpay
+                  </h3>
+                  <p className="text-sm text-slate mb-4">
+                    Credit card, debit card, net banking, and UPI supported
+                  </p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_H4Jwn7xLqMgktI" async> </script> </form>`,
+                    }}
+                  />
+                  <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate">
+                    <Shield size={14} />
+                    <span>Secured by Razorpay — 256-bit encryption</span>
+                  </div>
+                </div>
               </div>
             )}
 
