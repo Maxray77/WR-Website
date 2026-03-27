@@ -65,17 +65,21 @@ src/
     globals.css             # Tailwind v4 @theme inline + brand tokens
     loading.tsx             # Root loading skeleton
     robots.ts               # robots.txt generation
-    sitemap.ts              # Dynamic sitemap (pages + blog + species)
+    sitemap.ts              # Dynamic sitemap (pages + blog + species + conditions)
     about/page.tsx          # About — origin story, mission, team bios
     donate/page.tsx         # Donate — 6-tab interface (UPI, Razorpay, bank, US 501c3, GoFundMe, cheque)
     contact/page.tsx        # Contact — form, map, emergency hotline
     all-that-breathes/      # Documentary — trailer, accolades, streaming, fan art gallery
     our-specialty/          # Surgical techniques, equipment, medical conditions
     special-cases/          # 6 rescue stories with case numbers
+    conditions/
+      page.tsx              # Conditions listing — 6 cards with severity badges
+      [slug]/page.tsx       # Dynamic condition detail (causes, symptoms, treatment, case study)
     videos/                 # Featured HBO trailer + 8 categorized video cards
     gallery/                # 16-photo masonry grid, category filter, lightbox
+    vultures/page.tsx       # Vulture conservation — 9 species, intake data, crisis timeline
     species/
-      page.tsx              # Species listing — 8 cards
+      page.tsx              # Species listing — 11 cards
       loading.tsx           # Species loading skeleton
       [slug]/page.tsx       # Dynamic species profiles (habitat, diet, threats)
     annual-reports/         # Intake chart, financial tables, growth phases
@@ -104,7 +108,8 @@ src/
     constants.ts            # IMPACT_STATS, RESCUE_BY_YEAR, CONTACT, BANK_DETAILS, social links
     metadata.ts             # Site-wide SEO metadata
     wingman-prompt.ts       # Wingman system prompt — full WR knowledge base
-    species-data.ts         # 8 species with full profile data
+    species-data.ts         # 11 species with full profile data (incl. Black Eared Kite, Wetland Birds, Eagles)
+    conditions-data.ts      # 6 medical conditions with causes, symptoms, treatment, case studies
     blog-data.ts            # 5 blog posts (static — replace with CMS later)
 ```
 
@@ -191,7 +196,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## What's Been Built (Phases 1–4 Complete)
 
-- **21 routes**, all working (home, about, donate, contact, documentary, our-specialty, **vultures**, special-cases, videos, gallery, species × 8, annual-reports, media, blog, API endpoints)
+- **30+ routes**, all working (home, about, donate, contact, documentary, our-specialty, **vultures**, special-cases, **conditions × 6**, videos, gallery, **species × 11**, annual-reports, media, blog, API endpoints)
 - **Wingman AI chatbot** — floating widget, streams responses via AI SDK v6 + OpenAI
 - **Razorpay payment button** — embedded HTML on donate page
 - **GoFundMe integration** — linked for US$ donors
@@ -216,34 +221,50 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Max — 2026-03-27
+**Last updated by:** Claude Code — 2026-03-27
 
 **What was just completed:**
 - [x] GitHub remote set up: https://github.com/Maxray77/WR-Website.git
-- [x] Created `/vultures` conservation page — research-backed with data from 4 scientific papers + WR 5-year intake records (31 Egyptian Vultures treated 2020-2025)
-- [x] Reordered donate page — UPI (Scan & Pay) is now the first tab with step-by-step instructions
-- [x] Added "Vulture Conservation" to nav dropdown and sitemap
-- [x] All 21 routes building successfully
-- [x] GoFundMe embed widget added to donate page
-- [x] US Donors tab redesigned: 501c3 → R3 website, no tax benefit → GoFundMe (side-by-side cards)
+- [x] Created `/vultures` conservation page — research-backed with data from 4 scientific papers + WR 5-year intake records
+- [x] Reordered donate page — UPI (Scan & Pay) is now the first tab
+- [x] GoFundMe embed widget + US Donors tab redesigned
+- [x] **NEW: 3 species pages added** — Black Eared Kite, Wetland Birds (category), Eagles (category)
+- [x] **NEW: Complete conditions section** — `/conditions` listing + 6 detail pages:
+  - `/conditions/cut-wounds` — manja lacerations (~35% of cases)
+  - `/conditions/fractures` — bone injuries (~20% of cases)
+  - `/conditions/orphans` — juvenile birds (~18% of cases)
+  - `/conditions/avian-pox` — viral disease (~8% of cases)
+  - `/conditions/septicemia` — blood infections (~10% of cases)
+  - `/conditions/other-conditions` — poisoning, burns, eye injuries (~9% of cases)
+- [x] "Conditions We Treat" added to nav dropdown and mobile menu
+- [x] Sitemap updated with all new routes (conditions + new species)
+- [x] Species count: 8 → 11 (added Black Eared Kite, Wetland Birds, Eagles)
+- [x] All 45 pages building successfully (30+ routes)
 
 **What's in progress / next step:**
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Add UPI QR code image (`public/upi-qr.jpg`) for donate page
 - [ ] Replace other placeholder images with real photos
+- [ ] Correct Google Maps location to F239-92E2
+- [ ] Remove red emergency Contact Us button (duplicate)
 - [ ] Set up Vercel deployment
 
 **Open questions or blockers:**
 - [ ] Need `OPENAI_API_KEY` in `.env.local` for Wingman chatbot to work
 - [ ] Razorpay button ID (`pl_H4Jwn7xLqMgktI`) — confirm this is the correct production button
 - [ ] Need 10 vulture photos for the conservation page
+- [ ] Need real photos for species and condition pages
 
 **Key files touched recently:**
-- `src/app/vultures/page.tsx` — NEW: vulture conservation page with 9 species, intake data, crisis timeline
-- `src/app/donate/page.tsx` — UPI tab reordered to first position with enhanced instructions
-- `src/components/Header.tsx` — added Vulture Conservation to nav dropdown + mobile menu
-- `src/app/sitemap.ts` — added /vultures route
-- `CLAUDE.md` — updated status
+- `src/lib/conditions-data.ts` — NEW: 6 conditions with causes, symptoms, treatment protocols, case studies
+- `src/app/conditions/page.tsx` — NEW: conditions listing with severity badges, stats, treatment process
+- `src/app/conditions/[slug]/page.tsx` — NEW: detailed condition pages with full treatment info
+- `src/lib/species-data.ts` — Added 3 species: Black Eared Kite, Wetland Birds, Eagles
+- `src/components/Header.tsx` — Added "Conditions We Treat" to nav dropdown + mobile menu
+- `src/app/sitemap.ts` — Added conditions routes + new species
+- `src/app/species/page.tsx` — Updated for "Mixed" conservation status badge
+- `src/app/species/[slug]/page.tsx` — Updated for "Mixed" conservation status
+- `CLAUDE.md` — Updated status, project structure, route count
 
 ---
 

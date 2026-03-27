@@ -70,6 +70,8 @@ export default async function SpeciesProfilePage({
                   className={`text-xs font-semibold px-3 py-1 rounded-full ${
                     species.conservationStatus === "Endangered"
                       ? "bg-danger/20 text-red-200"
+                      : species.conservationStatus === "Mixed"
+                      ? "bg-white/20 text-white/80"
                       : "bg-green-500/20 text-green-200"
                   }`}
                 >

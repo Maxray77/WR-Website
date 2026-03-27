@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SPECIES_LIST } from "@/lib/species-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
+import { CONDITIONS_LIST } from "@/lib/conditions-data";
 
 export const dynamic = "force-static";
 
@@ -22,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/gallery`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/vultures`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/species`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/conditions`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/annual-reports`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/media`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
@@ -43,5 +45,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticPages, ...blogPages, ...speciesPages];
+  // Dynamic condition pages
+  const conditionPages: MetadataRoute.Sitemap = CONDITIONS_LIST.map((condition) => ({
+    url: `${BASE_URL}/conditions/${condition.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...blogPages, ...speciesPages, ...conditionPages];
 }

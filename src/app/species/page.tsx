@@ -20,8 +20,8 @@ export default function SpeciesPage() {
             Species We Treat
           </h1>
           <p className="mt-4 text-xl text-white/80 max-w-2xl mx-auto">
-            106+ species and counting. From Delhi&apos;s iconic Black Kite to the
-            endangered Egyptian Vulture — every bird matters.
+            106+ species and counting — from Delhi&apos;s iconic Black Kite to
+            migratory eagles, wetland birds, and the endangered Egyptian Vulture.
           </p>
         </div>
       </section>
@@ -47,6 +47,8 @@ export default function SpeciesPage() {
                     className={`absolute top-3 right-3 text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                       species.conservationStatus === "Endangered"
                         ? "bg-danger/10 text-danger"
+                        : species.conservationStatus === "Mixed"
+                        ? "bg-gray-100 text-slate"
                         : "bg-green-50 text-success"
                     }`}
                   >
