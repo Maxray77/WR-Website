@@ -209,8 +209,8 @@ export default function DonatePage() {
                     <div className="bg-amber-bg rounded-lg p-4 mt-4">
                       <p className="text-sm text-charcoal">
                         <strong>Tip:</strong> After payment, email{" "}
-                        <span className="font-mono text-teal">{CONTACT.email}</span>{" "}
-                        with your transaction ID for an 80(G) tax receipt.
+                        <a href={`mailto:${CONTACT.email}`} className="font-mono text-teal underline hover:text-teal-dark">{CONTACT.email}</a>{" "}
+                        with your transaction ID for an 80(G) tax receipt, along with your Name, Address, and PAN for receipt generation.
                       </p>
                     </div>
                   </div>
