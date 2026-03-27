@@ -191,7 +191,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## What's Been Built (Phases 1–4 Complete)
 
-- **20 routes**, all working (home, about, donate, contact, documentary, our-specialty, special-cases, videos, gallery, species × 8, annual-reports, media, blog, API endpoints)
+- **21 routes**, all working (home, about, donate, contact, documentary, our-specialty, **vultures**, special-cases, videos, gallery, species × 8, annual-reports, media, blog, API endpoints)
 - **Wingman AI chatbot** — floating widget, streams responses via AI SDK v6 + OpenAI
 - **Razorpay payment button** — embedded HTML on donate page
 - **GoFundMe integration** — linked for US$ donors
@@ -208,7 +208,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Newsletter backend (Mailchimp/Resend — currently logs to console)
 - [ ] Real photo/video assets to replace placeholders
 - [ ] Deploy to Vercel (production)
-- [ ] Set up GitHub remote for team collaboration
+- [ ] Add real vulture photos (10 placeholders on /vultures page)
+- [ ] Add UPI QR code image (public/upi-qr.jpg) for donate page
 - [ ] Domain setup (raptorrescue.org)
 
 ---
@@ -218,23 +219,29 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 **Last updated by:** Max — 2026-03-27
 
 **What was just completed:**
-- [x] Consolidated all work from scattered worktree branches into single `main` branch
-- [x] Cleaned up 14 old `claude/*` worktree branches
-- [x] Updated CLAUDE.md with comprehensive project guide
+- [x] GitHub remote set up: https://github.com/Maxray77/WR-Website.git
+- [x] Created `/vultures` conservation page — research-backed with data from 4 scientific papers + WR 5-year intake records (31 Egyptian Vultures treated 2020-2025)
+- [x] Reordered donate page — UPI (Scan & Pay) is now the first tab with step-by-step instructions
+- [x] Added "Vulture Conservation" to nav dropdown and sitemap
+- [x] All 21 routes building successfully
 
 **What's in progress / next step:**
-- [ ] Set up GitHub remote and push `main` so team can clone
-- [ ] Replace placeholder images with real photos
+- [ ] Add real vulture photos to replace 10 placeholders on /vultures page
+- [ ] Add UPI QR code image (`public/upi-qr.jpg`) for donate page
+- [ ] Replace other placeholder images with real photos
 - [ ] Set up Vercel deployment
 
 **Open questions or blockers:**
-- [ ] Need GitHub repo URL to set as remote
 - [ ] Need `OPENAI_API_KEY` in `.env.local` for Wingman chatbot to work
 - [ ] Razorpay button ID (`pl_H4Jwn7xLqMgktI`) — confirm this is the correct production button
+- [ ] Need 10 vulture photos for the conservation page
 
 **Key files touched recently:**
-- `CLAUDE.md` — created comprehensive project guide
-- Branch consolidation: all work now on `main`
+- `src/app/vultures/page.tsx` — NEW: vulture conservation page with 9 species, intake data, crisis timeline
+- `src/app/donate/page.tsx` — UPI tab reordered to first position with enhanced instructions
+- `src/components/Header.tsx` — added Vulture Conservation to nav dropdown + mobile menu
+- `src/app/sitemap.ts` — added /vultures route
+- `CLAUDE.md` — updated status
 
 ---
 

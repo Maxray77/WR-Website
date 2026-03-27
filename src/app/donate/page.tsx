@@ -12,16 +12,16 @@ import {
 } from "@/lib/constants";
 
 const TABS = [
+  { id: "upi", label: "Scan & Pay (UPI)", icon: <Smartphone size={16} /> },
   { id: "online", label: "Online", icon: <CreditCard size={16} /> },
   { id: "bank", label: "Bank Transfer", icon: <Building2 size={16} /> },
-  { id: "upi", label: "UPI", icon: <Smartphone size={16} /> },
   { id: "us", label: "US Donors", icon: <Globe size={16} /> },
   { id: "gofundme", label: "GoFundMe", icon: <Send size={16} /> },
   { id: "cheque", label: "Mail Cheque", icon: <Mail size={16} /> },
 ];
 
 export default function DonatePage() {
-  const [activeTab, setActiveTab] = useState("online");
+  const [activeTab, setActiveTab] = useState("upi");
   const [currency, setCurrency] = useState<"inr" | "usd">("inr");
 
   const amounts = currency === "inr" ? DONATION_AMOUNTS_INR : DONATION_AMOUNTS_USD;
@@ -180,21 +180,70 @@ export default function DonatePage() {
             )}
 
             {activeTab === "upi" && (
-              <div className="text-center">
+              <div>
                 <h2 className="text-2xl font-bold text-charcoal mb-6 font-[family-name:var(--font-poppins)]">
-                  Donate via UPI
+                  Scan & Pay via UPI
                 </h2>
-                {/* QR Placeholder */}
-                <div className="w-48 h-48 bg-offwhite rounded-xl mx-auto mb-4 flex items-center justify-center border-2 border-dashed border-gray-300">
-                  <span className="text-slate text-sm">QR Code</span>
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  {/* QR Code */}
+                  <div className="text-center">
+                    <div className="w-56 h-56 bg-offwhite rounded-xl mx-auto mb-4 flex items-center justify-center border-2 border-dashed border-teal/30">
+                      <div className="text-center">
+                        <Smartphone size={48} className="text-teal mx-auto mb-2" />
+                        <span className="text-slate text-sm">QR Code Coming Soon</span>
+                      </div>
+                    </div>
+                    <div className="bg-teal-light rounded-lg px-4 py-3 inline-block">
+                      <p className="text-sm text-teal font-medium">UPI ID</p>
+                      <p className="text-lg font-bold text-teal-dark font-mono">
+                        {BANK_DETAILS.upiId}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Steps */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-charcoal text-lg">
+                      How to Pay
+                    </h3>
+                    {[
+                      {
+                        step: "1",
+                        title: "Open any UPI app",
+                        desc: "Google Pay, PhonePe, Paytm, BHIM, or any banking app with UPI",
+                      },
+                      {
+                        step: "2",
+                        title: "Scan QR code or enter UPI ID",
+                        desc: `Search for UPI ID: ${BANK_DETAILS.upiId}`,
+                      },
+                      {
+                        step: "3",
+                        title: "Enter amount & pay",
+                        desc: "Complete the payment — you'll receive instant confirmation",
+                      },
+                    ].map((item) => (
+                      <div key={item.step} className="flex gap-4 items-start">
+                        <div className="w-8 h-8 rounded-full bg-teal text-white flex items-center justify-center font-bold text-sm shrink-0">
+                          {item.step}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-charcoal">
+                            {item.title}
+                          </p>
+                          <p className="text-sm text-slate">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <div className="bg-amber-bg rounded-lg p-4 mt-4">
+                      <p className="text-sm text-charcoal">
+                        <strong>Tip:</strong> After payment, email{" "}
+                        <span className="font-mono text-teal">{CONTACT.email}</span>{" "}
+                        with your transaction ID for an 80(G) tax receipt.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-charcoal font-semibold">
-                  UPI ID: {BANK_DETAILS.upiId}
-                </p>
-                <p className="text-sm text-slate mt-2">
-                  Scan the QR code or use the UPI ID above in any UPI app
-                  (Google Pay, PhonePe, Paytm, etc.)
-                </p>
               </div>
             )}
 
