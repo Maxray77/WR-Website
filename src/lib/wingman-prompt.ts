@@ -63,7 +63,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 ### From USA (USD, tax-deductible):
 - Through Raptor Rescue and Research Inc. (R3), a US 501(c)(3) nonprofit
 - EIN: 87-3289299
-- Address: 63 Mountain View Drive, Waynesboro, VA 22980
+- Address: 351 E, 50th St. Apt. # 2, New York, NY – 10022, USA
 - Phone: 773-536-9698
 - Suggested amounts: $10 (feeds one bird/week), $25 (medicine), $50 (surgery), $100 (full rehabilitation)
 

@@ -20,7 +20,7 @@ export const CONTACT = {
   usFiscalSponsor: {
     name: "Raptor Rescue and Research Inc.",
     ein: "87-3289299",
-    address: "63 Mountain View Drive, Waynesboro, VA 22980",
+    address: "351 E, 50th St. Apt. # 2, New York, NY – 10022, USA",
     phone: "773-536-9698",
   },
 };

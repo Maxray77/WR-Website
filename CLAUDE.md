@@ -10,7 +10,7 @@ This file is read automatically by Claude Code at the start of every session.
 **Site:** Wildlife Rescue — raptorrescue.org
 **Organization:** Wildlife Rescue, Delhi, India — the world's largest raptor rescue facility
 **Purpose:** Public-facing website for Wildlife Rescue. Covers the organization's mission, team, the Oscar-nominated documentary "All That Breathes", and donation options for Indian and international donors.
-**US Sponsor:** Raptor Rescue and Research Inc. (EIN: 87-3289299), 63 Mountain View Drive, Waynesboro, VA 22980
+**US Sponsor:** Raptor Rescue and Research Inc. (EIN: 87-3289299), 351 E, 50th St. Apt. # 2, New York, NY – 10022, USA
 
 ---
 
