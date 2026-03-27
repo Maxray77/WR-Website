@@ -224,6 +224,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [x] Reordered donate page — UPI (Scan & Pay) is now the first tab with step-by-step instructions
 - [x] Added "Vulture Conservation" to nav dropdown and sitemap
 - [x] All 21 routes building successfully
+- [x] GoFundMe embed widget added to donate page
+- [x] US Donors tab redesigned: 501c3 → R3 website, no tax benefit → GoFundMe (side-by-side cards)
 
 **What's in progress / next step:**
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page

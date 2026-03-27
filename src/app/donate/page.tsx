@@ -250,50 +250,99 @@ export default function DonatePage() {
             {activeTab === "us" && (
               <div>
                 <h2 className="text-2xl font-bold text-charcoal mb-6 font-[family-name:var(--font-poppins)]">
-                  US Donors (Tax-Deductible)
+                  US Donors
                 </h2>
-                <div className="bg-teal-light rounded-xl p-6 mb-6">
-                  <p className="text-teal font-semibold mb-2">
-                    501(c)(3) Tax-Deductible Donations
-                  </p>
-                  <p className="text-sm text-charcoal leading-relaxed">
-                    US donors can make tax-deductible donations through our
-                    fiscal sponsor:
-                  </p>
-                </div>
-                <div className="bg-offwhite rounded-xl p-6 space-y-3">
-                  {[
-                    ["Organization", CONTACT.usFiscalSponsor.name],
-                    ["EIN", CONTACT.usFiscalSponsor.ein],
-                    ["Address", CONTACT.usFiscalSponsor.address],
-                    ["Phone", CONTACT.usFiscalSponsor.phone],
-                  ].map(([label, value]) => (
-                    <div key={label} className="flex justify-between items-center py-2 border-b border-gray-200 last:border-0">
-                      <span className="text-slate text-sm">{label}</span>
-                      <span className="text-charcoal font-semibold text-sm">
-                        {value}
-                      </span>
+                <p className="text-slate mb-6">
+                  Choose your preferred donation method:
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Option 1: Tax-Deductible via R3 */}
+                  <div className="bg-teal-light rounded-xl p-6 border-2 border-teal/20">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Shield size={20} className="text-teal" />
+                      <h3 className="font-bold text-charcoal">
+                        Tax-Deductible (501c3)
+                      </h3>
                     </div>
-                  ))}
+                    <p className="text-sm text-charcoal leading-relaxed mb-4">
+                      Donate through our US fiscal sponsor for a tax-deductible
+                      receipt under Section 501(c)(3).
+                    </p>
+                    <div className="bg-white rounded-lg p-4 space-y-2 mb-4 text-sm">
+                      <p><span className="text-slate">Organization:</span> <span className="font-semibold text-charcoal">{CONTACT.usFiscalSponsor.name}</span></p>
+                      <p><span className="text-slate">EIN:</span> <span className="font-semibold text-charcoal font-mono">{CONTACT.usFiscalSponsor.ein}</span></p>
+                    </div>
+                    <a
+                      href="https://raptorrescueusa.org/donate"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block w-full text-center bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                    >
+                      Donate via R3 Website
+                    </a>
+                  </div>
+
+                  {/* Option 2: No tax benefit via GoFundMe */}
+                  <div className="bg-offwhite rounded-xl p-6 border-2 border-gray-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Heart size={20} className="text-amber" />
+                      <h3 className="font-bold text-charcoal">
+                        Direct Donation (No Tax Benefit)
+                      </h3>
+                    </div>
+                    <p className="text-sm text-charcoal leading-relaxed mb-4">
+                      Donate directly via GoFundMe. No tax deduction, but 100%
+                      of your donation reaches Wildlife Rescue.
+                    </p>
+                    <div className="bg-white rounded-lg p-4 mb-4">
+                      <p className="text-sm text-slate">
+                        Donations in US$ are processed through GoFundMe and
+                        transferred directly to our team in Delhi.
+                      </p>
+                    </div>
+                    <a
+                      href="https://gofund.me/d9df0362"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block w-full text-center bg-amber hover:bg-amber-light text-charcoal font-semibold px-6 py-3 rounded-lg transition-colors"
+                    >
+                      Donate via GoFundMe
+                    </a>
+                  </div>
                 </div>
               </div>
             )}
 
             {activeTab === "gofundme" && (
-              <div className="text-center py-8">
+              <div>
                 <h2 className="text-2xl font-bold text-charcoal mb-4 font-[family-name:var(--font-poppins)]">
                   GoFundMe Campaign
                 </h2>
-                <p className="text-slate mb-6 max-w-md mx-auto">
-                  Support us through our GoFundMe campaign. Share with friends
-                  and family to multiply your impact.
+                <p className="text-slate mb-6 max-w-lg">
+                  Support us through our GoFundMe campaign. Donate in US$ —
+                  share with friends and family to multiply your impact.
                 </p>
-                <a
-                  href="#"
-                  className="inline-block bg-success text-white font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
-                >
-                  Visit Our GoFundMe
-                </a>
+                {/* GoFundMe Embed Widget */}
+                <div
+                  className="mb-6"
+                  dangerouslySetInnerHTML={{
+                    __html: `<div class="gfm-embed" data-url="https://www.gofundme.com/f/help-all-that-breathes-protagonists-save-birds-in-india/widget/large?sharesheet=undefined&attribution_id=sl:c5e5159e-e117-4168-b426-b8c59e29af44"></div><script defer src="https://www.gofundme.com/static/js/embed.js"></script>`,
+                  }}
+                />
+                <div className="text-center mt-4">
+                  <a
+                    href="https://gofund.me/d9df0362"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-amber hover:bg-amber-light text-charcoal font-semibold px-8 py-3 rounded-full transition-colors"
+                  >
+                    Open GoFundMe Page
+                  </a>
+                  <p className="text-xs text-slate mt-2">
+                    If the widget above doesn&apos;t load, click the button to
+                    visit our GoFundMe page directly.
+                  </p>
+                </div>
               </div>
             )}
 
