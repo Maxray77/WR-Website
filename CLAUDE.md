@@ -208,14 +208,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 ## What's Left (Future Work)
 
 - [ ] CMS integration (Sanity.io) to replace static blog/species data
-- [ ] Real payment processing (Stripe/Razorpay backend for receipts)
 - [ ] Real Instagram API feed (currently placeholder)
 - [ ] Newsletter backend (Mailchimp/Resend — currently logs to console)
 - [ ] Real photo/video assets to replace placeholders
 - [ ] Deploy to Vercel (production)
 - [ ] Add real vulture photos (10 placeholders on /vultures page)
-- [ ] Add UPI QR code image (public/upi-qr.jpg) for donate page
 - [ ] Domain setup (raptorrescue.org)
+- [ ] CMS integration (Sanity.io) to replace static blog/species data
 
 ---
 
@@ -223,48 +222,47 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Last updated by:** Claude Code — 2026-03-27
 
-**What was just completed:**
-- [x] GitHub remote set up: https://github.com/Maxray77/WR-Website.git
-- [x] Created `/vultures` conservation page — research-backed with data from 4 scientific papers + WR 5-year intake records
-- [x] Reordered donate page — UPI (Scan & Pay) is now the first tab
-- [x] GoFundMe embed widget + US Donors tab redesigned
-- [x] **NEW: 3 species pages added** — Black Eared Kite, Wetland Birds (category), Eagles (category)
-- [x] **NEW: Complete conditions section** — `/conditions` listing + 6 detail pages:
-  - `/conditions/cut-wounds` — manja lacerations (~35% of cases)
-  - `/conditions/fractures` — bone injuries (~20% of cases)
-  - `/conditions/orphans` — juvenile birds (~18% of cases)
-  - `/conditions/avian-pox` — viral disease (~8% of cases)
-  - `/conditions/septicemia` — blood infections (~10% of cases)
-  - `/conditions/other-conditions` — poisoning, burns, eye injuries (~9% of cases)
-- [x] "Conditions We Treat" added to nav dropdown and mobile menu
-- [x] Sitemap updated with all new routes (conditions + new species)
-- [x] Species count: 8 → 11 (added Black Eared Kite, Wetland Birds, Eagles)
-- [x] All 45 pages building successfully (30+ routes)
+**What was just completed (Session 2026-03-27):**
+- [x] Removed duplicate red "Contact Us" button (phone icon) from desktop header
+- [x] Removed all "24/7 emergency care" mentions across the site
+- [x] Added Razorpay payment button (`pl_H4Jwn7xLqMgktI`) to Online tab — uses `useEffect` to load script dynamically
+- [x] Removed USD currency toggle from Online tab (INR only via Razorpay)
+- [x] Updated bank details: A/C 50100181991374, IFSC HDFC0000558, Ajmeri Gate Delhi, Savings
+- [x] Generated UPI QR code (`public/upi-qr.png`) for `wildliferescue@hdfcbank` — works with all UPI apps
+- [x] UPI QR code displayed on Scan & Pay tab with `next/image`
+- [x] Updated UPI tip: includes Name, Address, PAN for 80(G) receipt generation
+- [x] Updated R3 address to 351 E, 50th St. Apt. # 2, New York, NY – 10022, USA
+- [x] All 45 pages building successfully
+
+**Previously completed:**
+- [x] GitHub remote: https://github.com/Maxray77/WR-Website.git
+- [x] Vultures conservation page, conditions section (6 pages), species (11 total)
+- [x] GoFundMe embed widget + US Donors tab with R3 501(c)(3)
+- [x] Netlify auto-deploy: https://wildlife-rescue-preview.netlify.app/
 
 **What's in progress / next step:**
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
-- [ ] Add UPI QR code image (`public/upi-qr.jpg`) for donate page
 - [ ] Replace other placeholder images with real photos
 - [ ] Correct Google Maps location to F239-92E2
-- [ ] Remove red emergency Contact Us button (duplicate)
 - [ ] Set up Vercel deployment
+- [ ] Build dedicated conditions page with pictures for each condition
 
 **Open questions or blockers:**
 - [ ] Need `OPENAI_API_KEY` in `.env.local` for Wingman chatbot to work
-- [ ] Razorpay button ID (`pl_H4Jwn7xLqMgktI`) — confirm this is the correct production button
 - [ ] Need 10 vulture photos for the conservation page
 - [ ] Need real photos for species and condition pages
 
 **Key files touched recently:**
-- `src/lib/conditions-data.ts` — NEW: 6 conditions with causes, symptoms, treatment protocols, case studies
-- `src/app/conditions/page.tsx` — NEW: conditions listing with severity badges, stats, treatment process
-- `src/app/conditions/[slug]/page.tsx` — NEW: detailed condition pages with full treatment info
-- `src/lib/species-data.ts` — Added 3 species: Black Eared Kite, Wetland Birds, Eagles
-- `src/components/Header.tsx` — Added "Conditions We Treat" to nav dropdown + mobile menu
-- `src/app/sitemap.ts` — Added conditions routes + new species
-- `src/app/species/page.tsx` — Updated for "Mixed" conservation status badge
-- `src/app/species/[slug]/page.tsx` — Updated for "Mixed" conservation status
-- `CLAUDE.md` — Updated status, project structure, route count
+- `src/app/donate/page.tsx` — Razorpay via useEffect, UPI QR image, removed USD toggle, updated tip text
+- `src/components/Header.tsx` — Removed duplicate red Contact Us button
+- `src/lib/constants.ts` — Updated bank details, R3 address
+- `src/lib/wingman-prompt.ts` — Updated bank, UPI, R3 address, removed 24/7
+- `src/lib/metadata.ts` — Removed "emergency hotline" from SEO
+- `src/app/conditions/page.tsx` — Removed emergency hotline mention
+- `src/app/conditions/[slug]/page.tsx` — Removed emergency hotline mention
+- `src/app/contact/page.tsx` — Replaced "not a 24/7 hospital" text
+- `public/upi-qr.png` — NEW: Generated UPI QR code image
+- `CLAUDE.md` — Updated status
 
 ---
 
