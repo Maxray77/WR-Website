@@ -52,10 +52,11 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 
 ## How to Donate
 ### From India (INR):
-- Bank: HDFC Bank, Wazirabad, Delhi
+- Bank: HDFC Bank, Ajmeri Gate, Delhi – 110006
 - Account Name: Wildlife Rescue
-- Account Number: 50200065825498
-- IFSC: HDFC0001098
+- Account Number: 50100181991374
+- IFSC: HDFC0000558
+- Account Type: Savings Bank
 - UPI: wildliferescue@hdfcbank
 - Suggested amounts: ₹500 (feeds one bird/week), ₹1,000 (medicine for one raptor), ₹2,500 (surgery for one bird), ₹5,000 (full rehabilitation)
 

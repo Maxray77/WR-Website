@@ -185,7 +185,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - **Email:** nadeem@raptorrescue.org
 - **WhatsApp:** https://wa.me/919810029698
 - **Social:** @wildliferescueindia (Instagram), @wildliferescue.in (Facebook)
-- **Bank:** HDFC Bank, A/C: Wildlife Rescue, 50200065825498, IFSC: HDFC0001241
+- **Bank:** HDFC Bank, A/C: Wildlife Rescue, 50100181991374, IFSC: HDFC0000558, Ajmeri Gate Delhi, Savings
 - **UPI:** wildliferescue@hdfcbank
 - **Razorpay Button ID:** pl_H4Jwn7xLqMgktI
 - **GoFundMe:** https://gofund.me/d9df0362

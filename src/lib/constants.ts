@@ -189,9 +189,10 @@ export const DONATION_AMOUNTS_USD = [
 export const BANK_DETAILS = {
   bankName: "HDFC Bank",
   accountName: "Wildlife Rescue",
-  accountNumber: "50200065825498",
-  ifsc: "HDFC0001098",
-  branch: "Wazirabad, Delhi",
+  accountNumber: "50100181991374",
+  ifsc: "HDFC0000558",
+  branch: "Ajmeri Gate, Delhi – 110006",
+  accountType: "Savings Bank",
   upiId: "wildliferescue@hdfcbank",
 };
 

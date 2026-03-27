@@ -173,6 +173,7 @@ export default function DonatePage() {
                     ["Account Number", BANK_DETAILS.accountNumber],
                     ["IFSC Code", BANK_DETAILS.ifsc],
                     ["Branch", BANK_DETAILS.branch],
+                    ["Account Type", BANK_DETAILS.accountType],
                   ].map(([label, value]) => (
                     <div key={label} className="flex justify-between items-center py-2 border-b border-gray-200 last:border-0">
                       <span className="text-slate text-sm">{label}</span>
