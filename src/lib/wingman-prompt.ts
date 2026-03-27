@@ -57,7 +57,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Account Number: 50100181991374
 - IFSC: HDFC0000558
 - Account Type: Savings Bank
-- UPI: 9810029698@okbizaxis
+- UPI: wildliferescue@hdfcbank
 - Suggested amounts: ₹500 (feeds one bird/week), ₹1,000 (medicine for one raptor), ₹2,500 (surgery for one bird), ₹5,000 (full rehabilitation)
 
 ### From USA (USD, tax-deductible):
