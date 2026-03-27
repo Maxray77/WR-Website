@@ -147,13 +147,6 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="tel:+919810029698"
-              className="flex items-center gap-1.5 text-sm text-danger font-semibold hover:underline"
-            >
-              <Phone size={14} />
-              Contact Us
-            </a>
             <Link
               href="/donate"
               className="bg-amber hover:bg-amber-light text-charcoal font-semibold px-6 py-2.5 rounded-full text-sm transition-all hover:shadow-lg hover:scale-105"
