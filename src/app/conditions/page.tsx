@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Scissors,
@@ -9,6 +10,7 @@ import {
   Thermometer,
   Stethoscope,
   Heart,
+  Camera,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -36,6 +38,52 @@ const SEVERITY_COLORS: Record<string, string> = {
   Variable: "bg-gray-100 text-slate",
 };
 
+/*
+  Photo placeholders for each condition.
+  Replace these with real photos when available:
+  - /conditions/cut-wounds-1.jpg, cut-wounds-2.jpg
+  - /conditions/fractures-1.jpg, fractures-2.jpg
+  - /conditions/orphans-1.jpg, orphans-2.jpg
+  - /conditions/avian-pox-1.jpg, avian-pox-2.jpg
+  - /conditions/septicemia-1.jpg, septicemia-2.jpg
+  - /conditions/other-1.jpg, other-2.jpg
+*/
+const CONDITION_IMAGES: Record<
+  string,
+  { label1: string; label2: string; gradient: string }
+> = {
+  "cut-wounds": {
+    label1: "Manja string laceration on wing",
+    label2: "Post-surgery wound repair",
+    gradient: "from-red-100 to-red-50",
+  },
+  fractures: {
+    label1: "X-ray of wing fracture",
+    label2: "Surgical pin placement",
+    gradient: "from-blue-100 to-blue-50",
+  },
+  orphans: {
+    label1: "Orphaned Black Kite chick",
+    label2: "Hand-feeding juvenile raptor",
+    gradient: "from-amber-100 to-amber-50",
+  },
+  "avian-pox": {
+    label1: "Pox lesions on pigeon",
+    label2: "Recovery after treatment",
+    gradient: "from-purple-100 to-purple-50",
+  },
+  septicemia: {
+    label1: "Infected wound before treatment",
+    label2: "Clean wound after debridement",
+    gradient: "from-rose-100 to-rose-50",
+  },
+  "other-conditions": {
+    label1: "Electrocution burn on feet",
+    label2: "Poisoning treatment in progress",
+    gradient: "from-slate-100 to-slate-50",
+  },
+};
+
 export default function ConditionsPage() {
   return (
     <>
@@ -55,11 +103,10 @@ export default function ConditionsPage() {
       {/* ─── Overview Stats ─── */}
       <section className="py-12 bg-offwhite border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-3 gap-6">
             {[
               { stat: "3,500+", label: "Cases per year" },
               { stat: "106+", label: "Species treated" },
-              { stat: "24/7", label: "Emergency care" },
               { stat: "20+", label: "Years of expertise" },
             ].map((item) => (
               <div key={item.label} className="text-center">
@@ -73,7 +120,7 @@ export default function ConditionsPage() {
         </div>
       </section>
 
-      {/* ─── Conditions Grid ─── */}
+      {/* ─── Conditions — Full-Width Cards with Photos ─── */}
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
@@ -82,57 +129,117 @@ export default function ConditionsPage() {
             centered
           />
 
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CONDITIONS_LIST.map((condition) => (
-              <Link
-                key={condition.slug}
-                href={`/conditions/${condition.slug}`}
-                className="group bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:border-teal/20 transition-all"
-              >
-                {/* Icon + Severity */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-14 h-14 bg-teal-light rounded-xl flex items-center justify-center text-teal group-hover:bg-teal group-hover:text-white transition-colors">
-                    {ICON_MAP[condition.icon]}
-                  </div>
-                  <span
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-full ${SEVERITY_COLORS[condition.severity]}`}
+          <div className="mt-12 space-y-10">
+            {CONDITIONS_LIST.map((condition, index) => {
+              const images = CONDITION_IMAGES[condition.slug];
+              const isEven = index % 2 === 0;
+
+              return (
+                <Link
+                  key={condition.slug}
+                  href={`/conditions/${condition.slug}`}
+                  className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl hover:border-teal/20 transition-all"
+                >
+                  <div
+                    className={`grid md:grid-cols-2 ${
+                      !isEven ? "md:grid-flow-dense" : ""
+                    }`}
                   >
-                    {condition.severity}
-                  </span>
-                </div>
+                    {/* ─── Photo Gallery Side ─── */}
+                    <div
+                      className={`${!isEven ? "md:col-start-2" : ""}`}
+                    >
+                      <div className="grid grid-cols-2 h-full min-h-[280px] lg:min-h-[340px]">
+                        {/* Photo 1 */}
+                        <div
+                          className={`relative bg-gradient-to-br ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4`}
+                        >
+                          <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
+                            <Camera size={28} />
+                          </div>
+                          <p className="text-xs text-slate/60 text-center leading-snug">
+                            {images?.label1 || "Photo placeholder"}
+                          </p>
+                        </div>
+                        {/* Photo 2 */}
+                        <div
+                          className={`relative bg-gradient-to-bl ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4 border-l border-white/50`}
+                        >
+                          <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
+                            <Camera size={28} />
+                          </div>
+                          <p className="text-xs text-slate/60 text-center leading-snug">
+                            {images?.label2 || "Photo placeholder"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-charcoal font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
-                  {condition.name}
-                </h3>
+                    {/* ─── Content Side ─── */}
+                    <div
+                      className={`p-6 lg:p-10 flex flex-col justify-center ${
+                        !isEven ? "md:col-start-1 md:row-start-1" : ""
+                      }`}
+                    >
+                      {/* Icon + Severity */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 bg-teal-light rounded-xl flex items-center justify-center text-teal group-hover:bg-teal group-hover:text-white transition-colors">
+                          {ICON_MAP[condition.icon]}
+                        </div>
+                        <span
+                          className={`text-xs font-semibold px-2.5 py-1 rounded-full ${SEVERITY_COLORS[condition.severity]}`}
+                        >
+                          {condition.severity}
+                        </span>
+                      </div>
 
-                {/* Short description */}
-                <p className="mt-2 text-sm text-slate leading-relaxed line-clamp-3">
-                  {condition.shortDescription}
-                </p>
+                      {/* Title */}
+                      <h3 className="text-2xl lg:text-3xl font-bold text-charcoal font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
+                        {condition.name}
+                      </h3>
 
-                {/* Stats */}
-                <div className="mt-4 flex items-center gap-4">
-                  <div>
-                    <span className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
-                      {condition.percentage}
-                    </span>
-                    <span className="text-xs text-slate ml-1">of cases</span>
+                      {/* Description */}
+                      <p className="mt-3 text-slate leading-relaxed">
+                        {condition.shortDescription}
+                      </p>
+
+                      {/* Stats Row */}
+                      <div className="mt-5 flex flex-wrap items-center gap-6">
+                        <div>
+                          <span className="text-3xl font-bold text-teal font-[family-name:var(--font-poppins)]">
+                            {condition.percentage}
+                          </span>
+                          <span className="text-xs text-slate ml-1.5">
+                            of cases
+                          </span>
+                        </div>
+                        <div className="h-10 w-px bg-gray-200" />
+                        <div>
+                          <span className="text-lg font-semibold text-charcoal">
+                            {condition.annualCases}
+                          </span>
+                        </div>
+                        <div className="h-10 w-px bg-gray-200" />
+                        <div>
+                          <span className="text-sm text-slate">
+                            Recovery:{" "}
+                            <span className="font-semibold text-charcoal">
+                              {condition.recoveryRate}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* CTA */}
+                      <div className="mt-6 flex items-center text-teal font-semibold group-hover:gap-2 transition-all">
+                        View Full Details{" "}
+                        <ArrowRight size={16} className="ml-1.5" />
+                      </div>
+                    </div>
                   </div>
-                  <div className="h-8 w-px bg-gray-200" />
-                  <div>
-                    <span className="text-sm font-semibold text-charcoal">
-                      {condition.annualCases}
-                    </span>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <div className="mt-4 flex items-center text-teal text-sm font-semibold group-hover:gap-2 transition-all">
-                  Learn More <ArrowRight size={14} className="ml-1" />
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -193,9 +300,9 @@ export default function ConditionsPage() {
             Found an Injured Bird?
           </h2>
           <p className="mt-3 text-slate max-w-xl mx-auto">
-            Call our 24/7 emergency hotline immediately. Do not try to feed the
-            bird or give water. Keep it in a dark, quiet box and bring it to us
-            as soon as possible.
+            Call our emergency hotline immediately. Do not try to feed the bird
+            or give water. Keep it in a dark, quiet box and bring it to us as
+            soon as possible.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
