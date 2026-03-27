@@ -1,0 +1,6 @@
+# Auto-deploy is DISABLED to save Netlify free-tier build minutes.
+# To deploy manually: Netlify Dashboard → Deploys → "Trigger deploy"
+# Or use Netlify CLI: netlify deploy --build --prod
+
+[build]
+  ignore = "/bin/true"
