@@ -7,7 +7,7 @@ import { SPECIES_LIST } from "@/lib/species-data";
 export const metadata: Metadata = {
   title: "Species We Treat",
   description:
-    "Wildlife Rescue treats 34+ species including endangered Egyptian Vulture. Learn about the birds we rescue — their habitat, behavior, and the threats they face in Delhi.",
+    "Wildlife Rescue treats 106+ species including endangered Egyptian Vulture. Learn about the birds we rescue — their habitat, behavior, and the threats they face in Delhi.",
 };
 
 export default function SpeciesPage() {
@@ -20,7 +20,7 @@ export default function SpeciesPage() {
             Species We Treat
           </h1>
           <p className="mt-4 text-xl text-white/80 max-w-2xl mx-auto">
-            34+ species and counting. From Delhi&apos;s iconic Black Kite to the
+            106+ species and counting. From Delhi&apos;s iconic Black Kite to the
             endangered Egyptian Vulture — every bird matters.
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function SpeciesPage() {
       <section className="bg-offwhite py-12 lg:py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-            And 26+ More Species
+            And 98+ More Species
           </h2>
           <p className="mt-3 text-slate">
             We also treat Red Naped Ibis, Red Wattled Lapwing, Rose Ringed

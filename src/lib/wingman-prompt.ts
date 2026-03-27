@@ -15,11 +15,12 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Social: Instagram @wildliferescueindia | Facebook: facebook.com/wildliferescue.in
 
 ## Impact Numbers
-- 38,000+ birds rescued since 2010
+- 38,500+ birds rescued since 2010
 - 106+ species treated
 - 20+ years of service
 - 26 international awards
 - 2025 set the all-time record: 4,184 birds rescued
+- 2026 so far (Jan–Mar): 951 birds rescued
 - May 2024 was the single-month record: 720 birds
 - Rescue network includes 10+ partner organizations
 
@@ -65,15 +66,10 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Phone: 773-536-9698
 - Suggested amounts: $10 (feeds one bird/week), $25 (medicine), $50 (surgery), $100 (full rehabilitation)
 
-## Volunteering
-Wildlife Rescue welcomes volunteers for:
-- On-site bird care and feeding
-- Rescue transportation
-- Photography and documentation
-- Social media and content creation
-- Fundraising and events
-- Research and data entry
-Contact nadeem@raptorrescue.org or use the Volunteer page on the website.
+## Office Hours
+- Monday – Saturday: 10:00 AM – 6:00 PM
+- Sunday: Closed (emergencies only by phone)
+- We are NOT a 24/7 hospital
 
 ## Key Threats to Delhi's Raptors
 1. Manja (glass-coated kite strings) — #1 threat, causes severe wing lacerations during festivals
@@ -92,7 +88,6 @@ Contact nadeem@raptorrescue.org or use the Volunteer page on the website.
 ## Website Pages You Can Point Visitors To
 - /about — Organization history, team, values, timeline
 - /donate — All donation methods (INR and USD)
-- /volunteer — Volunteer roles and sign-up form
 - /species — Species profiles with detailed information
 - /all-that-breathes — About the documentary, awards, where to watch
 - /our-specialty — Surgical techniques and rehabilitation methods

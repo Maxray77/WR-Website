@@ -31,7 +31,7 @@ export default function Home() {
               <span className="text-amber">Second Chance</span>
             </h1>
             <p className="mt-6 text-xl text-white/80 max-w-xl">
-              38,000+ birds rescued since 2010. From a home in Old Delhi to the
+              38,500+ birds rescued since 2010. From a home in Old Delhi to the
               world&apos;s largest raptor rescue facility.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -54,12 +54,18 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {IMPACT_STATS.map((stat) => (
-              <ImpactCounter
-                key={stat.label}
-                number={stat.number}
-                suffix={stat.suffix}
-                label={stat.label}
-              />
+              <div key={stat.label} className="text-center">
+                <ImpactCounter
+                  number={stat.number}
+                  suffix={stat.suffix}
+                  label={stat.label}
+                />
+                {stat.label === "International Awards" && (
+                  <p className="text-xs text-slate mt-1 italic">
+                    All That Breathes
+                  </p>
+                )}
+              </div>
             ))}
           </div>
         </div>
