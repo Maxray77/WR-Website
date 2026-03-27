@@ -111,7 +111,7 @@ export default function ContactPage() {
                       Sunday: Closed (emergencies only by phone)
                     </p>
                     <p className="text-xs text-amber font-semibold mt-1">
-                      We are not a 24/7 hospital
+                      Rescue calls accepted during office hours
                     </p>
                   </div>
                 </div>

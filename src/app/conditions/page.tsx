@@ -300,7 +300,7 @@ export default function ConditionsPage() {
             Found an Injured Bird?
           </h2>
           <p className="mt-3 text-slate max-w-xl mx-auto">
-            Call our emergency hotline immediately. Do not try to feed the bird
+            Call us immediately. Do not try to feed the bird
             or give water. Keep it in a dark, quiet box and bring it to us as
             soon as possible.
           </p>

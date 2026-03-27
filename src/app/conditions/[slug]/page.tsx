@@ -329,7 +329,7 @@ export default async function ConditionDetailPage({
             Found a bird with these symptoms?
           </h2>
           <p className="mt-2 text-slate text-sm">
-            Time is critical. Call our emergency hotline now.
+            Time is critical. Call us now.
           </p>
           <a
             href="tel:+919810029698"

@@ -59,7 +59,7 @@ export const pageMetadata = {
   contact: {
     title: "Contact Us",
     description:
-      "Report an injured bird or get in touch with Wildlife Rescue. Emergency hotline: +91 98100 29698. Located in Wazirabad Village, Delhi.",
+      "Report an injured bird or get in touch with Wildlife Rescue. Call: +91 98100 29698. Located in Wazirabad Village, Delhi.",
   },
   allThatBreathes: {
     title: "All That Breathes — Oscar-Nominated Documentary",
