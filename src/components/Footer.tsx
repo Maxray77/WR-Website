@@ -109,7 +109,7 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Wildlife Rescue. All rights reserved.
             </p>
             <p className="text-center">
-              India: 80(G) Tax Exempt &nbsp;|&nbsp; USA: 501(c)(3) via {CONTACT.usFiscalSponsor.name} (EIN: {CONTACT.usFiscalSponsor.ein})
+              India: 80(G) Tax Exempt | PAN: AAATW2352B &nbsp;|&nbsp; USA: 501(c)(3) via {CONTACT.usFiscalSponsor.name} (EIN: {CONTACT.usFiscalSponsor.ein})
             </p>
           </div>
         </div>

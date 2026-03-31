@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart } from "lucide-react";
+import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import {
   DONATION_AMOUNTS_INR,
@@ -18,6 +18,8 @@ const TABS = [
   { id: "us", label: "US Donors", icon: <Globe size={16} /> },
   { id: "gofundme", label: "GoFundMe", icon: <Send size={16} /> },
   { id: "cheque", label: "Mail Cheque", icon: <Mail size={16} /> },
+  { id: "80g", label: "80(G) Certificate", icon: <FileCheck size={16} /> },
+  { id: "501c3", label: "501(c)(3) Certificate", icon: <FileText size={16} /> },
 ];
 
 export default function DonatePage() {
@@ -60,7 +62,7 @@ export default function DonatePage() {
       <section className="py-16 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+          <div id="donation-tabs" className="flex flex-wrap gap-2 mb-8 justify-center">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
@@ -346,6 +348,100 @@ export default function DonatePage() {
                 </div>
               </div>
             )}
+
+            {activeTab === "80g" && (
+              <div>
+                <h2 className="text-2xl font-bold text-charcoal mb-2 font-[family-name:var(--font-poppins)]">
+                  80(G) Tax Exemption Certificate
+                </h2>
+                <p className="text-slate mb-6">
+                  Wildlife Rescue is registered under Section 80(G) of the Income Tax Act. Indian donors can claim tax deductions on their contributions.
+                </p>
+                <div className="bg-offwhite rounded-xl p-4 mb-4 space-y-2 text-sm">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-slate">PAN</span>
+                    <span className="font-semibold text-charcoal font-mono">AAATW2352B</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-slate">Registration Number</span>
+                    <span className="font-semibold text-charcoal font-mono">AAATW2352B25DL02</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-slate">Valid For</span>
+                    <span className="font-semibold text-charcoal">Assessment Years 2027-28 to 2031-32</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-slate">Date of Approval</span>
+                    <span className="font-semibold text-charcoal">28 January 2026</span>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-gray-200 overflow-hidden" style={{ height: "80vh" }}>
+                  <iframe
+                    src="/80g-certificate.pdf"
+                    className="w-full h-full"
+                    title="80(G) Tax Exemption Certificate — Wildlife Rescue"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <a
+                    href="/80g-certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                  >
+                    <FileCheck size={18} />
+                    Download 80(G) Certificate
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "501c3" && (
+              <div>
+                <h2 className="text-2xl font-bold text-charcoal mb-2 font-[family-name:var(--font-poppins)]">
+                  501(c)(3) Determination Letter
+                </h2>
+                <p className="text-slate mb-6">
+                  Raptor Rescue and Research Inc. (R3) is our US fiscal sponsor, recognized as tax-exempt under IRC Section 501(c)(3). US donors can claim tax-deductible contributions.
+                </p>
+                <div className="bg-offwhite rounded-xl p-4 mb-4 space-y-2 text-sm">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-slate">Organization</span>
+                    <span className="font-semibold text-charcoal">Raptor Rescue and Research Inc.</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-slate">EIN</span>
+                    <span className="font-semibold text-charcoal font-mono">87-3289299</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-slate">Public Charity Status</span>
+                    <span className="font-semibold text-charcoal">170(b)(1)(A)(vi)</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-slate">Effective Date</span>
+                    <span className="font-semibold text-charcoal">September 1, 2021</span>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-gray-200 overflow-hidden" style={{ height: "80vh" }}>
+                  <iframe
+                    src="/501c3-certificate.pdf"
+                    className="w-full h-full"
+                    title="501(c)(3) Determination Letter — Raptor Rescue and Research Inc."
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <a
+                    href="/501c3-certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                  >
+                    <FileText size={18} />
+                    Download 501(c)(3) Letter
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -359,7 +455,13 @@ export default function DonatePage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl p-6 text-center border border-gray-100">
+            <button
+              onClick={() => {
+                setActiveTab("80g");
+                document.getElementById("donation-tabs")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white rounded-xl p-6 text-center border border-gray-100 hover:border-teal/40 hover:shadow-md transition-all cursor-pointer group"
+            >
               <Shield size={32} className="text-teal mx-auto mb-3" />
               <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
                 80(G) Certified
@@ -368,8 +470,17 @@ export default function DonatePage() {
                 Indian donors receive tax deduction under Section 80(G) of the
                 Income Tax Act.
               </p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center border border-gray-100">
+              <span className="inline-block mt-3 text-xs font-semibold text-teal group-hover:underline">
+                View Certificate →
+              </span>
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab("501c3");
+                document.getElementById("donation-tabs")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white rounded-xl p-6 text-center border border-gray-100 hover:border-teal/40 hover:shadow-md transition-all cursor-pointer group"
+            >
               <Shield size={32} className="text-teal mx-auto mb-3" />
               <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
                 501(c)(3) Partner
@@ -378,7 +489,10 @@ export default function DonatePage() {
                 US donations are tax-deductible via Raptor Rescue and Research
                 Inc. (EIN: {CONTACT.usFiscalSponsor.ein}).
               </p>
-            </div>
+              <span className="inline-block mt-3 text-xs font-semibold text-teal group-hover:underline">
+                View Certificate →
+              </span>
+            </button>
             <div className="bg-white rounded-xl p-6 text-center border border-gray-100">
               <PieChart size={32} className="text-teal mx-auto mb-3" />
               <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">

@@ -105,7 +105,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-bold text-charcoal">Office Hours</h3>
                     <p className="text-slate text-sm mt-1">
-                      Monday – Saturday: 10:00 AM – 6:00 PM
+                      Monday – Saturday: 10:00 AM – 8:00 PM
                     </p>
                     <p className="text-slate text-sm">
                       Sunday: Closed (emergencies only by phone)
@@ -122,9 +122,9 @@ export default function ContactPage() {
                 <h3 className="font-bold text-charcoal mb-2">Getting Here</h3>
                 <p className="text-sm text-slate leading-relaxed">
                   Located in Wazirabad Village, North Delhi. Nearest Metro:
-                  Kashmere Gate (Yellow Line, ~20 min by auto). By car: Near
-                  Wazirabad Bridge on the Yamuna. Look for the Wildlife Rescue
-                  signboard on Street No. 9.
+                  Jagatpur - Wazirabad (Pink Line). By car: Near
+                  Signature Bridge on the Yamuna. Look for the Wildlife Rescue
+                  in Wazirabad, Street No. 9.
                 </p>
               </div>
             </div>
