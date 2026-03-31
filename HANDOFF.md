@@ -61,7 +61,7 @@ src/
 ├── components/
 │   ├── Header.tsx            # Sticky header with dropdown nav ("Our Work", "Media")
 │   ├── Footer.tsx            # 4-column footer with newsletter, PAN number in bottom bar
-│   ├── Wingman.tsx           # Floating AI chatbot widget (bottom-LEFT corner, animated bird icon)
+│   ├── Wingman.tsx           # Floating AI chatbot widget (bottom-RIGHT corner, bird faces left, animated)
 │   ├── DonateButton.tsx      # Reusable CTA button
 │   ├── SectionHeading.tsx    # Consistent section titles
 │   ├── ImpactCounter.tsx     # Animated stat counters (client component)
@@ -137,9 +137,8 @@ src/
 - **Office Hours** — Updated to **10:00 AM – 8:00 PM** (was 6:00 PM)
 
 ### Wingman Chatbot Updates ✅
-- **Moved to bottom-left** corner (was bottom-right)
+- **Positioned bottom-right**, bird icon **faces left** (flipped via `-scale-x-100`)
 - **Bird animation** — 4 bird-like CSS animation movements on 3.5s loop: head tilt left, head tilt right, hop up, quick peck
-- **Chat panel** also opens on the left side
 - **Office hours** updated in `wingman-prompt.ts` to match (10 AM – 8 PM)
 
 ---
@@ -173,7 +172,7 @@ src/
 - API routes, Blog, Sitemap, JSON-LD, Loading skeletons, Accessibility
 
 ### Wingman AI Chatbot ✅
-- Floating chat widget (bottom-left, animated bird icon)
+- Floating chat widget (bottom-right, bird faces left, animated)
 - AI SDK v6 + OpenAI GPT-4o-mini streaming
 - Comprehensive knowledge base, suggested questions, conversation reset
 
