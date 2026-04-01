@@ -18,14 +18,13 @@ export default function Wingman() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputValue, setInputValue] = useState("");
 
-  // Show callout bubble after 1.5s, auto-dismiss after 5s
+  // Show callout bubble after 1s — stays until dismissed or chat opened
+  // Only shows once per browser session
   useEffect(() => {
-    const showTimer = setTimeout(() => setShowBubble(true), 1500);
-    const hideTimer = setTimeout(() => setShowBubble(false), 6500);
-    return () => {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
-    };
+    const seen = sessionStorage.getItem("wingman-bubble-seen");
+    if (seen) return;
+    const timer = setTimeout(() => setShowBubble(true), 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const { messages, sendMessage, status, setMessages } = useChat();
@@ -72,15 +71,22 @@ export default function Wingman() {
     <>
       {/* Callout bubble */}
       {showBubble && !isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 flex items-end gap-2">
-          <div className="relative bg-white rounded-2xl rounded-br-sm px-4 py-2.5 shadow-lg border border-gray-100 max-w-[180px]">
+        <div className="fixed bottom-[5.5rem] right-6 z-50">
+          <div className="relative bg-white rounded-2xl rounded-br-none px-4 py-3 shadow-xl border border-gray-200 w-[200px]">
             <p className="text-sm font-semibold text-charcoal leading-snug">
               Hi! I&apos;m Wingman! 👋
             </p>
-            <p className="text-xs text-slate mt-0.5">Ask me anything!</p>
+            <p className="text-xs text-slate mt-1">Ask me anything about Wildlife Rescue!</p>
+            {/* Speech bubble tail pointing to button */}
+            <div className="absolute -bottom-2 right-4 w-4 h-2 overflow-hidden">
+              <div className="w-4 h-4 bg-white border-r border-b border-gray-200 rotate-45 origin-top-left translate-y-[-50%]" />
+            </div>
             <button
-              onClick={() => setShowBubble(false)}
-              className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 flex items-center justify-center text-[10px] leading-none"
+              onClick={() => {
+                setShowBubble(false);
+                sessionStorage.setItem("wingman-bubble-seen", "1");
+              }}
+              className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-gray-300 text-gray-600 hover:bg-gray-400 flex items-center justify-center text-[11px] font-bold leading-none"
               aria-label="Dismiss"
             >
               ×
@@ -91,7 +97,11 @@ export default function Wingman() {
 
       {/* Floating toggle button */}
       <button
-        onClick={() => { setIsOpen(!isOpen); setShowBubble(false); }}
+        onClick={() => {
+          setIsOpen(!isOpen);
+          setShowBubble(false);
+          sessionStorage.setItem("wingman-bubble-seen", "1");
+        }}
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-teal text-white shadow-lg transition-all hover:bg-teal-dark hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
         aria-label={isOpen ? "Close Wingman chat" : "Open Wingman chat"}
       >
