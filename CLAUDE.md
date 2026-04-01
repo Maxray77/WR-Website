@@ -217,9 +217,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-01 (Session 2)
+**Last updated by:** Claude Code — 2026-04-01 (Session 3)
 
-**What was just completed (Session 2026-04-01 #2):**
+**What was just completed (Session 2026-04-01 #3):**
+- [x] Fixed Wingman callout bubble — now persistent (stays until dismissed or chat opens), no bird icon, sessionStorage dedup so it shows once per browser session, speech bubble tail pointing to button
+- [x] Created `Wildlife_Rescue_NotebookLM_Source.md` — comprehensive donor-facing source document for NotebookLM infographic creation (17 sections: stats, timeline, species, awards, documentary, media, donation info, 8 infographic theme suggestions)
+
+**Previously completed (Session 2026-04-01 #2):**
 - [x] Wingman callout bubble — "Hi! I'm Wingman! 👋 / Ask me anything!" appears 1.5s after page load, auto-dismisses after 5s, has × to close, hides when chat opens
 - [x] Homepage donation section — ₹ INR / 🇺🇸 USD toggle pill above amount grid
 - [x] INR amount buttons now link to `/donate?tab=online` (previously linked to `/donate`, landing on UPI tab)
@@ -259,9 +263,10 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need real photos for species and condition pages
 
 **Key files touched this session:**
-- `src/components/Wingman.tsx` — callout bubble (showBubble state, auto-show/hide timers)
+- `src/components/Wingman.tsx` — callout bubble fixed (persistent, no bird icon, sessionStorage dedup, speech tail)
 - `src/app/page.tsx` — ₹/$ toggle, INR→online link fix, USD teaser row, DONATION_AMOUNTS_USD import
-- `src/app/donate/page.tsx` — onlineCurrency state, USD tab UI (R3 + GoFundMe), useSearchParams tab pre-select, ArrowRight + DONATION_AMOUNTS_USD imports
+- `src/app/donate/page.tsx` — onlineCurrency state, USD tab UI (R3 + GoFundMe), useSearchParams tab pre-select
+- `Wildlife_Rescue_NotebookLM_Source.md` — new: donor launch infographic source document
 
 ---
 
