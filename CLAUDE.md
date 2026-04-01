@@ -169,11 +169,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - **`main`** — canonical branch with all work (Phases 1–4 + Wingman + latest updates)
 - **`master`** — initial Create Next App commit only (legacy, do not use)
 - All old `claude/*` worktree branches have been cleaned up
-- **No remote** is configured yet — set one up before collaborating:
-  ```bash
-  git remote add origin <your-repo-url>
-  git push -u origin main
-  ```
+- **Remote:** https://github.com/Maxray77/WR-Website.git
+- **Vercel:** https://wildlife-rescue-website.vercel.app (auto-deploys from `main`)
 
 ---
 
@@ -211,30 +208,36 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Real Instagram API feed (currently placeholder)
 - [ ] Newsletter backend (Mailchimp/Resend — currently logs to console)
 - [ ] Real photo/video assets to replace placeholders
-- [ ] Deploy to Vercel (production)
+- [x] ~~Deploy to Vercel (production)~~ — live at wildlife-rescue-website.vercel.app
 - [ ] Add real vulture photos (10 placeholders on /vultures page)
-- [ ] Domain setup (raptorrescue.org)
+- [ ] Domain setup (raptorrescue.org → Vercel)
 - [ ] CMS integration (Sanity.io) to replace static blog/species data
 
 ---
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-03-27
+**Last updated by:** Claude Code — 2026-04-01
 
-**What was just completed (Session 2026-03-27):**
-- [x] Removed duplicate red "Contact Us" button (phone icon) from desktop header
-- [x] Removed all "24/7 emergency care" mentions across the site
-- [x] Added Razorpay payment button (`pl_H4Jwn7xLqMgktI`) to Online tab — uses `useEffect` to load script dynamically
-- [x] Removed USD currency toggle from Online tab (INR only via Razorpay)
-- [x] Updated bank details: A/C 50100181991374, IFSC HDFC0000558, Ajmeri Gate Delhi, Savings
-- [x] Generated UPI QR code (`public/upi-qr.png`) for `wildliferescue@hdfcbank` — works with all UPI apps
-- [x] UPI QR code displayed on Scan & Pay tab with `next/image`
-- [x] Updated UPI tip: includes Name, Address, PAN for 80(G) receipt generation
-- [x] Updated R3 address to 351 E, 50th St. Apt. # 2, New York, NY – 10022, USA
-- [x] All 45 pages building successfully
+**What was just completed (Session 2026-04-01):**
+- [x] Redesigned "As Featured In" homepage section — dark charcoal background, strong contrast
+- [x] Made all 12 media outlet names clickable links to real articles (extracted from CSR PDF)
+- [x] Added hover underline to media links for visual click affordance
+- [x] Added "View all 50+ media features →" CTA linking to /media page
+- [x] Rebuilt /media page with 53 real media articles (all links from CSR proposal PDF)
+- [x] Interactive category filters: International (15), Indian (20), Film & Culture (9), Niche & Specialist (9)
+- [x] Cards sorted newest-first with hover lift, category badges, "Read article" links
+- [x] Replaced static PDF timeline images with modern interactive "Early Years" timeline (2008–2013)
+- [x] Year filter buttons (2008, 2010, 2011, 2012, 2013) with alternating left/right cards
+- [x] Color-coded print (amber) vs online/TV (teal) with legend
+- [x] Expanded awards to 8 (added Jackson Wild, Peabody, Gotham)
+- [x] Extracted newspaper clipping graphics from PDF (kept as public assets)
+- [x] Deployed to Vercel — live at https://wildlife-rescue-website.vercel.app
+- [x] Updated MEDIA_LOGOS in constants.ts from string[] to { name, url }[] with typed links
 
-**Previously completed:**
+**Previously completed (Session 2026-03-27):**
+- [x] Removed duplicate red "Contact Us" button, removed "24/7 emergency care" mentions
+- [x] Added Razorpay payment button, UPI QR code, updated bank/R3 details
 - [x] GitHub remote: https://github.com/Maxray77/WR-Website.git
 - [x] Vultures conservation page, conditions section (6 pages), species (11 total)
 - [x] GoFundMe embed widget + US Donors tab with R3 501(c)(3)
@@ -244,24 +247,20 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Replace other placeholder images with real photos
 - [ ] Correct Google Maps location to F239-92E2
-- [ ] Set up Vercel deployment
 - [ ] Build dedicated conditions page with pictures for each condition
+- [ ] Domain setup (raptorrescue.org → Vercel)
 
 **Open questions or blockers:**
-- [ ] Need `OPENAI_API_KEY` in `.env.local` for Wingman chatbot to work
+- [ ] Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production
 - [ ] Need 10 vulture photos for the conservation page
 - [ ] Need real photos for species and condition pages
 
 **Key files touched recently:**
-- `src/app/donate/page.tsx` — Razorpay via useEffect, UPI QR image, removed USD toggle, updated tip text
-- `src/components/Header.tsx` — Removed duplicate red Contact Us button
-- `src/lib/constants.ts` — Updated bank details, R3 address
-- `src/lib/wingman-prompt.ts` — Updated bank, UPI, R3 address, removed 24/7
-- `src/lib/metadata.ts` — Removed "emergency hotline" from SEO
-- `src/app/conditions/page.tsx` — Removed emergency hotline mention
-- `src/app/conditions/[slug]/page.tsx` — Removed emergency hotline mention
-- `src/app/contact/page.tsx` — Replaced "not a 24/7 hospital" text
-- `public/upi-qr.png` — NEW: Generated UPI QR code image
+- `src/app/media/page.tsx` — Complete rebuild: 53 articles, interactive filters, Early Years timeline
+- `src/app/page.tsx` — "As Featured In" dark section, clickable links, "View all" CTA
+- `src/lib/constants.ts` — MEDIA_LOGOS now typed objects with URLs
+- `public/media-coverage-37.jpg` — Extracted newspaper timeline graphic (2008–2012)
+- `public/media-coverage-38.jpg` — Extracted online/TV timeline graphic (2010–2013)
 - `CLAUDE.md` — Updated status
 
 ---
