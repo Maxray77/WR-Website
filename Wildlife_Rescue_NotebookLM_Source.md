@@ -70,7 +70,7 @@ The Hashmi brothers' facility, tucked into a cramped basement in Old Delhi, beca
 | 2025 | 4,184 | **All-time record** |
 | 2026 | 951 (Jan–Mar) | Partial year |
 
-**Total (2010–2025): 38,549 birds rescued**
+**Total (2010–2025): 37,540 birds rescued**
 
 ---
 
