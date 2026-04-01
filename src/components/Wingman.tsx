@@ -13,9 +13,20 @@ const SUGGESTED_QUESTIONS = [
 
 export default function Wingman() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputValue, setInputValue] = useState("");
+
+  // Show callout bubble after 1.5s, auto-dismiss after 5s
+  useEffect(() => {
+    const showTimer = setTimeout(() => setShowBubble(true), 1500);
+    const hideTimer = setTimeout(() => setShowBubble(false), 6500);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
 
   const { messages, sendMessage, status, setMessages } = useChat();
 
@@ -59,9 +70,28 @@ export default function Wingman() {
 
   return (
     <>
+      {/* Callout bubble */}
+      {showBubble && !isOpen && (
+        <div className="fixed bottom-24 right-6 z-50 flex items-end gap-2">
+          <div className="relative bg-white rounded-2xl rounded-br-sm px-4 py-2.5 shadow-lg border border-gray-100 max-w-[180px]">
+            <p className="text-sm font-semibold text-charcoal leading-snug">
+              Hi! I&apos;m Wingman! 👋
+            </p>
+            <p className="text-xs text-slate mt-0.5">Ask me anything!</p>
+            <button
+              onClick={() => setShowBubble(false)}
+              className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 flex items-center justify-center text-[10px] leading-none"
+              aria-label="Dismiss"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Floating toggle button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => { setIsOpen(!isOpen); setShowBubble(false); }}
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-teal text-white shadow-lg transition-all hover:bg-teal-dark hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
         aria-label={isOpen ? "Close Wingman chat" : "Open Wingman chat"}
       >

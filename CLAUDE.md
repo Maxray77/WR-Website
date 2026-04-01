@@ -217,21 +217,24 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-01
+**Last updated by:** Claude Code — 2026-04-01 (Session 2)
 
-**What was just completed (Session 2026-04-01):**
+**What was just completed (Session 2026-04-01 #2):**
+- [x] Wingman callout bubble — "Hi! I'm Wingman! 👋 / Ask me anything!" appears 1.5s after page load, auto-dismisses after 5s, has × to close, hides when chat opens
+- [x] Homepage donation section — ₹ INR / 🇺🇸 USD toggle pill above amount grid
+- [x] INR amount buttons now link to `/donate?tab=online` (previously linked to `/donate`, landing on UPI tab)
+- [x] USD teaser row (dimmed $10–$100) with "Switch to US$ / 501(c)(3)" link
+- [x] Online tab on /donate page — ₹ INR / 🇺🇸 USD toggle; USD view shows $10–$100 amounts + two payment options:
+  - "Donate via R3 — Tax-Deductible (501c3)" → raptorrescueusa.org/donate (Recommended badge)
+  - "Donate via GoFundMe" → gofund.me/d9df0362
+- [x] `/donate?tab=us` deep-link pre-selects the US Donors tab (useSearchParams)
+- [x] `DONATION_AMOUNTS_USD` already existed in constants.ts — wired up across homepage + donate page
+
+**Previously completed (Session 2026-04-01 #1):**
 - [x] Redesigned "As Featured In" homepage section — dark charcoal background, strong contrast
 - [x] Made all 12 media outlet names clickable links to real articles (extracted from CSR PDF)
-- [x] Added hover underline to media links for visual click affordance
-- [x] Added "View all 50+ media features →" CTA linking to /media page
-- [x] Rebuilt /media page with 53 real media articles (all links from CSR proposal PDF)
-- [x] Interactive category filters: International (15), Indian (20), Film & Culture (9), Niche & Specialist (9)
-- [x] Cards sorted newest-first with hover lift, category badges, "Read article" links
-- [x] Replaced static PDF timeline images with modern interactive "Early Years" timeline (2008–2013)
-- [x] Year filter buttons (2008, 2010, 2011, 2012, 2013) with alternating left/right cards
-- [x] Color-coded print (amber) vs online/TV (teal) with legend
+- [x] Rebuilt /media page with 53 real media articles, interactive filters, Early Years timeline
 - [x] Expanded awards to 8 (added Jackson Wild, Peabody, Gotham)
-- [x] Extracted newspaper clipping graphics from PDF (kept as public assets)
 - [x] Deployed to Vercel — live at https://wildlife-rescue-website.vercel.app
 - [x] Updated MEDIA_LOGOS in constants.ts from string[] to { name, url }[] with typed links
 
@@ -255,13 +258,10 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need 10 vulture photos for the conservation page
 - [ ] Need real photos for species and condition pages
 
-**Key files touched recently:**
-- `src/app/media/page.tsx` — Complete rebuild: 53 articles, interactive filters, Early Years timeline
-- `src/app/page.tsx` — "As Featured In" dark section, clickable links, "View all" CTA
-- `src/lib/constants.ts` — MEDIA_LOGOS now typed objects with URLs
-- `public/media-coverage-37.jpg` — Extracted newspaper timeline graphic (2008–2012)
-- `public/media-coverage-38.jpg` — Extracted online/TV timeline graphic (2010–2013)
-- `CLAUDE.md` — Updated status
+**Key files touched this session:**
+- `src/components/Wingman.tsx` — callout bubble (showBubble state, auto-show/hide timers)
+- `src/app/page.tsx` — ₹/$ toggle, INR→online link fix, USD teaser row, DONATION_AMOUNTS_USD import
+- `src/app/donate/page.tsx` — onlineCurrency state, USD tab UI (R3 + GoFundMe), useSearchParams tab pre-select, ArrowRight + DONATION_AMOUNTS_USD imports
 
 ---
 
