@@ -12,6 +12,7 @@ import {
   FEATURED_RESCUES,
   MEDIA_LOGOS,
   DONATION_AMOUNTS_INR,
+  DONATION_AMOUNTS_USD,
 } from "@/lib/constants";
 
 export default function Home() {
@@ -230,10 +231,29 @@ export default function Home() {
           />
 
           <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Currency toggle */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex rounded-full border border-gray-200 bg-white p-1 shadow-sm">
+                <Link
+                  href="#donate-inr"
+                  className="px-5 py-2 rounded-full text-sm font-semibold bg-teal text-white"
+                >
+                  ₹ INR
+                </Link>
+                <Link
+                  href="/donate?tab=us"
+                  className="px-5 py-2 rounded-full text-sm font-semibold text-slate hover:text-teal transition-colors"
+                >
+                  🇺🇸 USD
+                </Link>
+              </div>
+            </div>
+
+            {/* INR amounts */}
+            <div id="donate-inr" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {DONATION_AMOUNTS_INR.map((item) => (
                 <Link
-                  href="/donate"
+                  href="/donate?tab=online"
                   key={item.amount}
                   className="bg-white rounded-xl p-5 text-center border-2 border-gray-100 hover:border-amber hover:shadow-lg transition-all group"
                 >
@@ -245,10 +265,32 @@ export default function Home() {
               ))}
             </div>
 
+            {/* USD teaser row */}
+            <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4 opacity-40 pointer-events-none select-none">
+              {DONATION_AMOUNTS_USD.map((item) => (
+                <div
+                  key={item.amount}
+                  className="bg-white rounded-xl p-5 text-center border-2 border-gray-100"
+                >
+                  <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
+                    ${item.amount}
+                  </div>
+                  <p className="text-xs text-slate mt-1">{item.label}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-slate mt-2">
+              Switch to{" "}
+              <Link href="/donate?tab=us" className="text-teal font-semibold hover:underline">
+                🇺🇸 USD / 501(c)(3)
+              </Link>{" "}
+              to donate in US dollars
+            </p>
+
             <div className="text-center mt-8">
               <DonateButton size="lg" />
               <p className="mt-3 text-sm text-slate">
-                Tax-deductible in India (80G) and the USA (501(c)(3))
+                Tax-deductible in India (80G) · Tax-deductible in the USA (501(c)(3))
               </p>
             </div>
           </div>

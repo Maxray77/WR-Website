@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText } from "lucide-react";
+import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import {
   DONATION_AMOUNTS_INR,
+  DONATION_AMOUNTS_USD,
   BANK_DETAILS,
   CONTACT,
   FEATURED_RESCUES,
@@ -23,7 +25,11 @@ const TABS = [
 ];
 
 export default function DonatePage() {
-  const [activeTab, setActiveTab] = useState("upi");
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const validTab = TABS.find((t) => t.id === tabParam)?.id ?? "upi";
+  const [activeTab, setActiveTab] = useState(validTab);
+  const [onlineCurrency, setOnlineCurrency] = useState<"inr" | "usd">("inr");
   const razorpayRef = useRef<HTMLDivElement>(null);
 
   // Load Razorpay payment button script when Online tab is active
@@ -83,39 +89,129 @@ export default function DonatePage() {
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 lg:p-10">
             {activeTab === "online" && (
               <div>
-                <h2 className="text-2xl font-bold text-charcoal mb-6 font-[family-name:var(--font-poppins)]">
-                  Donate Online (₹ INR)
-                </h2>
-
-                {/* Amount Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                  {DONATION_AMOUNTS_INR.map((item) => (
-                    <div
-                      key={item.amount}
-                      className="p-4 rounded-xl border-2 border-gray-200 text-center"
+                <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+                  <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    Donate Online
+                  </h2>
+                  {/* Currency toggle */}
+                  <div className="inline-flex rounded-full border border-gray-200 bg-offwhite p-1">
+                    <button
+                      onClick={() => setOnlineCurrency("inr")}
+                      className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
+                        onlineCurrency === "inr"
+                          ? "bg-teal text-white shadow-sm"
+                          : "text-slate hover:text-teal"
+                      }`}
                     >
-                      <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
-                        ₹{item.amount.toLocaleString()}
-                      </div>
-                      <p className="text-xs text-slate mt-1">{item.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Razorpay Payment Button */}
-                <div className="bg-offwhite rounded-xl p-6 text-center">
-                  <h3 className="text-lg font-semibold text-charcoal mb-2">
-                    Pay Securely via Razorpay
-                  </h3>
-                  <p className="text-sm text-slate mb-4">
-                    Credit card, debit card, net banking, and UPI supported
-                  </p>
-                  <div ref={razorpayRef} className="flex justify-center" />
-                  <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate">
-                    <Shield size={14} />
-                    <span>Secured by Razorpay — 256-bit encryption</span>
+                      ₹ INR
+                    </button>
+                    <button
+                      onClick={() => setOnlineCurrency("usd")}
+                      className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
+                        onlineCurrency === "usd"
+                          ? "bg-teal text-white shadow-sm"
+                          : "text-slate hover:text-teal"
+                      }`}
+                    >
+                      🇺🇸 USD
+                    </button>
                   </div>
                 </div>
+
+                {onlineCurrency === "inr" ? (
+                  <>
+                    {/* INR Amount Grid */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                      {DONATION_AMOUNTS_INR.map((item) => (
+                        <div
+                          key={item.amount}
+                          className="p-4 rounded-xl border-2 border-gray-200 text-center"
+                        >
+                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
+                            ₹{item.amount.toLocaleString()}
+                          </div>
+                          <p className="text-xs text-slate mt-1">{item.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Razorpay Payment Button */}
+                    <div className="bg-offwhite rounded-xl p-6 text-center">
+                      <h3 className="text-lg font-semibold text-charcoal mb-2">
+                        Pay Securely via Razorpay
+                      </h3>
+                      <p className="text-sm text-slate mb-4">
+                        Credit card, debit card, net banking, and UPI supported
+                      </p>
+                      <div ref={razorpayRef} className="flex justify-center" />
+                      <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate">
+                        <Shield size={14} />
+                        <span>Secured by Razorpay — 256-bit encryption</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* USD Amount Grid */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                      {DONATION_AMOUNTS_USD.map((item) => (
+                        <div
+                          key={item.amount}
+                          className="p-4 rounded-xl border-2 border-gray-200 text-center"
+                        >
+                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
+                            ${item.amount}
+                          </div>
+                          <p className="text-xs text-slate mt-1">{item.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    {/* USD Payment Options */}
+                    <div className="space-y-4">
+                      <a
+                        href="https://raptorrescueusa.org/donate"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-4 bg-teal-light rounded-xl p-5 hover:bg-teal/10 transition-colors border border-teal/10 group"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-teal flex items-center justify-center shrink-0">
+                          <Shield size={18} className="text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="font-semibold text-charcoal group-hover:text-teal transition-colors">
+                              Donate via R3 — Tax-Deductible (501c3)
+                            </p>
+                            <span className="text-xs bg-teal text-white px-2 py-0.5 rounded-full">Recommended</span>
+                          </div>
+                          <p className="text-sm text-slate">
+                            US tax-deductible receipt · Raptor Rescue and Research Inc. · EIN: 87-3289299
+                          </p>
+                        </div>
+                        <ArrowRight size={16} className="text-teal shrink-0 mt-1" />
+                      </a>
+
+                      <a
+                        href="https://gofund.me/d9df0362"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-4 bg-offwhite rounded-xl p-5 hover:bg-gray-100 transition-colors border border-gray-200 group"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-amber flex items-center justify-center shrink-0">
+                          <Heart size={18} className="text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-charcoal group-hover:text-amber transition-colors mb-1">
+                            Donate via GoFundMe
+                          </p>
+                          <p className="text-sm text-slate">
+                            Quick US$ donation · No tax receipt · No account required
+                          </p>
+                        </div>
+                        <ArrowRight size={16} className="text-amber shrink-0 mt-1" />
+                      </a>
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
