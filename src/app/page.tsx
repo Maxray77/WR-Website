@@ -256,20 +256,31 @@ export default function Home() {
       </section>
 
       {/* ─── Featured In Logo Bar ─── */}
-      <section className="py-12 lg:py-16 border-y border-gray-100">
+      <section className="bg-charcoal py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-slate font-semibold uppercase tracking-wider mb-8">
+          <p className="text-center text-sm text-white/60 font-semibold uppercase tracking-wider mb-8">
             As Featured In
           </p>
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {MEDIA_LOGOS.map((name) => (
-              <span
-                key={name}
-                className="text-slate/40 hover:text-charcoal font-bold text-sm sm:text-base transition-colors cursor-default"
+            {MEDIA_LOGOS.map((media) => (
+              <a
+                key={media.name}
+                href={media.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-white hover:underline underline-offset-4 font-bold text-sm sm:text-base transition-colors"
               >
-                {name}
-              </span>
+                {media.name}
+              </a>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/media"
+              className="inline-flex items-center gap-2 text-amber hover:text-amber-light text-sm font-semibold transition-colors"
+            >
+              View all 50+ media features <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>

@@ -134,19 +134,19 @@ export const FILM_DETAILS = {
 };
 
 // ─── Featured In Media ───
-export const MEDIA_LOGOS = [
-  "The New York Times",
-  "BBC",
-  "CNN",
-  "NPR",
-  "The Guardian",
-  "Variety",
-  "The Hollywood Reporter",
-  "IndieWire",
-  "The Washington Post",
-  "Al Jazeera",
-  "HBO",
-  "DW",
+export const MEDIA_LOGOS: { name: string; url?: string }[] = [
+  { name: "The New York Times", url: "https://www.nytimes.com/2020/02/07/science/kites-birds-conservation-india.html" },
+  { name: "BBC", url: "https://www.bbc.com/news/world-asia-india-60329561" },
+  { name: "CNN", url: "https://edition.cnn.com/2022/10/14/asia/all-that-breathes-black-kites-new-delhi-spc-intl-c2e" },
+  { name: "NPR", url: "https://www.npr.org/sections/goatsandsoda/2023/08/27/1196079582/whatever-happened-to-the-bird-saving-brothers-of-oscar-nommed-doc-all-that-breat" },
+  { name: "The Guardian", url: "https://www.theguardian.com/culture/2023/feb/06/stricken-smog-oscar-tipped-delhis-bird-hospital-all-that-breathes" },
+  { name: "The Washington Post", url: "https://www.washingtonpost.com/movies/2022/11/14/all-that-breathes-movie-review/" },
+  { name: "Al Jazeera", url: "https://www.aljazeera.com/gallery/2014/6/6/in-pictures-treating-delhis-birds-of-prey" },
+  { name: "The Hindu", url: "https://www.thehindu.com/news/cities/Delhi/mending-broken-wings/article6211516.ece" },
+  { name: "Hindustan Times", url: "https://www.hindustantimes.com/cities/delhi-news/fight-for-the-flight-of-black-kites-101643882432209.html" },
+  { name: "NDTV", url: "https://swachhindia.ndtv.com/album-detail/all-that-breathes-shaunak-sens-film-that-won-at-cannes-is-a-story-of-these-two-brothers-from-delhi-102581/" },
+  { name: "Down To Earth", url: "https://www.downtoearth.org.in/environment/helpline-for-birds-2010" },
+  { name: "Scroll.in", url: "https://scroll.in/reel/1015815/in-all-that-breathes-brothers-who-rescue-birds-and-a-struggle-for-human-survival" },
 ];
 
 // ─── Rescue Numbers by Year ───
