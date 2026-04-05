@@ -217,11 +217,18 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-01 (Session 3)
+**Last updated by:** Claude Code — 2026-04-05
 
-**What was just completed (Session 2026-04-01 #3):**
+**What was just completed (Session 2026-04-05):**
+- [x] Added "From Our Blog" section on homepage — 3 latest posts with category badges, dates, read times, above Instagram feed
+- [x] Added "Connect With Us" social media section below Instagram — branded buttons for Instagram, Facebook, YouTube
+- [x] Updated footer 80(G) line: now reads "India: 80(G) Tax Exempt Reg. No. AAATW2352B25DL02" (was "India: 80(G) Tax Exempt | PAN: AAATW2352B")
+- [x] Fixed newsletter email input contrast — white background + border so it doesn't blend into teal gradient
+- [x] PR open: `claude/hardcore-shirley` → `main`
+
+**Previously completed (Session 2026-04-01 #3):**
 - [x] Fixed Wingman callout bubble — now persistent (stays until dismissed or chat opens), no bird icon, sessionStorage dedup so it shows once per browser session, speech bubble tail pointing to button
-- [x] Created `Wildlife_Rescue_NotebookLM_Source.md` — comprehensive donor-facing source document for NotebookLM infographic creation (17 sections: stats, timeline, species, awards, documentary, media, donation info, 8 infographic theme suggestions)
+- [x] Created `Wildlife_Rescue_NotebookLM_Source.md` — comprehensive donor-facing source document for NotebookLM infographic creation
 
 **Previously completed (Session 2026-04-01 #2):**
 - [x] Wingman callout bubble — "Hi! I'm Wingman! 👋 / Ask me anything!" appears 1.5s after page load, auto-dismisses after 5s, has × to close, hides when chat opens
@@ -263,10 +270,9 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need real photos for species and condition pages
 
 **Key files touched this session:**
-- `src/components/Wingman.tsx` — callout bubble fixed (persistent, no bird icon, sessionStorage dedup, speech tail)
-- `src/app/page.tsx` — ₹/$ toggle, INR→online link fix, USD teaser row, DONATION_AMOUNTS_USD import
-- `src/app/donate/page.tsx` — onlineCurrency state, USD tab UI (R3 + GoFundMe), useSearchParams tab pre-select
-- `Wildlife_Rescue_NotebookLM_Source.md` — new: donor launch infographic source document
+- `src/app/page.tsx` — blog preview section, social media section, new imports (blog-data, CONTACT, icons)
+- `src/components/Footer.tsx` — 80(G) registration number update
+- `src/components/NewsletterSignup.tsx` — email input contrast fix (white bg + border)
 
 ---
 
