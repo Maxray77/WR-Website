@@ -220,6 +220,15 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 **Last updated by:** Claude Code — 2026-04-05
 
 **What was just completed (Session 2026-04-05):**
+- [x] Created `/bird-brothers` page — "Bird Brothers, A Delhi Story" children's illustrated book by Rina Singh & Barkha Lohia
+  - Hero with book cover, details grid, Amazon/Publisher CTAs
+  - Full synopsis, 4-image illustration gallery with lightbox
+  - Awards section (JLG Gold, CCBC Choices, PADIBA, SLJ Starred Review)
+  - Reviews (SLJ, Shaunak Sen endorsement, Goodreads)
+  - Author & illustrator bios, 6 buy links (Amazon USA/UK, Orca, Indigo, Blackwell's, Target)
+  - Connection to Wildlife Rescue section with links to About, Documentary, Donate
+  - Added to Media dropdown nav + mobile menu
+  - 5 book images copied to `public/bird-brothers/`
 - [x] Added "From Our Blog" section on homepage — 3 latest posts with category badges, dates, read times, above Instagram feed
 - [x] Added "Connect With Us" social media section below Instagram — branded buttons for Instagram, Facebook, YouTube
 - [x] Updated footer 80(G) line: now reads "India: 80(G) Tax Exempt Reg. No. AAATW2352B25DL02" (was "India: 80(G) Tax Exempt | PAN: AAATW2352B")
@@ -270,9 +279,12 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need real photos for species and condition pages
 
 **Key files touched this session:**
-- `src/app/page.tsx` — blog preview section, social media section, new imports (blog-data, CONTACT, icons)
+- `src/app/bird-brothers/page.tsx` — new: Bird Brothers book page (8 sections)
+- `src/components/Header.tsx` — added Bird Brothers to Media dropdown + mobile nav
+- `public/bird-brothers/` — new: 5 book images (cover, delhi-skyline, hospital-scene, injured-kite, caring-for-bird)
+- `src/app/page.tsx` — blog preview section, social media section, new imports
 - `src/components/Footer.tsx` — 80(G) registration number update
-- `src/components/NewsletterSignup.tsx` — email input contrast fix (white bg + border)
+- `src/components/NewsletterSignup.tsx` — email input contrast fix
 
 ---
 

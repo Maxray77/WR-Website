@@ -1,7 +1,7 @@
 # Wildlife Rescue Website — Handoff Guide
 
 **Last updated:** March 31, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot + website updates + Vercel production deployment + certificate pages + contact/footer updates. 20 routes, all working. 45+ source files.
+**Status:** Phases 1–4 complete + Wingman AI chatbot + website updates + Vercel production deployment + certificate pages + Bird Brothers book page + homepage enhancements. 21+ routes, all working. 45+ source files.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
@@ -111,6 +111,25 @@ src/
 | `--color-charcoal` | `#1A1A2E` | Text, dark sections |
 | `--color-danger` | `#DC2626` | Emergency, warnings |
 | `--color-success` | `#16A34A` | Released status, positive |
+
+---
+
+## Recent Changes (April 5, 2026 Session)
+
+### Bird Brothers Book Page ✅ (NEW)
+- **New route:** `/bird-brothers` — dedicated page for "Bird Brothers, A Delhi Story" children's illustrated book
+- **Author:** Rina Singh | **Illustrator:** Barkha Lohia | **Publisher:** Orca Book Publishers (Aug 2025)
+- **8 sections:** Hero with cover, Synopsis, Illustration gallery (4 images + lightbox), Awards (JLG Gold, CCBC Choices, PADIBA, SLJ Starred Review), Reviews (SLJ, Shaunak Sen, Goodreads), Author/Illustrator bios, Buy links (Amazon USA/UK, Orca, Indigo, Blackwell's, Target), Connection to Wildlife Rescue
+- **5 images** in `public/bird-brothers/` (cover, delhi-skyline, hospital-scene, injured-kite, caring-for-bird)
+- Added to **Media** dropdown nav + mobile menu
+
+### Homepage Enhancements ✅
+- **Blog preview section** — 3 latest posts with category badges, dates, read times (above Instagram feed)
+- **Social media section** — "Connect With Us" with branded Instagram, Facebook, YouTube buttons (below Instagram)
+- **Newsletter email input** — fixed contrast (white background + border against teal gradient)
+
+### Footer Update ✅
+- 80(G) line now reads: "India: 80(G) Tax Exempt Reg. No. AAATW2352B25DL02"
 
 ---
 
