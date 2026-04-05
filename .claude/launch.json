@@ -5,7 +5,8 @@
       "name": "nextjs-dev",
       "runtimeExecutable": "node",
       "runtimeArgs": ["node_modules/next/dist/bin/next", "dev"],
-      "port": 3000
+      "port": 3000,
+      "cwd": "C:\\Users\\maxra\\Documents\\Claude\\WR website\\wildlife-rescue-website\\.claude\\worktrees\\hardcore-shirley"
     }
   ]
 }

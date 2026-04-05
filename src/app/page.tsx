@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Play, Heart } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import ImpactCounter from "@/components/ImpactCounter";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -13,7 +13,10 @@ import {
   MEDIA_LOGOS,
   DONATION_AMOUNTS_INR,
   DONATION_AMOUNTS_USD,
+  CONTACT,
 } from "@/lib/constants";
+import { BLOG_POSTS } from "@/lib/blog-data";
+import { Facebook, Instagram, Youtube, Calendar, Clock, ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   return (
@@ -327,8 +330,107 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── From Our Blog ─── */}
+      <section className="py-16 lg:py-24 bg-offwhite">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="From Our Blog"
+            subtitle="Stories from the field — rescue updates, conservation insights, and volunteer experiences."
+          />
+
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {BLOG_POSTS.slice(0, 3).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-gray-100 group"
+              >
+                <div className="aspect-[3/2] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
+                  <span className="text-slate text-sm">Blog Photo</span>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-3 text-xs text-slate mb-3">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-teal-light text-teal rounded-full font-semibold">
+                      {post.category}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <Calendar size={12} />
+                      {new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <Clock size={12} />
+                      {post.readTime}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-charcoal font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors line-clamp-2">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate leading-relaxed line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-teal text-white font-semibold rounded-full hover:bg-teal-dark transition-colors text-sm"
+            >
+              Read All Posts <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Instagram Feed ─── */}
       <InstagramFeed />
+
+      {/* ─── Follow Us / Social Media ─── */}
+      <section className="bg-charcoal py-14 lg:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white font-[family-name:var(--font-poppins)]">
+            Connect With Us
+          </h2>
+          <p className="mt-3 text-white/60 max-w-lg mx-auto">
+            Follow our journey across social media — daily rescues, release celebrations, and conservation updates.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href={CONTACT.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+            >
+              <Instagram size={20} />
+              <span>@wildliferescueindia</span>
+              <ArrowUpRight size={14} className="opacity-60" />
+            </a>
+            <a
+              href={CONTACT.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-6 py-3.5 bg-[#1877F2] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+            >
+              <Facebook size={20} />
+              <span>@wildliferescue.in</span>
+              <ArrowUpRight size={14} className="opacity-60" />
+            </a>
+            <a
+              href={CONTACT.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-6 py-3.5 bg-[#FF0000] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+            >
+              <Youtube size={20} />
+              <span>YouTube</span>
+              <ArrowUpRight size={14} className="opacity-60" />
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* ─── Newsletter Signup ─── */}
       <NewsletterSignup />

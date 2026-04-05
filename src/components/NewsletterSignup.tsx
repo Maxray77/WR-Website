@@ -90,7 +90,7 @@ export default function NewsletterSignup({ variant = "banner" }: Props) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="flex-1 px-4 py-3 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-amber/50 text-charcoal"
+            className="flex-1 px-4 py-3 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-amber/50 text-charcoal bg-white border border-white/20 placeholder:text-slate"
           />
           <button
             type="submit"
