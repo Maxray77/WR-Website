@@ -219,7 +219,17 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Last updated by:** Claude Code — 2026-04-06
 
-**What was just completed (Session 2026-04-06 #3):**
+**What was just completed (Session 2026-04-06 #4):**
+- [x] Replaced "Watch on Max" → "Watch on JioHotstar" on `/all-that-breathes` page
+  - Button now links to `https://www.hotstar.com/in/1971000720` (opens new tab)
+  - Hero "Streaming on Max" → "Streaming on JioHotstar"
+  - FILM_DETAILS.streaming updated to "JioHotstar (India) / Max (US)"
+  - Wingman prompt updated with correct streaming info
+- [x] Added "WR Annual Report" blog post as featured post on `/blog`
+  - PDF-style red gradient placeholder with FileText icon (not generic photo placeholder)
+  - Blog detail page shows PDF download banner when `pdfUrl` is set
+  - Added `pdfUrl` and `image` optional fields to BlogPost interface
+  - **Pending:** Need actual PDF file at `public/wr-annual-report.pdf`
 - [x] Removed waving hand emoji (👋) from Wingman callout bubble — now just "Hi! I'm Wingman!"
 - [x] Added registered address: "2970, Shah Ganj, Ajmeri Gate, Delhi - 110006, India"
   - Added `registeredAddress` field to `CONTACT` in constants.ts
@@ -294,6 +304,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [x] Netlify auto-deploy: https://wildlife-rescue-preview.netlify.app/
 
 **What's in progress / next step:**
+- [ ] Place actual WR Annual Report PDF at `public/wr-annual-report.pdf`
 - [ ] Add real photos to `/facility` page (clinic interior, aviary complex placeholders)
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Replace other placeholder images with real photos
@@ -302,6 +313,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Open questions or blockers:**
 - [ ] Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production
+- [ ] Need WR Annual Report PDF for the blog post download link
 - [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
 - [ ] Need real photos for species and condition pages
@@ -312,11 +324,18 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - `src/components/Header.tsx` — added "Our Facility" to Our Work dropdown + mobile nav
 - `src/app/sitemap.ts` — added /facility route
 - `src/components/Wingman.tsx` — removed 👋 emoji from callout
-- `src/lib/constants.ts` — added `registeredAddress` field to CONTACT
+- `src/lib/constants.ts` — added `registeredAddress` field, updated streaming info
 - `src/components/Footer.tsx` — shows registered address below Wazirabad address
 - `src/app/contact/page.tsx` — shows registered address below Wazirabad address
+- `src/app/all-that-breathes/page.tsx` — JioHotstar link replacing Max
+- `src/lib/wingman-prompt.ts` — updated streaming platform info
+- `src/lib/blog-data.ts` — added WR Annual Report post, `pdfUrl`/`image` fields
+- `src/app/blog/page.tsx` — PDF-style featured image support
+- `src/app/blog/[slug]/page.tsx` — PDF download banner support
 
-**Pending:** User needs to save 2 Shikra photos to `public/species/shikra-face.jpg` and `public/species/shikra-profile.jpg`
+**Pending assets needed:**
+- `public/wr-annual-report.pdf` — WR Annual Report PDF for blog download
+- `public/species/shikra-face.jpg` and `public/species/shikra-profile.jpg` — Shikra photos
 
 ---
 
