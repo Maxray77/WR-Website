@@ -193,7 +193,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## What's Been Built (Phases 1–4 Complete)
 
-- **30+ routes**, all working (home, about, donate, contact, documentary, our-specialty, **vultures**, special-cases, **conditions × 6**, videos, gallery, **species × 11**, annual-reports, media, blog, API endpoints)
+- **30+ routes**, all working (home, about, donate, contact, documentary, our-specialty, **facility**, **vultures**, special-cases, **conditions × 6**, videos, gallery, **species × 11**, annual-reports, media, blog, API endpoints)
 - **Wingman AI chatbot** — floating widget, streams responses via AI SDK v6 + OpenAI
 - **Razorpay payment button** — embedded HTML on donate page
 - **GoFundMe integration** — linked for US$ donors
@@ -219,7 +219,18 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Last updated by:** Claude Code — 2026-04-06
 
-**What was just completed (Session 2026-04-06):**
+**What was just completed (Session 2026-04-06 #2):**
+- [x] Created `/facility` page — dedicated facility showcase split into two halves:
+  - **Clinic & Surgical Suite:** Hero, stats bar (11+ birds/day, 2 theaters, 50+ enclosures, Since 2003), photo placeholder + intro text, 6 equipment/room cards (X-Ray & Imaging, Surgical Theater, Diagnostic Lab, ICU, Pharmacy, Intake & Triage)
+  - **Enclosures & Aviary Complex:** Reversed two-column intro, 6 housing type cards (Recovery Cages, Flight Aviaries, Chick Nursery, Raptor Enclosures, Open-Air Conditioning Pens, Permanent Residents)
+  - **A Bird's Journey:** 6-step vertical timeline (Arrival → Triage → Treatment → ICU → Rehab → Release)
+  - CTA: "Help Us Expand Our Facility" with DonateButton
+  - Added to "Our Work" nav dropdown + mobile menu (after "Our Specialty")
+  - Added to sitemap.ts
+  - Server component, no client-side JS needed
+  - Committed and pushed to `main`, auto-deploying to Vercel
+
+**Previously completed (Session 2026-04-06 #1):**
 - [x] Replaced homepage founders photo — now Cannes Film Festival tuxedo shot (was two separate rooftop photos stitched together)
   - Source: `C:\Users\maxra\Pictures\N and S\IMG_20220523_175707.jpg`
   - Resized to 1600x1200, saved as `public/founders-combined.jpg`
@@ -277,23 +288,23 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [x] Netlify auto-deploy: https://wildlife-rescue-preview.netlify.app/
 
 **What's in progress / next step:**
+- [ ] Add real photos to `/facility` page (clinic interior, aviary complex placeholders)
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Replace other placeholder images with real photos
-- [ ] Correct Google Maps location to F239-92E2
 - [ ] Build dedicated conditions page with pictures for each condition
 - [ ] Domain setup (raptorrescue.org → Vercel)
 
 **Open questions or blockers:**
 - [ ] Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production
+- [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
 - [ ] Need real photos for species and condition pages
+- [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
 **Key files touched this session:**
-- `public/founders-combined.jpg` — replaced: Cannes tuxedo photo of Nadeem & Saud
-- `src/app/page.tsx` — updated founders image alt text
-- `src/lib/species-data.ts` — added `image`/`images` optional fields to Species interface, Shikra data
-- `src/app/species/[slug]/page.tsx` — real image hero + gallery section support
-- `src/app/species/page.tsx` — real image support on listing cards
+- `src/app/facility/page.tsx` — **NEW**: dedicated facility page with clinic + enclosures
+- `src/components/Header.tsx` — added "Our Facility" to Our Work dropdown + mobile nav
+- `src/app/sitemap.ts` — added /facility route
 
 **Pending:** User needs to save 2 Shikra photos to `public/species/shikra-face.jpg` and `public/species/shikra-profile.jpg`
 
