@@ -65,6 +65,9 @@ export default function ContactPage() {
                     <p className="text-slate text-sm mt-1">
                       {CONTACT.address}
                     </p>
+                    <p className="text-slate/70 text-xs mt-1">
+                      Regd: {CONTACT.registeredAddress}
+                    </p>
                   </div>
                 </div>
 

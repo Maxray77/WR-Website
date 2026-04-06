@@ -71,7 +71,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex gap-2 text-sm text-teal-light">
                 <MapPin size={16} className="shrink-0 mt-0.5" />
-                <span>{CONTACT.address}</span>
+                <div>
+                  <span>{CONTACT.address}</span>
+                  <span className="block text-xs text-teal-light/70 mt-1">Regd: {CONTACT.registeredAddress}</span>
+                </div>
               </li>
               <li>
                 <a href={`tel:${CONTACT.phone}`} className="flex gap-2 text-sm text-teal-light hover:text-white transition-colors">

@@ -74,7 +74,7 @@ export default function Wingman() {
         <div className="fixed bottom-[5.5rem] right-6 z-50">
           <div className="relative bg-white rounded-2xl rounded-br-none px-4 py-3 shadow-xl border border-gray-200 w-[200px]">
             <p className="text-sm font-semibold text-charcoal leading-snug">
-              Hi! I&apos;m Wingman! 👋
+              Hi! I&apos;m Wingman!
             </p>
             <p className="text-xs text-slate mt-1">Ask me anything about Wildlife Rescue!</p>
             {/* Speech bubble tail pointing to button */}

@@ -9,6 +9,7 @@ export const IMPACT_STATS = [
 // ─── Contact Info ───
 export const CONTACT = {
   address: "C-6/1, Rehmani Chowk, Street No. 9, Wazirabad Village, Delhi - 110084, India",
+  registeredAddress: "2970, Shah Ganj, Ajmeri Gate, Delhi - 110006, India",
   phone: "+91 98100 29698",
   email: "nadeem@raptorrescue.org",
   website: "www.raptorrescue.org",
