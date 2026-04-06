@@ -19,6 +19,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "Our Work",
     children: [
       { href: "/our-specialty", label: "Our Specialty" },
+      { href: "/facility", label: "Our Facility" },
       { href: "/conditions", label: "Conditions We Treat" },
       { href: "/vultures", label: "Vulture Conservation" },
       { href: "/species", label: "Species We Treat" },
@@ -45,6 +46,7 @@ const MOBILE_LINKS = [
   { href: "/about", label: "About" },
   { href: "/all-that-breathes", label: "All That Breathes" },
   { href: "/our-specialty", label: "Our Specialty" },
+  { href: "/facility", label: "Our Facility" },
   { href: "/conditions", label: "Conditions We Treat" },
   { href: "/vultures", label: "Vulture Conservation" },
   { href: "/species", label: "Species We Treat" },
