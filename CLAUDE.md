@@ -219,7 +219,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Last updated by:** Claude Code — 2026-04-06
 
-**What was just completed (Session 2026-04-06 #2):**
+**What was just completed (Session 2026-04-06 #3):**
+- [x] Removed waving hand emoji (👋) from Wingman callout bubble — now just "Hi! I'm Wingman!"
+- [x] Added registered address: "2970, Shah Ganj, Ajmeri Gate, Delhi - 110006, India"
+  - Added `registeredAddress` field to `CONTACT` in constants.ts
+  - Displayed as "Regd: ..." below Wazirabad address in Footer and Contact page
+
+**Previously completed (Session 2026-04-06 #2):**
 - [x] Created `/facility` page — dedicated facility showcase split into two halves:
   - **Clinic & Surgical Suite:** Hero, stats bar (11+ birds/day, 2 theaters, 50+ enclosures, Since 2003), photo placeholder + intro text, 6 equipment/room cards (X-Ray & Imaging, Surgical Theater, Diagnostic Lab, ICU, Pharmacy, Intake & Triage)
   - **Enclosures & Aviary Complex:** Reversed two-column intro, 6 housing type cards (Recovery Cages, Flight Aviaries, Chick Nursery, Raptor Enclosures, Open-Air Conditioning Pens, Permanent Residents)
@@ -305,6 +311,10 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - `src/app/facility/page.tsx` — **NEW**: dedicated facility page with clinic + enclosures
 - `src/components/Header.tsx` — added "Our Facility" to Our Work dropdown + mobile nav
 - `src/app/sitemap.ts` — added /facility route
+- `src/components/Wingman.tsx` — removed 👋 emoji from callout
+- `src/lib/constants.ts` — added `registeredAddress` field to CONTACT
+- `src/components/Footer.tsx` — shows registered address below Wazirabad address
+- `src/app/contact/page.tsx` — shows registered address below Wazirabad address
 
 **Pending:** User needs to save 2 Shikra photos to `public/species/shikra-face.jpg` and `public/species/shikra-profile.jpg`
 
