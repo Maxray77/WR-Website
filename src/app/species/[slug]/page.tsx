@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, MapPin, Utensils, Ruler, Brain, AlertTriangle, Lightbulb } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
@@ -54,15 +55,28 @@ export default async function SpeciesProfilePage({
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Photo placeholder */}
-            <div className="aspect-square bg-white/10 rounded-2xl flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-8xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
-                  {species.name.charAt(0)}
-                </span>
-                <p className="text-white/40 text-sm mt-2">Photo Placeholder</p>
+            {/* Photo */}
+            {species.image ? (
+              <div className="aspect-square rounded-2xl overflow-hidden relative">
+                <Image
+                  src={species.image}
+                  alt={`${species.name} (${species.scientificName})`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
               </div>
-            </div>
+            ) : (
+              <div className="aspect-square bg-white/10 rounded-2xl flex items-center justify-center">
+                <div className="text-center">
+                  <span className="text-8xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
+                    {species.name.charAt(0)}
+                  </span>
+                  <p className="text-white/40 text-sm mt-2">Photo Placeholder</p>
+                </div>
+              </div>
+            )}
 
             <div>
               <div className="flex flex-wrap gap-2 mb-3">
@@ -138,6 +152,38 @@ export default async function SpeciesProfilePage({
           </div>
         </div>
       </section>
+
+      {/* ─── Photo Gallery (if multiple images) ─── */}
+      {species.images && species.images.length > 1 && (
+        <section className="bg-offwhite py-16 lg:py-24">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)] text-center mb-8">
+              {species.name} Gallery
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {species.images.map((img) => (
+                <div
+                  key={img.src}
+                  className="rounded-xl overflow-hidden shadow-sm border border-gray-100"
+                >
+                  <div className="aspect-[4/3] relative">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                  </div>
+                  <p className="p-3 text-sm text-slate italic bg-white">
+                    {img.alt}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── Fun Fact ─── */}
       <section className="bg-amber-bg py-12 lg:py-16">

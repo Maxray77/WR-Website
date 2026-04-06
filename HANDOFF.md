@@ -114,6 +114,19 @@ src/
 
 ---
 
+## Recent Changes (April 6, 2026 Session)
+
+### Founders Photo ✅
+- Replaced homepage founders photo with **Cannes Film Festival tuxedo shot** of Nadeem & Saud
+- Source: `C:\Users\maxra\Pictures\N and S\IMG_20220523_175707.jpg`, resized to 1600x1200
+
+### Species Image Support ✅
+- Added optional `image` and `images` fields to `Species` interface in `species-data.ts`
+- Species listing page and detail page now show real photos when available (fallback to gradient placeholder)
+- Shikra data wired up — **pending:** user needs to save 2 Shikra photos to `public/species/`
+
+---
+
 ## Recent Changes (April 5, 2026 Session)
 
 ### Bird Brothers Book Page ✅ (NEW)

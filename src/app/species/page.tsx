@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { SPECIES_LIST } from "@/lib/species-data";
@@ -36,11 +37,21 @@ export default function SpeciesPage() {
                 href={`/species/${species.slug}`}
                 className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg hover:border-teal/20 transition-all"
               >
-                {/* Image placeholder */}
-                <div className="aspect-square bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center relative">
-                  <span className="text-5xl font-bold text-teal/10 font-[family-name:var(--font-poppins)]">
-                    {species.name.charAt(0)}
-                  </span>
+                {/* Image */}
+                <div className="aspect-square bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center relative overflow-hidden">
+                  {species.image ? (
+                    <Image
+                      src={species.image}
+                      alt={`${species.name} (${species.scientificName})`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  ) : (
+                    <span className="text-5xl font-bold text-teal/10 font-[family-name:var(--font-poppins)]">
+                      {species.name.charAt(0)}
+                    </span>
+                  )}
 
                   {/* Conservation status badge */}
                   <span

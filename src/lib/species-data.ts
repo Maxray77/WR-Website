@@ -15,6 +15,10 @@ export interface Species {
   threatsInDelhi: string;
   description: string;
   funFact: string;
+  /** Primary image for hero/listing. Path relative to /public (e.g. "/species/shikra-face.jpg") */
+  image?: string;
+  /** Additional images for the gallery on the species detail page */
+  images?: { src: string; alt: string }[];
 }
 
 export const SPECIES_LIST: Species[] = [
@@ -89,6 +93,11 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Window strikes in modern buildings. Glue traps meant for rodents. Pesticide poisoning from eating contaminated insects and lizards. Nest disturbance during tree pruning.",
     description: "The Shikra is Delhi's most common small raptor — a compact, fierce predator perfectly adapted to urban life. Despite their small size, they're formidable hunters. Wildlife Rescue treats approximately 60 Shikras per year.",
     funFact: "The name 'Shikra' comes from the Hindi word 'shikari' (hunter). They were historically used in falconry across India and the Middle East — prized for their speed and agility.",
+    image: "/species/shikra-face.jpg",
+    images: [
+      { src: "/species/shikra-face.jpg", alt: "Shikra close-up showing distinctive bright red-orange eyes and grey plumage" },
+      { src: "/species/shikra-profile.jpg", alt: "Shikra being gently held during examination, showing barred breast feathers and orange eyes" },
+    ],
   },
   {
     slug: "spotted-owlet",

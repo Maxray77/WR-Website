@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Heart } from "lucide-react";
 import ImpactCounter from "@/components/ImpactCounter";
 import SectionHeading from "@/components/SectionHeading";
@@ -79,13 +80,15 @@ export default function Home() {
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-[4/3] bg-gradient-to-br from-teal-light to-offwhite rounded-2xl flex items-center justify-center border border-gray-200">
-              <div className="text-center p-8">
-                <div className="w-24 h-24 bg-teal/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Heart size={40} className="text-teal" />
-                </div>
-                <p className="text-slate text-sm">Founders Photo Placeholder</p>
-              </div>
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden relative shadow-lg">
+              <Image
+                src="/founders-combined.jpg"
+                alt="Founders Nadeem Shehzad and Mohammad Saud in tuxedos at the Cannes Film Festival for the premiere of All That Breathes"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
             </div>
 
             <div>

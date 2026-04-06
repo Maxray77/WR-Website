@@ -217,9 +217,19 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-05
+**Last updated by:** Claude Code — 2026-04-06
 
-**What was just completed (Session 2026-04-05):**
+**What was just completed (Session 2026-04-06):**
+- [x] Replaced homepage founders photo — now Cannes Film Festival tuxedo shot (was two separate rooftop photos stitched together)
+  - Source: `C:\Users\maxra\Pictures\N and S\IMG_20220523_175707.jpg`
+  - Resized to 1600x1200, saved as `public/founders-combined.jpg`
+- [x] Added species image support — `image` and `images` optional fields on Species interface
+  - Species listing page shows real photos on cards when available
+  - Species detail page shows real photo hero + gallery section when images provided
+  - All species without images gracefully fall back to gradient placeholder
+  - Shikra data wired up with image paths (awaiting user to save the 2 Shikra photos to `public/species/`)
+
+**Previously completed (Session 2026-04-05):**
 - [x] Created `/bird-brothers` page — "Bird Brothers, A Delhi Story" children's illustrated book by Rina Singh & Barkha Lohia
   - Hero with book cover, details grid, Amazon/Publisher CTAs
   - Full synopsis, 4-image illustration gallery with lightbox
@@ -279,12 +289,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need real photos for species and condition pages
 
 **Key files touched this session:**
-- `src/app/bird-brothers/page.tsx` — new: Bird Brothers book page (8 sections)
-- `src/components/Header.tsx` — added Bird Brothers to Media dropdown + mobile nav
-- `public/bird-brothers/` — new: 5 book images (cover, delhi-skyline, hospital-scene, injured-kite, caring-for-bird)
-- `src/app/page.tsx` — blog preview section, social media section, new imports
-- `src/components/Footer.tsx` — 80(G) registration number update
-- `src/components/NewsletterSignup.tsx` — email input contrast fix
+- `public/founders-combined.jpg` — replaced: Cannes tuxedo photo of Nadeem & Saud
+- `src/app/page.tsx` — updated founders image alt text
+- `src/lib/species-data.ts` — added `image`/`images` optional fields to Species interface, Shikra data
+- `src/app/species/[slug]/page.tsx` — real image hero + gallery section support
+- `src/app/species/page.tsx` — real image support on listing cards
+
+**Pending:** User needs to save 2 Shikra photos to `public/species/shikra-face.jpg` and `public/species/shikra-profile.jpg`
 
 ---
 
