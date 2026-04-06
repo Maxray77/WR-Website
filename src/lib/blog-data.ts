@@ -7,6 +7,8 @@ export interface BlogPost {
   category: string;
   readTime: string;
   content: string;
+  image?: string;
+  pdfUrl?: string;
 }
 
 /**
@@ -14,6 +16,28 @@ export interface BlogPost {
  * When CMS (Sanity.io) is integrated, replace this with CMS queries.
  */
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: "wr-annual-report",
+    title: "WR Annual Report",
+    excerpt:
+      "Our comprehensive annual report detailing Wildlife Rescue's operations, rescues, financials, and impact. Download the full PDF report.",
+    date: "2026-04-06",
+    author: "Wildlife Rescue",
+    category: "Annual Update",
+    readTime: "PDF",
+    pdfUrl: "/wr-annual-report.pdf",
+    content: `Wildlife Rescue's Annual Report provides a comprehensive overview of our operations, achievements, and financial transparency.
+
+**What's inside:**
+- Total birds rescued and treated
+- Species breakdown and trends
+- Financial statements and donor acknowledgments
+- Facility upgrades and equipment additions
+- Team growth and volunteer contributions
+- Conservation impact and future goals
+
+Download the full report using the link above.`,
+  },
   {
     slug: "record-breaking-2025",
     title: "2025: Our Biggest Year Ever — 4,184 Birds Rescued",

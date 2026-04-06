@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, FileText, Download } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
 import { BLOG_POSTS, getBlogPostBySlug } from "@/lib/blog-data";
 
@@ -87,6 +87,33 @@ export default async function BlogPostPage({
           </div>
         </div>
       </section>
+
+      {/* ─── PDF Download Banner ─── */}
+      {post.pdfUrl && (
+        <section className="py-8 bg-offwhite">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a
+              href={post.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg hover:border-teal/30 transition-all group"
+            >
+              <div className="w-16 h-16 bg-red-50 rounded-xl flex items-center justify-center shrink-0">
+                <FileText size={32} className="text-red-400" />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold text-charcoal font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
+                  Download Full Report (PDF)
+                </p>
+                <p className="text-sm text-slate mt-0.5">
+                  View or download the complete Wildlife Rescue Annual Report
+                </p>
+              </div>
+              <Download size={20} className="text-teal shrink-0" />
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* ─── Content ─── */}
       <article className="py-12 lg:py-20">

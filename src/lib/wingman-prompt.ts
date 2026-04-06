@@ -46,7 +46,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Oscar-nominated HBO documentary directed by Shaunak Sen
 - Won Sundance Grand Jury Prize, Cannes Golden Eye, Peabody Award, and 20+ other major awards
 - Nominated for 95th Academy Awards (Best Documentary), BAFTA, DGA Awards
-- Runtime: 91 minutes | Available on HBO Max / Max
+- Runtime: 91 minutes | Available on JioHotstar (India) / Max (US)
 - Trailer: youtube.com/embed/GoTlULspDyY
 - Official site: allthatbreathes.com
 

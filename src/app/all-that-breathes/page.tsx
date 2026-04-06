@@ -80,7 +80,7 @@ export default function AllThatBreathesPage() {
                 </div>
                 <div className="flex items-center gap-2 text-white/60">
                   <Play size={14} />
-                  Streaming on Max
+                  Streaming on JioHotstar
                 </div>
               </div>
             </div>
@@ -269,11 +269,13 @@ export default function AllThatBreathesPage() {
               Official Website
             </a>
             <a
-              href="#"
+              href="https://www.hotstar.com/in/1971000720"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
             >
               <Play size={16} />
-              Watch on Max
+              Watch on JioHotstar
             </a>
           </div>
         </div>

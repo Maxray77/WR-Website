@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Calendar, Clock, User } from "lucide-react";
+import { ArrowRight, Calendar, Clock, User, FileText, Download } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { BLOG_POSTS } from "@/lib/blog-data";
 
@@ -44,10 +44,18 @@ export default function BlogPage() {
             className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow"
           >
             <div className="grid md:grid-cols-2">
-              {/* Image placeholder */}
-              <div className="aspect-[4/3] md:aspect-auto bg-gradient-to-br from-teal-light to-teal/10 flex items-center justify-center">
-                <p className="text-slate/40 text-sm">Featured Photo</p>
-              </div>
+              {/* Image / PDF placeholder */}
+              {featured.pdfUrl ? (
+                <div className="aspect-[4/3] md:aspect-auto bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center gap-3 p-8">
+                  <FileText size={64} className="text-red-400" />
+                  <span className="text-red-500 font-bold text-lg font-[family-name:var(--font-poppins)]">PDF Report</span>
+                  <span className="text-red-400/70 text-sm">Click to view &amp; download</span>
+                </div>
+              ) : (
+                <div className="aspect-[4/3] md:aspect-auto bg-gradient-to-br from-teal-light to-teal/10 flex items-center justify-center">
+                  <p className="text-slate/40 text-sm">Featured Photo</p>
+                </div>
+              )}
 
               <div className="p-6 lg:p-10 flex flex-col justify-center">
                 <span
@@ -106,10 +114,17 @@ export default function BlogPage() {
                 href={`/blog/${post.slug}`}
                 className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow flex flex-col"
               >
-                {/* Image placeholder */}
-                <div className="aspect-[16/9] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
-                  <p className="text-slate/30 text-xs">Photo</p>
-                </div>
+                {/* Image / PDF placeholder */}
+                {post.pdfUrl ? (
+                  <div className="aspect-[16/9] bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center gap-2">
+                    <FileText size={36} className="text-red-400" />
+                    <span className="text-red-500 font-semibold text-xs">PDF Report</span>
+                  </div>
+                ) : (
+                  <div className="aspect-[16/9] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
+                    <p className="text-slate/30 text-xs">Photo</p>
+                  </div>
+                )}
 
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-center gap-2 mb-2">

@@ -129,7 +129,7 @@ export const FILM_DETAILS = {
   runtime: "91 minutes",
   countries: "India, USA, UK",
   premiere: "Sundance Film Festival, January 22, 2022",
-  streaming: "HBO Max / Max",
+  streaming: "JioHotstar (India) / Max (US)",
   officialSite: "https://allthatbreathes.com",
   trailerUrl: "https://www.youtube.com/embed/GoTlULspDyY",
 };
