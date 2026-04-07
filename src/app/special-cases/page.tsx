@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -11,16 +12,17 @@ export const metadata: Metadata = {
 
 const CASES = [
   {
-    name: "Kiran",
-    species: "Black Kite",
+    name: "",
+    species: "Black Eared Kite",
     caseNo: "#35,412",
     date: "May 2024",
+    images: ["/cases/black-kite-1.jpg", "/cases/black-kite-2.jpg"],
     condition: "Severe manja string laceration — wing tendons severed",
     treatment:
       "Emergency surgery using our novel wing repair technique. 6 weeks of intensive physiotherapy and flight conditioning in our rehabilitation aviary.",
     outcome: "Released",
     story:
-      "Kiran arrived during the busiest month on record — May 2024, when we treated 720 birds. Found tangled in manja string near Chandni Chowk, both wings had deep lacerations. Our surgical technique, developed over 20 years, was able to repair the severed tendons. After 42 days of recovery, Kiran took flight over the Yamuna — exactly where she was found.",
+      "This Black Eared Kite arrived during the busiest month on record — May 2024, when we treated 720 birds. Found tangled in manja string near Chandni Chowk, both wings had deep lacerations. Our surgical technique, developed over 20 years, was able to repair the severed tendons. After 42 days of recovery, the kite took flight over the Yamuna — exactly where it was found.",
   },
   {
     name: "Noor",
@@ -110,16 +112,26 @@ export default function SpecialCasesPage() {
                 className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow"
               >
                 <div className="grid md:grid-cols-3">
-                  {/* Photo placeholder */}
-                  <div className="aspect-square md:aspect-auto bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <span className="text-4xl font-bold text-teal/20 font-[family-name:var(--font-poppins)]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <p className="text-slate text-xs mt-2">
-                        Photo Placeholder
-                      </p>
-                    </div>
+                  {/* Photo */}
+                  <div className="aspect-square md:aspect-auto bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center relative overflow-hidden">
+                    {c.images ? (
+                      <Image
+                        src={c.images[0]}
+                        alt={`${c.name} the ${c.species}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    ) : (
+                      <div className="text-center p-6">
+                        <span className="text-4xl font-bold text-teal/20 font-[family-name:var(--font-poppins)]">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <p className="text-slate text-xs mt-2">
+                          Photo Placeholder
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content */}
@@ -144,7 +156,7 @@ export default function SpecialCasesPage() {
                     </div>
 
                     <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-                      {c.name} the {c.species}
+                      {c.name ? `${c.name} the ${c.species}` : c.species}
                     </h2>
 
                     <div className="mt-3 space-y-2">
@@ -165,6 +177,22 @@ export default function SpecialCasesPage() {
                     <p className="mt-4 text-slate text-sm leading-relaxed">
                       {c.story}
                     </p>
+
+                    {c.images && c.images.length > 1 && (
+                      <div className="mt-4 flex gap-3 overflow-x-auto">
+                        {c.images.slice(1).map((img, j) => (
+                          <div key={j} className="relative w-32 h-24 rounded-lg overflow-hidden shrink-0">
+                            <Image
+                              src={img}
+                              alt={`${c.name} the ${c.species} — photo ${j + 2}`}
+                              fill
+                              className="object-cover"
+                              sizes="128px"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </article>

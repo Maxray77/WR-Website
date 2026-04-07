@@ -8,7 +8,6 @@ const SUGGESTED_QUESTIONS = [
   "How can I donate?",
   "I found an injured bird!",
   "Tell me about the documentary",
-  "How can I volunteer?",
 ];
 
 export default function Wingman() {
