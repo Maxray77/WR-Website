@@ -16,7 +16,7 @@ const CASES = [
     species: "Black Eared Kite",
     caseNo: "#35,412",
     date: "May 2024",
-    images: ["/cases/black-kite-1.jpg", "/cases/black-kite-2.jpg"],
+    images: ["/cases/black-kite-2.jpg", "/cases/black-kite-1.jpg"],
     condition: "Severe manja string laceration — wing tendons severed",
     treatment:
       "Emergency surgery using our novel wing repair technique. 6 weeks of intensive physiotherapy and flight conditioning in our rehabilitation aviary.",
@@ -112,12 +112,12 @@ export default function SpecialCasesPage() {
                 className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow"
               >
                 <div className="grid md:grid-cols-3">
-                  {/* Photo */}
-                  <div className="aspect-square md:aspect-auto bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center relative overflow-hidden">
+                  {/* Photo — vertical orientation */}
+                  <div className="aspect-[3/4] md:aspect-auto bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center relative overflow-hidden">
                     {c.images ? (
                       <Image
                         src={c.images[0]}
-                        alt={`${c.name} the ${c.species}`}
+                        alt={c.species}
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 33vw"
@@ -136,27 +136,12 @@ export default function SpecialCasesPage() {
 
                   {/* Content */}
                   <div className="md:col-span-2 p-6 lg:p-8">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="text-xs font-semibold px-2.5 py-0.5 bg-teal-light text-teal rounded-full">
-                        {c.species}
-                      </span>
-                      <span
-                        className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${
-                          c.outcome === "Released"
-                            ? "bg-green-50 text-success"
-                            : "bg-amber-bg text-amber"
-                        }`}
-                      >
-                        {c.outcome}
-                      </span>
-                      <span className="text-xs text-slate font-mono">
-                        Case {c.caseNo}
-                      </span>
-                      <span className="text-xs text-slate">{c.date}</span>
-                    </div>
+                    <span className="text-xs font-semibold px-2.5 py-0.5 bg-teal-light text-teal rounded-full">
+                      {c.species}
+                    </span>
 
-                    <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-                      {c.name ? `${c.name} the ${c.species}` : c.species}
+                    <h2 className="mt-3 text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                      {c.species}
                     </h2>
 
                     <div className="mt-3 space-y-2">
@@ -181,13 +166,13 @@ export default function SpecialCasesPage() {
                     {c.images && c.images.length > 1 && (
                       <div className="mt-4 flex gap-3 overflow-x-auto">
                         {c.images.slice(1).map((img, j) => (
-                          <div key={j} className="relative w-32 h-24 rounded-lg overflow-hidden shrink-0">
+                          <div key={j} className="relative w-48 h-32 rounded-lg overflow-hidden shrink-0">
                             <Image
                               src={img}
-                              alt={`${c.name} the ${c.species} — photo ${j + 2}`}
+                              alt={`${c.species} — photo ${j + 2}`}
                               fill
                               className="object-cover"
-                              sizes="128px"
+                              sizes="192px"
                             />
                           </div>
                         ))}
