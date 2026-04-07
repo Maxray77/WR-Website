@@ -233,9 +233,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
   - Responsive height (50vh–70vh), dark gradient overlay, caption: "Steppe Eagle — One of 38,500+ Birds Rescued"
 - [x] Added Black Eared Kite photos to `/special-cases` page
   - Two photos (`IMG_2617.JPG`, `IMG_2616.JPG`) → `public/cases/black-kite-1.jpg`, `black-kite-2.jpg`
-  - First case now shows real photo instead of placeholder; second photo as thumbnail below story
+  - Main photo rotated to portrait (hand at bottom, head at top)
+  - Face close-up as horizontal secondary thumbnail below story
   - Renamed species from "Black Kite" to "Black Eared Kite", removed name "Kiran"
   - Cases support optional `images` array — other cases still show numbered placeholders
+- [x] Cleaned up special cases cards
+  - Removed bird names, outcome badges (Released/In Care), dates, case numbers
+  - Cards now show just species badge, species heading, condition, treatment, and story
 - [x] Removed "How can I volunteer?" from Wingman suggested questions
 
 **Previously completed (Session 2026-04-06 #4):**
