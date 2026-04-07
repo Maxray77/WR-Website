@@ -217,9 +217,17 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-06
+**Last updated by:** Claude Code — 2026-04-07
 
-**What was just completed (Session 2026-04-06 #4):**
+**What was just completed (Session 2026-04-07):**
+- [x] Added OpenAI API key to Vercel environment variables for Wingman chatbot
+  - Created new API key on platform.openai.com (GPT-4o-mini, ~$0.15/M input tokens)
+  - Added `OPENAI_API_KEY` to Vercel project env vars (Production + Preview + Development)
+  - Redeployed — **Wingman chatbot is now fully operational on production site**
+  - Verified streaming responses working via live API test
+- [x] No `.env.local` created yet for local dev — user can add manually when needed
+
+**Previously completed (Session 2026-04-06 #4):**
 - [x] Replaced "Watch on Max" → "Watch on JioHotstar" on `/all-that-breathes` page
   - Button now links to `https://www.hotstar.com/in/1971000720` (opens new tab)
   - Hero "Streaming on Max" → "Streaming on JioHotstar"
@@ -312,7 +320,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Domain setup (raptorrescue.org → Vercel)
 
 **Open questions or blockers:**
-- [ ] Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production
+- [x] ~~Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production~~ — added 2026-04-07
 - [ ] Need WR Annual Report PDF for the blog post download link
 - [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
