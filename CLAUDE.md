@@ -227,6 +227,10 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
   - Verified streaming responses working via live API test
 - [x] Created `.env.local` in main project root with `OPENAI_API_KEY` for local development
   - Key rotated by user after initial setup for security
+- [x] Added Steppe Eagle hero image to homepage
+  - Source: `IMG_2545.JPG` from user's Website Pics folder → `public/hero-steppe-eagle.jpg`
+  - Full-width hero section between Impact Counter bar and About Teaser (founders photo)
+  - Responsive height (50vh–70vh), dark gradient overlay, caption: "Steppe Eagle — One of 38,500+ Birds Rescued"
 
 **Previously completed (Session 2026-04-06 #4):**
 - [x] Replaced "Watch on Max" → "Watch on JioHotstar" on `/all-that-breathes` page
@@ -329,18 +333,9 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
 **Key files touched this session:**
-- `src/app/facility/page.tsx` — **NEW**: dedicated facility page with clinic + enclosures
-- `src/components/Header.tsx` — added "Our Facility" to Our Work dropdown + mobile nav
-- `src/app/sitemap.ts` — added /facility route
-- `src/components/Wingman.tsx` — removed 👋 emoji from callout
-- `src/lib/constants.ts` — added `registeredAddress` field, updated streaming info
-- `src/components/Footer.tsx` — shows registered address below Wazirabad address
-- `src/app/contact/page.tsx` — shows registered address below Wazirabad address
-- `src/app/all-that-breathes/page.tsx` — JioHotstar link replacing Max
-- `src/lib/wingman-prompt.ts` — updated streaming platform info
-- `src/lib/blog-data.ts` — added WR Annual Report post, `pdfUrl`/`image` fields
-- `src/app/blog/page.tsx` — PDF-style featured image support
-- `src/app/blog/[slug]/page.tsx` — PDF download banner support
+- `src/app/page.tsx` — added Steppe Eagle hero image section above founders photo
+- `public/hero-steppe-eagle.jpg` — **NEW**: Steppe Eagle close-up for homepage hero
+- `.env.local` — **NEW**: OpenAI API key for local development
 
 **Pending assets needed:**
 - `public/wr-annual-report.pdf` — WR Annual Report PDF for blog download
