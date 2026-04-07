@@ -231,6 +231,12 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
   - Source: `IMG_2545.JPG` from user's Website Pics folder → `public/hero-steppe-eagle.jpg`
   - Full-width hero section between Impact Counter bar and About Teaser (founders photo)
   - Responsive height (50vh–70vh), dark gradient overlay, caption: "Steppe Eagle — One of 38,500+ Birds Rescued"
+- [x] Added Black Eared Kite photos to `/special-cases` page
+  - Two photos (`IMG_2617.JPG`, `IMG_2616.JPG`) → `public/cases/black-kite-1.jpg`, `black-kite-2.jpg`
+  - First case now shows real photo instead of placeholder; second photo as thumbnail below story
+  - Renamed species from "Black Kite" to "Black Eared Kite", removed name "Kiran"
+  - Cases support optional `images` array — other cases still show numbered placeholders
+- [x] Removed "How can I volunteer?" from Wingman suggested questions
 
 **Previously completed (Session 2026-04-06 #4):**
 - [x] Replaced "Watch on Max" → "Watch on JioHotstar" on `/all-that-breathes` page
@@ -335,6 +341,10 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 **Key files touched this session:**
 - `src/app/page.tsx` — added Steppe Eagle hero image section above founders photo
 - `public/hero-steppe-eagle.jpg` — **NEW**: Steppe Eagle close-up for homepage hero
+- `src/app/special-cases/page.tsx` — Black Eared Kite photos, renamed species, image support
+- `public/cases/black-kite-1.jpg` — **NEW**: Black Eared Kite face close-up
+- `public/cases/black-kite-2.jpg` — **NEW**: Black Eared Kite being held
+- `src/components/Wingman.tsx` — removed "How can I volunteer?" suggestion
 - `.env.local` — **NEW**: OpenAI API key for local development
 
 **Pending assets needed:**
