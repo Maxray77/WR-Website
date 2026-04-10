@@ -221,7 +221,17 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Last updated by:** Claude Code — 2026-04-10
 
-**What was just completed (Session 2026-04-10 — Security Audit & Hardening):**
+**What was just completed (Session 2026-04-10 #2 — Conditions Photos):**
+- [x] Added image support to conditions pages (listing + detail) — commit `2578592`
+  - Listing page: shows 2-up photo gallery when `condition.images` has 2+ entries, single image for 1, gradient placeholder fallback
+  - Detail page: hero photo when `condition.image` set, full photo gallery section with all images, case study photo support
+  - Extended `Condition` interface with `image?`, `images?`, `caseStudy.image?` fields
+- [x] Added 5 Barn Owl septicemia photos — commit `c69ec7f`
+  - `public/conditions/septicemia-owl-face.jpg` (81KB), `septicemia-eye-closeup.jpg` (160KB), `septicemia-feet-both.jpg` (80KB), `septicemia-foot-closeup.jpg` (79KB), `septicemia-feet-held.jpg` (156KB)
+  - Wired into septicemia entry in `conditions-data.ts` with descriptive alt text
+  - Verified rendering on both listing page (2-up gallery) and detail page (hero + 5-photo gallery)
+
+**Previously completed (Session 2026-04-10 #1 — Security Audit & Hardening):**
 - [x] Full security audit of entire codebase (API routes, client components, config, dependencies)
 - [x] **Wingman URL validation** — `isSafeUrl()` blocks `javascript:`, `data:`, `vbscript:`, `blob:`, `file:` protocols in AI-generated links; only allows `http:`, `https:`, `mailto:`, and relative paths
 - [x] **Security headers middleware** — new `src/middleware.ts` adds X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy, Strict-Transport-Security to all responses
@@ -339,7 +349,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Add real photos to `/facility` page (clinic interior, aviary complex placeholders)
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Replace other placeholder images with real photos
-- [ ] Build dedicated conditions page with pictures for each condition
+- [x] ~~Build dedicated conditions pages with pictures~~ — image support added, septicemia photos wired up (add photos for other 5 conditions as they become available)
 - [ ] Domain setup (raptorrescue.org → Vercel)
 
 **Open questions or blockers:**
@@ -348,10 +358,16 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need WR Annual Report PDF for the blog post download link
 - [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
-- [ ] Need real photos for species and condition pages
+- [ ] Need real photos for species pages and remaining 5 condition pages (cut-wounds, fractures, orphans, avian-pox, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session (2026-04-10):**
+**Key files touched this session (2026-04-10 #2):**
+- `src/lib/conditions-data.ts` — added `image`, `images[]` to septicemia entry
+- `src/app/conditions/page.tsx` — real photo gallery support on listing cards
+- `src/app/conditions/[slug]/page.tsx` — hero photo, gallery section, case study photo
+- `public/conditions/*.jpg` — **NEW**: 5 Barn Owl septicemia photos (77-160KB each)
+
+**Key files touched this session (2026-04-10 #1):**
 - `src/middleware.ts` — **NEW**: Security headers + CSRF origin checking middleware
 - `src/lib/redis.ts` — **NEW**: Upstash Redis client, rate limiters, storeSubmission helper
 - `src/components/Wingman.tsx` — added `isSafeUrl()` URL validation for AI-generated links
