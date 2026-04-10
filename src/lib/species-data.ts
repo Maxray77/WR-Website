@@ -195,6 +195,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Yamuna pollution is the #1 threat — industrial effluents, sewage, and agricultural runoff poison fish and contaminate wading areas. Habitat loss from wetland drainage and encroachment. Fishing line and net entanglement. Monsoon flooding displaces nests.",
     description: "Wildlife Rescue treats a growing number of wetland birds — from Painted Storks and Pond Herons to Red-naped Ibis and egrets. These birds depend on Delhi's rapidly shrinking wetlands, making each rescue both a wildlife emergency and an indicator of ecosystem health.",
     funFact: "Delhi's Okhla Bird Sanctuary, where the Yamuna meets the Agra Canal, hosts over 300 bird species — making it one of the richest birding sites in any major world capital. In winter, you can see Siberian migrants alongside Delhi's resident waterbirds.",
+    image: "/species/cattle-egret.jpg",
+    images: [
+      { src: "/species/cattle-egret.jpg", alt: "Cattle Egret perched on examination table at Wildlife Rescue clinic" },
+    ],
   },
   {
     slug: "eagles",
