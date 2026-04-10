@@ -1,17 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-/**
- * Contact form API route.
- *
- * Currently stores submissions in-memory (dev) and logs them.
- * In production, replace with one of:
- *   - Formspree (POST to https://formspree.io/f/{form_id})
- *   - Resend / SendGrid email API
- *   - Database write (Supabase, PlanetScale, etc.)
- */
-
-// In-memory store for dev — replace with real persistence
-const submissions: Record<string, unknown>[] = [];
+import { checkRateLimit, storeSubmission } from "@/lib/redis";
 
 // Input length limits to prevent abuse
 const MAX_NAME_LENGTH = 200;
@@ -22,6 +10,16 @@ const MAX_MESSAGE_LENGTH = 5000;
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limiting
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { allowed } = await checkRateLimit("contact", ip);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
 
     const { name, email, phone, subject, message } = body;
@@ -102,16 +100,11 @@ export async function POST(req: NextRequest) {
       timestamp: new Date().toISOString(),
     };
 
-    // Store (dev) — replace with real backend
-    submissions.push(submission);
-    console.log("[Contact Form]", JSON.stringify(submission, null, 2));
-
-    // TODO: Send email notification
-    // await sendEmail({
-    //   to: "nadeem@raptorrescue.org",
-    //   subject: `New contact: ${subject}`,
-    //   body: `From: ${name} (${email})\n\n${message}`,
-    // });
+    // Persist to Redis (or log to console as fallback)
+    const stored = await storeSubmission("contact:submissions", submission);
+    if (!stored) {
+      console.log("[Contact Form]", JSON.stringify(submission, null, 2));
+    }
 
     return NextResponse.json(
       { success: true, message: "Message received. We'll get back to you soon." },

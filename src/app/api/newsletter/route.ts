@@ -1,21 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-
-/**
- * Newsletter subscription API route.
- *
- * Currently stores emails in-memory (dev).
- * In production, replace with:
- *   - Mailchimp API (POST /lists/{list_id}/members)
- *   - Resend Audiences API
- *   - ConvertKit, Buttondown, etc.
- */
-
-const subscribers: { email: string; timestamp: string }[] = [];
+import { checkRateLimit, redis } from "@/lib/redis";
 
 const MAX_EMAIL_LENGTH = 254; // RFC 5321
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limiting
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { allowed } = await checkRateLimit("newsletter", ip);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many attempts. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const { email } = body;
 
@@ -40,23 +39,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check for duplicates
-    if (subscribers.some((s) => s.email === email)) {
-      return NextResponse.json(
-        { success: true, message: "You're already subscribed!" },
-        { status: 200 }
+    // Persist to Redis (or log as fallback)
+    if (redis) {
+      // Check for duplicate using a set
+      const alreadySubscribed = await redis.sismember("newsletter:emails", email);
+      if (alreadySubscribed) {
+        return NextResponse.json(
+          { success: true, message: "You're already subscribed!" },
+          { status: 200 }
+        );
+      }
+      await redis.sadd("newsletter:emails", email);
+      await redis.lpush(
+        "newsletter:signups",
+        JSON.stringify({ email, timestamp: new Date().toISOString() })
       );
+    } else {
+      console.log("[Newsletter Signup]", email);
     }
-
-    subscribers.push({ email, timestamp: new Date().toISOString() });
-    console.log("[Newsletter Signup]", email);
-
-    // TODO: Add to Mailchimp/Resend
-    // await fetch(`https://us1.api.mailchimp.com/3.0/lists/${LIST_ID}/members`, {
-    //   method: "POST",
-    //   headers: { Authorization: `apikey ${MAILCHIMP_API_KEY}` },
-    //   body: JSON.stringify({ email_address: email, status: "subscribed" }),
-    // });
 
     return NextResponse.json(
       { success: true, message: "Subscribed! Watch your inbox for rescue updates." },

@@ -41,7 +41,10 @@ export default function DonatePage() {
       const form = document.createElement("form");
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/payment-button.js";
-      script.setAttribute("data-payment_button_id", "pl_H4Jwn7xLqMgktI");
+      script.setAttribute(
+        "data-payment_button_id",
+        process.env.NEXT_PUBLIC_RAZORPAY_BUTTON_ID || "pl_H4Jwn7xLqMgktI"
+      );
       script.async = true;
       form.appendChild(script);
       razorpayRef.current.appendChild(form);

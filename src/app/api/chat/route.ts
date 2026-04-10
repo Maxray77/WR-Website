@@ -2,6 +2,7 @@ import { streamText, convertToModelMessages, stepCountIs } from "ai";
 import { openai } from "@ai-sdk/openai";
 import type { UIMessage } from "ai";
 import { WINGMAN_SYSTEM_PROMPT } from "@/lib/wingman-prompt";
+import { checkRateLimit } from "@/lib/redis";
 
 // Limits to prevent abuse of the AI chat endpoint
 const MAX_MESSAGES = 50; // Max conversation length
@@ -9,6 +10,16 @@ const MAX_MESSAGE_TEXT_LENGTH = 2000; // Max characters per message
 
 export async function POST(req: Request) {
   try {
+    // Rate limiting — protects OpenAI API credits
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { allowed } = await checkRateLimit("chat", ip);
+    if (!allowed) {
+      return new Response(
+        JSON.stringify({ error: "Too many messages. Please try again later." }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const { messages }: { messages: UIMessage[] } = await req.json();
 
     // Validate messages array
