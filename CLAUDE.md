@@ -199,6 +199,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - **GoFundMe integration** — linked for US$ donors
 - **SEO** — meta tags, OG/Twitter cards, JSON-LD, sitemap, robots.txt
 - **Accessibility** — skip nav, semantic HTML, loading skeletons
+- **Security hardening** — security headers middleware, CSRF origin checking, Wingman URL validation, input hardening, rate limiting (Upstash), persistent Redis storage, GoFundMe sandboxed iframe
 
 ---
 
@@ -206,12 +207,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 - [ ] CMS integration (Sanity.io) to replace static blog/species data
 - [ ] Real Instagram API feed (currently placeholder)
-- [ ] Newsletter backend (Mailchimp/Resend — currently logs to console)
+- [x] ~~Newsletter backend~~ — stored in Redis (upgrade to Mailchimp/Resend later)
 - [ ] Real photo/video assets to replace placeholders
 - [x] ~~Deploy to Vercel (production)~~ — live at wildlife-rescue-website.vercel.app
 - [ ] Add real vulture photos (10 placeholders on /vultures page)
 - [ ] Domain setup (raptorrescue.org → Vercel)
-- [ ] CMS integration (Sanity.io) to replace static blog/species data
+- [x] ~~Security audit & hardening~~ — completed 2026-04-10
+- [ ] Set up Upstash Redis on Vercel (add env vars to activate rate limiting + storage)
 
 ---
 
@@ -231,10 +233,14 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [x] **Instagram API info leak fix** — removed `detail: err` from error responses; returns generic "temporarily unavailable" message; uses 502 for upstream failures
 - [x] Switched GitHub CLI active account from NadZadR3 → Maxray77 (`gh auth switch`), configured `gh auth setup-git` for push access
 
-**Remaining security items (need infrastructure):**
-- [ ] Rate limiting on API routes (needs Upstash Redis or similar)
-- [ ] Replace in-memory storage with persistent backend (Supabase, Vercel KV, etc.)
-- [ ] Move Razorpay button ID to env var (`NEXT_PUBLIC_RAZORPAY_BUTTON_ID`)
+- [x] **Rate limiting** — Upstash Redis via `@upstash/ratelimit`: contact 5/hr, newsletter 3/hr, chat 30/hr per IP
+- [x] **Persistent storage** — contact submissions + newsletter signups stored in Redis; newsletter dedup via Redis set; graceful fallback to console.log if Redis not configured
+- [x] **Razorpay button ID to env var** — reads `NEXT_PUBLIC_RAZORPAY_BUTTON_ID`, falls back to hardcoded ID
+
+**To activate rate limiting + persistent storage (env vars needed):**
+- `UPSTASH_REDIS_REST_URL` — from Upstash console or Vercel Marketplace integration
+- `UPSTASH_REDIS_REST_TOKEN` — from Upstash console
+- `NEXT_PUBLIC_RAZORPAY_BUTTON_ID` — optional, currently falls back to `pl_H4Jwn7xLqMgktI`
 
 **Previously completed (Session 2026-04-07):**
 - [x] Added OpenAI API key to Vercel environment variables for Wingman chatbot
@@ -338,6 +344,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Open questions or blockers:**
 - [x] ~~Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production~~ — added 2026-04-07
+- [ ] Need `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` in Vercel env vars to activate rate limiting + persistent storage (code deployed, just needs env vars)
 - [ ] Need WR Annual Report PDF for the blog post download link
 - [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
@@ -346,12 +353,13 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Key files touched this session (2026-04-10):**
 - `src/middleware.ts` — **NEW**: Security headers + CSRF origin checking middleware
+- `src/lib/redis.ts` — **NEW**: Upstash Redis client, rate limiters, storeSubmission helper
 - `src/components/Wingman.tsx` — added `isSafeUrl()` URL validation for AI-generated links
-- `src/app/api/chat/route.ts` — message count/length limits, error handling
-- `src/app/api/contact/route.ts` — type checks, length limits, header injection blocking
-- `src/app/api/newsletter/route.ts` — type check, email length limit
+- `src/app/api/chat/route.ts` — rate limiting, message count/length limits, error handling
+- `src/app/api/contact/route.ts` — rate limiting, Redis storage, type checks, length limits, header injection blocking
+- `src/app/api/newsletter/route.ts` — rate limiting, Redis storage + dedup, type check, email length limit
 - `src/app/api/instagram/route.ts` — removed error detail exposure, generic error messages
-- `src/app/donate/page.tsx` — GoFundMe: sandboxed iframe replaces dangerouslySetInnerHTML
+- `src/app/donate/page.tsx` — GoFundMe sandboxed iframe, Razorpay button ID from env var
 
 **Pending assets needed:**
 - `public/wr-annual-report.pdf` — WR Annual Report PDF for blog download
