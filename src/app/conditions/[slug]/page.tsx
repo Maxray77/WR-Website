@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -15,6 +16,7 @@ import {
   Activity,
   Shield,
   Users,
+  Camera,
 } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
 import { CONDITIONS_LIST, getConditionBySlug } from "@/lib/conditions-data";
@@ -81,20 +83,34 @@ export default async function ConditionDetailPage({
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Icon + visual */}
-            <div className="aspect-square max-h-[400px] bg-white/10 rounded-2xl flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-white/60 mb-4">
-                  <span className="scale-[2]">
-                    {ICON_MAP[condition.icon]}
-                  </span>
-                </div>
-                <span className="text-6xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
-                  {condition.percentage}
-                </span>
-                <p className="text-white/40 text-sm mt-2">of all cases</p>
+            {/* Left: Photo or Icon fallback */}
+            {condition.image ? (
+              <div className="relative aspect-square max-h-[400px] rounded-2xl overflow-hidden">
+                <Image
+                  src={condition.image}
+                  alt={condition.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </div>
-            </div>
+            ) : (
+              <div className="aspect-square max-h-[400px] bg-white/10 rounded-2xl flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-24 h-24 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-white/60 mb-4">
+                    <span className="scale-[2]">
+                      {ICON_MAP[condition.icon]}
+                    </span>
+                  </div>
+                  <span className="text-6xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
+                    {condition.percentage}
+                  </span>
+                  <p className="text-white/40 text-sm mt-2">of all cases</p>
+                </div>
+              </div>
+            )}
 
             {/* Right: Info */}
             <div>
@@ -148,6 +164,39 @@ export default async function ConditionDetailPage({
           </p>
         </div>
       </section>
+
+      {/* ─── Photo Gallery (if images available) ─── */}
+      {condition.images && condition.images.length > 0 && (
+        <section className="pb-12 lg:pb-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`grid gap-4 ${
+              condition.images.length === 1
+                ? "grid-cols-1 max-w-2xl mx-auto"
+                : condition.images.length === 2
+                ? "grid-cols-2"
+                : "grid-cols-2 lg:grid-cols-3"
+            }`}>
+              {condition.images.map((img, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-100"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                    <p className="text-white text-xs">{img.alt}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── Causes & Symptoms ─── */}
       <section className="py-12 lg:py-16 bg-offwhite">
@@ -238,15 +287,27 @@ export default async function ConditionDetailPage({
           </h2>
           <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
             <div className="grid md:grid-cols-3">
-              {/* Photo placeholder */}
-              <div className="aspect-square md:aspect-auto bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center p-6">
-                <div className="text-center">
-                  <span className="text-5xl font-bold text-teal/20 font-[family-name:var(--font-poppins)]">
-                    {condition.caseStudy.name.charAt(0)}
-                  </span>
-                  <p className="text-slate text-xs mt-2">Photo Placeholder</p>
+              {/* Photo or placeholder */}
+              {condition.caseStudy.image ? (
+                <div className="relative aspect-square md:aspect-auto min-h-[200px]">
+                  <Image
+                    src={condition.caseStudy.image}
+                    alt={`${condition.caseStudy.name} the ${condition.caseStudy.species}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
-              </div>
+              ) : (
+                <div className="aspect-square md:aspect-auto bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center p-6">
+                  <div className="text-center">
+                    <span className="text-5xl font-bold text-teal/20 font-[family-name:var(--font-poppins)]">
+                      {condition.caseStudy.name.charAt(0)}
+                    </span>
+                    <p className="text-slate text-xs mt-2">Photo Placeholder</p>
+                  </div>
+                </div>
+              )}
 
               {/* Content */}
               <div className="md:col-span-2 p-6 lg:p-8">

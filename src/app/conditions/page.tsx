@@ -149,30 +149,54 @@ export default function ConditionsPage() {
                     <div
                       className={`${!isEven ? "md:col-start-2" : ""}`}
                     >
-                      <div className="grid grid-cols-2 h-full min-h-[280px] lg:min-h-[340px]">
-                        {/* Photo 1 */}
-                        <div
-                          className={`relative bg-gradient-to-br ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4`}
-                        >
-                          <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
-                            <Camera size={28} />
-                          </div>
-                          <p className="text-xs text-slate/60 text-center leading-snug">
-                            {images?.label1 || "Photo placeholder"}
-                          </p>
+                      {condition.images && condition.images.length >= 2 ? (
+                        <div className="grid grid-cols-2 h-full min-h-[280px] lg:min-h-[340px]">
+                          {condition.images.slice(0, 2).map((img, imgIdx) => (
+                            <div key={imgIdx} className={`relative ${imgIdx === 1 ? "border-l border-gray-100" : ""}`}>
+                              <Image
+                                src={img.src}
+                                alt={img.alt}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                              />
+                            </div>
+                          ))}
                         </div>
-                        {/* Photo 2 */}
-                        <div
-                          className={`relative bg-gradient-to-bl ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4 border-l border-white/50`}
-                        >
-                          <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
-                            <Camera size={28} />
-                          </div>
-                          <p className="text-xs text-slate/60 text-center leading-snug">
-                            {images?.label2 || "Photo placeholder"}
-                          </p>
+                      ) : condition.images && condition.images.length === 1 ? (
+                        <div className="relative h-full min-h-[280px] lg:min-h-[340px]">
+                          <Image
+                            src={condition.images[0].src}
+                            alt={condition.images[0].alt}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
                         </div>
-                      </div>
+                      ) : (
+                        <div className="grid grid-cols-2 h-full min-h-[280px] lg:min-h-[340px]">
+                          <div
+                            className={`relative bg-gradient-to-br ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4`}
+                          >
+                            <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
+                              <Camera size={28} />
+                            </div>
+                            <p className="text-xs text-slate/60 text-center leading-snug">
+                              {images?.label1 || "Photo placeholder"}
+                            </p>
+                          </div>
+                          <div
+                            className={`relative bg-gradient-to-bl ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4 border-l border-white/50`}
+                          >
+                            <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
+                              <Camera size={28} />
+                            </div>
+                            <p className="text-xs text-slate/60 text-center leading-snug">
+                              {images?.label2 || "Photo placeholder"}
+                            </p>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* ─── Content Side ─── */}

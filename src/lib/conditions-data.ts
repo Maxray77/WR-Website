@@ -14,11 +14,17 @@ export interface Condition {
   recoveryRate: string;
   avgRecoveryTime: string;
   commonSpecies: string[];
+  /** Hero image for the condition detail page */
+  image?: string;
+  /** Gallery images shown on listing cards and detail page */
+  images?: { src: string; alt: string }[];
   caseStudy: {
     name: string;
     species: string;
     story: string;
     outcome: "Released" | "In Care" | "Permanent Resident";
+    /** Optional case study photo */
+    image?: string;
   };
 }
 
