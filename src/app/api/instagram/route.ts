@@ -7,7 +7,7 @@ export async function GET() {
 
   if (!token) {
     return NextResponse.json(
-      { error: "INSTAGRAM_ACCESS_TOKEN not configured" },
+      { error: "Instagram feed unavailable" },
       { status: 500 }
     );
   }
@@ -19,11 +19,10 @@ export async function GET() {
     );
 
     if (!res.ok) {
-      const err = await res.json();
-      console.error("Instagram API error:", err);
+      console.error("Instagram API error:", res.status);
       return NextResponse.json(
-        { error: "Instagram API error", detail: err },
-        { status: res.status }
+        { error: "Instagram feed temporarily unavailable" },
+        { status: 502 }
       );
     }
 
@@ -37,6 +36,9 @@ export async function GET() {
     return NextResponse.json({ posts });
   } catch (err) {
     console.error("Instagram fetch failed:", err);
-    return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Instagram feed temporarily unavailable" },
+      { status: 502 }
+    );
   }
 }

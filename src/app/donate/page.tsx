@@ -391,13 +391,19 @@ export default function DonatePage() {
                   Support us through our GoFundMe campaign. Donate in US$ —
                   share with friends and family to multiply your impact.
                 </p>
-                {/* GoFundMe Embed Widget */}
-                <div
-                  className="mb-6"
-                  dangerouslySetInnerHTML={{
-                    __html: `<div class="gfm-embed" data-url="https://www.gofundme.com/f/help-all-that-breathes-protagonists-save-birds-in-india/widget/large?sharesheet=undefined&attribution_id=sl:c5e5159e-e117-4168-b426-b8c59e29af44"></div><script defer src="https://www.gofundme.com/static/js/embed.js"></script>`,
-                  }}
-                />
+                {/* GoFundMe Embed — sandboxed iframe instead of dangerouslySetInnerHTML */}
+                <div className="mb-6">
+                  <iframe
+                    src="https://www.gofundme.com/f/help-all-that-breathes-protagonists-save-birds-in-india/widget/large?sharesheet=undefined&attribution_id=sl:c5e5159e-e117-4168-b426-b8c59e29af44"
+                    title="GoFundMe — Wildlife Rescue Campaign"
+                    width="100%"
+                    height="560"
+                    frameBorder="0"
+                    scrolling="no"
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                    className="rounded-xl border border-gray-200"
+                  />
+                </div>
                 <div className="text-center mt-4">
                   <a
                     href="https://gofund.me/d9df0362"
