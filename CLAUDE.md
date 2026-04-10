@@ -217,29 +217,31 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-07
+**Last updated by:** Claude Code — 2026-04-10
 
-**What was just completed (Session 2026-04-07):**
+**What was just completed (Session 2026-04-10 — Security Audit & Hardening):**
+- [x] Full security audit of entire codebase (API routes, client components, config, dependencies)
+- [x] **Wingman URL validation** — `isSafeUrl()` blocks `javascript:`, `data:`, `vbscript:`, `blob:`, `file:` protocols in AI-generated links; only allows `http:`, `https:`, `mailto:`, and relative paths
+- [x] **Security headers middleware** — new `src/middleware.ts` adds X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy, Strict-Transport-Security to all responses
+- [x] **CSRF origin checking** — middleware validates `Origin` header on all POST `/api/*` requests; blocks cross-origin requests from unauthorized domains
+- [x] **Input hardening on contact API** — type checks, length limits (name: 200, email: 254, phone: 30, subject: 300, message: 5000 chars), email header injection blocking (rejects `\r\n` in fields)
+- [x] **Input hardening on newsletter API** — type check + email length limit (254 chars)
+- [x] **Input hardening on chat API** — max 50 messages per conversation, max 2000 chars per message, try/catch error handling
+- [x] **GoFundMe XSS fix** — replaced `dangerouslySetInnerHTML` with sandboxed `<iframe>` (`allow-same-origin allow-scripts allow-popups allow-forms`)
+- [x] **Instagram API info leak fix** — removed `detail: err` from error responses; returns generic "temporarily unavailable" message; uses 502 for upstream failures
+- [x] Switched GitHub CLI active account from NadZadR3 → Maxray77 (`gh auth switch`), configured `gh auth setup-git` for push access
+
+**Remaining security items (need infrastructure):**
+- [ ] Rate limiting on API routes (needs Upstash Redis or similar)
+- [ ] Replace in-memory storage with persistent backend (Supabase, Vercel KV, etc.)
+- [ ] Move Razorpay button ID to env var (`NEXT_PUBLIC_RAZORPAY_BUTTON_ID`)
+
+**Previously completed (Session 2026-04-07):**
 - [x] Added OpenAI API key to Vercel environment variables for Wingman chatbot
-  - Created new API key on platform.openai.com (GPT-4o-mini, ~$0.15/M input tokens)
-  - Added `OPENAI_API_KEY` to Vercel project env vars (Production + Preview + Development)
-  - Redeployed — **Wingman chatbot is now fully operational on production site**
-  - Verified streaming responses working via live API test
 - [x] Created `.env.local` in main project root with `OPENAI_API_KEY` for local development
-  - Key rotated by user after initial setup for security
 - [x] Added Steppe Eagle hero image to homepage
-  - Source: `IMG_2545.JPG` from user's Website Pics folder → `public/hero-steppe-eagle.jpg`
-  - Full-width hero section between Impact Counter bar and About Teaser (founders photo)
-  - Responsive height (50vh–70vh), dark gradient overlay, caption: "Steppe Eagle — One of 38,500+ Birds Rescued"
 - [x] Added Black Eared Kite photos to `/special-cases` page
-  - Two photos (`IMG_2617.JPG`, `IMG_2616.JPG`) → `public/cases/black-kite-1.jpg`, `black-kite-2.jpg`
-  - Main photo rotated to portrait (hand at bottom, head at top)
-  - Face close-up as horizontal secondary thumbnail below story
-  - Renamed species from "Black Kite" to "Black Eared Kite", removed name "Kiran"
-  - Cases support optional `images` array — other cases still show numbered placeholders
 - [x] Cleaned up special cases cards
-  - Removed bird names, outcome badges (Released/In Care), dates, case numbers
-  - Cards now show just species badge, species heading, condition, treatment, and story
 - [x] Removed "How can I volunteer?" from Wingman suggested questions
 
 **Previously completed (Session 2026-04-06 #4):**
@@ -342,14 +344,14 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need real photos for species and condition pages
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session:**
-- `src/app/page.tsx` — added Steppe Eagle hero image section above founders photo
-- `public/hero-steppe-eagle.jpg` — **NEW**: Steppe Eagle close-up for homepage hero
-- `src/app/special-cases/page.tsx` — Black Eared Kite photos, renamed species, image support
-- `public/cases/black-kite-1.jpg` — **NEW**: Black Eared Kite face close-up
-- `public/cases/black-kite-2.jpg` — **NEW**: Black Eared Kite being held
-- `src/components/Wingman.tsx` — removed "How can I volunteer?" suggestion
-- `.env.local` — **NEW**: OpenAI API key for local development
+**Key files touched this session (2026-04-10):**
+- `src/middleware.ts` — **NEW**: Security headers + CSRF origin checking middleware
+- `src/components/Wingman.tsx` — added `isSafeUrl()` URL validation for AI-generated links
+- `src/app/api/chat/route.ts` — message count/length limits, error handling
+- `src/app/api/contact/route.ts` — type checks, length limits, header injection blocking
+- `src/app/api/newsletter/route.ts` — type check, email length limit
+- `src/app/api/instagram/route.ts` — removed error detail exposure, generic error messages
+- `src/app/donate/page.tsx` — GoFundMe: sandboxed iframe replaces dangerouslySetInnerHTML
 
 **Pending assets needed:**
 - `public/wr-annual-report.pdf` — WR Annual Report PDF for blog download
