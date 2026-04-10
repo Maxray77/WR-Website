@@ -217,6 +217,11 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Electrocution from high-tension power lines — the #1 killer of large raptors. Vehicle collisions on highways. Secondary poisoning from rodenticides and pesticides. Habitat loss as open land is developed. For migratory species, hazards along the Central Asian Flyway (illegal hunting, habitat degradation).",
     description: "Eagles represent some of the most challenging and rewarding cases at Wildlife Rescue. Their large size demands specialized handling, and many species — like the Steppe Eagle (Endangered) and Greater Spotted Eagle (Vulnerable) — are of global conservation concern. Every eagle saved matters.",
     funFact: "The Steppe Eagle was recently uplisted to Endangered by IUCN due to dramatic population declines across its Central Asian breeding range. Delhi is one of the key wintering grounds for this species — making Wildlife Rescue's work directly relevant to the species' global survival.",
+    image: "/species/cse-face.jpg",
+    images: [
+      { src: "/species/cse-face.jpg", alt: "Crested Serpent Eagle close-up showing distinctive yellow face and piercing eye" },
+      { src: "/species/cse-treatment.jpg", alt: "Crested Serpent Eagle on examination table during treatment at Wildlife Rescue" },
+    ],
   },
   {
     slug: "indian-grey-hornbill",
