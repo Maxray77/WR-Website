@@ -63,6 +63,7 @@ export default async function SpeciesProfilePage({
                   alt={`${species.name} (${species.scientificName})`}
                   fill
                   className="object-cover"
+                  style={species.imagePosition ? { objectPosition: species.imagePosition } : undefined}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
                 />

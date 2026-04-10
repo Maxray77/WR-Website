@@ -45,6 +45,7 @@ export default function SpeciesPage() {
                       alt={`${species.name} (${species.scientificName})`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={species.imagePosition ? { objectPosition: species.imagePosition } : undefined}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                   ) : (
