@@ -257,6 +257,30 @@ function MessageContent({
   );
 }
 
+/**
+ * Validate that a URL is safe to render as a clickable link.
+ * Only allows http:, https:, and mailto: protocols.
+ * Blocks javascript:, data:, vbscript:, and other dangerous schemes.
+ */
+function isSafeUrl(url: string): boolean {
+  const trimmed = url.trim();
+  // Block empty or obviously dangerous protocols
+  if (!trimmed) return false;
+  // Reject anything that looks like a dangerous protocol
+  if (/^(javascript|data|vbscript|blob|file):/i.test(trimmed)) return false;
+  try {
+    const parsed = new URL(trimmed, window.location.origin);
+    return (
+      parsed.protocol === "http:" ||
+      parsed.protocol === "https:" ||
+      parsed.protocol === "mailto:"
+    );
+  } catch {
+    // Relative URLs (e.g. /donate) are fine — they stay on our domain
+    return trimmed.startsWith("/");
+  }
+}
+
 /** Minimal inline formatting — bold and links */
 function formatText(text: string, role: string) {
   if (role === "user") return text;
@@ -291,17 +315,27 @@ function formatText(text: string, role: string) {
       remaining = remaining.slice(boldIdx + boldMatch[0].length);
     } else if (linkMatch) {
       parts.push(remaining.slice(0, linkIdx));
-      parts.push(
-        <a
-          key={key++}
-          href={linkMatch[2]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:opacity-80"
-        >
-          {linkMatch[1]}
-        </a>
-      );
+      // Only render as clickable link if URL passes safety check
+      if (isSafeUrl(linkMatch[2])) {
+        parts.push(
+          <a
+            key={key++}
+            href={linkMatch[2]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:opacity-80"
+          >
+            {linkMatch[1]}
+          </a>
+        );
+      } else {
+        // Render unsafe URLs as plain text (no clickable link)
+        parts.push(
+          <span key={key++} className="underline underline-offset-2 opacity-60">
+            {linkMatch[1]}
+          </span>
+        );
+      }
       remaining = remaining.slice(linkIdx + linkMatch[0].length);
     }
   }

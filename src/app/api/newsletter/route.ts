@@ -12,12 +12,28 @@ import { NextRequest, NextResponse } from "next/server";
 
 const subscribers: { email: string; timestamp: string }[] = [];
 
+const MAX_EMAIL_LENGTH = 254; // RFC 5321
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { email } = body;
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || typeof email !== "string") {
+      return NextResponse.json(
+        { error: "Valid email address is required." },
+        { status: 400 }
+      );
+    }
+
+    if (email.length > MAX_EMAIL_LENGTH) {
+      return NextResponse.json(
+        { error: "Invalid email address." },
+        { status: 400 }
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
         { error: "Valid email address is required." },
         { status: 400 }
