@@ -219,9 +219,22 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-10
+**Last updated by:** Claude Code — 2026-04-10 (session #3)
 
-**What was just completed (Session 2026-04-10 #2 — Conditions Photos):**
+**What was just completed (Session 2026-04-10 #3 — Species & Conditions Photos):**
+- [x] Added Shikra photos to `/species/shikra` — face close-up (91KB) + profile (108KB)
+  - Species data was already wired up from previous session — just needed the actual photo files
+- [x] Added Barn Owl treatment photo to `/species/barn-owl` (91KB)
+  - Owl lying on examination table during treatment
+  - Added `imagePosition: "left center"` to prevent head cropping
+  - Added `imagePosition` optional field to Species interface for per-species focal point control
+- [x] Added Cattle Egret photo to `/species/wetland-birds` (67KB)
+  - Egret perched on examination table at clinic
+- [x] Added 2 Crested Serpent Eagle photos to `/species/eagles` (150KB + 106KB)
+  - Face close-up with yellow face/piercing eye + examination table treatment shot
+  - Both appear in Eagles Gallery on detail page
+
+**Previously completed (Session 2026-04-10 #2 — Conditions Photos):**
 - [x] Added image support to conditions pages (listing + detail) — commit `2578592`
   - Listing page: shows 2-up photo gallery when `condition.images` has 2+ entries, single image for 1, gradient placeholder fallback
   - Detail page: hero photo when `condition.image` set, full photo gallery section with all images, case study photo support
@@ -358,8 +371,18 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need WR Annual Report PDF for the blog post download link
 - [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
-- [ ] Need real photos for species pages and remaining 5 condition pages (cut-wounds, fractures, orphans, avian-pox, other-conditions)
+- [ ] Need photos for remaining species without images: Black Kite, Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Spotted Owlet, Egyptian Vulture
+- [ ] Need photos for remaining 5 condition pages (cut-wounds, fractures, orphans, avian-pox, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
+
+**Key files touched this session (2026-04-10 #3):**
+- `src/lib/species-data.ts` — added `imagePosition?` to Species interface; added image data for Barn Owl, Wetland Birds, Eagles; position fix for Barn Owl
+- `src/app/species/page.tsx` — `imagePosition` style support on listing cards
+- `src/app/species/[slug]/page.tsx` — `imagePosition` style support on detail hero
+- `public/species/shikra-face.jpg`, `shikra-profile.jpg` — **NEW**: Shikra photos
+- `public/species/barn-owl-treatment.jpg` — **NEW**: Barn Owl on exam table
+- `public/species/cattle-egret.jpg` — **NEW**: Cattle Egret at clinic
+- `public/species/cse-face.jpg`, `cse-treatment.jpg` — **NEW**: Crested Serpent Eagle photos
 
 **Key files touched this session (2026-04-10 #2):**
 - `src/lib/conditions-data.ts` — added `image`, `images[]` to septicemia entry
@@ -379,7 +402,6 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Pending assets needed:**
 - `public/wr-annual-report.pdf` — WR Annual Report PDF for blog download
-- `public/species/shikra-face.jpg` and `public/species/shikra-profile.jpg` — Shikra photos
 
 ---
 
