@@ -57,6 +57,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Habitat loss as old buildings are demolished. Rodenticide poisoning (secondary poisoning from eating poisoned rats). Vehicle collisions at night. Superstition — some communities consider owls unlucky, leading to persecution.",
     description: "The Barn Owl is one of the most effective natural pest controllers on the planet. Their presence in Delhi should be celebrated, not feared. Wildlife Rescue treats ~130 Barn Owls annually, mostly juveniles that fall from nesting sites.",
     funFact: "A Barn Owl can hear a mouse's heartbeat from 30 feet away. Their asymmetric ears allow them to pinpoint prey in three dimensions using sound alone.",
+    image: "/species/barn-owl-treatment.jpg",
+    images: [
+      { src: "/species/barn-owl-treatment.jpg", alt: "Barn Owl lying on examination table during treatment at Wildlife Rescue" },
+    ],
   },
   {
     slug: "egyptian-vulture",
