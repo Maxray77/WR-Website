@@ -279,6 +279,14 @@ export const CONDITIONS_LIST: Condition[] = [
     percentage: "~10%",
     annualCases: "~370/year",
     severity: "Critical",
+    image: "/conditions/septicemia-owl-face.jpg",
+    images: [
+      { src: "/conditions/septicemia-owl-face.jpg", alt: "Barn Owl with infected eye wounds from septicemia" },
+      { src: "/conditions/septicemia-eye-closeup.jpg", alt: "Close-up of infected eye wound on Barn Owl" },
+      { src: "/conditions/septicemia-feet-both.jpg", alt: "Infected feet showing tissue damage from septicemia" },
+      { src: "/conditions/septicemia-foot-closeup.jpg", alt: "Close-up of infected foot with tissue damage" },
+      { src: "/conditions/septicemia-feet-held.jpg", alt: "Examining infected raptor feet during treatment" },
+    ],
     shortDescription:
       "Life-threatening blood infections from untreated wounds, contaminated environments, or secondary to other diseases. Requires aggressive antibiotic therapy.",
     description:
