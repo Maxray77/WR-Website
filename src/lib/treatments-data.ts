@@ -64,6 +64,13 @@ export const TREATMENTS: Treatment[] = [
     ],
     media: [
       {
+        type: "image",
+        src: "/treatments/laser-therapy.jpg",
+        alt: "Two Wildlife Rescue team members wearing protective laser goggles applying therapeutic laser to a raptor's wing wound",
+        caption:
+          "Wildlife Rescue staff in protective laser goggles apply focused laser therapy to a raptor's wing laceration — the handheld laser probe stimulates cellular repair deep in the wound tissue.",
+      },
+      {
         type: "video",
         src: "/treatments/laser-wound-management.mp4",
         alt: "Laser wound therapy being performed on an injured bird at Wildlife Rescue",
