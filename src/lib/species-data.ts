@@ -45,6 +45,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Manja (glass-coated kite string) is the #1 threat — causes severe wing lacerations during festivals. Also electrocution from wet power lines during monsoon, vehicle collisions, poisoning from contaminated food at landfills, and habitat loss from rapid urbanization.",
     description: "The Black Kite is Delhi's most iconic raptor and the core of Wildlife Rescue's mission. Millions live in the city, making Delhi one of the highest concentrations of raptors in any urban area worldwide. Their presence is a barometer of the city's ecological health.",
     funFact: "Delhi has one of the highest densities of Black Kites in the world — estimated at over 5,000 birds in the city alone. They've lived alongside Delhi's human population for centuries.",
+    image: "/species/black-eared-kite.jpg",
+    images: [
+      { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark brown plumage and piercing eyes at Wildlife Rescue" },
+    ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
       { src: "/treatments/kite-post-treatment.mp4", caption: "A Black Kite being gently dried in a bird dryer after wound cleaning — thermoregulation is critical for avian patients, as wet feathers can cause dangerous hypothermia" },
