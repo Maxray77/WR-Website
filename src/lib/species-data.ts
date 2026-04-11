@@ -216,7 +216,7 @@ export const SPECIES_LIST: Species[] = [
     ],
     videos: [
       { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
-      { src: "/species/cattle-egret.mov", caption: "A Cattle Egret in care at Wildlife Rescue — these common wetland birds are increasingly admitted with injuries from urban hazards and habitat loss along the Yamuna" },
+      { src: "/species/cattle-egret-video.mp4", caption: "A Cattle Egret in care at Wildlife Rescue — these common wetland birds are increasingly admitted with injuries from urban hazards and habitat loss along the Yamuna" },
     ],
   },
   {
@@ -318,7 +318,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/ohb-wingspan.jpg", alt: "Oriental Honey Buzzard with wings fully spread during examination, showing broad wingspan and distinctive crest" },
       { src: "/species/ohb-wingspan-2.jpg", alt: "Oriental Honey Buzzard wings-spread view showing detailed feather pattern and barred tail" },
     ],
-    video: { src: "/species/buzzard-baby.mov", caption: "A juvenile Oriental Honey Buzzard in care at Wildlife Rescue — young buzzards require weeks of specialized feeding and rehabilitation before they can be released" },
+    video: { src: "/species/buzzard-baby.mp4", caption: "A juvenile Oriental Honey Buzzard in care at Wildlife Rescue — young buzzards require weeks of specialized feeding and rehabilitation before they can be released" },
   },
   {
     slug: "peregrine-falcon",
