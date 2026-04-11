@@ -374,6 +374,50 @@ export default function FacilityPage() {
               </div>
             ))}
           </div>
+
+          {/* Enclosure photo gallery */}
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)] text-center mb-6">
+              Inside Our Aviaries
+            </h3>
+            <div className="grid sm:grid-cols-3 gap-4">
+              {[
+                {
+                  src: "/facility/enclosure-01.jpg",
+                  alt: "Raptors perched on rails inside a recovery enclosure — Black Kites and Egyptian Vultures behind protective mesh at Wildlife Rescue",
+                  caption: "Recovery Enclosure — Raptors Resting",
+                },
+                {
+                  src: "/facility/enclosure-02.jpg",
+                  alt: "Large flight aviary filled with dozens of raptors including Black Kites and Egyptian Vultures perched at multiple levels at Wildlife Rescue",
+                  caption: "Main Flight Aviary — Dozens of Raptors",
+                },
+                {
+                  src: "/facility/enclosure-03.jpg",
+                  alt: "Raptors including Egyptian Vultures and Black Kites perched together in an aviary enclosure viewed through mesh at Wildlife Rescue",
+                  caption: "Aviary View — Mixed Species Housing",
+                },
+              ].map((img) => (
+                <div
+                  key={img.src}
+                  className="rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-white"
+                >
+                  <div className="aspect-[4/3] relative">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  </div>
+                  <p className="p-3 text-xs text-slate font-medium text-center">
+                    {img.caption}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
