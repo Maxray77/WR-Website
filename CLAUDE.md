@@ -193,7 +193,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## What's Been Built (Phases 1–4 Complete)
 
-- **30+ routes**, all working (home, about, donate, contact, documentary, our-specialty, **facility**, **vultures**, special-cases, **conditions × 6**, videos, gallery, **species × 11**, annual-reports, media, blog, API endpoints)
+- **30+ routes**, all working (home, about, donate, contact, documentary, our-specialty, **facility**, **treatments**, **vultures**, special-cases, **conditions × 6**, videos, gallery, **species × 15**, annual-reports, media, blog, API endpoints)
 - **Wingman AI chatbot** — floating widget, streams responses via AI SDK v6 + OpenAI
 - **Razorpay payment button** — embedded HTML on donate page
 - **GoFundMe integration** — linked for US$ donors
@@ -219,30 +219,48 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-11 (session #1)
+**Last updated by:** Claude Code — 2026-04-11 (session #2)
 
-**What was just completed (Session 2026-04-11 — New Species & Photos):**
-- [x] **Indian Scops Owl** — NEW species page `/species/scops-owl` (12th → now 15th species)
-  - 5 photos resized to 1200px (113–146KB): front portrait hero, ear tufts, yellow eyes, orange eyes, resting
-  - Full profile: nocturnal, bark-mimicking camouflage, ~20 cases/year
+**What was just completed (Session 2026-04-11 #2 — Bulk Photo Additions):**
+- [x] **Avian Pox photo** — Black Kite with pox lesions added to `/conditions/avian-pox` (83KB)
+- [x] **Black Eared Kite** — Portrait photo added as hero to `/species/black-kite` (135KB)
+- [x] **Black Kite 01** — Juvenile on exam table added to Black Kite gallery (92KB)
+- [x] **Black Kite Anesthesia** — Under gas anesthesia with face mask added to Black Kite gallery (86KB)
+- [x] **Spotted Owlet 04** — Profile close-up added to Spotted Owlet gallery (118KB)
+- [x] **Cattle Egret 01** — Bandaged wing on exam table added to Wetland Birds gallery (89KB)
+- [x] **Painted Stork 01** — Surgery close-up with endotracheal tube added to Wetland Birds gallery (121KB)
+- [x] **Facility enclosure photos (EN01–03)** — 3 aviary photos showing dozens of raptors (Black Kites, Egyptian Vultures) added as "Inside Our Aviaries" gallery on `/facility`
+- [x] **Laser Therapy Big** — Wide shot of laser therapy added to `/treatments` Laser Wound Management (110KB)
+- [x] **Facility clinic photos** — 3 photos added to Surgical Suite Equipment gallery on `/facility`:
+  - Lab02: diagnostic lab with centrifuge & microscope
+  - Laser Surgery: precision laser procedure on raptor
+  - OT Table: full operating theater setup
+- [x] **Treatment photos** — 2 photos added to Post-Treatment Recovery on `/treatments`:
+  - Black Kite Drip: IV fluid therapy
+  - Painkiller Drops: oral medication administration
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+**Previously completed (Session 2026-04-11 #1 — New Species, Treatments Page & Videos):**
+- [x] **Indian Scops Owl** — NEW species page `/species/scops-owl` (15th species)
+  - 5 photos + 1 video; nocturnal, bark-mimicking camouflage, ~20 cases/year
 - [x] **Steppe Eagle** — NEW species page `/species/steppe-eagle` (Endangered)
-  - 4 clinic photos (76–151KB): face close-up with yellow gape hero, full body, examination, assessment
-  - Full profile: Central Asian Flyway migration, 10,000km journey, ~12 cases/year
-- [x] **Spotted Owlet** — Added 3 photos to existing `/species/spotted-owlet`
-  - Hero: intense glare close-up, gallery: wide-eyed full body, extreme eye close-up
-- [x] **Pond Heron video** — Added to `/species/wetland-birds`
-  - 8MB MP4, plays muted/autoplay/looped in new "In Action" video section
-  - Added `video` field to Species interface (reusable for any species)
-  - Video section renders between gallery and fun fact on detail page
+  - 4 clinic photos; Central Asian Flyway migration, ~12 cases/year
 - [x] **Oriental Honey Buzzard** — NEW species page `/species/oriental-honey-buzzard`
-  - 2 wings-spread examination photos (186–190KB)
-  - Full profile: bee/wasp nest specialist, chemical feather defense, ~10 cases/year
+  - 2 photos + 1 video; bee/wasp nest specialist, ~10 cases/year
 - [x] **Peregrine Falcon** — NEW species page `/species/peregrine-falcon`
-  - 4 clinic photos: portrait with bandaged wing hero, handler examination, two treatment shots
-  - Full profile: fastest animal on Earth (390 km/h), urban nesting, ~8 cases/year
+  - 4 clinic photos; fastest animal on Earth (390 km/h), ~8 cases/year
+- [x] **Treatments page** — NEW `/treatments` page with 5 treatment entries (gas anesthesia, ultrasonic bone cutter, laser wound management, post-treatment care, orphan chick care)
+  - Data-driven with `TreatmentMedia` supporting photos + videos
+  - Added to "Our Work" nav dropdown + sitemap
+- [x] **Facility page upgrades** — Clinic photo replaced placeholder, 4-photo surgical equipment gallery, aviaries video replaced placeholder
+- [x] **Species videos** — Added videos to Black Kite, Barn Owl, Wetland Birds, Scops Owl, Eagles, OHB
+- [x] **Spotted Owlet** — Added 3 photos + chick photo to gallery
+- [x] **Video compression** — ffmpeg installed, 176MB → 8.2MB (95% reduction)
+- [x] **Barn Owl hero** — Added to homepage below Steppe Eagle hero
+- [x] **Conditions video** — Laser therapy video added to cut-wounds condition
 
 **Species count: 11 → 15** (added Scops Owl, Steppe Eagle, Oriental Honey Buzzard, Peregrine Falcon)
-**All commits pushed to `main`, auto-deployed to Vercel.**
 
 **Previously completed (Session 2026-04-10 #3 — Species & Conditions Photos):**
 - [x] Added Shikra photos to `/species/shikra` — face close-up (91KB) + profile (108KB)
@@ -382,32 +400,49 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **What's in progress / next step:**
 - [ ] Place actual WR Annual Report PDF at `public/wr-annual-report.pdf`
-- [ ] Add real photos to `/facility` page (clinic interior, aviary complex placeholders)
+- [x] ~~Add real photos to `/facility` page~~ — clinic photos, surgical equipment gallery (7 photos), enclosure gallery (3 photos), aviaries video all added
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Replace other placeholder images with real photos
-- [x] ~~Build dedicated conditions pages with pictures~~ — image support added, septicemia photos wired up (add photos for other 5 conditions as they become available)
+- [x] ~~Build dedicated conditions pages with pictures~~ — image support added, septicemia (5 photos) + avian pox (1 photo) wired up
 - [ ] Domain setup (raptorrescue.org → Vercel)
-- [ ] Add photos for remaining species without images: Black Kite, Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
+- [ ] Add photos for remaining species without images: Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
+- [ ] Add photos for remaining conditions: cut-wounds, fractures, orphans, other-conditions
 
 **Open questions or blockers:**
 - [x] ~~Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production~~ — added 2026-04-07
 - [ ] Need `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` in Vercel env vars to activate rate limiting + persistent storage (code deployed, just needs env vars)
 - [ ] Need WR Annual Report PDF for the blog post download link
-- [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
-- [ ] Need photos for remaining species without images: Black Kite, Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
-- [ ] Need photos for remaining 5 condition pages (cut-wounds, fractures, orphans, avian-pox, other-conditions)
+- [ ] Need photos for remaining species without images: Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
+- [ ] Need photos for remaining 4 condition pages (cut-wounds, fractures, orphans, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session (2026-04-11):**
+**Key files touched this session (2026-04-11 #2):**
+- `src/lib/species-data.ts` — added Black Kite photos (hero + 2 gallery), Spotted Owlet gallery photo, Cattle Egret + Painted Stork to Wetland Birds gallery
+- `src/lib/conditions-data.ts` — added avian pox photo (image + images fields)
+- `src/lib/treatments-data.ts` — added laser therapy big photo, Black Kite drip + painkiller drops to post-treatment care
+- `src/app/facility/page.tsx` — added 3 photos to Surgical Suite Equipment gallery (lab, laser surgery, OT table); added "Inside Our Aviaries" 3-photo gallery
+- `public/species/black-eared-kite.jpg`, `black-kite-01.jpg`, `black-kite-anesthesia.jpg` — **NEW**: 3 Black Kite photos
+- `public/species/spotted-owlet-04.jpg` — **NEW**: Spotted Owlet profile
+- `public/species/cattle-egret-01.jpg` — **NEW**: Cattle Egret bandaged
+- `public/species/painted-stork-01.jpg` — **NEW**: Painted Stork surgery
+- `public/conditions/avian-pox-kite.jpg` — **NEW**: Avian pox lesions
+- `public/facility/enclosure-01.jpg`, `enclosure-02.jpg`, `enclosure-03.jpg` — **NEW**: Aviary photos
+- `public/facility/lab-02.jpg`, `laser-surgery.jpg`, `ot-table.jpg` — **NEW**: Clinic equipment photos
+- `public/treatments/laser-therapy-big.jpg`, `black-kite-drip.jpg`, `painkiller-drops.jpg` — **NEW**: Treatment photos
+
+**Key files touched previous session (2026-04-11 #1):**
 - `src/lib/species-data.ts` — added 4 new species (Scops Owl, Steppe Eagle, OHB, Peregrine Falcon); added photos to Spotted Owlet; added `video?` field to Species interface; added Pond Heron video to Wetland Birds
+- `src/lib/treatments-data.ts` — **NEW**: treatment data with 5 entries
+- `src/app/treatments/page.tsx` — **NEW**: treatments page
 - `src/app/species/[slug]/page.tsx` — added video section (muted autoplay loop) between gallery and fun fact
-- `public/species/scops-owl*.jpg` — **NEW**: 5 Indian Scops Owl photos
-- `public/species/steppe-eagle-*.jpg` — **NEW**: 4 Steppe Eagle clinic photos
-- `public/species/spotted-owlet-*.jpg` — **NEW**: 3 Spotted Owlet photos
-- `public/species/pond-herons.mp4` — **NEW**: Pond Heron recovery video (8MB)
-- `public/species/ohb-wingspan*.jpg` — **NEW**: 2 Oriental Honey Buzzard photos
-- `public/species/peregrine-falcon-*.jpg` — **NEW**: 4 Peregrine Falcon clinic photos
+- `src/app/facility/page.tsx` — clinic photo, surgical equipment gallery, aviaries video
+- `src/app/page.tsx` — Barn Owl hero image section
+- `src/components/Header.tsx` — added /treatments to nav
+- `src/app/sitemap.ts` — added /treatments
+- `public/species/` — 20+ new photos and videos for species
+- `public/treatments/` — 6 treatment photos and videos
+- `public/facility/aviaries.mp4` — aviaries video
 
 **Key files touched previous session (2026-04-10 #3):**
 - `src/lib/species-data.ts` — added `imagePosition?` to Species interface; added image data for Barn Owl, Wetland Birds, Eagles; position fix for Barn Owl
