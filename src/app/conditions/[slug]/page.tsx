@@ -17,6 +17,7 @@ import {
   Shield,
   Users,
   Camera,
+  Play,
 } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
 import { CONDITIONS_LIST, getConditionBySlug } from "@/lib/conditions-data";
@@ -278,6 +279,35 @@ export default async function ConditionDetailPage({
           </div>
         </div>
       </section>
+
+      {/* ─── Treatment Video ─── */}
+      {condition.video && (
+        <section className="py-12 lg:py-16 bg-offwhite">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)] text-center mb-8">
+              Treatment in Action
+            </h2>
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+              <div className="relative">
+                <video
+                  src={condition.video.src}
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  className="w-full"
+                />
+                <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <Play size={12} fill="white" /> Video
+                </div>
+              </div>
+              <p className="p-4 text-sm text-slate italic bg-white">
+                {condition.video.caption}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── Case Study ─── */}
       <section className="py-12 lg:py-16 bg-offwhite">

@@ -18,6 +18,8 @@ export interface Condition {
   image?: string;
   /** Gallery images shown on listing cards and detail page */
   images?: { src: string; alt: string }[];
+  /** Video clip for the condition detail page */
+  video?: { src: string; caption: string };
   caseStudy: {
     name: string;
     species: string;
@@ -80,6 +82,7 @@ export const CONDITIONS_LIST: Condition[] = [
       "Blue Rock Pigeon",
       "Egyptian Vulture",
     ],
+    video: { src: "/treatments/laser-wound-management.mp4", caption: "Laser wound therapy being applied to a Black Kite — this non-invasive treatment accelerates healing of deep manja lacerations, the #1 injury Wildlife Rescue treats" },
     caseStudy: {
       name: "Kiran",
       species: "Black Kite",
