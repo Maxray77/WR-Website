@@ -213,7 +213,10 @@ export const SPECIES_LIST: Species[] = [
     images: [
       { src: "/species/cattle-egret.jpg", alt: "Cattle Egret perched on examination table at Wildlife Rescue clinic" },
     ],
-    video: { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
+    videos: [
+      { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
+      { src: "/species/cattle-egret.mov", caption: "A Cattle Egret in care at Wildlife Rescue — these common wetland birds are increasingly admitted with injuries from urban hazards and habitat loss along the Yamuna" },
+    ],
   },
   {
     slug: "eagles",
