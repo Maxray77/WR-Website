@@ -94,6 +94,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Barn Owl Hero Image ─── */}
+      <section className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
+        <Image
+          src="/hero-barn-owl.jpg"
+          alt="Barn Owl lying on examination table with bandaged wing, showing its distinctive heart-shaped face during treatment at Wildlife Rescue"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute bottom-8 left-0 right-0 text-center">
+          <p className="text-white/90 text-sm sm:text-base font-semibold tracking-wide uppercase">
+            Barn Owl — Silent Guardian of Delhi&apos;s Night Skies
+          </p>
+        </div>
+      </section>
+
       {/* ─── About Teaser ─── */}
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
