@@ -48,6 +48,7 @@ export const SPECIES_LIST: Species[] = [
     image: "/species/black-eared-kite.jpg",
     images: [
       { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark brown plumage and piercing eyes at Wildlife Rescue" },
+      { src: "/species/black-kite-01.jpg", alt: "Black Kite resting on clinic examination table — spotted juvenile plumage visible during treatment at Wildlife Rescue" },
     ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
