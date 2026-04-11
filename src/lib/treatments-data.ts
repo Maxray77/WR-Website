@@ -116,6 +116,13 @@ export const TREATMENTS: Treatment[] = [
           "Wildlife Rescue staff in protective laser goggles apply focused laser therapy to a raptor's wing laceration — the handheld laser probe stimulates cellular repair deep in the wound tissue.",
       },
       {
+        type: "image",
+        src: "/treatments/laser-therapy-big.jpg",
+        alt: "Wildlife Rescue veterinarian applying laser therapy to a raptor — red laser beam visible on the bird's wound with the laser control unit in the background",
+        caption:
+          "A Wildlife Rescue team member applies focused laser therapy to a raptor's wound — the laser unit (background) delivers precise wavelengths that stimulate cellular repair and reduce inflammation.",
+      },
+      {
         type: "video",
         src: "/treatments/laser-wound-management.mp4",
         alt: "Laser wound therapy being performed on an injured bird at Wildlife Rescue",
