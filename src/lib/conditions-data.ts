@@ -222,6 +222,10 @@ export const CONDITIONS_LIST: Condition[] = [
     percentage: "~8%",
     annualCases: "~300/year",
     severity: "Serious",
+    image: "/conditions/avian-pox-kite.jpg",
+    images: [
+      { src: "/conditions/avian-pox-kite.jpg", alt: "Black Kite with avian pox lesions — warty growths visible around the beak and cere area" },
+    ],
     shortDescription:
       "A viral disease causing wart-like growths on skin, feet, and around the eyes. Can blind birds and prevent feeding if untreated.",
     description:
