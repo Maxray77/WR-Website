@@ -262,6 +262,8 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/scops-owl-02.jpg", alt: "Indian Scops Owl peering sideways with bright yellow eyes, showing camouflaged feather pattern" },
       { src: "/species/scops-owl.jpg", alt: "Indian Scops Owl with large orange-red eyes, perched in recovery enclosure at Wildlife Rescue" },
       { src: "/species/scops-owl-03.jpg", alt: "Indian Scops Owl resting with eyes closed, displaying cryptic bark-pattern plumage" },
+      { src: "/species/scops-owl-clinic-01.jpg", alt: "Tiny Indian Scops Owl held in gloved hands during examination, showing huge dark eyes and raised ear tufts" },
+      { src: "/species/scops-owl-clinic-02.jpg", alt: "Indian Scops Owl perched on handler's hand at Wildlife Rescue clinic, displaying full grey-white plumage and alert ear tufts" },
     ],
   },
   {
