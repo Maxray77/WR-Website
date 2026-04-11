@@ -21,6 +21,8 @@ export interface Species {
   images?: { src: string; alt: string }[];
   /** CSS object-position for the primary image (default: "center") */
   imagePosition?: string;
+  /** Video clip for the species detail page (path relative to /public) */
+  video?: { src: string; caption: string };
 }
 
 export const SPECIES_LIST: Species[] = [
@@ -205,6 +207,7 @@ export const SPECIES_LIST: Species[] = [
     images: [
       { src: "/species/cattle-egret.jpg", alt: "Cattle Egret perched on examination table at Wildlife Rescue clinic" },
     ],
+    video: { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
   },
   {
     slug: "eagles",

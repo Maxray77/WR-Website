@@ -186,6 +186,30 @@ export default async function SpeciesProfilePage({
         </section>
       )}
 
+      {/* ─── Video ─── */}
+      {species.video && (
+        <section className="bg-offwhite py-16 lg:py-24">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)] text-center mb-8">
+              {species.name} in Action
+            </h2>
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+              <video
+                src={species.video.src}
+                muted
+                autoPlay
+                loop
+                playsInline
+                className="w-full"
+              />
+              <p className="p-4 text-sm text-slate italic bg-white">
+                {species.video.caption}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ─── Fun Fact ─── */}
       <section className="bg-amber-bg py-12 lg:py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
