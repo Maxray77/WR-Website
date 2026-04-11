@@ -72,6 +72,7 @@ export const SPECIES_LIST: Species[] = [
     images: [
       { src: "/species/barn-owl-treatment.jpg", alt: "Barn Owl lying on examination table during treatment at Wildlife Rescue" },
     ],
+    video: { src: "/species/barn-owl-video.mp4", caption: "A Barn Owl in care at Wildlife Rescue — these silent nocturnal hunters are one of the most effective natural pest controllers on the planet" },
   },
   {
     slug: "egyptian-vulture",
