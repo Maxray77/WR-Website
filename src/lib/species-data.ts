@@ -49,6 +49,7 @@ export const SPECIES_LIST: Species[] = [
     images: [
       { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark brown plumage and piercing eyes at Wildlife Rescue" },
       { src: "/species/black-kite-01.jpg", alt: "Black Kite resting on clinic examination table — spotted juvenile plumage visible during treatment at Wildlife Rescue" },
+      { src: "/species/black-kite-anesthesia.jpg", alt: "Black Kite under isoflurane gas anesthesia with face mask during surgical procedure at Wildlife Rescue" },
     ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
@@ -147,6 +148,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/spotted-owlet-01.jpg", alt: "Spotted Owlet perched on shelf with wide-eyed surprised expression, showing full body and spotted feathers" },
       { src: "/species/spotted-owlet-03.jpg", alt: "Spotted Owlet extreme close-up of face showing distinctive yellow eye and delicate spotted feather detail" },
       { src: "/species/spotted-owlet-chick.jpg", alt: "Tiny Spotted Owlet chick with bright yellow eyes perched on a handler's finger at Wildlife Rescue" },
+      { src: "/species/spotted-owlet-04.jpg", alt: "Spotted Owlet close-up profile showing yellow eye and intricate spotted brown plumage at Wildlife Rescue" },
     ],
   },
   {
@@ -223,6 +225,8 @@ export const SPECIES_LIST: Species[] = [
     image: "/species/cattle-egret.jpg",
     images: [
       { src: "/species/cattle-egret.jpg", alt: "Cattle Egret perched on examination table at Wildlife Rescue clinic" },
+      { src: "/species/cattle-egret-01.jpg", alt: "Cattle Egret with bandaged wing on clinic examination table — case number visible on wrapping during treatment at Wildlife Rescue" },
+      { src: "/species/painted-stork-01.jpg", alt: "Painted Stork under treatment with endotracheal tube — close-up of distinctive yellow-orange beak during surgical procedure at Wildlife Rescue" },
     ],
     videos: [
       { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
