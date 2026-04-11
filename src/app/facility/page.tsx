@@ -343,13 +343,15 @@ export default function FacilityPage() {
                 receive lifelong care in comfortable, purpose-built housing.
               </p>
             </div>
-            <div className="aspect-[4/3] bg-gradient-to-br from-teal-light to-teal/5 rounded-xl flex items-center justify-center border border-teal/10">
-              <div className="text-center p-8">
-                <Camera size={48} className="text-teal/30 mx-auto mb-3" />
-                <p className="text-slate text-sm">
-                  Aviary Complex — Photo Placeholder
-                </p>
-              </div>
+            <div className="aspect-[4/3] rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+              <video
+                src="/facility/aviaries.mp4"
+                muted
+                autoPlay
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
