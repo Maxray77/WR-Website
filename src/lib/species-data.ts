@@ -244,6 +244,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/cse-face.jpg", alt: "Crested Serpent Eagle close-up showing distinctive yellow face and piercing eye" },
       { src: "/species/cse-treatment.jpg", alt: "Crested Serpent Eagle on examination table during treatment at Wildlife Rescue" },
     ],
+    video: { src: "/species/cse-video.mp4", caption: "A Crested Serpent Eagle at Wildlife Rescue — these magnificent forest raptors are apex predators of Delhi's Ridge forests, specializing in hunting snakes and reptiles" },
   },
   {
     slug: "scops-owl",
