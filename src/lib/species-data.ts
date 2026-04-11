@@ -272,6 +272,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/scops-owl-clinic-01.jpg", alt: "Tiny Indian Scops Owl held in gloved hands during examination, showing huge dark eyes and raised ear tufts" },
       { src: "/species/scops-owl-clinic-02.jpg", alt: "Indian Scops Owl perched on handler's hand at Wildlife Rescue clinic, displaying full grey-white plumage and alert ear tufts" },
     ],
+    video: { src: "/species/scops-owl-video.mp4", caption: "An Indian Scops Owl at Wildlife Rescue — these tiny nocturnal raptors are masters of camouflage, pressing against tree bark with eyes shut to become virtually invisible" },
   },
   {
     slug: "steppe-eagle",
