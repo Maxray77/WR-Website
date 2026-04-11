@@ -140,6 +140,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/spotted-owlet-hero.jpg", alt: "Spotted Owlet intense close-up showing bright yellow eyes and spotted brown plumage" },
       { src: "/species/spotted-owlet-01.jpg", alt: "Spotted Owlet perched on shelf with wide-eyed surprised expression, showing full body and spotted feathers" },
       { src: "/species/spotted-owlet-03.jpg", alt: "Spotted Owlet extreme close-up of face showing distinctive yellow eye and delicate spotted feather detail" },
+      { src: "/species/spotted-owlet-chick.jpg", alt: "Tiny Spotted Owlet chick with bright yellow eyes perched on a handler's finger at Wildlife Rescue" },
     ],
   },
   {
