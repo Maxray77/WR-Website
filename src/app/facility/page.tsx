@@ -291,6 +291,21 @@ export default function FacilityPage() {
                 alt: "Wildlife Rescue staff applying laser therapy to a raptor's wing wound",
                 caption: "Laser Therapy in Action",
               },
+              {
+                src: "/facility/laser-surgery.jpg",
+                alt: "Close-up of laser surgical procedure on a raptor's beak area at Wildlife Rescue clinic",
+                caption: "Laser Surgery — Precision Procedure",
+              },
+              {
+                src: "/facility/ot-table.jpg",
+                alt: "Wildlife Rescue operating theater setup with anesthesia machine, microwave ablation device, monitors, and surgical supplies",
+                caption: "Operating Theater — Full Setup",
+              },
+              {
+                src: "/facility/lab-02.jpg",
+                alt: "Wildlife Rescue technician using hematocrit centrifuge and microscope in the diagnostic laboratory",
+                caption: "Diagnostic Lab — Centrifuge & Microscope",
+              },
             ].map((img) => (
               <div
                 key={img.src}

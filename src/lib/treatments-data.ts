@@ -147,6 +147,20 @@ export const TREATMENTS: Treatment[] = [
     ],
     media: [
       {
+        type: "image",
+        src: "/treatments/black-kite-drip.jpg",
+        alt: "Black Kite receiving intravenous fluid therapy on the clinic table at Wildlife Rescue — IV drip line visible",
+        caption:
+          "A Black Kite receiving IV fluid therapy — intravenous drips deliver essential fluids, electrolytes, and medication directly to critically dehydrated or weakened birds.",
+      },
+      {
+        type: "image",
+        src: "/treatments/painkiller-drops.jpg",
+        alt: "Wildlife Rescue staff administering painkiller drops to a raptor's beak during post-treatment care",
+        caption:
+          "Administering oral painkiller drops to a raptor — precise dosing of medication is essential for pain management during recovery from surgery or injury.",
+      },
+      {
         type: "video",
         src: "/treatments/kite-post-treatment.mp4",
         alt: "Black Kite being carefully dried after wound treatment at Wildlife Rescue",
