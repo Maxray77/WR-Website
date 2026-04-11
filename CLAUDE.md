@@ -219,9 +219,32 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-10 (session #3)
+**Last updated by:** Claude Code — 2026-04-11 (session #1)
 
-**What was just completed (Session 2026-04-10 #3 — Species & Conditions Photos):**
+**What was just completed (Session 2026-04-11 — New Species & Photos):**
+- [x] **Indian Scops Owl** — NEW species page `/species/scops-owl` (12th → now 15th species)
+  - 5 photos resized to 1200px (113–146KB): front portrait hero, ear tufts, yellow eyes, orange eyes, resting
+  - Full profile: nocturnal, bark-mimicking camouflage, ~20 cases/year
+- [x] **Steppe Eagle** — NEW species page `/species/steppe-eagle` (Endangered)
+  - 4 clinic photos (76–151KB): face close-up with yellow gape hero, full body, examination, assessment
+  - Full profile: Central Asian Flyway migration, 10,000km journey, ~12 cases/year
+- [x] **Spotted Owlet** — Added 3 photos to existing `/species/spotted-owlet`
+  - Hero: intense glare close-up, gallery: wide-eyed full body, extreme eye close-up
+- [x] **Pond Heron video** — Added to `/species/wetland-birds`
+  - 8MB MP4, plays muted/autoplay/looped in new "In Action" video section
+  - Added `video` field to Species interface (reusable for any species)
+  - Video section renders between gallery and fun fact on detail page
+- [x] **Oriental Honey Buzzard** — NEW species page `/species/oriental-honey-buzzard`
+  - 2 wings-spread examination photos (186–190KB)
+  - Full profile: bee/wasp nest specialist, chemical feather defense, ~10 cases/year
+- [x] **Peregrine Falcon** — NEW species page `/species/peregrine-falcon`
+  - 4 clinic photos: portrait with bandaged wing hero, handler examination, two treatment shots
+  - Full profile: fastest animal on Earth (390 km/h), urban nesting, ~8 cases/year
+
+**Species count: 11 → 15** (added Scops Owl, Steppe Eagle, Oriental Honey Buzzard, Peregrine Falcon)
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+**Previously completed (Session 2026-04-10 #3 — Species & Conditions Photos):**
 - [x] Added Shikra photos to `/species/shikra` — face close-up (91KB) + profile (108KB)
   - Species data was already wired up from previous session — just needed the actual photo files
 - [x] Added Barn Owl treatment photo to `/species/barn-owl` (91KB)
@@ -364,6 +387,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Replace other placeholder images with real photos
 - [x] ~~Build dedicated conditions pages with pictures~~ — image support added, septicemia photos wired up (add photos for other 5 conditions as they become available)
 - [ ] Domain setup (raptorrescue.org → Vercel)
+- [ ] Add photos for remaining species without images: Black Kite, Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
 
 **Open questions or blockers:**
 - [x] ~~Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production~~ — added 2026-04-07
@@ -371,11 +395,21 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need WR Annual Report PDF for the blog post download link
 - [ ] Need real facility photos (clinic interior, aviary complex) for /facility page
 - [ ] Need 10 vulture photos for the conservation page
-- [ ] Need photos for remaining species without images: Black Kite, Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Spotted Owlet, Egyptian Vulture
+- [ ] Need photos for remaining species without images: Black Kite, Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
 - [ ] Need photos for remaining 5 condition pages (cut-wounds, fractures, orphans, avian-pox, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session (2026-04-10 #3):**
+**Key files touched this session (2026-04-11):**
+- `src/lib/species-data.ts` — added 4 new species (Scops Owl, Steppe Eagle, OHB, Peregrine Falcon); added photos to Spotted Owlet; added `video?` field to Species interface; added Pond Heron video to Wetland Birds
+- `src/app/species/[slug]/page.tsx` — added video section (muted autoplay loop) between gallery and fun fact
+- `public/species/scops-owl*.jpg` — **NEW**: 5 Indian Scops Owl photos
+- `public/species/steppe-eagle-*.jpg` — **NEW**: 4 Steppe Eagle clinic photos
+- `public/species/spotted-owlet-*.jpg` — **NEW**: 3 Spotted Owlet photos
+- `public/species/pond-herons.mp4` — **NEW**: Pond Heron recovery video (8MB)
+- `public/species/ohb-wingspan*.jpg` — **NEW**: 2 Oriental Honey Buzzard photos
+- `public/species/peregrine-falcon-*.jpg` — **NEW**: 4 Peregrine Falcon clinic photos
+
+**Key files touched previous session (2026-04-10 #3):**
 - `src/lib/species-data.ts` — added `imagePosition?` to Species interface; added image data for Barn Owl, Wetland Birds, Eagles; position fix for Barn Owl
 - `src/app/species/page.tsx` — `imagePosition` style support on listing cards
 - `src/app/species/[slug]/page.tsx` — `imagePosition` style support on detail hero
