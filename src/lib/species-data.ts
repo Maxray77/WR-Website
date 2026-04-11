@@ -123,6 +123,12 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Habitat loss as old trees and buildings are removed. Vehicle strikes during dusk/dawn hunting. Superstitious persecution. Nest disturbance during construction and renovation.",
     description: "The Spotted Owlet is one of Delhi's most charismatic birds — small, bold, and endlessly entertaining. Their wide-eyed expressions and head-bobbing behavior make them favorites of birdwatchers. Wildlife Rescue treats about 15 per year.",
     funFact: "Spotted Owlets are one of the few owl species that are regularly active during daylight. They're often the first owl species that Delhi birdwatchers learn to identify — usually spotted glaring from a hole in an old wall or tree.",
+    image: "/species/spotted-owlet-hero.jpg",
+    images: [
+      { src: "/species/spotted-owlet-hero.jpg", alt: "Spotted Owlet intense close-up showing bright yellow eyes and spotted brown plumage" },
+      { src: "/species/spotted-owlet-01.jpg", alt: "Spotted Owlet perched on shelf with wide-eyed surprised expression, showing full body and spotted feathers" },
+      { src: "/species/spotted-owlet-03.jpg", alt: "Spotted Owlet extreme close-up of face showing distinctive yellow eye and delicate spotted feather detail" },
+    ],
   },
   {
     slug: "crested-serpent-eagle",
