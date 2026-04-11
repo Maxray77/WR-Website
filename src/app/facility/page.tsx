@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Scan,
   Syringe,
@@ -203,13 +204,14 @@ export default function FacilityPage() {
 
           {/* Two-column intro */}
           <div className="grid lg:grid-cols-2 gap-8 items-center mb-12">
-            <div className="aspect-[4/3] bg-gradient-to-br from-teal-light to-teal/5 rounded-xl flex items-center justify-center border border-teal/10">
-              <div className="text-center p-8">
-                <Camera size={48} className="text-teal/30 mx-auto mb-3" />
-                <p className="text-slate text-sm">
-                  Clinic Interior — Photo Placeholder
-                </p>
-              </div>
+            <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+              <Image
+                src="/treatments/usbc-full-setup.jpg"
+                alt="Ultrasonic bone cutter surgical setup in the Wildlife Rescue clinic — control unit, handpiece, IV irrigation, and foot pedal"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
             <div>
               <h3 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
@@ -253,6 +255,58 @@ export default function FacilityPage() {
                 </h3>
                 <p className="text-sm text-slate mt-2 leading-relaxed">
                   {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Surgical Equipment Gallery ─── */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Surgical Suite Equipment"
+            subtitle="Advanced instruments that enable complex avian surgeries — from ultrasonic bone cutting to laser wound therapy."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                src: "/treatments/usbc-control-unit.jpg",
+                alt: "Woodpecker Surgic Smart ultrasonic bone cutter touchscreen display in Bone mode",
+                caption: "Ultrasonic Bone Cutter — Control Unit",
+              },
+              {
+                src: "/treatments/usbc-handpiece.jpg",
+                alt: "HB-2 LED ultrasonic handpiece with cutting tip on its cradle",
+                caption: "LED Handpiece with Cutting Tip",
+              },
+              {
+                src: "/treatments/usbc-tip-sets.jpg",
+                alt: "Specialized ultrasonic cutting tip sets in stainless steel holders",
+                caption: "Precision Tip Sets",
+              },
+              {
+                src: "/treatments/laser-therapy.jpg",
+                alt: "Wildlife Rescue staff applying laser therapy to a raptor's wing wound",
+                caption: "Laser Therapy in Action",
+              },
+            ].map((img) => (
+              <div
+                key={img.src}
+                className="rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-white"
+              >
+                <div className="aspect-[4/3] relative">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
+                <p className="p-3 text-xs text-slate font-medium text-center">
+                  {img.caption}
                 </p>
               </div>
             ))}

@@ -49,6 +49,51 @@ export const TREATMENTS: Treatment[] = [
     ],
   },
   {
+    slug: "ultrasonic-bone-cutter",
+    title: "Ultrasonic Bone Cutter",
+    category: "Anesthesia & Surgery",
+    description:
+      "Wildlife Rescue's surgical suite is equipped with a Woodpecker Surgic Smart ultrasonic bone cutter — a precision instrument that uses high-frequency vibrations to cut bone without damaging surrounding soft tissue. This is critical in avian surgery where bones are thin, hollow, and millimeters from vital nerves and blood vessels.",
+    details: [
+      "Ultrasonic vibrations cut bone cleanly while preserving adjacent nerves, blood vessels, and soft tissue",
+      "Integrated irrigation system (visible IV drip) keeps the surgical site cool and debris-free",
+      "Multiple tip configurations for different bone densities and surgical approaches",
+      "LED-illuminated handpiece provides direct visibility in the surgical field",
+      "Adjustable power levels (1–5) and modes (Bone, Perio, Endo) for precise control",
+      "Essential for complex fracture repairs, pin placement, and orthopedic procedures on raptors",
+    ],
+    media: [
+      {
+        type: "image",
+        src: "/treatments/usbc-control-unit.jpg",
+        alt: "Woodpecker Surgic Smart ultrasonic bone cutter control unit showing touchscreen display with bone mode settings",
+        caption:
+          "The Surgic Smart control unit in Bone mode — the touchscreen displays power level, water flow rate, and tip configuration. The foot pedal (left) gives the surgeon hands-free control.",
+      },
+      {
+        type: "image",
+        src: "/treatments/usbc-full-setup.jpg",
+        alt: "Complete ultrasonic bone cutter surgical setup with control unit, handpiece, IV irrigation, and foot pedal",
+        caption:
+          "The complete surgical setup — control unit, LED handpiece on its cradle, IV irrigation bag for cooling, and foot pedal for hands-free operation.",
+      },
+      {
+        type: "image",
+        src: "/treatments/usbc-tip-sets.jpg",
+        alt: "Two sets of specialized ultrasonic cutting tips in stainless steel holders for different bone surgery applications",
+        caption:
+          "Specialized tip sets for different surgical applications — each tip shape is designed for specific bone cuts, from fine osteotomies to broader resections.",
+      },
+      {
+        type: "image",
+        src: "/treatments/usbc-handpiece.jpg",
+        alt: "Woodpecker HB-2 LED ultrasonic handpiece with attached cutting tip resting on its cradle",
+        caption:
+          "The HB-2 LED handpiece — the ultrasonic vibrations at the tip cut bone with sub-millimeter precision while the built-in LED illuminates the surgical field.",
+      },
+    ],
+  },
+  {
     slug: "laser-wound-management",
     title: "Laser Wound Management",
     category: "Wound Management",
