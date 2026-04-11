@@ -148,6 +148,30 @@ export const TREATMENTS: Treatment[] = [
       },
     ],
   },
+  {
+    slug: "orphan-chick-care",
+    title: "Orphan & Chick Rehabilitation",
+    category: "Rehabilitation",
+    description:
+      "Wildlife Rescue receives dozens of orphaned and fallen raptor chicks every breeding season. Many arrive unidentified — tiny, downy bundles that could grow into kites, eagles, or buzzards. Each receives round-the-clock care including hand-feeding, thermoregulation, and gradual socialization to prepare them for eventual release into the wild.",
+    details: [
+      "Specialized formula feeding every 2–3 hours for very young chicks",
+      "Temperature-controlled brooder boxes mimicking nest warmth",
+      "Gradual transition from hand-feeding to self-feeding as chicks develop",
+      "Species identification as plumage develops — determines release protocol",
+      "Socialization with same-species birds to ensure proper behavioral development",
+      "Flight training in progressively larger aviaries before release clearance",
+    ],
+    media: [
+      {
+        type: "video",
+        src: "/treatments/raptor-chick.mp4",
+        alt: "A raptor baby being cared for at Wildlife Rescue — an unidentified chick receiving rehabilitation",
+        caption:
+          "A raptor baby under care at Wildlife Rescue — this unidentified chick will be raised, identified as its feathers develop, and eventually released back into the wild.",
+      },
+    ],
+  },
 ];
 
 export function getTreatmentBySlug(slug: string): Treatment | undefined {
