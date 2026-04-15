@@ -240,6 +240,57 @@ export const VALUES = [
   { title: "Community", description: "10+ partner organizations and countless citizen rescuers form our growing network.", icon: "Users" },
 ];
 
+// ─── Instagram Posts (hand-curated, no API) ───
+// Swap these out whenever you want to feature new posts. Each post links to the
+// real Instagram URL when clicked; the image is served locally from /public.
+// To update: replace the image, caption, and permalink for any entry.
+export interface InstagramPost {
+  id: string;
+  image: string;
+  caption: string;
+  /** Full Instagram URL (e.g. https://www.instagram.com/p/XYZ/) or profile URL as fallback */
+  permalink: string;
+}
+
+export const INSTAGRAM_POSTS: InstagramPost[] = [
+  {
+    id: "1",
+    image: "/species/black-eared-kite.jpg",
+    caption: "Meet one of Delhi's Black Eared Kites — Wildlife Rescue treats over 3,000 per year.",
+    permalink: "https://www.instagram.com/wildliferescueindia/",
+  },
+  {
+    id: "2",
+    image: "/species/steppe-eagle-01.jpg",
+    caption: "Steppe Eagle — this endangered migrant travels 10,000 km along the Central Asian Flyway.",
+    permalink: "https://www.instagram.com/wildliferescueindia/",
+  },
+  {
+    id: "3",
+    image: "/species/barn-owl-treatment.jpg",
+    caption: "Barn Owl under treatment — silent guardian of Delhi's night skies.",
+    permalink: "https://www.instagram.com/wildliferescueindia/",
+  },
+  {
+    id: "4",
+    image: "/species/spotted-owlet-hero.jpg",
+    caption: "A Spotted Owlet's bright yellow eyes — one of Delhi's most charismatic raptors.",
+    permalink: "https://www.instagram.com/wildliferescueindia/",
+  },
+  {
+    id: "5",
+    image: "/facility/enclosure-02.jpg",
+    caption: "Inside our aviary — dozens of raptors recovering for release.",
+    permalink: "https://www.instagram.com/wildliferescueindia/",
+  },
+  {
+    id: "6",
+    image: "/species/cse-face.jpg",
+    caption: "Crested Serpent Eagle — piercing gaze of one of Delhi's resident hunters.",
+    permalink: "https://www.instagram.com/wildliferescueindia/",
+  },
+];
+
 // ─── Festival Selections ───
 export const FESTIVAL_SELECTIONS = [
   "Sundance", "Cannes", "New York Film Festival", "BFI London",
