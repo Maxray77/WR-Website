@@ -52,12 +52,24 @@ export default function Footer() {
                 { href: "/donate", label: "Donate" },
                 { href: "/media", label: "Press & Media" },
                 { href: "/all-that-breathes", label: "All That Breathes" },
+                { href: "/wr-brochure.pdf", label: "CSR Brochure (PDF)", external: true },
                 { href: "/contact", label: "Contact" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-teal-light hover:text-white text-sm transition-colors">
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-teal-light hover:text-white text-sm transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className="text-teal-light hover:text-white text-sm transition-colors">
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

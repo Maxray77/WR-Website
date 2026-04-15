@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Heart, GraduationCap, Eye, Users, Award, BookOpen } from "lucide-react";
+import { Heart, GraduationCap, Eye, Users, Award, BookOpen, FileText, Download } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 import { TEAM, TIMELINE, VALUES } from "@/lib/constants";
@@ -176,6 +176,50 @@ export default function AboutPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CSR Brochure Download ─── */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-br from-teal-light to-offwhite rounded-2xl border border-teal/15 overflow-hidden">
+            <div className="grid md:grid-cols-[auto_1fr_auto] items-center gap-6 p-8 lg:p-10">
+              {/* Icon */}
+              <div className="w-20 h-20 bg-white rounded-xl shadow-sm flex items-center justify-center text-teal shrink-0 mx-auto md:mx-0">
+                <FileText size={36} />
+              </div>
+
+              {/* Text */}
+              <div className="text-center md:text-left">
+                <p className="text-xs font-bold text-amber uppercase tracking-wider">
+                  Corporate & CSR Partners
+                </p>
+                <h2 className="text-2xl lg:text-3xl font-bold text-charcoal mt-1 font-[family-name:var(--font-poppins)]">
+                  Download Our Brochure
+                </h2>
+                <p className="text-slate mt-2 leading-relaxed max-w-xl">
+                  A complete overview of Wildlife Rescue&apos;s work, impact,
+                  facilities, and partnership opportunities — perfect for
+                  corporate donors, CSR teams, and grant-makers.
+                </p>
+              </div>
+
+              {/* CTA */}
+              <a
+                href="/wr-brochure.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-teal hover:bg-teal-dark text-white font-bold rounded-full transition-colors shadow-md whitespace-nowrap"
+                aria-label="Download Wildlife Rescue CSR Brochure (PDF, 17 MB)"
+              >
+                <Download size={18} />
+                Download PDF
+              </a>
+            </div>
+            <div className="bg-white/50 px-8 lg:px-10 py-3 text-xs text-slate text-center md:text-left border-t border-teal/10">
+              PDF &middot; A5 Booklet &middot; ~17 MB
+            </div>
           </div>
         </div>
       </section>
