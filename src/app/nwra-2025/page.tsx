@@ -26,6 +26,12 @@ export const metadata: Metadata = {
 
 const PHOTOS = [
   {
+    src: "/nwra-2025/speakers-backdrop.jpg",
+    alt: "Nadeem Shehzad and Mohammad Saud of Wildlife Rescue wearing Speaker lanyards in front of the NWRA Annual Symposium backdrop, February 2025",
+    caption:
+      "Nadeem Shehzad and Mohammad Saud in front of the NWRA Annual Symposium backdrop — both wearing official Speaker lanyards.",
+  },
+  {
     src: "/nwra-2025/stage1-skin-suture.jpg",
     alt: "Nadeem Shehzad and Mohammad Saud presenting Stage 1 Case I — dorsal and ventral views of a propatagium skin suture — at the NWRA Symposium 2025",
     caption:
@@ -69,21 +75,21 @@ const STAGES = [
     title: "Skin Suture",
     description:
       "The initial layer of the repair: dorsal and ventral skin sutures that close the laceration and begin the healing cascade. The propatagium — the triangular skin membrane along the leading edge of the wing — is thin, richly vascularised, and critical to flight.",
-    image: PHOTOS[0],
+    image: PHOTOS[1],
   },
   {
     label: "Stage 1 — Case II",
     title: "TPLT & EMR Sutured",
     description:
       "Tensor propatagialis longus tendon (TPLT) and the extensor metacarpi radialis (EMR) — the two functional structures that give the propatagium its rigidity during flight — are individually sutured. Getting this layer right is what determines whether the bird flies again.",
-    image: PHOTOS[1],
+    image: PHOTOS[2],
   },
   {
     label: "Day 32 — Recovery",
     title: "The Fusion",
     description:
       "Post-operative follow-up at day 32. Tissue has integrated, the wound has fused cleanly, and the wing is ready to progress into flight-conditioning in a large aviary before eventual release.",
-    image: PHOTOS[2],
+    image: PHOTOS[3],
   },
 ] as const;
 
