@@ -62,10 +62,11 @@ const AWARDS = [
   },
   {
     year: "2025",
-    title: "NWRA Symposium Presentation — Refined Surgical Technique",
-    event: "National Wildlife Rehabilitators Association, Seattle",
+    title: "NWRA Symposium Presentation — Advanced Propatagium Surgery",
+    event: "National Wildlife Rehabilitators Association, Bellevue WA (Seattle)",
     detail:
-      "Presented updated novel wing repair technique to international audience of rehabilitators and veterinarians.",
+      "Nadeem Shehzad and Mohammad Saud presented Wildlife Rescue's refined surgical technique for propatagium repair in raptors to an international audience of rehabilitators and veterinarians.",
+    link: "/nwra-2025",
   },
   {
     year: "2018",
@@ -338,6 +339,15 @@ export default function MediaPage() {
                         <p className="text-sm text-slate mt-1">
                           {award.detail}
                         </p>
+                        {"link" in award && award.link && (
+                          <Link
+                            href={award.link}
+                            className="inline-flex items-center gap-1 mt-3 text-sm font-bold text-teal hover:text-teal-dark transition-colors"
+                          >
+                            View presentation photos &amp; technique
+                            <ArrowRight size={14} />
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
