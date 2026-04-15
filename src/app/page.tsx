@@ -31,13 +31,12 @@ export default function Home() {
             <span className="inline-block bg-amber/20 text-amber-light px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
               Oscar-Nominated &bull; World&apos;s Largest Raptor Rescue
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight font-[family-name:var(--font-poppins)]">
-              Every Wing Deserves a{" "}
-              <span className="text-amber">Second Chance</span>
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight italic font-[family-name:var(--font-poppins)]">
+              &ldquo;Life itself a kinship, we&apos;re all a{" "}
+              <span className="text-amber not-italic">community of air</span>.&rdquo;
             </h1>
-            <p className="mt-6 text-xl text-white/80 max-w-xl">
-              38,500+ birds rescued since 2010. From a home in Old Delhi to the
-              world&apos;s largest raptor rescue facility.
+            <p className="mt-6 text-lg text-white/80 font-medium tracking-wide">
+              &mdash; <span className="italic">All That Breathes</span>
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <DonateButton size="lg" />
