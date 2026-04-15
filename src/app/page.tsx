@@ -111,6 +111,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Black Kite (Avian Pox) Hero Image ─── */}
+      <section className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
+        <Image
+          src="/hero-avian-pox.jpg"
+          alt="Black Kite close-up showing avian pox lesions around the beak and cere — one of the viral diseases treated at Wildlife Rescue"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute bottom-8 left-0 right-0 text-center">
+          <p className="text-white/90 text-sm sm:text-base font-semibold tracking-wide uppercase">
+            Black Kite — Fighting Avian Pox &amp; Urban Hazards
+          </p>
+        </div>
+      </section>
+
       {/* ─── About Teaser ─── */}
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
