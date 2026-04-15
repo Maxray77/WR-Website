@@ -211,7 +211,18 @@ export const TIMELINE = [
 ];
 
 // ─── Featured Rescue Stories (placeholder) ───
-export const FEATURED_RESCUES = [
+export interface FeaturedRescue {
+  title: string;
+  species: string;
+  summary: string;
+  outcome: "Released" | "In Care" | "Permanent Resident";
+  /** Optional featured image — path under /public */
+  image?: string;
+  /** Optional alt text for the featured image */
+  imageAlt?: string;
+}
+
+export const FEATURED_RESCUES: FeaturedRescue[] = [
   {
     title: "Kiran the Black Kite",
     species: "Black Kite",
@@ -219,10 +230,12 @@ export const FEATURED_RESCUES = [
     outcome: "Released",
   },
   {
-    title: "Noor the Barn Owl",
+    title: "Six Barn Owls, Ready for Release",
     species: "Barn Owl",
-    summary: "A juvenile Barn Owl fell from a nest during a storm. Malnourished and dehydrated, she was nursed back to health over 4 weeks before being reunited with the wild.",
+    summary: "Six juvenile Barn Owls — rescued at different times across Delhi, raised through fledging, and conditioned together for flight. Seen here lined up in the pre-release aviary the evening before their return to the wild.",
     outcome: "Released",
+    image: "/rescues/barn-owl-group.jpg",
+    imageAlt: "Six fully-grown Barn Owls perched side by side inside the pre-release aviary at Wildlife Rescue, facing the camera just before release",
   },
   {
     title: "Sultan the Egyptian Vulture",
