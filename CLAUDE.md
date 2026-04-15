@@ -206,7 +206,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 ## What's Left (Future Work)
 
 - [ ] CMS integration (Sanity.io) to replace static blog/species data
-- [ ] Real Instagram API feed (currently placeholder)
+- [x] ~~Real Instagram API feed~~ — replaced API approach with hand-curated `INSTAGRAM_POSTS` in constants (API deprecated Dec 2024)
 - [x] ~~Newsletter backend~~ — stored in Redis (upgrade to Mailchimp/Resend later)
 - [ ] Real photo/video assets to replace placeholders
 - [x] ~~Deploy to Vercel (production)~~ — live at wildlife-rescue-website.vercel.app
@@ -219,9 +219,27 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-11 (session #2)
+**Last updated by:** Claude Code — 2026-04-15
 
-**What was just completed (Session 2026-04-11 #2 — Bulk Photo Additions):**
+**What was just completed (Session 2026-04-15 — Homepage polish, Instagram feed, brochure):**
+- [x] **Third homepage hero image** — Avian Pox Black Kite added below Barn Owl hero (`/hero-avian-pox.jpg`, 174KB, 1920px)
+- [x] **Hero tagline replaced with ATB quote** — Homepage hero H1 now reads *"Life itself a kinship, we're all a community of air."* with "— All That Breathes" attribution (italic Poppins, amber "community of air" accent)
+- [x] **Instagram feed activated (Option C — manual curation)** — replaced dead Instagram Basic Display API with hand-curated `INSTAGRAM_POSTS` in `src/lib/constants.ts`
+  - Deleted `src/app/api/instagram/route.ts`
+  - Rewrote `src/components/InstagramFeed.tsx` as a server component (no more useState/useEffect/loading state)
+  - Removed unused Instagram CDN `remotePatterns` from `next.config.ts`
+  - 6 posts with image/caption/permalink; swap manually whenever a refresh is wanted
+- [x] **Rescue Stories cards refreshed on homepage**:
+  - "Noor the Barn Owl" → **"Six Barn Owls, Ready for Release"** with real photo (`/rescues/barn-owl-group.jpg`, 283KB)
+  - "Kiran the Black Kite" → **"Black Kite Under Surgery"** reusing `/species/black-kite-anesthesia.jpg`
+  - Extended `FeaturedRescue` interface with optional `image`/`imageAlt`; cards conditionally render real photo vs placeholder
+- [x] **Wildlife Rescue CSR Brochure (PDF, 17 MB)** — added `/wr-brochure.pdf`
+  - "Download Our Brochure" card on `/about` (teal gradient, FileText icon, aimed at corporate/CSR donors) positioned before the final Support CTA
+  - Footer Quick Links now includes "CSR Brochure (PDF)" with external-link handling (target=\_blank)
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+**Previously completed (Session 2026-04-11 #2 — Bulk Photo Additions):**
 - [x] **Avian Pox photo** — Black Kite with pox lesions added to `/conditions/avian-pox` (83KB)
 - [x] **Black Eared Kite** — Portrait photo added as hero to `/species/black-kite` (135KB)
 - [x] **Black Kite 01** — Juvenile on exam table added to Black Kite gallery (92KB)
