@@ -224,10 +224,12 @@ export interface FeaturedRescue {
 
 export const FEATURED_RESCUES: FeaturedRescue[] = [
   {
-    title: "Kiran the Black Kite",
+    title: "Black Kite Under Surgery",
     species: "Black Kite",
-    summary: "Found entangled in manja string with severe wing lacerations. After 6 weeks of intensive care and our novel surgical technique, Kiran was released back into the Delhi skies.",
+    summary: "Found entangled in manja string with severe wing lacerations, this Black Kite is seen here under isoflurane gas anesthesia as our surgical team begins repair. After 6 weeks of intensive care and our novel microsurgical technique, he was released back into the Delhi skies.",
     outcome: "Released",
+    image: "/species/black-kite-anesthesia.jpg",
+    imageAlt: "Black Kite under isoflurane gas anesthesia with face mask on the surgical table at Wildlife Rescue, being prepared for manja wound repair",
   },
   {
     title: "Six Barn Owls, Ready for Release",
