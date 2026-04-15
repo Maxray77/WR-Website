@@ -418,6 +418,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **What's in progress / next step:**
 - [ ] Place actual WR Annual Report PDF at `public/wr-annual-report.pdf`
+- [x] ~~Place WR CSR Brochure PDF~~ — added `public/wr-brochure.pdf` (17 MB), wired into /about card + Footer Quick Links
 - [x] ~~Add real photos to `/facility` page~~ — clinic photos, surgical equipment gallery (7 photos), enclosure gallery (3 photos), aviaries video all added
 - [ ] Add real vulture photos to replace 10 placeholders on /vultures page
 - [ ] Replace other placeholder images with real photos
@@ -425,6 +426,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Domain setup (raptorrescue.org → Vercel)
 - [ ] Add photos for remaining species without images: Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
 - [ ] Add photos for remaining conditions: cut-wounds, fractures, orphans, other-conditions
+- [ ] Refresh `INSTAGRAM_POSTS` in `src/lib/constants.ts` periodically (hand-curated; swap image/caption/permalink + drop photo into `/public`)
 
 **Open questions or blockers:**
 - [x] ~~Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production~~ — added 2026-04-07
@@ -435,7 +437,19 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need photos for remaining 4 condition pages (cut-wounds, fractures, orphans, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session (2026-04-11 #2):**
+**Key files touched this session (2026-04-15):**
+- `src/app/page.tsx` — added 3rd hero (Avian Pox), replaced hero H1 with ATB quote, rescue cards conditional image rendering
+- `src/lib/constants.ts` — extended `FeaturedRescue` with `image`/`imageAlt`, updated 2 rescue cards, added `InstagramPost` interface + `INSTAGRAM_POSTS` array (6 entries)
+- `src/components/InstagramFeed.tsx` — rewrote as server component sourcing `INSTAGRAM_POSTS` from constants (no client state, no API)
+- `src/app/api/instagram/route.ts` — **DELETED** (API deprecated Dec 2024)
+- `next.config.ts` — removed unused Instagram CDN remote patterns
+- `src/app/about/page.tsx` — **NEW section**: "Download Our Brochure" CSR card with FileText icon, before final CTA
+- `src/components/Footer.tsx` — Quick Links now supports `external` flag; added "CSR Brochure (PDF)" entry opening in new tab
+- `public/hero-avian-pox.jpg` — **NEW**: 3rd hero image (174KB, 1920px)
+- `public/rescues/barn-owl-group.jpg` — **NEW**: 6 barn owls ready for release (283KB)
+- `public/wr-brochure.pdf` — **NEW**: CSR brochure PDF (17 MB)
+
+**Key files touched previous session (2026-04-11 #2):**
 - `src/lib/species-data.ts` — added Black Kite photos (hero + 2 gallery), Spotted Owlet gallery photo, Cattle Egret + Painted Stork to Wetland Birds gallery
 - `src/lib/conditions-data.ts` — added avian pox photo (image + images fields)
 - `src/lib/treatments-data.ts` — added laser therapy big photo, Black Kite drip + painkiller drops to post-treatment care
