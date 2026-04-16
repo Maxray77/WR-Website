@@ -246,18 +246,20 @@ export default function AnnualReportsPage() {
                         {report.headline}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-4 text-white/90 text-sm">
-                      {report.keyStats.map((stat) => (
-                        <div key={stat.label} className="text-center">
-                          <div className="font-bold text-lg lg:text-xl text-amber-light">
-                            {stat.value}
+                    {report.keyStats && report.keyStats.length > 0 && (
+                      <div className="flex flex-wrap gap-4 text-white/90 text-sm">
+                        {report.keyStats.map((stat) => (
+                          <div key={stat.label} className="text-center">
+                            <div className="font-bold text-lg lg:text-xl text-amber-light">
+                              {stat.value}
+                            </div>
+                            <div className="text-xs text-white/70 uppercase tracking-wide">
+                              {stat.label}
+                            </div>
                           </div>
-                          <div className="text-xs text-white/70 uppercase tracking-wide">
-                            {stat.label}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -265,31 +267,48 @@ export default function AnnualReportsPage() {
                 <div className="p-6 lg:p-10 grid lg:grid-cols-5 gap-8 lg:gap-10 items-start">
                   {/* Left: infographic + cover preview */}
                   <div className="lg:col-span-3 grid sm:grid-cols-2 gap-6">
-                    {/* Infographic */}
-                    <a
-                      href={report.infographicPdf}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block"
-                    >
-                      <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-md border border-gray-200 bg-gray-50 group-hover:shadow-xl transition-shadow">
-                        <Image
-                          src={report.infographicImage}
-                          alt={`${report.year} Annual Report infographic — one-page visual summary`}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 288px"
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-teal/0 group-hover:bg-teal/10 transition-colors flex items-end justify-center opacity-0 group-hover:opacity-100 pb-4">
-                          <span className="bg-white text-teal-dark text-xs font-semibold px-3 py-1.5 rounded-full shadow">
-                            Open infographic
-                          </span>
+                    {/* Infographic — or placeholder if not yet produced */}
+                    {report.infographicImage && report.infographicPdf ? (
+                      <a
+                        href={report.infographicPdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group block"
+                      >
+                        <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-md border border-gray-200 bg-gray-50 group-hover:shadow-xl transition-shadow">
+                          <Image
+                            src={report.infographicImage}
+                            alt={`${report.year} Annual Report infographic — one-page visual summary`}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 288px"
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-teal/0 group-hover:bg-teal/10 transition-colors flex items-end justify-center opacity-0 group-hover:opacity-100 pb-4">
+                            <span className="bg-white text-teal-dark text-xs font-semibold px-3 py-1.5 rounded-full shadow">
+                              Open infographic
+                            </span>
+                          </div>
                         </div>
+                        <p className="text-xs text-slate mt-2 text-center font-medium">
+                          One-Page Infographic
+                        </p>
+                      </a>
+                    ) : (
+                      <div className="block">
+                        <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-md border border-dashed border-gray-300 bg-gradient-to-br from-teal-light/50 to-offwhite flex flex-col items-center justify-center text-center px-6">
+                          <ImageIcon size={40} className="text-teal/50 mb-3" />
+                          <p className="text-sm font-semibold text-charcoal/70">
+                            Infographic
+                          </p>
+                          <p className="text-xs text-slate mt-1">
+                            Coming soon
+                          </p>
+                        </div>
+                        <p className="text-xs text-slate mt-2 text-center font-medium">
+                          One-Page Infographic
+                        </p>
                       </div>
-                      <p className="text-xs text-slate mt-2 text-center font-medium">
-                        One-Page Infographic
-                      </p>
-                    </a>
+                    )}
 
                     {/* Detailed report cover */}
                     <a
@@ -336,18 +355,27 @@ export default function AnnualReportsPage() {
                         <Download size={16} className="opacity-70 group-hover:opacity-100" />
                       </a>
 
-                      <a
-                        href={report.infographicPdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between gap-3 bg-white hover:bg-teal-light text-charcoal font-semibold px-5 py-3.5 rounded-xl text-sm transition-all border border-gray-200 hover:border-teal/30 group"
-                      >
-                        <span className="flex items-center gap-3">
-                          <ImageIcon size={18} className="text-teal" />
-                          Download Infographic
-                        </span>
-                        <Download size={16} className="text-slate group-hover:text-teal" />
-                      </a>
+                      {report.infographicPdf ? (
+                        <a
+                          href={report.infographicPdf}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between gap-3 bg-white hover:bg-teal-light text-charcoal font-semibold px-5 py-3.5 rounded-xl text-sm transition-all border border-gray-200 hover:border-teal/30 group"
+                        >
+                          <span className="flex items-center gap-3">
+                            <ImageIcon size={18} className="text-teal" />
+                            Download Infographic
+                          </span>
+                          <Download size={16} className="text-slate group-hover:text-teal" />
+                        </a>
+                      ) : (
+                        <div className="flex items-center justify-between gap-3 bg-gray-50 text-slate/60 font-semibold px-5 py-3.5 rounded-xl text-sm border border-dashed border-gray-200 cursor-not-allowed">
+                          <span className="flex items-center gap-3">
+                            <ImageIcon size={18} />
+                            Infographic — Coming Soon
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     <p className="mt-6 text-xs text-slate">
