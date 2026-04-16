@@ -36,7 +36,7 @@ export default function Home() {
               <span className="text-amber not-italic">community of air</span>.&rdquo;
             </h1>
             <p className="mt-6 text-lg text-white/80 font-medium tracking-wide">
-              &mdash; <span className="italic">All That Breathes</span>
+              &mdash; <span className="italic">Nadeem and Saud, Wildlife Rescue</span>
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <DonateButton size="lg" />
