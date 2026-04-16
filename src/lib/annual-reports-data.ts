@@ -77,10 +77,19 @@ export const ANNUAL_REPORTS: AnnualReport[] = [
   },
   {
     year: 2020,
-    headline: "Annual Report 2020",
+    headline: "Resilient Operations in a Year of Global Crisis",
     summary:
-      "Despite the COVID-19 pandemic, Wildlife Rescue stayed operational throughout 2020, continuing to rescue and rehabilitate birds across Delhi through lockdowns and restrictions.",
+      "Despite the COVID-19 pandemic, Wildlife Rescue stayed operational through 2020 — rescuing 2,478 birds across 47 species. The team secured FCRA registration for international donations and navigated lockdown-related spikes in kite flying injuries.",
+    infographicImage: "/annual-reports/infographic-2020.jpg",
+    infographicPdf: "/annual-reports/infographic-2020.jpg",
+    infographicOrientation: "landscape",
     coverImage: "/annual-reports/cover-2020.jpg",
     fullReportPdf: "/annual-reports/wr-annual-report-2020.pdf",
+    keyStats: [
+      { label: "Total Rescues", value: "2,478" },
+      { label: "Species", value: "47" },
+      { label: "Black Kites", value: "2,116" },
+      { label: "Barn Owls", value: "53" },
+    ],
   },
 ];
