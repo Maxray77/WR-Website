@@ -21,8 +21,10 @@ export interface AnnualReport {
   summary: string;
   /** Preview image of the one-page infographic (JPG). Omit if not yet produced. */
   infographicImage?: string;
-  /** Download URL for the infographic PDF. Omit if not yet produced. */
+  /** Download URL for the infographic (PDF or image). Omit if not yet produced. */
   infographicPdf?: string;
+  /** Orientation of the infographic — controls preview card aspect ratio. Defaults to 'portrait'. */
+  infographicOrientation?: "portrait" | "landscape";
   /** Preview image of the detailed report's cover / first page (JPG) */
   coverImage: string;
   /** Download URL for the full detailed report PDF */
@@ -50,11 +52,20 @@ export const ANNUAL_REPORTS: AnnualReport[] = [
   },
   {
     year: 2022,
-    headline: "The All That Breathes Year",
+    headline: "Annual Intake Analysis — 3,385 Rescues",
     summary:
-      "The Oscar-nominated documentary All That Breathes brought global attention to our work. Rescue operations continued to grow as the facility treated its most diverse intake yet.",
+      "The Oscar-nominated documentary All That Breathes brought global attention to our work. Black Kites dominated intake at 85% of all rescues, while 39 unique species were treated — including 13 rare single-instance rescues.",
+    infographicImage: "/annual-reports/infographic-2022.jpg",
+    infographicPdf: "/annual-reports/infographic-2022.jpg",
+    infographicOrientation: "landscape",
     coverImage: "/annual-reports/cover-2022.jpg",
     fullReportPdf: "/annual-reports/wr-annual-report-2022.pdf",
+    keyStats: [
+      { label: "Total Rescues", value: "3,385" },
+      { label: "Black Kites", value: "2,872" },
+      { label: "Species", value: "39" },
+      { label: "Rare Species", value: "13" },
+    ],
   },
   {
     year: 2021,

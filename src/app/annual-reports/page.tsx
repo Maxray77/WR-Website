@@ -275,7 +275,13 @@ export default function AnnualReportsPage() {
                         rel="noopener noreferrer"
                         className="group block"
                       >
-                        <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-md border border-gray-200 bg-gray-50 group-hover:shadow-xl transition-shadow">
+                        <div
+                          className={`relative rounded-xl overflow-hidden shadow-md border border-gray-200 bg-gray-50 group-hover:shadow-xl transition-shadow ${
+                            report.infographicOrientation === "landscape"
+                              ? "aspect-[16/9]"
+                              : "aspect-[9/16]"
+                          }`}
+                        >
                           <Image
                             src={report.infographicImage}
                             alt={`${report.year} Annual Report infographic — one-page visual summary`}
