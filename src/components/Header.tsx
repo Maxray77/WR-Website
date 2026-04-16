@@ -39,6 +39,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact Us" },
+  { href: "/report-tagged-bird", label: "Report A Tagged Bird" },
 ];
 
 // Flat list for mobile
@@ -60,6 +61,7 @@ const MOBILE_LINKS = [
   { href: "/bird-brothers", label: "Bird Brothers Book" },
   { href: "/blog", label: "Blog & News" },
   { href: "/contact", label: "Contact Us" },
+  { href: "/report-tagged-bird", label: "Report A Tagged Bird" },
 ];
 
 function DropdownMenu({ item }: { item: NavItem }) {
