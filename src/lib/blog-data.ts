@@ -17,26 +17,26 @@ export interface BlogPost {
  */
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "wr-annual-report",
-    title: "WR Annual Report",
+    slug: "wr-annual-report-2025",
+    title: "Wildlife Rescue Annual Report 2025",
     excerpt:
-      "Our comprehensive annual report detailing Wildlife Rescue's operations, rescues, financials, and impact. Download the full PDF report.",
-    date: "2026-04-06",
+      "Our 2025 annual report — a record year with 4,184 birds rescued. Download the full PDF for operations, rescues, financials, and impact.",
+    date: "2026-04-16",
     author: "Wildlife Rescue",
     category: "Annual Update",
     readTime: "PDF",
     pdfUrl: "/wr-annual-report.pdf",
-    content: `Wildlife Rescue's Annual Report provides a comprehensive overview of our operations, achievements, and financial transparency.
+    content: `Wildlife Rescue's 2025 Annual Report provides a comprehensive overview of a record-breaking year — our biggest ever, with 4,184 birds rescued.
 
 **What's inside:**
-- Total birds rescued and treated
-- Species breakdown and trends
+- Total birds rescued and treated across 34+ species
+- Species breakdown and long-term trends
 - Financial statements and donor acknowledgments
-- Facility upgrades and equipment additions
+- Facility upgrades, new equipment, and surgical advances
 - Team growth and volunteer contributions
-- Conservation impact and future goals
+- Conservation impact, partner network, and future goals
 
-Download the full report using the link above.`,
+Download the full 2025 report using the link above.`,
   },
   {
     slug: "record-breaking-2025",

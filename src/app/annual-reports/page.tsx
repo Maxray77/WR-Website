@@ -224,15 +224,25 @@ export default function AnnualReportsPage() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <Download size={32} className="text-teal mx-auto mb-3" />
           <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-            Download Full Reports
+            Download Full Report
           </h2>
           <p className="mt-3 text-slate">
-            Detailed annual reports with complete financial statements, auditor
-            certifications, and program details will be available for download
-            here soon.
+            Complete financial statements, auditor certifications, program
+            details, and year-over-year data.
           </p>
-          <p className="mt-2 text-sm text-slate">
-            For immediate requests, please contact us at{" "}
+
+          <a
+            href="/wr-annual-report.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-full text-sm transition-all hover:shadow-lg hover:scale-105"
+          >
+            <Download size={18} />
+            Download 2025 Annual Report (PDF)
+          </a>
+
+          <p className="mt-4 text-sm text-slate">
+            For earlier reports or other requests, please contact{" "}
             <a
               href="mailto:nadeem@raptorrescue.org"
               className="text-teal font-semibold hover:underline"
