@@ -63,16 +63,19 @@ This represents a 24% increase over 2024 and marks our 12x growth since 2010, wh
   },
   {
     slug: "nwra-seattle-2025",
-    title: "Presenting Our Refined Surgical Technique at NWRA Seattle",
+    title: "Advanced Propatagium Surgery — Presented at NWRA 2025",
     excerpt:
-      "Seven years after our first NWRA presentation in LA, we returned to share our refined wing repair technique with rehabilitators worldwide.",
-    date: "2025-11-20",
-    author: "Saud",
+      "Nadeem Shehzad and Mohammad Saud presented Wildlife Rescue's refined technique for surgical repair of the avian propatagium at the NWRA Symposium in Bellevue, WA (Seattle), February 2025.",
+    date: "2025-02-20",
+    author: "Mohammad Saud",
     category: "Conference",
     readTime: "4 min",
-    content: `In November 2025, we presented at the National Wildlife Rehabilitators Association (NWRA) Annual Symposium in Seattle — our second time on this international stage.
+    image: "/nwra-2025/speakers-backdrop.jpg",
+    content: `In February 2025, Nadeem Shehzad and Mohammad Saud presented at the National Wildlife Rehabilitators Association (NWRA) Annual Symposium in Bellevue, WA (Seattle area) — our second time on this international stage.
 
-Our first presentation was in Los Angeles in 2018, where we introduced our novel surgical technique for repairing wings damaged by manja (glass-coated kite string). Seven years later, we returned with a refined version.
+The presentation focused on our refined surgical technique for repairing the **propatagium** — the triangular membrane along the leading edge of the wing that is critical to flight. This is the single most common injury we see from manja (glass-coated kite string), which slices through both skin and the underlying TPLT and EMR tendons.
+
+Our first NWRA presentation was in Los Angeles in 2018, where we introduced the novel technique. Seven years later, we returned with the refined, staged version.
 
 **What's changed since 2018:**
 - The technique has been tested on 2,000+ birds
@@ -80,9 +83,11 @@ Our first presentation was in Los Angeles in 2018, where we introduced our novel
 - Three other rehabilitation centers in India have adopted our method
 - A veterinary clinic in Pakistan has begun using a modified version
 
-**The response:** The Seattle audience included rehabilitators from 15 countries. Several approached us afterward to discuss implementing the technique at their facilities.
+**The response:** The audience included rehabilitators from 15 countries. Several approached us afterward to discuss implementing the technique at their facilities.
 
-This validates what Nadeem and Saud have always believed — that solutions developed in the field, through years of hands-on experience, can advance the global practice of wildlife rehabilitation.`,
+**See the full presentation with surgical-stage photos and symposium gallery:** [View the NWRA 2025 Presentation Page →](/nwra-2025)
+
+This trip was made possible by **Raptor Rescue and Research Inc.** — Wildlife Rescue's U.S. fiscal sponsor, a 501(c)(3) nonprofit based in New York.`,
   },
   {
     slug: "monsoon-2025-preparedness",

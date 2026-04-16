@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User, FileText, Download } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
@@ -87,6 +88,24 @@ export default async function BlogPostPage({
           </div>
         </div>
       </section>
+
+      {/* ─── Hero Image ─── */}
+      {post.image && (
+        <section className="bg-offwhite">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+            <div className="relative aspect-[2/1] rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 896px"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── PDF Download Banner ─── */}
       {post.pdfUrl && (

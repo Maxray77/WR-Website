@@ -411,9 +411,21 @@ export default function Home() {
                 href={`/blog/${post.slug}`}
                 className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-gray-100 group"
               >
-                <div className="aspect-[3/2] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
-                  <span className="text-slate text-sm">Blog Photo</span>
-                </div>
+                {post.image ? (
+                  <div className="aspect-[3/2] relative">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[3/2] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
+                    <span className="text-slate text-sm">Blog Photo</span>
+                  </div>
+                )}
                 <div className="p-6">
                   <div className="flex items-center gap-3 text-xs text-slate mb-3">
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-teal-light text-teal rounded-full font-semibold">
