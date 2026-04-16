@@ -219,9 +219,33 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-15
+**Last updated by:** Claude Code — 2026-04-16
 
-**What was just completed (Session 2026-04-15 — Homepage polish, Instagram feed, brochure):**
+**What was just completed (Session 2026-04-16 — NWRA page, tagged-bird reporting, hero attribution):**
+- [x] **NWRA Symposium 2025 page** — NEW `/nwra-2025` dedicated page covering Nadeem Shehzad & Mohammad Saud's presentation "Advanced Propatagium Surgery" at NWRA Symposium, Bellevue, WA (Seattle), Feb 18-22, 2025
+  - 7 photos compressed with sharp-cli (~170-265KB each) from original 7-8 MB JPGs
+  - Sections: Hero (gradient with speakers backdrop), Why This Matters, Three Stages (alternating image/text layout), Scenes Gallery, NWRA+R3 info cards, Cross-links to /about and /treatments, Donate CTA
+  - Wired into `/media` page 2025 awards entry with `link: "/nwra-2025"` (conditional Link render)
+- [x] **NWRA blog post** — Added "Advanced Propatagium Surgery — Presented at NWRA 2025" to `BLOG_POSTS` in `src/lib/blog-data.ts`
+  - Slug: `nwra-seattle-2025`, Category: Conference, Author: Mohammad Saud, Date: 2025-02-20
+  - Featured on homepage "From Our Blog" section (top 3) and on `/blog` listing
+- [x] **Blog image support** — All blog card placeholders now conditionally render `post.image` via `next/image` with proper aspect-ratio + sizes; fallback gradient placeholder retained
+  - Updated: `src/app/page.tsx` (homepage grid), `src/app/blog/page.tsx` (featured + grid), `src/app/blog/[slug]/page.tsx` (hero image between header and PDF banner)
+- [x] **Report A Tagged Bird page** — NEW `/report-tagged-bird` interactive form page
+  - Client component with 5 fieldsets: Your Details, Tag Details, Bird Details (species + condition), When & Where (date + city + location description), Photos (upload up to 5, 10 MB each)
+  - Photo preview via `URL.createObjectURL`, per-photo remove, photo count indicator
+  - FormData POST to NEW `/api/report-tagged-bird` route with rate limiting (reuses contact 5/hr limiter), field length caps, header injection blocking, email regex, 10 MB photo cap
+  - Success state with "Submit Another Report" reset; emergency callout card linking to phone + WhatsApp
+  - Header nav: added "Report A Tagged Bird" after "Contact Us" in both desktop NAV_ITEMS and MOBILE_LINKS
+  - Added to sitemap
+  - **Note:** Only photo metadata (name, size, type) is stored currently. Actual blob storage would need Vercel Blob integration.
+- [x] **Hero quote attribution changed** — Homepage `<h1>` quote *"Life itself a kinship, we're all a community of air."* now attributed to **"— Nadeem and Saud, Wildlife Rescue"** (was "— All That Breathes")
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-15 — Homepage polish, Instagram feed, brochure):**
 - [x] **Third homepage hero image** — Avian Pox Black Kite added below Barn Owl hero (`/hero-avian-pox.jpg`, 174KB, 1920px)
 - [x] **Hero tagline replaced with ATB quote** — Homepage hero H1 now reads *"Life itself a kinship, we're all a community of air."* with "— All That Breathes" attribution (italic Poppins, amber "community of air" accent)
 - [x] **Instagram feed activated (Option C — manual curation)** — replaced dead Instagram Basic Display API with hand-curated `INSTAGRAM_POSTS` in `src/lib/constants.ts`
@@ -437,7 +461,20 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need photos for remaining 4 condition pages (cut-wounds, fractures, orphans, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session (2026-04-15):**
+**Key files touched this session (2026-04-16):**
+- `src/app/nwra-2025/page.tsx` — **NEW**: NWRA Symposium 2025 presentation page (~441 lines)
+- `src/app/report-tagged-bird/page.tsx` — **NEW**: interactive tagged bird reporting form (~500 lines, "use client")
+- `src/app/api/report-tagged-bird/route.ts` — **NEW**: API route with FormData handling, validation, rate limiting
+- `src/app/page.tsx` — blog card conditional image rendering; hero quote attribution changed to "Nadeem and Saud, Wildlife Rescue"
+- `src/app/blog/page.tsx` — conditional image rendering on featured post + grid cards
+- `src/app/blog/[slug]/page.tsx` — hero image section between header and PDF download banner
+- `src/app/media/page.tsx` — 2025 NWRA entry with title, location, and `link: "/nwra-2025"`
+- `src/lib/blog-data.ts` — NEW NWRA blog post (slug `nwra-seattle-2025`), featured
+- `src/components/Header.tsx` — added "Report A Tagged Bird" to NAV_ITEMS + MOBILE_LINKS after Contact Us
+- `src/app/sitemap.ts` — added `/nwra-2025` (yearly) and `/report-tagged-bird` (monthly)
+- `public/nwra-2025/` — **NEW**: 7 compressed photos (speakers-backdrop, stage1-skin-suture, stage1-tplt-emr-sutured, the-fusion-day32, thank-you-01, thank-you-02, networking)
+
+**Key files touched previous session (2026-04-15):**
 - `src/app/page.tsx` — added 3rd hero (Avian Pox), replaced hero H1 with ATB quote, rescue cards conditional image rendering
 - `src/lib/constants.ts` — extended `FeaturedRescue` with `image`/`imageAlt`, updated 2 rescue cards, added `InstagramPost` interface + `INSTAGRAM_POSTS` array (6 entries)
 - `src/components/InstagramFeed.tsx` — rewrote as server component sourcing `INSTAGRAM_POSTS` from constants (no client state, no API)
