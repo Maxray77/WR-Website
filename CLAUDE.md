@@ -219,9 +219,43 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-16
+**Last updated by:** Claude Code — 2026-04-17
 
-**What was just completed (Session 2026-04-16 — NWRA page, tagged-bird reporting, hero attribution):**
+**What was just completed (Session 2026-04-17 — Annual Report archive overhaul):**
+- [x] **Annual Report 2025 PDF published** — `public/wr-annual-report.pdf` (2.95 MB), wired into `/blog` (featured post retitled "Wildlife Rescue Annual Report 2025"), homepage "From Our Blog" section, `/blog/wr-annual-report-2025` detail page, and `/annual-reports`
+- [x] **New Annual Report archive on `/annual-reports`** — complete redesign of download section
+  - Per-year card: teal gradient header with pulled-out key stats, two-column body with clickable infographic + cover previews and prominent Download CTAs
+  - Handles both portrait (9:16) and landscape (16:9) infographic orientations via `infographicOrientation` field
+  - Graceful "Coming soon" placeholder when infographic is not yet produced
+  - Data-driven: new `src/lib/annual-reports-data.ts` module — add a year = one entry + 4 files in `public/annual-reports/`
+- [x] **4 years live in archive** (newest first):
+  - **2025** — "A Second Chance at Flight" — infographic + detailed PDF (both)
+  - **2022** — "Annual Intake Analysis — 3,385 Rescues" — landscape infographic + detailed PDF
+  - **2021** — "2021 In Numbers" — detailed PDF (infographic coming)
+  - **2020** — "Resilient Operations in a Year of Global Crisis" — landscape infographic + detailed PDF
+- [x] **New Barn Owl video** — `barn-owl-release.mp4` (33 MB) added as lead entry in Barn Owl species videos list
+- [x] **PDF→JPG toolchain established** — `C:/Users/maxra/AppData/Local/Temp/pdfconv/convert2.mjs` uses `pdfjs-dist` + `@napi-rs/canvas` + wasm URL for JPX decoding; sharp-cli compresses output to JPEG
+
+**New public assets (this session):**
+- `public/wr-annual-report.pdf` (2.95 MB) — 2025 detailed report
+- `public/annual-reports/wr-annual-infographic-2025.pdf` (455 KB)
+- `public/annual-reports/infographic-2025.jpg` (422 KB, portrait)
+- `public/annual-reports/cover-2025.jpg` (210 KB)
+- `public/annual-reports/infographic-2022.jpg` (330 KB, landscape)
+- `public/annual-reports/cover-2022.jpg` (389 KB)
+- `public/annual-reports/wr-annual-report-2022.pdf` (12.5 MB)
+- `public/annual-reports/cover-2021.jpg` (255 KB)
+- `public/annual-reports/wr-annual-report-2021.pdf` (4.2 MB)
+- `public/annual-reports/infographic-2020.jpg` (400 KB, landscape)
+- `public/annual-reports/cover-2020.jpg` (154 KB)
+- `public/annual-reports/wr-annual-report-2020.pdf` (2.2 MB)
+- `public/species/barn-owl-release.mp4` (33 MB)
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-16 — NWRA page, tagged-bird reporting, hero attribution):**
 - [x] **NWRA Symposium 2025 page** — NEW `/nwra-2025` dedicated page covering Nadeem Shehzad & Mohammad Saud's presentation "Advanced Propatagium Surgery" at NWRA Symposium, Bellevue, WA (Seattle), Feb 18-22, 2025
   - 7 photos compressed with sharp-cli (~170-265KB each) from original 7-8 MB JPGs
   - Sections: Hero (gradient with speakers backdrop), Why This Matters, Three Stages (alternating image/text layout), Scenes Gallery, NWRA+R3 info cards, Cross-links to /about and /treatments, Donate CTA
@@ -461,7 +495,21 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need photos for remaining 4 condition pages (cut-wounds, fractures, orphans, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
 
-**Key files touched this session (2026-04-16):**
+**Key files touched this session (2026-04-17):**
+- `src/app/annual-reports/page.tsx` — replaced simple download section with new Annual Report Archive listing; per-year card with teal header stats, infographic + cover previews, landscape/portrait aspect support, placeholder UI for missing infographics
+- `src/lib/annual-reports-data.ts` — **NEW**: data module for archive (`AnnualReport` interface, `ANNUAL_REPORTS` array; fields: `year`, `headline`, `summary`, `infographicImage?`, `infographicPdf?`, `infographicOrientation?`, `coverImage`, `fullReportPdf`, `keyStats?`)
+- `src/lib/blog-data.ts` — retitled annual report post to "Wildlife Rescue Annual Report 2025", slug `wr-annual-report-2025`
+- `src/lib/species-data.ts` — added `barn-owl-release.mp4` to Barn Owl videos list
+- `public/wr-annual-report.pdf` — **NEW**: 2025 detailed report (2.95 MB)
+- `public/annual-reports/*` — **NEW directory**: 3 infographics (2020/2022/2025), 4 covers, 4 full report PDFs
+- `public/species/barn-owl-release.mp4` — **NEW**: Barn Owl video (33 MB)
+
+**Pending for future sessions:**
+- 2021 infographic — only the detailed PDF is wired up; infographic slot shows "Coming soon" placeholder. Drop `infographic-2021.jpg` + optional `wr-annual-infographic-2021.pdf` in `public/annual-reports/` and add `infographicImage` / `infographicPdf` (+ `infographicOrientation` and `keyStats`) to the 2021 entry in `annual-reports-data.ts`.
+- Earlier years (2019 and before) — append new entries to `ANNUAL_REPORTS` array as they become available
+- Barn Owl video (33 MB) is larger than other species videos — compress with ffmpeg when available
+
+**Key files touched previous session (2026-04-16):**
 - `src/app/nwra-2025/page.tsx` — **NEW**: NWRA Symposium 2025 presentation page (~441 lines)
 - `src/app/report-tagged-bird/page.tsx` — **NEW**: interactive tagged bird reporting form (~500 lines, "use client")
 - `src/app/api/report-tagged-bird/route.ts` — **NEW**: API route with FormData handling, validation, rate limiting
