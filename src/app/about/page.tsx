@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Heart, GraduationCap, Eye, Users, Award, BookOpen, FileText, Download } from "lucide-react";
+import Image from "next/image";
+import { Heart, GraduationCap, Eye, Users, Award, BookOpen, Download } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 import { TEAM, TIMELINE, VALUES } from "@/lib/constants";
@@ -185,9 +186,15 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-teal-light to-offwhite rounded-2xl border border-teal/15 overflow-hidden">
             <div className="grid md:grid-cols-[auto_1fr_auto] items-center gap-6 p-8 lg:p-10">
-              {/* Icon */}
-              <div className="w-20 h-20 bg-white rounded-xl shadow-sm flex items-center justify-center text-teal shrink-0 mx-auto md:mx-0">
-                <FileText size={36} />
+              {/* Brochure cover preview */}
+              <div className="relative w-32 md:w-40 aspect-[3/4] rounded-xl overflow-hidden shadow-md ring-1 ring-teal/10 shrink-0 mx-auto md:mx-0 bg-white">
+                <Image
+                  src="/brochure-cover.jpg"
+                  alt="Wildlife Rescue CSR Brochure — cover preview"
+                  fill
+                  sizes="(max-width: 768px) 128px, 160px"
+                  className="object-cover"
+                />
               </div>
 
               {/* Text */}
