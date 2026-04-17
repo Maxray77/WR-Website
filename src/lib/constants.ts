@@ -36,7 +36,7 @@ export const TEAM = [
   {
     name: "Nadeem Shehzad",
     role: "Co-Founder",
-    bio: "Nadeem co-founded Wildlife Rescue after finding an injured Black Kite in the late 1990s. He serves as Honorary Wildlife Warden and Board Member of Raptor Rescue and Research Inc. (USA). He has presented at NWRA symposiums in Los Angeles and Seattle.",
+    bio: "Nadeem co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s. He serves as Honorary Wildlife Warden and Board Member of Raptor Rescue and Research Inc. (USA). He has presented at NWRA symposiums in Los Angeles and Seattle.",
   },
   {
     name: "Salik Rehman",
@@ -199,7 +199,7 @@ export const BANK_DETAILS = {
 
 // ─── Timeline ───
 export const TIMELINE = [
-  { year: "Late 1990s", title: "The Beginning", description: "Brothers Nadeem and Saud find an injured Black Kite. Told by hospitals that they \"do not treat carnivorous birds,\" they begin learning to heal raptors themselves." },
+  { year: "Early 1990s", title: "The Beginning", description: "Brothers Nadeem and Saud find an injured Black Kite. Told by hospitals that they \"do not treat carnivorous birds,\" they begin learning to heal raptors themselves." },
   { year: "2003", title: "Wildlife Rescue Established", description: "The brothers formally establish Wildlife Rescue, dedicating their lives to raptor conservation in Delhi." },
   { year: "2010", title: "Official Registration", description: "Wildlife Rescue is registered as a charitable trust. Case #317 marks the start of formal record-keeping. 362 birds rescued in the first year." },
   { year: "2011", title: "Explosive Growth", description: "Intake surges 181% to 1,017 birds as the partner network activates. Wildlife Rescue transforms from a home operation to a real rescue center." },

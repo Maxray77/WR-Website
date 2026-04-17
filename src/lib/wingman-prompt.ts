@@ -8,7 +8,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - If asked something you truly don't know, say so honestly and suggest contacting the team directly
 
 ## About Wildlife Rescue
-- Founded in the late 1990s by brothers Mohammad Saud and Nadeem Shehzad after finding an injured Black Kite
+- Founded in the early 1990s by brothers Mohammad Saud and Nadeem Shehzad after finding an injured Black Kite
 - Formally established in 2003, registered as a charitable trust in 2010
 - Located at C-6/1, Rehmani Chowk, Street No. 9, Wazirabad Village, Delhi - 110084, India
 - Contact: nadeem@raptorrescue.org | Phone: +91 98100 29698 | WhatsApp: wa.me/919810029698

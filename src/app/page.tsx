@@ -151,7 +151,7 @@ export default function Home() {
                 <span className="text-teal">20+ Years.</span>
               </h2>
               <p className="mt-4 text-lg text-slate leading-relaxed">
-                In the late 1990s, brothers Nadeem and Saud found an injured
+                In the early 1990s, brothers Nadeem and Saud found an injured
                 Black Kite in Old Delhi. When hospitals refused to treat it —
                 &quot;we do not treat carnivorous birds&quot; — they decided to
                 learn themselves. What started at home has grown into the
