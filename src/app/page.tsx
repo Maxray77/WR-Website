@@ -17,7 +17,8 @@ import {
   CONTACT,
 } from "@/lib/constants";
 import { BLOG_POSTS } from "@/lib/blog-data";
-import { Facebook, Instagram, Youtube, Calendar, Clock, ArrowUpRight } from "lucide-react";
+import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
+import { Facebook, Instagram, Youtube, Calendar, Clock, ArrowUpRight, FileText, Download } from "lucide-react";
 
 export default function Home() {
   return (
@@ -461,6 +462,135 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ─── 2025 Annual Report Feature ─── */}
+      {(() => {
+        const report = ANNUAL_REPORTS.find((r) => r.year === 2025);
+        if (!report) return null;
+        return (
+          <section className="py-16 lg:py-24 bg-gradient-to-br from-teal-dark via-teal to-teal-dark relative overflow-hidden">
+            {/* Decorative background */}
+            <div className="absolute inset-0 opacity-10" aria-hidden="true">
+              <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-amber blur-3xl" />
+              <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-amber-light blur-3xl" />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+              <div className="grid lg:grid-cols-5 gap-10 lg:gap-14 items-center">
+                {/* Left: infographic + cover previews */}
+                <div className="lg:col-span-2 grid grid-cols-2 gap-4 max-w-md mx-auto lg:mx-0">
+                  {report.infographicImage && report.infographicPdf && (
+                    <a
+                      href={report.infographicPdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block"
+                    >
+                      <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 group-hover:scale-105 transition-transform duration-300">
+                        <Image
+                          src={report.infographicImage}
+                          alt={`${report.year} Annual Report infographic`}
+                          fill
+                          sizes="(max-width: 1024px) 40vw, 240px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <p className="text-xs text-white/70 mt-2 text-center font-medium">
+                        Infographic
+                      </p>
+                    </a>
+                  )}
+
+                  <a
+                    href={report.fullReportPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                  >
+                    <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 group-hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src={report.coverImage}
+                        alt={`${report.year} Annual Report — detailed cover`}
+                        fill
+                        sizes="(max-width: 1024px) 40vw, 240px"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                    <p className="text-xs text-white/70 mt-2 text-center font-medium">
+                      Detailed Report
+                    </p>
+                  </a>
+                </div>
+
+                {/* Right: headline + stats + CTA */}
+                <div className="lg:col-span-3 text-center lg:text-left">
+                  <span className="inline-flex items-center gap-2 bg-amber/20 text-amber-light px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                    <FileText size={14} />
+                    Annual Report {report.year}
+                  </span>
+
+                  <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-[family-name:var(--font-poppins)]">
+                    {report.headline}
+                  </h2>
+
+                  <p className="mt-4 text-white/80 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    {report.summary}
+                  </p>
+
+                  {/* Key stats */}
+                  {report.keyStats && report.keyStats.length > 0 && (
+                    <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto lg:mx-0">
+                      {report.keyStats.map((stat) => (
+                        <div
+                          key={stat.label}
+                          className="bg-white/10 backdrop-blur-sm rounded-xl px-3 py-4 text-center border border-white/10"
+                        >
+                          <div className="text-2xl lg:text-3xl font-bold text-amber-light font-[family-name:var(--font-poppins)]">
+                            {stat.value}
+                          </div>
+                          <div className="text-[11px] text-white/70 uppercase tracking-wide mt-1">
+                            {stat.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* CTAs */}
+                  <div className="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
+                    <a
+                      href={report.fullReportPdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-amber hover:bg-amber-light text-charcoal font-semibold px-6 py-3 rounded-full text-sm transition-all hover:shadow-xl hover:scale-105"
+                    >
+                      <Download size={16} />
+                      Download Detailed Report
+                    </a>
+                    {report.infographicPdf && (
+                      <a
+                        href={report.infographicPdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full text-sm transition-all border border-white/20"
+                      >
+                        <FileText size={16} />
+                        View Infographic
+                      </a>
+                    )}
+                    <Link
+                      href="/annual-reports"
+                      className="inline-flex items-center gap-2 text-white/90 hover:text-white font-semibold px-6 py-3 rounded-full text-sm transition-colors"
+                    >
+                      Full Archive <ArrowRight size={16} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* ─── Instagram Feed ─── */}
       <InstagramFeed />
