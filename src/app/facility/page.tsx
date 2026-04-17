@@ -22,14 +22,14 @@ import DonateButton from "@/components/DonateButton";
 export const metadata: Metadata = {
   title: "Our Facility — Clinic, Aviaries & Rehabilitation Center",
   description:
-    "Tour the world's largest raptor rescue facility in Delhi — a fully equipped clinic with X-ray and surgical suite, plus 50+ enclosures rehabilitating 11+ birds daily.",
+    "Tour the world's largest raptor rescue facility in Delhi — a fully equipped clinic with X-ray and a modern operation theater, plus purpose-built enclosures rehabilitating 11+ birds daily.",
 };
 
 // ─── Facility Stats ───
 const FACILITY_STATS = [
   { value: "11+", label: "Birds Arrive Daily" },
-  { value: "2", label: "Operating Theaters" },
-  { value: "50+", label: "Enclosures & Aviaries" },
+  { value: "Advanced", label: "Modern Operation Theater with latest machines" },
+  { value: "Purpose-Built", label: "Enclosures & Aviaries" },
   { value: "Since 2003", label: "Years in Operation" },
 ];
 
