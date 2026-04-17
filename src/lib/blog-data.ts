@@ -9,6 +9,13 @@ export interface BlogPost {
   content: string;
   image?: string;
   pdfUrl?: string;
+  /**
+   * If set, the blog post is backed by an entry in ANNUAL_REPORTS with this
+   * year. The listing + detail pages then render the archive-style card
+   * (infographic + cover previews + download CTAs) instead of the plain
+   * PDF banner.
+   */
+  annualReportYear?: number;
 }
 
 /**
@@ -20,12 +27,14 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "wr-annual-report-2025",
     title: "Wildlife Rescue Annual Report 2025",
     excerpt:
-      "Our 2025 annual report — a record year with 4,184 birds rescued. Download the full PDF for operations, rescues, financials, and impact.",
+      "Our 2025 annual report — a record year with 4,214 birds rescued across 53 species. Download the infographic or the full detailed PDF below.",
     date: "2026-04-16",
     author: "Wildlife Rescue",
     category: "Annual Update",
     readTime: "PDF",
+    image: "/annual-reports/infographic-2025.jpg",
     pdfUrl: "/wr-annual-report.pdf",
+    annualReportYear: 2025,
     content: `Wildlife Rescue's 2025 Annual Report provides a comprehensive overview of a record-breaking year — our biggest ever, with 4,184 birds rescued.
 
 **What's inside:**

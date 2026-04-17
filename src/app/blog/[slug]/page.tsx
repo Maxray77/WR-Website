@@ -4,7 +4,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User, FileText, Download } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
+import AnnualReportCard from "@/components/AnnualReportCard";
 import { BLOG_POSTS, getBlogPostBySlug } from "@/lib/blog-data";
+import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
 export function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
@@ -40,6 +42,12 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
   if (!post) notFound();
+
+  // Resolve the backing annual report entry (if any) so the page can show
+  // the infographic + detailed-cover previews instead of a plain PDF banner.
+  const annualReport = post.annualReportYear
+    ? ANNUAL_REPORTS.find((r) => r.year === post.annualReportYear)
+    : undefined;
 
   // Simple markdown-like rendering — bold and paragraphs
   const paragraphs = post.content.split("\n\n").filter(Boolean);
@@ -89,49 +97,60 @@ export default async function BlogPostPage({
         </div>
       </section>
 
-      {/* ─── Hero Image ─── */}
-      {post.image && (
-        <section className="bg-offwhite">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
-            <div className="relative aspect-[2/1] rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 896px"
-                className="object-cover"
-                priority
-              />
-            </div>
+      {/* ─── Annual Report Card (infographic + detailed PDF cover) ─── */}
+      {annualReport ? (
+        <section className="bg-offwhite py-10 lg:py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 lg:-mt-8">
+            <AnnualReportCard report={annualReport} />
           </div>
         </section>
-      )}
+      ) : (
+        <>
+          {/* Hero Image — only when not an annual report */}
+          {post.image && (
+            <section className="bg-offwhite">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+                <div className="relative aspect-[2/1] rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 896px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            </section>
+          )}
 
-      {/* ─── PDF Download Banner ─── */}
-      {post.pdfUrl && (
-        <section className="py-8 bg-offwhite">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <a
-              href={post.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg hover:border-teal/30 transition-all group"
-            >
-              <div className="w-16 h-16 bg-red-50 rounded-xl flex items-center justify-center shrink-0">
-                <FileText size={32} className="text-red-400" />
+          {/* PDF Download Banner — only when not an annual report */}
+          {post.pdfUrl && (
+            <section className="py-8 bg-offwhite">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <a
+                  href={post.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg hover:border-teal/30 transition-all group"
+                >
+                  <div className="w-16 h-16 bg-red-50 rounded-xl flex items-center justify-center shrink-0">
+                    <FileText size={32} className="text-red-400" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-bold text-charcoal font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
+                      Download Full Report (PDF)
+                    </p>
+                    <p className="text-sm text-slate mt-0.5">
+                      View or download the complete Wildlife Rescue Annual Report
+                    </p>
+                  </div>
+                  <Download size={20} className="text-teal shrink-0" />
+                </a>
               </div>
-              <div className="flex-1">
-                <p className="font-bold text-charcoal font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
-                  Download Full Report (PDF)
-                </p>
-                <p className="text-sm text-slate mt-0.5">
-                  View or download the complete Wildlife Rescue Annual Report
-                </p>
-              </div>
-              <Download size={20} className="text-teal shrink-0" />
-            </a>
-          </div>
-        </section>
+            </section>
+          )}
+        </>
       )}
 
       {/* ─── Content ─── */}
