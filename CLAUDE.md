@@ -219,9 +219,21 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-17
+**Last updated by:** Claude Code — 2026-04-17 (late)
 
-**What was just completed (Session 2026-04-17 — Annual Report archive overhaul):**
+**What was just completed (Session 2026-04-17 late — small polish pass):**
+- [x] **Founding date corrected site-wide** — "late 1990s" → "early 1990s" in 4 places: Nadeem's team bio (`constants.ts` line 39, shown on /about), TIMELINE first entry (`constants.ts` line 202, /about), homepage origin story paragraph (`src/app/page.tsx`), and Wingman chatbot knowledge (`src/lib/wingman-prompt.ts`). Commit `744cfb3`.
+- [x] **Brochure cover replaces document icon on /about** — "Download Our Brochure" CSR card now shows the real brochure first-page image (`/brochure-cover.jpg`, 194 KB, compressed from `C:\Users\maxra\Pictures\Website Pics\BrochureP1.png`) as a 3:4 rounded cover preview with shadow/ring, replacing the FileText lucide icon. Commit `ae29482`.
+- [x] **Facility stats bar corrected** (`/facility`) — removed "50+ Enclosures & Aviaries" count and replaced "2 Operating Theaters" (factually incorrect — only one) with "Advanced — Modern Operation Theater with latest machines"; Enclosures entry now reads "Purpose-Built — Enclosures & Aviaries" (no number). Metadata description also updated. Commit `a31a6f3`.
+
+**New public assets (this session):**
+- `public/brochure-cover.jpg` (194 KB) — CSR brochure cover preview
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-17 — Annual Report archive overhaul):**
 - [x] **Annual Report 2025 PDF published** — `public/wr-annual-report.pdf` (2.95 MB), wired into `/blog` (featured post retitled "Wildlife Rescue Annual Report 2025"), homepage "From Our Blog" section, `/blog/wr-annual-report-2025` detail page, and `/annual-reports`
 - [x] **New Annual Report archive on `/annual-reports`** — complete redesign of download section
   - Per-year card: teal gradient header with pulled-out key stats, two-column body with clickable infographic + cover previews and prominent Download CTAs
