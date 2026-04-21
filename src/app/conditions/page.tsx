@@ -151,27 +151,51 @@ export default function ConditionsPage() {
                     >
                       <div className="grid grid-cols-2 h-full min-h-[280px] lg:min-h-[340px]">
                         {/* Photo 1 */}
-                        <div
-                          className={`relative bg-gradient-to-br ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4`}
-                        >
-                          <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
-                            <Camera size={28} />
+                        {condition.image ? (
+                          <div className="relative min-h-[280px] lg:min-h-[340px]">
+                            <Image
+                              src={condition.image}
+                              alt={`Clinical photo — ${condition.name}`}
+                              fill
+                              sizes="(min-width: 1024px) 25vw, 50vw"
+                              className="object-cover"
+                            />
                           </div>
-                          <p className="text-xs text-slate/60 text-center leading-snug">
-                            {images?.label1 || "Photo placeholder"}
-                          </p>
-                        </div>
+                        ) : (
+                          <div
+                            className={`relative bg-gradient-to-br ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4`}
+                          >
+                            <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
+                              <Camera size={28} />
+                            </div>
+                            <p className="text-xs text-slate/60 text-center leading-snug">
+                              {images?.label1 || "Photo placeholder"}
+                            </p>
+                          </div>
+                        )}
                         {/* Photo 2 */}
-                        <div
-                          className={`relative bg-gradient-to-bl ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4 border-l border-white/50`}
-                        >
-                          <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
-                            <Camera size={28} />
+                        {condition.images?.[0] ? (
+                          <div className="relative min-h-[280px] lg:min-h-[340px] border-l border-white/50">
+                            <Image
+                              src={condition.images[0]}
+                              alt={`Clinical photo — ${condition.name}`}
+                              fill
+                              sizes="(min-width: 1024px) 25vw, 50vw"
+                              className="object-cover"
+                            />
                           </div>
-                          <p className="text-xs text-slate/60 text-center leading-snug">
-                            {images?.label2 || "Photo placeholder"}
-                          </p>
-                        </div>
+                        ) : (
+                          <div
+                            className={`relative bg-gradient-to-bl ${images?.gradient || "from-gray-100 to-gray-50"} flex flex-col items-center justify-center p-4 border-l border-white/50`}
+                          >
+                            <div className="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-slate/40 mb-3">
+                              <Camera size={28} />
+                            </div>
+                            <p className="text-xs text-slate/60 text-center leading-snug">
+                              {images?.label2 || "Photo placeholder"}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
 

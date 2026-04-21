@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -81,20 +82,33 @@ export default async function ConditionDetailPage({
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Icon + visual */}
-            <div className="aspect-square max-h-[400px] bg-white/10 rounded-2xl flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-white/60 mb-4">
-                  <span className="scale-[2]">
-                    {ICON_MAP[condition.icon]}
-                  </span>
-                </div>
-                <span className="text-6xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
-                  {condition.percentage}
-                </span>
-                <p className="text-white/40 text-sm mt-2">of all cases</p>
+            {/* Left: Photo or Icon placeholder */}
+            {condition.image ? (
+              <div className="relative aspect-square max-h-[400px] rounded-2xl overflow-hidden bg-white/10">
+                <Image
+                  src={condition.image}
+                  alt={`Clinical photo — ${condition.name}`}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
+                  priority
+                />
               </div>
-            </div>
+            ) : (
+              <div className="aspect-square max-h-[400px] bg-white/10 rounded-2xl flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-24 h-24 mx-auto bg-white/10 rounded-2xl flex items-center justify-center text-white/60 mb-4">
+                    <span className="scale-[2]">
+                      {ICON_MAP[condition.icon]}
+                    </span>
+                  </div>
+                  <span className="text-6xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
+                    {condition.percentage}
+                  </span>
+                  <p className="text-white/40 text-sm mt-2">of all cases</p>
+                </div>
+              </div>
+            )}
 
             {/* Right: Info */}
             <div>
@@ -148,6 +162,33 @@ export default async function ConditionDetailPage({
           </p>
         </div>
       </section>
+
+      {/* ─── Clinical Photo Gallery ─── */}
+      {condition.images && condition.images.length > 0 && (
+        <section className="pb-12 lg:pb-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid sm:grid-cols-2 gap-4">
+              {condition.images.map((src, i) => (
+                <div
+                  key={src}
+                  className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-100"
+                >
+                  <Image
+                    src={src}
+                    alt={`Clinical photo ${i + 2} — ${condition.name}`}
+                    fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-slate/70 italic text-center">
+              Clinical photography — Wildlife Rescue. Images may be graphic.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* ─── Causes & Symptoms ─── */}
       <section className="py-12 lg:py-16 bg-offwhite">

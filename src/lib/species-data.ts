@@ -57,6 +57,7 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Habitat loss as old buildings are demolished. Rodenticide poisoning (secondary poisoning from eating poisoned rats). Vehicle collisions at night. Superstition — some communities consider owls unlucky, leading to persecution.",
     description: "The Barn Owl is one of the most effective natural pest controllers on the planet. Their presence in Delhi should be celebrated, not feared. Wildlife Rescue treats ~130 Barn Owls annually, mostly juveniles that fall from nesting sites.",
     funFact: "A Barn Owl can hear a mouse's heartbeat from 30 feet away. Their asymmetric ears allow them to pinpoint prey in three dimensions using sound alone.",
+    image: "/species/barn-owl.jpg",
   },
   {
     slug: "egyptian-vulture",
@@ -93,10 +94,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Window strikes in modern buildings. Glue traps meant for rodents. Pesticide poisoning from eating contaminated insects and lizards. Nest disturbance during tree pruning.",
     description: "The Shikra is Delhi's most common small raptor — a compact, fierce predator perfectly adapted to urban life. Despite their small size, they're formidable hunters. Wildlife Rescue treats approximately 60 Shikras per year.",
     funFact: "The name 'Shikra' comes from the Hindi word 'shikari' (hunter). They were historically used in falconry across India and the Middle East — prized for their speed and agility.",
-    image: "/species/shikra-face.jpg",
+    image: "/species/shikra-1.jpg",
     images: [
-      { src: "/species/shikra-face.jpg", alt: "Shikra close-up showing distinctive bright red-orange eyes and grey plumage" },
-      { src: "/species/shikra-profile.jpg", alt: "Shikra being gently held during examination, showing barred breast feathers and orange eyes" },
+      { src: "/species/shikra-1.jpg", alt: "Shikra close-up showing distinctive bright red-orange eyes and grey plumage" },
+      { src: "/species/shikra-2.jpg", alt: "Shikra being gently held during examination, showing barred breast feathers and orange eyes" },
     ],
   },
   {
@@ -134,6 +135,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Electrocution from power lines at forest edges. Habitat loss as Delhi's Ridge forests face encroachment. Vehicle collisions on roads cutting through forested areas. Disturbance at nest sites.",
     description: "The Crested Serpent Eagle is a magnificent forest raptor that most Delhiites don't even know lives in their city. Found in Delhi's Ridge forests, they represent the wild heart of the capital. Wildlife Rescue treats about 10 per year.",
     funFact: "Their loud, ringing 'kee-kee-kee-kee' call echoing through Delhi's Ridge forests is one of the most evocative wild sounds you can hear in an Indian city. In many Southeast Asian cultures, they're considered a symbol of watchfulness and courage.",
+    image: "/species/cse-1.png",
+    images: [
+      { src: "/species/cse-2.jpg", alt: "Crested Serpent Eagle being examined on the clinic table, showing its distinctive crest and plumage" },
+    ],
   },
   {
     slug: "blue-rock-pigeon",
@@ -188,6 +193,7 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Yamuna pollution is the #1 threat — industrial effluents, sewage, and agricultural runoff poison fish and contaminate wading areas. Habitat loss from wetland drainage and encroachment. Fishing line and net entanglement. Monsoon flooding displaces nests.",
     description: "Wildlife Rescue treats a growing number of wetland birds — from Painted Storks and Pond Herons to Red-naped Ibis and egrets. These birds depend on Delhi's rapidly shrinking wetlands, making each rescue both a wildlife emergency and an indicator of ecosystem health.",
     funFact: "Delhi's Okhla Bird Sanctuary, where the Yamuna meets the Agra Canal, hosts over 300 bird species — making it one of the richest birding sites in any major world capital. In winter, you can see Siberian migrants alongside Delhi's resident waterbirds.",
+    image: "/species/wetland-birds.jpg",
   },
   {
     slug: "eagles",

@@ -20,6 +20,10 @@ export interface Condition {
     story: string;
     outcome: "Released" | "In Care" | "Permanent Resident";
   };
+  /** Primary clinical photo. Path relative to /public (e.g. "/conditions/cut-wounds.jpg") */
+  image?: string;
+  /** Additional clinical photos for the detail page gallery */
+  images?: string[];
 }
 
 export const CONDITIONS_LIST: Condition[] = [
@@ -81,6 +85,7 @@ export const CONDITIONS_LIST: Condition[] = [
         "Found tangled in manja near Chandni Chowk during the peak May season. Both wings had deep lacerations with severed tendons. Our 20-year surgical technique repaired the damage. After 42 days of recovery and flight conditioning, Kiran was released over the Yamuna — exactly where she was found.",
       outcome: "Released",
     },
+    image: "/conditions/cut-wounds.jpg",
   },
   {
     slug: "fractures",
@@ -265,6 +270,8 @@ export const CONDITIONS_LIST: Condition[] = [
         "Brought in by a temple priest from Jama Masjid area with severe pox lesions covering both eyes — completely blind. After 3 weeks of careful treatment including daily eye drops and antiseptic application, the lesions dried and fell away. Guddu regained full vision and was released at the temple where the priest continues to watch over the resident flock.",
       outcome: "Released",
     },
+    image: "/conditions/avian-pox-1.jpg",
+    images: ["/conditions/avian-pox-2.jpg"],
   },
   {
     slug: "septicemia",
@@ -389,6 +396,8 @@ export const CONDITIONS_LIST: Condition[] = [
         "Found unconscious beneath a power line in Sanjay Van during monsoon. Electrical burns on both feet and wing tips. The first 72 hours were critical — our team monitored him around the clock. Burn treatment, anti-inflammatory medication, and laser therapy over several weeks brought Bahadur back to full flight capability.",
       outcome: "Released",
     },
+    image: "/conditions/other-1.jpg",
+    images: ["/conditions/other-2.jpg"],
   },
 ];
 
