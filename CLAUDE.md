@@ -217,15 +217,36 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-07
+**Last updated by:** Claude Code — 2026-04-21
 
-**What was just completed (Session 2026-04-07):**
-- [x] Added OpenAI API key to Vercel environment variables for Wingman chatbot
-  - Created new API key on platform.openai.com (GPT-4o-mini, ~$0.15/M input tokens)
-  - Added `OPENAI_API_KEY` to Vercel project env vars (Production + Preview + Development)
-  - Redeployed — **Wingman chatbot is now fully operational on production site**
-  - Verified streaming responses working via live API test
-- [x] No `.env.local` created yet for local dev — user can add manually when needed
+**What was just completed (Session 2026-04-21 — branch `claude/focused-northcutt`, PR not yet opened):**
+- [x] Wired up 11 real clinical photos into species and conditions pages (no more placeholder-only on these)
+  - Copied photos from `C:\Users\maxra\Documents\Code\WR Website\public\` (Conditions/ + Shikra/) into worktree `public/species/` and `public/conditions/`
+  - **Species with real photos now:** barn-owl, crested-serpent-eagle (2 imgs), shikra (2 imgs), wetland-birds
+  - **Conditions with real photos now:** cut-wounds (1), avian-pox (2), other-conditions (2)
+  - **Still on gradient placeholders:** fractures, orphans, septicemia (no matching source photos available)
+- [x] Added optional `image?: string` and `images?: string[]` fields to `Condition` interface in `src/lib/conditions-data.ts`
+- [x] Fixed stale Shikra image paths in `src/lib/species-data.ts` (`shikra-face.jpg`/`shikra-profile.jpg` → `shikra-1.jpg`/`shikra-2.jpg`)
+- [x] Updated `src/app/conditions/page.tsx` listing cards — real Next.js `<Image>` renders when `condition.image`/`condition.images[0]` exist, gradient fallback otherwise
+- [x] Updated `src/app/conditions/[slug]/page.tsx` detail page — hero now shows real photo when available, new "Clinical Photo Gallery" section below description renders additional images with graphic-content caption
+- [x] Build passed (`npm run build`), preview verified via MCP — all 11 images resolve through Next.js Image optimization
+- [x] Committed as `9c619bd` and pushed to `origin/claude/focused-northcutt` — Vercel will auto-build a preview deployment
+- [x] **Heads up — oversized asset:** `public/species/cse-1.png` is 94 MB. GitHub accepted the push but warned (recommends <50 MB). Bloats clones and Vercel deploy size — re-encode as JPG (or resize to ~2000px max) before merging to main. Not blocking but should be fixed.
+
+**Known local (uncommitted) changes NOT pushed:**
+- `.claude/launch.json` — modified the `--dir` arg to a positional arg pointing to the worktree path (was failing with "unknown option --dir" on Next 16). Keep this local-only — don't commit, it's workstation-specific.
+- `.claude/settings.local.json` — untracked, workstation-specific.
+
+**Next suggested steps (in priority order):**
+1. Re-encode `public/species/cse-1.png` to JPG (~500 KB target) to shrink repo before merging branch
+2. Open PR `claude/focused-northcutt` → `main` once above is fixed
+3. Still missing files the user needs to provide:
+   - `public/wr-annual-report.pdf` — referenced by featured blog post
+   - Real facility photos for `/facility` page
+   - Real vulture photos (10 placeholders on `/vultures`)
+   - Photos for remaining 3 conditions: fractures, orphans, septicemia
+4. Build dedicated conditions page with pictures for each condition (partially done now — could expand)
+5. Domain setup (raptorrescue.org → Vercel)
 
 **Previously completed (Session 2026-04-06 #4):**
 - [x] Replaced "Watch on Max" → "Watch on JioHotstar" on `/all-that-breathes` page
