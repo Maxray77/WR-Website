@@ -219,9 +219,52 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-17 (late)
+**Last updated by:** Claude Code — 2026-04-21 (security pass)
 
-**What was just completed (Session 2026-04-17 late — small polish pass):**
+**What was just completed (Session 2026-04-21 — security hardening on `main`):**
+- [x] **Next.js upgraded 16.1.6 → 16.2.4** — patches 6 high-severity CVEs; most important is **GHSA-mq59-m269-xvcx** (null-origin bypass of Server Actions CSRF), which directly undercut our origin-allowlist middleware on `/api/*` POSTs. Also fixes HTTP request smuggling, DoS via Server Components, unbounded next/image cache, HMR websocket CSRF bypass. `npm audit --omit=dev` now reports **0 vulnerabilities**. Build passes. Commit `92111d6`.
+- [x] **Content-Security-Policy header added to middleware** — pragmatic allowlist CSP. Still permits `'unsafe-inline' 'unsafe-eval'` for script/style (needed by Next.js runtime, JSON-LD, framer-motion, Tailwind JIT) but locks down `frame-ancestors 'self'`, `base-uri 'self'`, `object-src 'none'`, `form-action` allowlist, and `upgrade-insecure-requests`. External hosts allowlisted: Razorpay (checkout+cdn+api+lumberjack), YouTube + youtube-nocookie, Google Tag Manager + GA4, Google Maps, GoFundMe. Verified via preview: homepage, /donate (Razorpay embed loads 3 scripts + iframe), /all-that-breathes (YouTube iframe) all render with zero CSP violations. Commit `7976ab1`.
+- [x] **Abandoned `claude/focused-northcutt` branch** — photo-wiring work there was superseded by main (main already has the `image?` interface fields, wired-up clinical photos, different filenames). No rebase, no merge. Branch stays for historical reference. The 94 MB `cse-1.png` never made it to main — good.
+- [x] **Live-site audit completed against `b4fe52b`** (commit just before this session). Full findings above; summary: CSP was the main gap, now closed.
+
+**Production security posture as of this session:**
+| Control | Status |
+|---|---|
+| HSTS (1y, includeSubDomains) | ✅ |
+| X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy | ✅ |
+| **Content-Security-Policy** | ✅ **NEW** |
+| CSRF (origin-allowlist middleware) | ✅ |
+| Rate limiting (Upstash Redis on chat/contact/newsletter) | ✅ |
+| Message/length caps on chat API | ✅ |
+| Razorpay sandboxed iframe (not dangerouslySetInnerHTML) | ✅ |
+| `.env` / `.git` / source maps | 404 ✅ |
+| `npm audit --omit=dev` | 0 vulns ✅ |
+
+**Still pending (NOT security-blocking):**
+- [ ] **Wire raptorrescue.org → Vercel** — still a GoDaddy parking page (`Server: DPS/2.0.0`). Until this, HSTS `preload` can't be submitted and the custom domain doesn't benefit from any of this hardening.
+- [ ] **Rename `src/middleware.ts` → `src/proxy.ts`** — Next.js 16 deprecated the `middleware` file convention in favor of `proxy`. Build emits a warning only, not broken. Low priority.
+- [ ] **Enable Vercel Firewall rules in dashboard** — free, ~10 min of UI clicks. Adds bot protection on top of what's there.
+- [ ] **Verify GitHub Dependabot + Secret Scanning are on** — repo Settings → Security.
+
+**Third-party security services — DO NOT BUY** for this site:
+- ❌ Sucuri / Wordfence / SiteLock / MalCare — WordPress-era, useless for Next.js/Vercel
+- ❌ Dedicated DDoS services — Vercel edge already handles this at current traffic
+- ❌ Pentest agencies on Upwork/Fiverr — templated `npm audit` output, no value
+- ❌ A professional pentest ($3-5k) — only worth it at 6-figure monthly donations. Site stores no cards, no passwords, no donor PII; Razorpay + R3 handle all payment data
+- ✅ **Free tier of Cloudflare** is worth sitting in front of Vercel if ever needed (extra WAF + bot fight)
+- ✅ **Sentry free tier** — error monitoring is more valuable than "security tools" for surfacing probing attempts
+
+**Key files touched this session:**
+- `package.json`, `package-lock.json` — Next.js 16.2.4
+- `src/middleware.ts` — CSP header added
+
+**Uncommitted local state:**
+- `.claude/settings.local.json` — workstation-specific, untracked
+- `.claude/worktrees/` — contains several stale worktrees; `focused-northcutt` worktree middleware.ts was synced locally to match main (for preview testing) but not committed there
+
+---
+
+**Previously completed (Session 2026-04-17 late — small polish pass):**
 - [x] **Founding date corrected site-wide** — "late 1990s" → "early 1990s" in 4 places: Nadeem's team bio (`constants.ts` line 39, shown on /about), TIMELINE first entry (`constants.ts` line 202, /about), homepage origin story paragraph (`src/app/page.tsx`), and Wingman chatbot knowledge (`src/lib/wingman-prompt.ts`). Commit `744cfb3`.
 - [x] **Brochure cover replaces document icon on /about** — "Download Our Brochure" CSR card now shows the real brochure first-page image (`/brochure-cover.jpg`, 194 KB, compressed from `C:\Users\maxra\Pictures\Website Pics\BrochureP1.png`) as a 3:4 rounded cover preview with shadow/ring, replacing the FileText lucide icon. Commit `ae29482`.
 - [x] **Facility stats bar corrected** (`/facility`) — removed "50+ Enclosures & Aviaries" count and replaced "2 Operating Theaters" (factually incorrect — only one) with "Advanced — Modern Operation Theater with latest machines"; Enclosures entry now reads "Purpose-Built — Enclosures & Aviaries" (no number). Metadata description also updated. Commit `a31a6f3`.

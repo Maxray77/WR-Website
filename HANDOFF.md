@@ -1,10 +1,28 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** March 31, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot + website updates + Vercel production deployment + certificate pages + Bird Brothers book page + homepage enhancements. 21+ routes, all working. 45+ source files.
+**Last updated:** April 21, 2026
+**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening (Next.js 16.2.4, CSP, CSRF, rate limiting). 30+ routes, all working.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
+
+---
+
+## 🔒 Security Snapshot — April 21, 2026
+
+All major headers are set, dependency CVEs patched, API routes have CSRF + rate-limiting. See `CLAUDE.md` "Current Status" for the full table.
+
+**Latest security commits on `main`:**
+- `7976ab1` — add Content-Security-Policy header
+- `92111d6` — upgrade Next.js 16.1.6 → 16.2.4 (patches 6 high CVEs incl. null-origin CSRF bypass)
+
+**Next security-adjacent tasks (all free, none urgent):**
+1. Wire raptorrescue.org → Vercel (still GoDaddy parking page)
+2. Rename `src/middleware.ts` → `src/proxy.ts` (Next.js 16 convention; warning only)
+3. Enable Vercel Firewall + verify GitHub Dependabot in Settings → Security
+4. After custom domain is live: add `preload` to HSTS and submit to hstspreload.org
+
+**Do NOT buy** WordPress-era security products (Sucuri, Wordfence, SiteLock). They don't apply to this stack. Vercel's built-ins + free tier of Cloudflare cover everything at this traffic level. See CLAUDE.md for the full rationale.
 
 ---
 
