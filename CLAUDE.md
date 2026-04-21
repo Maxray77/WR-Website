@@ -217,6 +217,23 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-04-21 (late, second pass)
+
+**Live site audit snapshot (wildlife-rescue-website.vercel.app, commit `b4fe52b`):**
+- All routes return 200; `.env` / `.git` / source maps correctly 404
+- Security headers present: HSTS (no `preload`), X-Content-Type-Options, X-Frame-Options (SAMEORIGIN), Referrer-Policy, Permissions-Policy (geo/mic/camera off, payment=self)
+- **Missing: Content-Security-Policy** — biggest audit gap. Razorpay embed complicates this but doable with nonces/hashes.
+- No COOP/COEP/CORP (low priority)
+- Legacy `X-XSS-Protection: 1; mode=block` set — harmless, modern browsers ignore
+- **raptorrescue.org still resolves to GoDaddy parking page** (`Server: DPS/2.0.0`) — Vercel domain wiring not yet done
+- **Branch `claude/focused-northcutt` is 2 commits ahead of an OLD base** (`059491d`) — `origin/main` is at `b4fe52b`, 5 commits ahead. Must rebase before opening PR or the photo work can't merge cleanly.
+
+**Next session should:**
+1. Rebase `claude/focused-northcutt` onto `origin/main` (resolve any conflicts in CLAUDE.md status section)
+2. Re-encode `public/species/cse-1.png` (94 MB) to JPG before PR
+3. Open PR → main
+4. Then: tackle CSP header + domain wiring for raptorrescue.org
+
 **Last updated by:** Claude Code — 2026-04-21
 
 **What was just completed (Session 2026-04-21 — branch `claude/focused-northcutt`, PR not yet opened):**
