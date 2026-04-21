@@ -73,6 +73,29 @@ export function middleware(request: NextRequest) {
     "max-age=31536000; includeSubDomains"
   );
 
+  // Content Security Policy.
+  // Pragmatic allowlist: 'unsafe-inline' is still needed for Next.js inline
+  // runtime scripts, JSON-LD, and framer-motion/Tailwind inline styles. The
+  // real wins here are frame-ancestors (clickjacking), base-uri (base-tag
+  // injection), object-src (no plugins), form-action (prevents form hijack to
+  // arbitrary domains), and the external-host allowlist for scripts/frames.
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://*.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "media-src 'self' blob: https:",
+    "font-src 'self' data:",
+    "connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com https://*.razorpay.com https://www.google-analytics.com https://*.analytics.google.com",
+    "frame-src 'self' https://*.razorpay.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com https://www.gofundme.com",
+    "frame-ancestors 'self'",
+    "form-action 'self' https://*.razorpay.com",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "upgrade-insecure-requests",
+  ].join("; ");
+  response.headers.set("Content-Security-Policy", csp);
+
   return response;
 }
 
