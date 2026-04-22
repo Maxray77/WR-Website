@@ -243,6 +243,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - `public/conditions/` — **NEW**: methane-burn-hero.jpg, septicemia-egyptian-vulture.jpg; **UPDATED**: methane-burn-02 (rotated)
 - `public/treatments/` — **NEW**: baby-spotted-owlet.jpg
 
+- [x] **Black Eared Kite species page image rotations** — `black-eared-kite-02.jpg` (hero + first gallery image) rotated 90° CCW; `black-eared-kite.jpg` (right gallery image) rotated 90° CW. Commit `157ea15`.
+
 **Uncommitted local state:**
 - `.claude/settings.local.json` — workstation-specific, untracked
 - All changes are on `main` and live on Vercel
