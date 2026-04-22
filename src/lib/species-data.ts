@@ -50,6 +50,9 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark brown plumage and piercing eyes at Wildlife Rescue" },
       { src: "/species/black-kite-01.jpg", alt: "Black Kite resting on clinic examination table — spotted juvenile plumage visible during treatment at Wildlife Rescue" },
       { src: "/species/black-kite-anesthesia.jpg", alt: "Black Kite under isoflurane gas anesthesia with face mask during surgical procedure at Wildlife Rescue" },
+      { src: "/species/black-eared-kite-02.jpg", alt: "Black Eared Kite perched at Wildlife Rescue clinic" },
+      { src: "/species/black-kite-02.jpg", alt: "Black Kite in care at Wildlife Rescue clinic" },
+      { src: "/species/black-kite-recovery.jpg", alt: "Black Kite recovering from anesthesia after wing repair surgery — wound caused by manja (paper kite flying thread) infection, at Wildlife Rescue" },
     ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
@@ -102,6 +105,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Diclofenac poisoning (the drug that decimated South Asia's vulture populations). Electrocution from power lines. Lead poisoning from contaminated carcasses. Habitat loss and disturbance at nesting sites.",
     description: "Every Egyptian Vulture matters. With IUCN Endangered status and populations crashing across South Asia, the individuals that Wildlife Rescue treats represent a critical contribution to species survival. We treat approximately 7 per year — each one is precious.",
     funFact: "Egyptian Vultures are one of the only birds known to use tools. They pick up stones in their beaks and throw them at ostrich eggs to crack them open — a behavior observed for thousands of years and depicted in ancient Egyptian art.",
+    image: "/species/egyptian-vulture-01.jpg",
+    images: [
+      { src: "/species/egyptian-vulture-01.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue — Sultan, an endangered bird receiving treatment for septicemia" },
+    ],
   },
   {
     slug: "shikra",
@@ -150,6 +157,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/spotted-owlet-03.jpg", alt: "Spotted Owlet extreme close-up of face showing distinctive yellow eye and delicate spotted feather detail" },
       { src: "/species/spotted-owlet-chick.jpg", alt: "Tiny Spotted Owlet chick with bright yellow eyes perched on a handler's finger at Wildlife Rescue" },
       { src: "/species/spotted-owlet-04.jpg", alt: "Spotted Owlet close-up profile showing yellow eye and intricate spotted brown plumage at Wildlife Rescue" },
+      { src: "/species/spotted-owlet-05.jpg", alt: "Spotted Owlet at Wildlife Rescue clinic" },
     ],
   },
   {
@@ -187,6 +195,11 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Thread and manja entanglement. Glue traps. Vehicle strikes. Disease outbreaks in dense populations. Poisoning from contaminated grain.",
     description: "Once a small part of intake, the Blue Rock Pigeon is now Wildlife Rescue's #2 species at 6.3% of cases — reflecting the organization's broadening mission beyond raptors to serve all Delhi's birds in need.",
     funFact: "Despite being the 'common pigeon,' Blue Rock Pigeons are remarkable navigators. They can detect the Earth's magnetic field, use the sun as a compass, and recognize landmarks from the air — abilities that humans exploited for thousands of years using carrier pigeons.",
+    image: "/species/blue-rock-pigeon-01.jpg",
+    images: [
+      { src: "/species/blue-rock-pigeon-01.jpg", alt: "Blue Rock Pigeon at Wildlife Rescue clinic" },
+      { src: "/species/blue-rock-pigeon-02.jpg", alt: "Blue Rock Pigeon during treatment at Wildlife Rescue" },
+    ],
   },
   {
     slug: "black-eared-kite",
@@ -205,6 +218,11 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Same as Black Kite — manja string lacerations, electrocution, vehicle collisions, and poisoning. Winter migrants face additional stress from long-distance travel and unfamiliar urban hazards. Habitat degradation at stopover sites along the Central Asian Flyway.",
     description: "The Black Eared Kite is the migratory cousin of Delhi's resident Black Kite. Taxonomists debate whether it's a full species or a subspecies (M. migrans lineatus). During winter, these larger, darker birds mix with Delhi's resident kites — and Wildlife Rescue treats them alongside their local relatives.",
     funFact: "Black Eared Kites migrate thousands of kilometers from Siberia and Mongolia to winter in India. Some individuals fitted with GPS trackers have been recorded crossing the Himalayas at altitudes above 4,000 meters — a remarkable feat for a bird that spends most of its time scavenging at ground level.",
+    image: "/species/black-eared-kite-02.jpg",
+    images: [
+      { src: "/species/black-eared-kite-02.jpg", alt: "Black Eared Kite at Wildlife Rescue clinic — migratory winter visitor from Central Asia" },
+      { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark ear coverts and piercing eyes" },
+    ],
   },
   {
     slug: "wetland-birds",
@@ -228,6 +246,8 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/cattle-egret.jpg", alt: "Cattle Egret perched on examination table at Wildlife Rescue clinic" },
       { src: "/species/cattle-egret-01.jpg", alt: "Cattle Egret with bandaged wing on clinic examination table — case number visible on wrapping during treatment at Wildlife Rescue" },
       { src: "/species/painted-stork-01.jpg", alt: "Painted Stork under treatment with endotracheal tube — close-up of distinctive yellow-orange beak during surgical procedure at Wildlife Rescue" },
+      { src: "/species/black-naped-ibis-01.jpg", alt: "Black Naped Ibis in care at Wildlife Rescue — showing the species' distinctive black neck patch and long curved bill" },
+      { src: "/species/crane-01.jpg", alt: "Crane in care at Wildlife Rescue clinic" },
     ],
     videos: [
       { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
@@ -360,6 +380,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/peregrine-falcon-01.jpg", alt: "Falcon held by handler during examination at Wildlife Rescue, showing brown plumage and alert expression" },
       { src: "/species/peregrine-falcon-02.jpg", alt: "Peregrine Falcon with body bandage during treatment, showing slate-grey and white plumage" },
       { src: "/species/peregrine-falcon-03.jpg", alt: "Peregrine Falcon in recovery with treatment bandage and case notes, perched at Wildlife Rescue clinic" },
+      { src: "/species/peregrine-falcon-04.jpg", alt: "Peregrine Falcon at Wildlife Rescue clinic" },
     ],
   },
   {

@@ -9,6 +9,7 @@ import {
   Bug,
   Thermometer,
   Stethoscope,
+  Flame,
   Heart,
   Camera,
 } from "lucide-react";
@@ -28,6 +29,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   Baby: <Baby size={28} />,
   Bug: <Bug size={28} />,
   Thermometer: <Thermometer size={28} />,
+  Flame: <Flame size={28} />,
   Stethoscope: <Stethoscope size={28} />,
 };
 

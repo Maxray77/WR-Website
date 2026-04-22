@@ -32,11 +32,13 @@ export const TEAM = [
     name: "Mohammad Saud",
     role: "President & Co-Founder",
     bio: "Co-founder of Wildlife Rescue, Mohammad Saud has dedicated over two decades to raptor conservation. A self-taught wildlife rehabilitator, he developed novel surgical techniques for repairing wings damaged by kite strings — techniques now adopted by rehabilitators worldwide.",
+    image: "/team/saud.jpg",
   },
   {
     name: "Nadeem Shehzad",
     role: "Co-Founder",
     bio: "Nadeem co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s. He serves as Honorary Wildlife Warden and Board Member of Raptor Rescue and Research Inc. (USA). He has presented at NWRA symposiums in Los Angeles and Seattle.",
+    image: "/team/nadeem.jpg",
   },
   {
     name: "Salik Rehman",
@@ -242,8 +244,10 @@ export const FEATURED_RESCUES: FeaturedRescue[] = [
   {
     title: "Sultan the Egyptian Vulture",
     species: "Egyptian Vulture",
-    summary: "An endangered Egyptian Vulture found with a fractured wing from a collision. This rare species required specialized care and months of rehabilitation.",
+    summary: "An endangered Egyptian Vulture brought in with severe septicemia — a life-threatening blood infection. Sultan required aggressive antibiotic therapy and months of intensive rehabilitation. Every Egyptian Vulture saved is a contribution to species survival.",
     outcome: "In Care",
+    image: "/species/egyptian-vulture-01.jpg",
+    imageAlt: "Sultan the Egyptian Vulture in care at Wildlife Rescue — an endangered bird receiving treatment for septicemia",
   },
 ];
 

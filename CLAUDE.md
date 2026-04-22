@@ -219,9 +219,34 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-21 (security pass)
+**Last updated by:** Claude Code — 2026-04-22 (content & photos pass)
 
-**What was just completed (Session 2026-04-21 — security hardening on `main`):**
+**What was just completed (Session 2026-04-22 — content additions on worktree `claude/xenodochial-mendeleev-ef9de2`):**
+- [x] **Nest entanglement special case added** — New case #37,958 (Black Kite juvenile, March 2025) added as the first entry on `/special-cases`. Two Canon RAW (CR2) photos converted and added (`public/cases/nest-entangled-01.jpg` + `02.jpg`, ~102KB each). Story explains how parents built their nest using discarded manja (kite-flying thread) which tightened around the growing chick. Commit `fa61584`.
+- [x] **Founder portrait photos added to /about team cards** — Real photos of Mohammad Saud (`public/team/saud.jpg`, 59KB) and Nadeem Shehzad (`public/team/nadeem.jpg`, 99KB) replace the initial-circle placeholders on the team cards. `TEAM` entries in `constants.ts` updated with `image` field; `about/page.tsx` updated to render `<Image>` when `member.image` is set, with initials fallback for other team members. Commit `e48a9f9`.
+- [x] **`/history` page created — "Our Early Days"** — New archive page covering the founding story and early operations. Features the motorbike ambulance as the centrepiece (large 4:3 photo with prose), 3 founding-story cards (early 1990s / Wazirabad / 2010 registration), 4-photo archive grid from early CR2 camera roll, and a "From One Motorbike to 3,000+ Birds" CTA. Added to Media nav dropdown + mobile menu + sitemap. All 5 CR2 files converted by extracting the embedded 8-bit JPEG preview (the 12-bit full RAW was incompatible with libvips). Commits `1cf1845`, `b6947a2`.
+- [x] **Peregrine Falcon photo 04 added** — `P Falcon.jpg` (5.5MB) compressed to `public/species/peregrine-falcon-04.jpg` (224KB) and added as 5th gallery entry in species-data.ts. Commit `614acf2`.
+
+**Key files touched this session:**
+- `src/app/special-cases/page.tsx` — new nest entanglement case entry (first in CASES array)
+- `src/lib/constants.ts` — added `image` field to Saud and Nadeem TEAM entries
+- `src/app/about/page.tsx` — team card photo rendering (real photo vs initials fallback)
+- `src/app/history/page.tsx` — **NEW**: Our Early Days archive page
+- `src/components/Header.tsx` — added "Our Early Days" to Media dropdown + mobile menu
+- `src/app/sitemap.ts` — added `/history`
+- `src/lib/species-data.ts` — added peregrine-falcon-04 to gallery
+- `public/cases/nest-entangled-01.jpg`, `nest-entangled-02.jpg` — **NEW**: nest entanglement photos (from CR2)
+- `public/team/saud.jpg`, `nadeem.jpg` — **NEW**: founder portraits (600×600, ~60–99KB)
+- `public/history/bike-ambulance.jpg`, `early-days-01–04.jpg` — **NEW**: 5 early-days photos (from CR2, 135–210KB)
+- `public/species/peregrine-falcon-04.jpg` — **NEW**: 5th Peregrine Falcon gallery photo
+
+**Uncommitted local state:**
+- `.claude/settings.local.json` — workstation-specific, untracked
+- All session commits are on branch `claude/xenodochial-mendeleev-ef9de2` — push/merge to `main` before deploying
+
+---
+
+**Previously completed (Session 2026-04-21 — security hardening on `main`):**
 - [x] **Next.js upgraded 16.1.6 → 16.2.4** — patches 6 high-severity CVEs; most important is **GHSA-mq59-m269-xvcx** (null-origin bypass of Server Actions CSRF), which directly undercut our origin-allowlist middleware on `/api/*` POSTs. Also fixes HTTP request smuggling, DoS via Server Components, unbounded next/image cache, HMR websocket CSRF bypass. `npm audit --omit=dev` now reports **0 vulnerabilities**. Build passes. Commit `92111d6`.
 - [x] **Content-Security-Policy header added to middleware** — pragmatic allowlist CSP. Still permits `'unsafe-inline' 'unsafe-eval'` for script/style (needed by Next.js runtime, JSON-LD, framer-motion, Tailwind JIT) but locks down `frame-ancestors 'self'`, `base-uri 'self'`, `object-src 'none'`, `form-action` allowlist, and `upgrade-insecure-requests`. External hosts allowlisted: Razorpay (checkout+cdn+api+lumberjack), YouTube + youtube-nocookie, Google Tag Manager + GA4, Google Maps, GoFundMe. Verified via preview: homepage, /donate (Razorpay embed loads 3 scripts + iframe), /all-that-breathes (YouTube iframe) all render with zero CSP violations. Commit `7976ab1`.
 - [x] **Abandoned `claude/focused-northcutt` branch** — photo-wiring work there was superseded by main (main already has the `image?` interface fields, wired-up clinical photos, different filenames). No rebase, no merge. Branch stays for historical reference. The 94 MB `cse-1.png` never made it to main — good.
@@ -540,6 +565,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Add photos for remaining species without images: Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
 - [ ] Add photos for remaining conditions: cut-wounds, fractures, orphans, other-conditions
 - [ ] Refresh `INSTAGRAM_POSTS` in `src/lib/constants.ts` periodically (hand-curated; swap image/caption/permalink + drop photo into `/public`)
+- [ ] Update captions for 4 early-days archive photos on `/history` — `early-days-01–04.jpg` currently have generic descriptions; user to advise what each photo shows
+- [ ] **Merge `claude/xenodochial-mendeleev-ef9de2` → `main` and deploy** — all 2026-04-22 session commits are on this worktree branch
 
 **Open questions or blockers:**
 - [x] ~~Need `OPENAI_API_KEY` in Vercel env vars for Wingman chatbot to work in production~~ — added 2026-04-07
@@ -549,6 +576,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [ ] Need photos for remaining species without images: Blue Rock Pigeon, Indian Grey Hornbill, Rose-ringed Parakeet, Egyptian Vulture
 - [ ] Need photos for remaining 4 condition pages (cut-wounds, fractures, orphans, other-conditions)
 - [ ] Facility stats (50+ enclosures, 2 operating theaters) are illustrative — confirm with org
+- [ ] What are the 4 early-days photos (IMG_2500, 2572, 2613, 2615) showing? Captions are placeholders pending the user's descriptions.
 
 **Key files touched this session (2026-04-17):**
 - `src/app/annual-reports/page.tsx` — replaced simple download section with new Annual Report Archive listing; per-year card with teal header stats, infographic + cover previews, landscape/portrait aspect support, placeholder UI for missing infographics

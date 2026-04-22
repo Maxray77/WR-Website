@@ -293,6 +293,7 @@ export const CONDITIONS_LIST: Condition[] = [
       { src: "/conditions/septicemia-feet-both.jpg", alt: "Infected feet showing tissue damage from septicemia" },
       { src: "/conditions/septicemia-foot-closeup.jpg", alt: "Close-up of infected foot with tissue damage" },
       { src: "/conditions/septicemia-feet-held.jpg", alt: "Examining infected raptor feet during treatment" },
+      { src: "/conditions/septicemia-egyptian-vulture.jpg", alt: "Sultan the Egyptian Vulture in care at Wildlife Rescue — an endangered bird being treated for septicemia" },
     ],
     shortDescription:
       "Life-threatening blood infections from untreated wounds, contaminated environments, or secondary to other diseases. Requires aggressive antibiotic therapy.",
@@ -345,6 +346,71 @@ export const CONDITIONS_LIST: Condition[] = [
       story:
         "Found on the roadside in Wazirabad with an old manja wound on the left wing — at least a week old and severely infected. By the time Veera arrived, the infection had spread to the bloodstream. Aggressive IV antibiotics were started within minutes. The first 72 hours were critical — our team monitored him round the clock. Against the odds, Veera pulled through. After 5 weeks of recovery, he was released.",
       outcome: "Released",
+    },
+  },
+  {
+    slug: "methane-burns",
+    name: "Methane & Chemical Burns",
+    icon: "Flame",
+    percentage: "~2%",
+    annualCases: "~75/year",
+    severity: "Critical",
+    shortDescription:
+      "Burns from methane gas ignition at landfills and industrial sites — one of Delhi's most severe and distinctive urban hazards for raptors.",
+    description:
+      "Delhi's vast landfills — Ghazipur, Bhalswa, Okhla — generate enormous quantities of methane from decomposing organic waste. Kites, vultures, and other scavenging raptors that feed at these sites are at constant risk of methane gas ignition events. When methane pockets ignite, birds caught nearby suffer severe burns to their feathers, skin, feet, and wing tips. The burns are often deep and can involve large surface areas, making them among the most challenging cases Wildlife Rescue treats. Kites are especially vulnerable because landfills are prime feeding grounds for them. Methane burn cases increased significantly as Delhi's landfills grew — Ghazipur alone exceeds the height of the Qutub Minar. Chemical contamination from industrial waste at these same sites adds another layer of complexity to treatment.",
+    causes: [
+      "Methane gas ignition at Delhi's landfills (Ghazipur, Bhalswa, Okhla)",
+      "Industrial chemical burns from factory waste sites",
+      "Contact with heated or burning material at waste dumps",
+      "Secondary burns from fires that spread rapidly through dry landfill material",
+      "Chemical contamination combined with thermal burns",
+    ],
+    symptoms: [
+      "Charred, singed, or missing feathers over burned areas",
+      "Blackened, blistered, or sloughing skin",
+      "Burns on feet, wing tips, face, and beak — areas exposed during feeding",
+      "Eye damage if face was close to ignition point",
+      "Respiratory distress from smoke inhalation",
+      "Shock — weakness, inability to stand, unresponsiveness",
+    ],
+    treatment: [
+      "Emergency stabilisation — warmth, fluids, pain management",
+      "Wound debridement — careful removal of dead tissue",
+      "Topical wound treatment and protective dressings",
+      "Laser therapy (VAYMED Class 4) to accelerate tissue regeneration",
+      "Systemic antibiotics to prevent secondary infection",
+      "Long-term feather regrowth monitoring — full recovery may require a full moult cycle",
+      "Eye treatment if ocular damage present",
+    ],
+    prevention: [
+      "Managed methane extraction and flaring at landfill sites",
+      "Bird deterrents around active landfill zones",
+      "Faster closure and capping of legacy landfill mountains",
+      "Waste segregation to reduce organic content and methane generation",
+    ],
+    recoveryRate: "~50%",
+    avgRecoveryTime: "8–20 weeks",
+    commonSpecies: [
+      "Black Kite — most frequent, feeds at landfills year-round",
+      "Black Eared Kite — migratory visitor, unfamiliar with local hazards",
+      "Egyptian Vulture — IUCN Endangered, feeds at same landfill sites",
+      "Steppe Eagle — migratory, scavenges at landfills during winter",
+    ],
+    image: "/conditions/methane-burn-01.jpg",
+    images: [
+      { src: "/conditions/methane-burn-01.jpg", alt: "Black Eared Kite with methane burn injuries at Wildlife Rescue clinic — singed feathers and skin damage visible" },
+      { src: "/conditions/methane-burn-02.jpg", alt: "Methane burn case — close-up of burn wounds being assessed at Wildlife Rescue" },
+      { src: "/conditions/methane-burn-03.jpg", alt: "Raptor recovering from methane burn injuries — treatment in progress at Wildlife Rescue clinic" },
+      { src: "/conditions/methane-burn-04.jpg", alt: "Bird with methane burn damage to wing and body — Wildlife Rescue clinic, early case" },
+    ],
+    caseStudy: {
+      name: "",
+      species: "Black Eared Kite",
+      story:
+        "This Black Eared Kite arrived from a landfill site with severe burns across its wing and body from a methane gas ignition event. The singed feathers and damaged skin required weeks of careful wound management and laser therapy. Cases like this — a migratory bird from Central Asia, fatally unfamiliar with Delhi's industrial hazards — illustrate why landfill management is as much a conservation issue as it is a public health one.",
+      outcome: "Released",
+      image: "/conditions/methane-burn-01.jpg",
     },
   },
   {

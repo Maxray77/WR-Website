@@ -10,6 +10,7 @@ import {
   Bug,
   Thermometer,
   Stethoscope,
+  Flame,
   AlertTriangle,
   CheckCircle,
   Clock,
@@ -46,6 +47,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   Baby: <Baby size={24} />,
   Bug: <Bug size={24} />,
   Thermometer: <Thermometer size={24} />,
+  Flame: <Flame size={24} />,
   Stethoscope: <Stethoscope size={24} />,
 };
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { X, ZoomIn, Camera } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 
@@ -18,6 +19,7 @@ const PHOTOS = [
   { id: 1, title: "Black Kite in Flight", category: "Releases", description: "A recovered Black Kite soaring over the Yamuna floodplains after successful rehabilitation." },
   { id: 2, title: "Manja String Surgery", category: "Clinic", description: "Our team performing the novel wing repair surgery on a manja-injured raptor." },
   { id: 3, title: "Founders at Work", category: "Team", description: "Nadeem and Saud examining an injured Black Kite at the rescue center." },
+  { id: 17, title: "Black Eared Kite", category: "Species", src: "/species/black-eared-kite-02.jpg", description: "A Black Eared Kite — the migratory winter visitor from Central Asia — at Wildlife Rescue clinic." },
   { id: 4, title: "Baby Barn Owl", category: "Species", description: "A juvenile Barn Owl being hand-fed during rehabilitation." },
   { id: 5, title: "Monsoon Rescue", category: "Rescues", description: "Emergency rescue during monsoon season — collecting an electrocuted raptor from wet power lines." },
   { id: 6, title: "Release Day Celebration", category: "Events", description: "Community members watching as 12 rehabilitated Black Kites are released together." },
@@ -31,6 +33,10 @@ const PHOTOS = [
   { id: 14, title: "Crested Serpent Eagle", category: "Species", description: "A majestic Crested Serpent Eagle recovering from electrical burns." },
   { id: 15, title: "Laser Treatment Session", category: "Clinic", description: "Using VAYMED Class 4 laser for tissue regeneration on a healing wing." },
   { id: 16, title: "Night Rescue Operation", category: "Rescues", description: "Responding to a late-night call — an owl trapped in a factory vent." },
+  { id: 18, title: "Methane Burn — Black Eared Kite", category: "Clinic", src: "/conditions/methane-burn-01.jpg", description: "Black Eared Kite with severe methane burn injuries from a landfill gas ignition event." },
+  { id: 19, title: "Methane Burn — Assessment", category: "Clinic", src: "/conditions/methane-burn-02.jpg", description: "Close-up assessment of methane burn wounds — a hazard unique to Delhi's vast landfill sites." },
+  { id: 20, title: "Methane Burn — Treatment", category: "Clinic", src: "/conditions/methane-burn-03.jpg", description: "Burn treatment in progress — laser therapy and wound management for a landfill burn case." },
+  { id: 21, title: "Methane Burn — Recovery", category: "Clinic", src: "/conditions/methane-burn-04.jpg", description: "Early burn case recovery — one of Wildlife Rescue's most challenging condition categories." },
 ];
 
 // Color mapping for category badges
@@ -104,19 +110,27 @@ export default function GalleryPage() {
                   <div
                     className={`${height} bg-gradient-to-br from-teal-light to-teal/10 rounded-xl overflow-hidden relative border border-gray-100 hover:shadow-lg transition-all`}
                   >
+                    {/* Real photo or placeholder */}
+                    {"src" in photo && photo.src ? (
+                      <Image
+                        src={photo.src}
+                        alt={photo.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center p-4">
+                        <p className="text-slate/40 text-xs text-center">{photo.title}</p>
+                      </div>
+                    )}
+
                     {/* Overlay on hover */}
                     <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/50 transition-colors flex items-center justify-center">
                       <ZoomIn
                         size={32}
                         className="text-white opacity-0 group-hover:opacity-100 transition-opacity"
                       />
-                    </div>
-
-                    {/* Placeholder content */}
-                    <div className="absolute inset-0 flex items-center justify-center p-4">
-                      <p className="text-slate/40 text-xs text-center">
-                        {photo.title}
-                      </p>
                     </div>
 
                     {/* Category badge */}

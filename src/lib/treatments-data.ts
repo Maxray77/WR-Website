@@ -185,6 +185,12 @@ export const TREATMENTS: Treatment[] = [
     ],
     media: [
       {
+        type: "image",
+        src: "/treatments/baby-spotted-owlet.jpg",
+        alt: "Baby Spotted Owlet receiving hand-raising care at Wildlife Rescue — a tiny orphaned owlet being rehabilitated before eventual release",
+        caption: "A baby Spotted Owlet in our orphan nursery — hand-raised with round-the-clock feeding and warmth until old enough to fend for itself.",
+      },
+      {
         type: "video",
         src: "/treatments/raptor-chick.mp4",
         alt: "A raptor baby being cared for at Wildlife Rescue — an unidentified chick receiving rehabilitation",

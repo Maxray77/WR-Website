@@ -1,7 +1,7 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** April 21, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening (Next.js 16.2.4, CSP, CSRF, rate limiting). 30+ routes, all working.
+**Last updated:** April 22, 2026
+**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (30+ routes, all working). New: /history page, founder photos, nest entanglement case, Peregrine Falcon photo.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
@@ -129,6 +129,32 @@ src/
 | `--color-charcoal` | `#1A1A2E` | Text, dark sections |
 | `--color-danger` | `#DC2626` | Emergency, warnings |
 | `--color-success` | `#16A34A` | Released status, positive |
+
+---
+
+## Recent Changes (April 22, 2026 Session)
+
+### Nest Entanglement Special Case ✅
+- New rescue case #37,958 added as first entry on `/special-cases` — Black Kite juvenile trapped in manja thread woven into its own nest by parents
+- 2 photos (`public/cases/nest-entangled-01.jpg`, `nest-entangled-02.jpg`, ~102KB each), converted from Canon RAW (CR2)
+
+### Founder Photos on /about ✅
+- Real portraits of Mohammad Saud (`public/team/saud.jpg`) and Nadeem Shehzad (`public/team/nadeem.jpg`) now appear on team cards
+- `TEAM` entries in `constants.ts` have `image` field; about page renders real photo or initials fallback
+
+### /history Page — "Our Early Days" ✅ (NEW)
+- New route at `/history` — archive page for the founding story and early operations
+- Centrepiece: motorbike ambulance photo with prose about the pre-clinic years
+- 4-photo archive grid from early CR2 camera roll (captions are placeholders — update once user describes each photo)
+- Added to **Media** nav dropdown, mobile menu, and sitemap
+- All 5 CR2 files converted by extracting the embedded 8-bit JPEG preview
+
+### Peregrine Falcon Gallery ✅
+- Added `public/species/peregrine-falcon-04.jpg` (224KB) as 5th gallery image on `/species/peregrine-falcon`
+
+### Pending from this session
+- Update captions for `early-days-01–04.jpg` on `/history` once user describes the photos
+- Merge `claude/xenodochial-mendeleev-ef9de2` → `main` and redeploy
 
 ---
 
