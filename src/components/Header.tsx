@@ -33,6 +33,7 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { href: "/gallery", label: "Photo Gallery" },
       { href: "/videos", label: "Video Clips" },
+      { href: "/history", label: "Our Early Days" },
       { href: "/media", label: "Press & Awards" },
       { href: "/bird-brothers", label: "Bird Brothers Book" },
     ],
@@ -57,6 +58,7 @@ const MOBILE_LINKS = [
   { href: "/annual-reports", label: "Annual Reports" },
   { href: "/gallery", label: "Photo Gallery" },
   { href: "/videos", label: "Video Clips" },
+  { href: "/history", label: "Our Early Days" },
   { href: "/media", label: "Press & Awards" },
   { href: "/bird-brothers", label: "Bird Brothers Book" },
   { href: "/blog", label: "Blog & News" },
