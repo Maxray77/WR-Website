@@ -399,7 +399,6 @@ export const CONDITIONS_LIST: Condition[] = [
     ],
     image: "/conditions/methane-burn-hero.jpg",
     images: [
-      { src: "/conditions/methane-burn-hero.jpg", alt: "Bird with methane burn injuries at Wildlife Rescue clinic — a raptor admitted from a Delhi landfill site" },
       { src: "/conditions/methane-burn-02.jpg", alt: "Methane burn case — close-up of burn wounds being assessed at Wildlife Rescue" },
       { src: "/conditions/methane-burn-03.jpg", alt: "Raptor recovering from methane burn injuries — treatment in progress at Wildlife Rescue clinic" },
       { src: "/conditions/methane-burn-04.jpg", alt: "Bird with methane burn damage to wing and body — Wildlife Rescue clinic, early case" },
