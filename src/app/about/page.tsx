@@ -119,13 +119,23 @@ export default function AboutPage() {
                 key={member.name}
                 className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-shadow"
               >
-                {/* Photo placeholder */}
-                <div className="aspect-square bg-gradient-to-br from-teal-light to-teal/10 flex items-center justify-center">
-                  <div className="w-24 h-24 bg-teal/20 rounded-full flex items-center justify-center">
-                    <span className="text-teal text-3xl font-bold font-[family-name:var(--font-poppins)]">
-                      {member.name.charAt(0)}
-                    </span>
-                  </div>
+                {/* Photo */}
+                <div className="aspect-square bg-gradient-to-br from-teal-light to-teal/10 flex items-center justify-center relative overflow-hidden">
+                  {member.image ? (
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 bg-teal/20 rounded-full flex items-center justify-center">
+                      <span className="text-teal text-3xl font-bold font-[family-name:var(--font-poppins)]">
+                        {member.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">

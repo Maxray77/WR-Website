@@ -32,11 +32,13 @@ export const TEAM = [
     name: "Mohammad Saud",
     role: "President & Co-Founder",
     bio: "Co-founder of Wildlife Rescue, Mohammad Saud has dedicated over two decades to raptor conservation. A self-taught wildlife rehabilitator, he developed novel surgical techniques for repairing wings damaged by kite strings — techniques now adopted by rehabilitators worldwide.",
+    image: "/team/saud.jpg",
   },
   {
     name: "Nadeem Shehzad",
     role: "Co-Founder",
     bio: "Nadeem co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s. He serves as Honorary Wildlife Warden and Board Member of Raptor Rescue and Research Inc. (USA). He has presented at NWRA symposiums in Los Angeles and Seattle.",
+    image: "/team/nadeem.jpg",
   },
   {
     name: "Salik Rehman",
