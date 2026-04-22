@@ -8,7 +8,7 @@ import DonateButton from "@/components/DonateButton";
 export const metadata: Metadata = {
   title: "Our Early Days — Wildlife Rescue History",
   description:
-    "From a single injured Black Kite in the early 1990s to a bicycle ambulance navigating Delhi's lanes — the founding story of Wildlife Rescue in pictures.",
+    "From a single injured Black Kite in the early 1990s to a motorbike ambulance navigating Delhi's lanes — the founding story of Wildlife Rescue in pictures.",
 };
 
 const EARLY_PHOTOS = [
@@ -47,7 +47,7 @@ export default function HistoryPage() {
             Our Early Days
           </h1>
           <p className="mt-4 text-xl text-white/75 max-w-2xl mx-auto leading-relaxed">
-            Before the clinic, the aviaries, and the operating theatres — there was a bicycle, a small cage, and an unshakeable belief that every bird deserves a second chance.
+            Before the clinic, the aviaries, and the operating theatres — there was a motorbike, a small cage, and an unshakeable belief that every bird deserves a second chance.
           </p>
         </div>
       </section>
@@ -113,16 +113,16 @@ export default function HistoryPage() {
                 Before the clinic
               </p>
               <h2 className="text-3xl lg:text-4xl font-bold text-charcoal font-[family-name:var(--font-poppins)] leading-tight">
-                The Bicycle That Started It All
+                The Motorbike That Started It All
               </h2>
               <p className="mt-5 text-slate leading-relaxed">
-                In the years before Wildlife Rescue had a proper clinic, this bicycle was the ambulance. Nadeem and Saud would navigate Delhi&apos;s crowded lanes on it — responding to calls from residents who had found injured birds, picking them up in makeshift carriers, and bringing them home for treatment.
+                In the years before Wildlife Rescue had a proper clinic, this motorbike was the ambulance. Nadeem and Saud would navigate Delhi&apos;s crowded lanes on it — responding to calls from residents who had found injured birds, picking them up in makeshift carriers, and bringing them home for treatment.
               </p>
               <p className="mt-4 text-slate leading-relaxed">
-                There were no operating theatres then. No X-ray machines, no anaesthesia equipment, no aviaries. Just two men on bicycles, a handful of cages, and the kind of stubborn compassion that refuses to look away from a suffering animal.
+                There were no operating theatres then. No X-ray machines, no anaesthesia equipment, no aviaries. Just two men on a motorbike, a handful of cages, and the kind of stubborn compassion that refuses to look away from a suffering animal.
               </p>
               <p className="mt-4 text-slate leading-relaxed">
-                Today, Wildlife Rescue treats over 3,000 birds a year and has pioneered surgical techniques adopted worldwide. But this bicycle is where it all began.
+                Today, Wildlife Rescue treats over 3,000 birds a year and has pioneered surgical techniques adopted worldwide. But this motorbike is where it all began.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
@@ -186,7 +186,7 @@ export default function HistoryPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-teal to-teal-dark rounded-2xl p-8 lg:p-12 text-white text-center">
             <h2 className="text-2xl lg:text-3xl font-bold font-[family-name:var(--font-poppins)]">
-              From One Bicycle to 3,000+ Birds a Year
+              From One Motorbike to 3,000+ Birds a Year
             </h2>
             <p className="mt-4 text-white/80 leading-relaxed max-w-2xl mx-auto">
               Everything at Wildlife Rescue today — the surgical suite, the aviaries, the novel wing-repair techniques, the Oscar-nominated documentary — grew from that same quiet refusal to walk past a suffering bird. Support the next chapter.
