@@ -51,6 +51,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/black-kite-01.jpg", alt: "Black Kite resting on clinic examination table — spotted juvenile plumage visible during treatment at Wildlife Rescue" },
       { src: "/species/black-kite-anesthesia.jpg", alt: "Black Kite under isoflurane gas anesthesia with face mask during surgical procedure at Wildlife Rescue" },
       { src: "/species/black-eared-kite-02.jpg", alt: "Black Eared Kite perched at Wildlife Rescue clinic" },
+      { src: "/species/black-kite-02.jpg", alt: "Black Kite in care at Wildlife Rescue clinic" },
     ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
@@ -151,6 +152,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/spotted-owlet-03.jpg", alt: "Spotted Owlet extreme close-up of face showing distinctive yellow eye and delicate spotted feather detail" },
       { src: "/species/spotted-owlet-chick.jpg", alt: "Tiny Spotted Owlet chick with bright yellow eyes perched on a handler's finger at Wildlife Rescue" },
       { src: "/species/spotted-owlet-04.jpg", alt: "Spotted Owlet close-up profile showing yellow eye and intricate spotted brown plumage at Wildlife Rescue" },
+      { src: "/species/spotted-owlet-05.jpg", alt: "Spotted Owlet at Wildlife Rescue clinic" },
     ],
   },
   {
