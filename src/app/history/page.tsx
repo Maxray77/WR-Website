@@ -13,6 +13,16 @@ export const metadata: Metadata = {
 
 const EARLY_PHOTOS = [
   {
+    src: "/history/nadeem-early.jpg",
+    caption: "Nadeem Shehzad — Co-Founder",
+    description: "Nadeem Shehzad, who co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s.",
+  },
+  {
+    src: "/history/steppe-eagle-early.jpg",
+    caption: "Steppe Eagle — Early Case",
+    description: "A Steppe Eagle treated at Wildlife Rescue in the early years — Endangered migrants from Central Asia have long been part of the mission.",
+  },
+  {
     src: "/history/early-days-01.jpg",
     caption: "Early days at the rescue",
     description: "The team at work in the early years of Wildlife Rescue.",

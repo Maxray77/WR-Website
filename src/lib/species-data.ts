@@ -50,6 +50,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark brown plumage and piercing eyes at Wildlife Rescue" },
       { src: "/species/black-kite-01.jpg", alt: "Black Kite resting on clinic examination table — spotted juvenile plumage visible during treatment at Wildlife Rescue" },
       { src: "/species/black-kite-anesthesia.jpg", alt: "Black Kite under isoflurane gas anesthesia with face mask during surgical procedure at Wildlife Rescue" },
+      { src: "/species/black-eared-kite-02.jpg", alt: "Black Eared Kite perched at Wildlife Rescue clinic" },
     ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
@@ -187,6 +188,11 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Thread and manja entanglement. Glue traps. Vehicle strikes. Disease outbreaks in dense populations. Poisoning from contaminated grain.",
     description: "Once a small part of intake, the Blue Rock Pigeon is now Wildlife Rescue's #2 species at 6.3% of cases — reflecting the organization's broadening mission beyond raptors to serve all Delhi's birds in need.",
     funFact: "Despite being the 'common pigeon,' Blue Rock Pigeons are remarkable navigators. They can detect the Earth's magnetic field, use the sun as a compass, and recognize landmarks from the air — abilities that humans exploited for thousands of years using carrier pigeons.",
+    image: "/species/blue-rock-pigeon-01.jpg",
+    images: [
+      { src: "/species/blue-rock-pigeon-01.jpg", alt: "Blue Rock Pigeon at Wildlife Rescue clinic" },
+      { src: "/species/blue-rock-pigeon-02.jpg", alt: "Blue Rock Pigeon during treatment at Wildlife Rescue" },
+    ],
   },
   {
     slug: "black-eared-kite",
@@ -205,6 +211,11 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Same as Black Kite — manja string lacerations, electrocution, vehicle collisions, and poisoning. Winter migrants face additional stress from long-distance travel and unfamiliar urban hazards. Habitat degradation at stopover sites along the Central Asian Flyway.",
     description: "The Black Eared Kite is the migratory cousin of Delhi's resident Black Kite. Taxonomists debate whether it's a full species or a subspecies (M. migrans lineatus). During winter, these larger, darker birds mix with Delhi's resident kites — and Wildlife Rescue treats them alongside their local relatives.",
     funFact: "Black Eared Kites migrate thousands of kilometers from Siberia and Mongolia to winter in India. Some individuals fitted with GPS trackers have been recorded crossing the Himalayas at altitudes above 4,000 meters — a remarkable feat for a bird that spends most of its time scavenging at ground level.",
+    image: "/species/black-eared-kite-02.jpg",
+    images: [
+      { src: "/species/black-eared-kite-02.jpg", alt: "Black Eared Kite at Wildlife Rescue clinic — migratory winter visitor from Central Asia" },
+      { src: "/species/black-eared-kite.jpg", alt: "Black Eared Kite close-up portrait showing dark ear coverts and piercing eyes" },
+    ],
   },
   {
     slug: "wetland-birds",
