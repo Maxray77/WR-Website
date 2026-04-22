@@ -360,6 +360,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/peregrine-falcon-01.jpg", alt: "Falcon held by handler during examination at Wildlife Rescue, showing brown plumage and alert expression" },
       { src: "/species/peregrine-falcon-02.jpg", alt: "Peregrine Falcon with body bandage during treatment, showing slate-grey and white plumage" },
       { src: "/species/peregrine-falcon-03.jpg", alt: "Peregrine Falcon in recovery with treatment bandage and case notes, perched at Wildlife Rescue clinic" },
+      { src: "/species/peregrine-falcon-04.jpg", alt: "Peregrine Falcon at Wildlife Rescue clinic" },
     ],
   },
   {
