@@ -13,6 +13,19 @@ export const metadata: Metadata = {
 const CASES = [
   {
     name: "",
+    species: "Black Kite (Juvenile)",
+    caseNo: "#37,958",
+    date: "March 2025",
+    images: ["/cases/nest-entangled-01.jpg", "/cases/nest-entangled-02.jpg"],
+    condition: "Nest entanglement — trapped in kite-flying thread woven into own nest",
+    treatment:
+      "Careful manual extraction of thread from legs and body. Wound cleaning, anti-inflammatory medication, and monitoring for circulatory damage from constriction.",
+    outcome: "Released",
+    story:
+      "This young Black Kite chick arrived barely able to move. Its parents had built the nest using discarded paper kite-flying thread (manja) — a material abundant in Delhi's rooftops but deadly for the birds that unknowingly weave it into their homes. As the chick grew, the thread tightened around its legs and body, cutting off circulation. Our team spent over an hour carefully removing the tightly wound thread without causing further injury. The chick was kept for observation, made a full recovery, and was released once it could fly. A heartbreaking reminder that the dangers of manja don't end when the kite season does.",
+  },
+  {
+    name: "",
     species: "Black Eared Kite",
     caseNo: "#35,412",
     date: "May 2024",
