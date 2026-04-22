@@ -293,6 +293,7 @@ export const CONDITIONS_LIST: Condition[] = [
       { src: "/conditions/septicemia-feet-both.jpg", alt: "Infected feet showing tissue damage from septicemia" },
       { src: "/conditions/septicemia-foot-closeup.jpg", alt: "Close-up of infected foot with tissue damage" },
       { src: "/conditions/septicemia-feet-held.jpg", alt: "Examining infected raptor feet during treatment" },
+      { src: "/conditions/septicemia-egyptian-vulture.jpg", alt: "Sultan the Egyptian Vulture in care at Wildlife Rescue — an endangered bird being treated for septicemia" },
     ],
     shortDescription:
       "Life-threatening blood infections from untreated wounds, contaminated environments, or secondary to other diseases. Requires aggressive antibiotic therapy.",

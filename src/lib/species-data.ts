@@ -105,6 +105,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Diclofenac poisoning (the drug that decimated South Asia's vulture populations). Electrocution from power lines. Lead poisoning from contaminated carcasses. Habitat loss and disturbance at nesting sites.",
     description: "Every Egyptian Vulture matters. With IUCN Endangered status and populations crashing across South Asia, the individuals that Wildlife Rescue treats represent a critical contribution to species survival. We treat approximately 7 per year — each one is precious.",
     funFact: "Egyptian Vultures are one of the only birds known to use tools. They pick up stones in their beaks and throw them at ostrich eggs to crack them open — a behavior observed for thousands of years and depicted in ancient Egyptian art.",
+    image: "/species/egyptian-vulture-01.jpg",
+    images: [
+      { src: "/species/egyptian-vulture-01.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue — Sultan, an endangered bird receiving treatment for septicemia" },
+    ],
   },
   {
     slug: "shikra",

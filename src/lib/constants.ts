@@ -244,8 +244,10 @@ export const FEATURED_RESCUES: FeaturedRescue[] = [
   {
     title: "Sultan the Egyptian Vulture",
     species: "Egyptian Vulture",
-    summary: "An endangered Egyptian Vulture found with a fractured wing from a collision. This rare species required specialized care and months of rehabilitation.",
+    summary: "An endangered Egyptian Vulture brought in with severe septicemia — a life-threatening blood infection. Sultan required aggressive antibiotic therapy and months of intensive rehabilitation. Every Egyptian Vulture saved is a contribution to species survival.",
     outcome: "In Care",
+    image: "/species/egyptian-vulture-01.jpg",
+    imageAlt: "Sultan the Egyptian Vulture in care at Wildlife Rescue — an endangered bird receiving treatment for septicemia",
   },
 ];
 
