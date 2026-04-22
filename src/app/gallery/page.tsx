@@ -33,6 +33,10 @@ const PHOTOS = [
   { id: 14, title: "Crested Serpent Eagle", category: "Species", description: "A majestic Crested Serpent Eagle recovering from electrical burns." },
   { id: 15, title: "Laser Treatment Session", category: "Clinic", description: "Using VAYMED Class 4 laser for tissue regeneration on a healing wing." },
   { id: 16, title: "Night Rescue Operation", category: "Rescues", description: "Responding to a late-night call — an owl trapped in a factory vent." },
+  { id: 18, title: "Methane Burn — Black Eared Kite", category: "Clinic", src: "/conditions/methane-burn-01.jpg", description: "Black Eared Kite with severe methane burn injuries from a landfill gas ignition event." },
+  { id: 19, title: "Methane Burn — Assessment", category: "Clinic", src: "/conditions/methane-burn-02.jpg", description: "Close-up assessment of methane burn wounds — a hazard unique to Delhi's vast landfill sites." },
+  { id: 20, title: "Methane Burn — Treatment", category: "Clinic", src: "/conditions/methane-burn-03.jpg", description: "Burn treatment in progress — laser therapy and wound management for a landfill burn case." },
+  { id: 21, title: "Methane Burn — Recovery", category: "Clinic", src: "/conditions/methane-burn-04.jpg", description: "Early burn case recovery — one of Wildlife Rescue's most challenging condition categories." },
 ];
 
 // Color mapping for category badges
