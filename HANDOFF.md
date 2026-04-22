@@ -1,7 +1,7 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** April 22, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (30+ routes, all working). New: /history page, founder photos, nest entanglement case, Peregrine Falcon photo.
+**Last updated:** April 22, 2026 (evening)
+**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (30+ routes, all working). All 2026-04-22 session commits merged to `main` and live on Vercel.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
@@ -132,7 +132,33 @@ src/
 
 ---
 
-## Recent Changes (April 22, 2026 Session)
+## Recent Changes (April 22, 2026 — Evening Session)
+
+### Photo additions ✅
+- **Black Naped Ibis** → Wetland Birds gallery (`public/species/black-naped-ibis-01.jpg`, 129KB)
+- **Black Kite recovery** → Black Kite gallery — post-anesthesia recovery after manja wing repair (`black-kite-recovery.jpg`, 149KB)
+- **Black Kite clinic** → Black Kite gallery (`black-kite-02.jpg`, 141KB)
+- **Spotted Owlet 05** → Spotted Owlet gallery (`spotted-owlet-05.jpg`, 107KB)
+- **Crane** → Wetland Birds gallery (`crane-01.jpg`, 124KB)
+- **Baby Spotted Owlet** → lead photo in "Orphan & Chick Rehabilitation" on `/treatments` (`baby-spotted-owlet.jpg`, 119KB)
+- **Sultan the Egyptian Vulture** (`egyptian-vulture-01.jpg`, 157KB) → three locations: homepage Featured Rescues card, `/species/egyptian-vulture` hero + gallery, `/conditions/septicemia` gallery. Sultan's summary updated to mention septicemia.
+
+### Bug fixes ✅
+- **"Wetland Birdss" double-s** — species CTA heading pluralisation fixed in `species/[slug]/page.tsx` (names ending in 's' no longer get extra 's')
+- **Black Eared Kite hero rotated** — `public/species/black-eared-kite.jpg` rotated 90° CCW
+- **Methane burns condition** — wrong Black Eared Kite image removed as hero; `IMG_4635.JPG` compressed to `methane-burn-hero.jpg` (160KB) set as correct hero; `methane-burn-02.jpg` rotated 90° CCW; duplicate hero removed from gallery
+
+### All merged & deployed ✅
+- Worktree `claude/xenodochial-mendeleev-ef9de2` merged to `main` — all changes live on Vercel
+
+### Still pending
+- Update captions for `early-days-01–04.jpg` on `/history` — user to describe what each photo shows
+- Add vulture photos (10 placeholders on `/vultures`)
+- Add photos for: Indian Grey Hornbill, Rose-ringed Parakeet (no images yet)
+
+---
+
+## Recent Changes (April 22, 2026 — Morning Session)
 
 ### Nest Entanglement Special Case ✅
 - New rescue case #37,958 added as first entry on `/special-cases` — Black Kite juvenile trapped in manja thread woven into its own nest by parents
@@ -145,16 +171,11 @@ src/
 ### /history Page — "Our Early Days" ✅ (NEW)
 - New route at `/history` — archive page for the founding story and early operations
 - Centrepiece: motorbike ambulance photo with prose about the pre-clinic years
-- 4-photo archive grid from early CR2 camera roll (captions are placeholders — update once user describes each photo)
+- 4-photo archive grid from early CR2 camera roll
 - Added to **Media** nav dropdown, mobile menu, and sitemap
-- All 5 CR2 files converted by extracting the embedded 8-bit JPEG preview
 
 ### Peregrine Falcon Gallery ✅
 - Added `public/species/peregrine-falcon-04.jpg` (224KB) as 5th gallery image on `/species/peregrine-falcon`
-
-### Pending from this session
-- Update captions for `early-days-01–04.jpg` on `/history` once user describes the photos
-- Merge `claude/xenodochial-mendeleev-ef9de2` → `main` and redeploy
 
 ---
 
