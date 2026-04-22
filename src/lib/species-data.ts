@@ -52,6 +52,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/black-kite-anesthesia.jpg", alt: "Black Kite under isoflurane gas anesthesia with face mask during surgical procedure at Wildlife Rescue" },
       { src: "/species/black-eared-kite-02.jpg", alt: "Black Eared Kite perched at Wildlife Rescue clinic" },
       { src: "/species/black-kite-02.jpg", alt: "Black Kite in care at Wildlife Rescue clinic" },
+      { src: "/species/black-kite-recovery.jpg", alt: "Black Kite recovering from anesthesia after wing repair surgery — wound caused by manja (paper kite flying thread) infection, at Wildlife Rescue" },
     ],
     videos: [
       { src: "/treatments/laser-wound-management.mp4", caption: "A Black Kite receiving laser wound therapy at Wildlife Rescue — laser treatment accelerates healing of the deep tissue lacerations caused by manja (glass-coated kite string)" },
