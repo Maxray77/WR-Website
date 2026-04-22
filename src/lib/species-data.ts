@@ -239,6 +239,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/cattle-egret.jpg", alt: "Cattle Egret perched on examination table at Wildlife Rescue clinic" },
       { src: "/species/cattle-egret-01.jpg", alt: "Cattle Egret with bandaged wing on clinic examination table — case number visible on wrapping during treatment at Wildlife Rescue" },
       { src: "/species/painted-stork-01.jpg", alt: "Painted Stork under treatment with endotracheal tube — close-up of distinctive yellow-orange beak during surgical procedure at Wildlife Rescue" },
+      { src: "/species/black-naped-ibis-01.jpg", alt: "Black Naped Ibis in care at Wildlife Rescue — showing the species' distinctive black neck patch and long curved bill" },
     ],
     videos: [
       { src: "/species/pond-herons.mp4", caption: "Pond Herons recovering at Wildlife Rescue — one of the many wetland species treated at the clinic" },
