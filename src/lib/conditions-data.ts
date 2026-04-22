@@ -397,9 +397,8 @@ export const CONDITIONS_LIST: Condition[] = [
       "Egyptian Vulture — IUCN Endangered, feeds at same landfill sites",
       "Steppe Eagle — migratory, scavenges at landfills during winter",
     ],
-    image: "/conditions/methane-burn-01.jpg",
+    image: "/conditions/methane-burn-02.jpg",
     images: [
-      { src: "/conditions/methane-burn-01.jpg", alt: "Black Eared Kite with methane burn injuries at Wildlife Rescue clinic — singed feathers and skin damage visible" },
       { src: "/conditions/methane-burn-02.jpg", alt: "Methane burn case — close-up of burn wounds being assessed at Wildlife Rescue" },
       { src: "/conditions/methane-burn-03.jpg", alt: "Raptor recovering from methane burn injuries — treatment in progress at Wildlife Rescue clinic" },
       { src: "/conditions/methane-burn-04.jpg", alt: "Bird with methane burn damage to wing and body — Wildlife Rescue clinic, early case" },
@@ -410,7 +409,7 @@ export const CONDITIONS_LIST: Condition[] = [
       story:
         "This Black Eared Kite arrived from a landfill site with severe burns across its wing and body from a methane gas ignition event. The singed feathers and damaged skin required weeks of careful wound management and laser therapy. Cases like this — a migratory bird from Central Asia, fatally unfamiliar with Delhi's industrial hazards — illustrate why landfill management is as much a conservation issue as it is a public health one.",
       outcome: "Released",
-      image: "/conditions/methane-burn-01.jpg",
+      image: "/conditions/methane-burn-02.jpg",
     },
   },
   {
