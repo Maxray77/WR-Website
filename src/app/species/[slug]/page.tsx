@@ -233,7 +233,7 @@ export default async function SpeciesProfilePage({
       <section className="py-16 lg:py-20 bg-gradient-to-r from-teal-dark to-teal text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-white font-[family-name:var(--font-poppins)]">
-            Help Protect {species.name}s
+            Help Protect {species.name}{species.name.endsWith('s') ? '' : 's'}
           </h2>
           <p className="mt-3 text-white/80">
             Your donation directly funds the rescue and rehabilitation of{" "}
