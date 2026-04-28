@@ -63,7 +63,12 @@
       "Bash(node convert2.mjs \"C:/Users/maxra/Documents/Wildlife Rescue/News Letters/Wildlife RescueAnnualReport2021.pdf\" \"cover-2021.png\" 2)",
       "Bash(node convert2.mjs \"C:/Users/maxra/Documents/Wildlife Rescue/News Letters/Annual Report 2022.pdf\" \"cover-2022.png\" 2)",
       "Bash(ls -la public/annual-reports/infographic-2022*)",
-      "Bash(ls -la public/annual-reports/infographic-2020*)"
+      "Bash(ls -la public/annual-reports/infographic-2020*)",
+      "Bash(npm install *)",
+      "Bash(node convert.mjs \"C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf\" \"C:/Users/maxra/AppData/Local/Temp/pdfconv2/raw-cover.jpg\" 1 2)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'feat\\(blog\\): add Scaling Avian Impact PDF + cover to record-breaking-2025 post *)",
+      "Bash(git push *)"
     ]
   }
 }

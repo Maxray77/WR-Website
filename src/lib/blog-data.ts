@@ -51,11 +51,13 @@ Download the full 2025 report using the link above.`,
     slug: "record-breaking-2025",
     title: "2025: Our Biggest Year Ever — 4,184 Birds Rescued",
     excerpt:
-      "We shattered our previous record with 4,184 birds rescued in 2025. Here's how our team, partners, and supporters made it happen.",
+      "We shattered our previous record with 4,184 birds rescued in 2025. Read the full impact report — Scaling Avian Impact — covering our team, partners, and what's next.",
     date: "2026-01-15",
     author: "Nadeem Shehzad",
     category: "Annual Update",
     readTime: "5 min",
+    image: "/scaling-avian-impact-cover.jpg",
+    pdfUrl: "/scaling-avian-impact.pdf",
     content: `2025 was a landmark year for Wildlife Rescue. For the first time, we crossed the 4,000-bird threshold — treating 4,184 birds across 34+ species.
 
 This represents a 24% increase over 2024 and marks our 12x growth since 2010, when we treated just 362 birds from our home in Old Delhi's Walled City.
