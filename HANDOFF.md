@@ -1,10 +1,30 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** April 22, 2026 (evening)
-**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (30+ routes, all working). All 2026-04-22 session commits merged to `main` and live on Vercel.
+**Last updated:** April 28, 2026
+**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (30+ routes, all working). All 2026-04-28 session commits live on Vercel.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
+
+---
+
+## 🆕 What changed on 2026-04-28
+
+- **Scaling Avian Impact 2025 report** wired into the existing "2025: Our Biggest Year Ever — 4,184 Birds Rescued" blog post (slug `record-breaking-2025`).
+  - Source PDF: `C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf` → `public/scaling-avian-impact.pdf` (13.5 MB)
+  - Cover image: page 1 rendered to JPG → `public/scaling-avian-impact-cover.jpg` (158 KB, 1800px)
+  - Surfaces on: homepage "From Our Blog" card, `/blog` listing card, `/blog/record-breaking-2025` (hero + PDF download banner)
+  - Commit `e171a74`
+- **Blog title retitled** — "How We Prepared for Monsoon Season 2025" → "How We Prepare for Kite-Flying Season"
+  - Slug retained (`monsoon-2025-preparedness`) so existing links don't break
+  - **Body content unchanged** — still describes monsoon electrocutions; needs rewrite if the topic is meant to actually shift to kite-flying-season manja injuries
+  - Commit `9235da4`
+
+**PDF→JPG toolchain refresher:**
+- Workspace: `C:/Users/maxra/AppData/Local/Temp/pdfconv2/` (`pdfjs-dist` + `@napi-rs/canvas`)
+- Script: `convert.mjs` — `node convert.mjs IN.pdf OUT.jpg [pageNum] [scale]`
+- Compress with `npx sharp-cli -i raw.jpg -o out.jpg -q 86 -f jpeg resize 1800 --withoutEnlargement`
+- Wires wasmUrl correctly to handle JPEG2000-encoded PDF images
 
 ---
 

@@ -219,9 +219,34 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-22 (photo additions + image fixes pass)
+**Last updated by:** Claude Code — 2026-04-28 (Scaling Avian Impact + content polish)
 
-**What was just completed (Session 2026-04-22 evening — photo additions & fixes, all merged to `main`):**
+**What was just completed (Session 2026-04-28 — content additions, all on `main`):**
+- [x] **Scaling Avian Impact 2025 report** — wired into the existing "2025: Our Biggest Year Ever — 4,184 Birds Rescued" blog post (`record-breaking-2025`)
+  - `public/scaling-avian-impact.pdf` (13.5 MB) — full report copied from `C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf`
+  - `public/scaling-avian-impact-cover.jpg` (158 KB) — page-1 cover preview rendered at 1800px wide using a fresh `pdfjs-dist` + `@napi-rs/canvas` toolchain at `C:/Users/maxra/AppData/Local/Temp/pdfconv2/`
+  - Post `image` + `pdfUrl` fields populated; excerpt updated to mention "Scaling Avian Impact"
+  - Surfaces automatically: homepage "From Our Blog" (cover thumbnail), `/blog` listing card, and `/blog/record-breaking-2025` (hero image + PDF download banner). Commit `e171a74`.
+- [x] **Blog title retitled** — "How We Prepared for Monsoon Season 2025" → "How We Prepare for Kite-Flying Season" (slug `monsoon-2025-preparedness` retained for link stability; body content unchanged). Commit `9235da4`.
+
+**Pending (flagged, not yet acted on):**
+- The "How We Prepare for Kite-Flying Season" post body still describes monsoon electrocutions, not kite-flying-season manja injuries. Content rewrite needed if the topic is meant to actually shift.
+
+**Earlier work this conversation (carried over from 2026-04-17 late polish):**
+- Founding date corrected site-wide ("late 1990s" → "early 1990s") in 4 files (`constants.ts` ×2, `app/page.tsx`, `wingman-prompt.ts`). Commit `744cfb3`.
+- `/about` "Download Our Brochure" card — replaced FileText icon with real brochure cover image (`public/brochure-cover.jpg`, 194 KB, from `C:/Users/maxra/Pictures/Website Pics/BrochureP1.png`), 3:4 rounded preview with shadow/ring. Commit `ae29482`.
+- `/facility` stats bar — removed "50+ Enclosures & Aviaries" count, replaced "2 Operating Theaters" (factually wrong) with "Advanced — Modern Operation Theater with latest machines"; metadata description also updated. Commit `a31a6f3`.
+
+**New public assets (this conversation):**
+- `public/scaling-avian-impact.pdf` (13.5 MB)
+- `public/scaling-avian-impact-cover.jpg` (158 KB)
+- `public/brochure-cover.jpg` (194 KB)
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-22 evening — photo additions & fixes, all merged to `main`):**
 - [x] **Black Naped Ibis photo** — `public/species/black-naped-ibis-01.jpg` (129KB) added to Wetland Birds gallery in `species-data.ts`
 - [x] **Black Kite photos ×2** — `black-kite-02.jpg` (141KB, clinic) and `black-kite-recovery.jpg` (149KB, recovering from anesthesia after manja wing repair) added to Black Kite gallery
 - [x] **Spotted Owlet 05** — `public/species/spotted-owlet-05.jpg` (107KB) added to Spotted Owlet gallery
