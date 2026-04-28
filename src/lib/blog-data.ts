@@ -102,7 +102,7 @@ This trip was made possible by **Raptor Rescue and Research Inc.** — Wildlife 
   },
   {
     slug: "monsoon-2025-preparedness",
-    title: "How We Prepared for Monsoon Season 2025",
+    title: "How We Prepare for Kite-Flying Season",
     excerpt:
       "Monsoon season means wet-wire electrocutions surge. Here's how we geared up for Delhi's deadliest season for raptors.",
     date: "2025-06-01",
