@@ -236,7 +236,7 @@ export default function ConditionsPage() {
                             {condition.percentage}
                           </span>
                           <span className="text-xs text-slate ml-1.5">
-                            of cases
+                            {condition.percentageLabel ?? "of cases"}
                           </span>
                         </div>
                         <div className="h-10 w-px bg-gray-200" />

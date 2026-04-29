@@ -3,6 +3,8 @@ export interface Condition {
   name: string;
   icon: string; // lucide icon name
   percentage: string;
+  /** Override for the label rendered next to `percentage` (default: "of cases" / "of total cases") */
+  percentageLabel?: string;
   annualCases: string;
   severity: "Critical" | "Serious" | "Moderate" | "Variable";
   shortDescription: string;
@@ -219,31 +221,32 @@ export const CONDITIONS_LIST: Condition[] = [
     slug: "avian-pox",
     name: "Avian Pox",
     icon: "Bug",
-    percentage: "~8%",
-    annualCases: "~300/year",
+    percentage: "Juveniles",
+    percentageLabel: "only",
+    annualCases: "~60/year",
     severity: "Serious",
     image: "/conditions/avian-pox-kite.jpg",
     images: [
-      { src: "/conditions/avian-pox-kite.jpg", alt: "Black Kite with avian pox lesions — warty growths visible around the beak and cere area" },
+      { src: "/conditions/avian-pox-kite.jpg", alt: "Juvenile Black Kite with avian pox lesions — warty growths visible around the beak and cere area" },
     ],
     shortDescription:
-      "A viral disease causing wart-like growths on skin, feet, and around the eyes. Can blind birds and prevent feeding if untreated.",
+      "A viral disease seen only in juvenile birds, causing wart-like growths on skin, feet, and around the eyes. Can blind birds and prevent feeding if untreated.",
     description:
-      "Avian pox is a viral disease caused by Avipoxvirus that affects a wide range of bird species. Wildlife Rescue treats approximately 300 cases per year, primarily in pigeons, parakeets, and mynas — though raptors can also be affected. The disease presents in two forms: the dry (cutaneous) form produces wart-like growths on unfeathered skin (feet, legs, face, around the eyes), while the wet (diphtheritic) form creates lesions in the mouth, throat, and respiratory tract. The dry form is more common and generally treatable; the wet form is more dangerous and can be fatal. The virus is transmitted by mosquitoes and through direct contact with infected birds or contaminated surfaces. In Delhi's warm, humid climate — especially during and after monsoon — mosquito-borne transmission spikes dramatically.",
+      "Avian pox is a viral disease caused by Avipoxvirus. At Wildlife Rescue we see it exclusively in **juvenile birds** — adult raptors and adult birds in general have already developed immunity from earlier exposure. We treat roughly 60 juvenile cases per year. The disease produces wart-like growths on unfeathered skin — feet, legs, the base of the beak, and around the eyes — that can swell shut, blind the bird, or interfere with feeding. The virus is transmitted primarily by mosquitoes, and also through direct contact with infected birds or contaminated surfaces. In Delhi's warm, humid climate — especially during and after monsoon — mosquito-borne transmission spikes dramatically, which is when we see the seasonal influx of juvenile cases.",
     causes: [
       "Mosquito bites — the primary transmission vector",
       "Direct contact with infected birds at communal roosting or feeding sites",
       "Contaminated surfaces — perches, feeding stations, water sources",
       "Open wounds that provide entry points for the virus",
-      "Immunosuppression from stress, malnutrition, or other illness",
+      "Juvenile immune systems that haven't yet been exposed to the virus",
     ],
     symptoms: [
       "Wart-like nodules on feet, legs, beak base, and around eyes",
       "Crusty, raised lesions that may be yellow, brown, or dark",
       "Swollen or closed eyes — can lead to blindness if untreated",
       "Difficulty eating if lesions develop around the beak",
-      "Labored breathing (wet form — lesions in throat/airways)",
       "Weight loss and lethargy as the disease progresses",
+      "Stunted growth in young chicks",
     ],
     treatment: [
       "Isolation from other birds to prevent transmission",
@@ -253,7 +256,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Antibiotic therapy to prevent secondary bacterial infections",
       "Eye drops and treatment if lesions affect vision",
       "Immune support — vitamin supplementation",
-      "Monitoring for the wet form (diphtheritic) which requires more aggressive treatment",
     ],
     prevention: [
       "Mosquito control at rescue facilities and known roost sites",
@@ -262,18 +264,18 @@ export const CONDITIONS_LIST: Condition[] = [
       "Reduce overcrowding at pigeon feeding sites (temples, markets)",
       "Vaccination programs where feasible for captive populations",
     ],
-    recoveryRate: "~75% (dry form), ~40% (wet form)",
+    recoveryRate: "High — most juveniles recover with timely care",
     avgRecoveryTime: "3–6 weeks",
     commonSpecies: [
-      "Blue Rock Pigeon (most common)",
-      "Rose-ringed Parakeet",
-      "Common Myna",
-      "House Crow",
-      "Raptors (occasional)",
+      "Juvenile Black Kite",
+      "Juvenile Blue Rock Pigeon",
+      "Juvenile Rose-ringed Parakeet",
+      "Juvenile Common Myna",
+      "Other juvenile passerines (occasional)",
     ],
     caseStudy: {
       name: "Guddu",
-      species: "Blue Rock Pigeon",
+      species: "Juvenile Blue Rock Pigeon",
       story:
         "Brought in by a temple priest from Jama Masjid area with severe pox lesions covering both eyes — completely blind. After 3 weeks of careful treatment including daily eye drops and antiseptic application, the lesions dried and fell away. Guddu regained full vision and was released at the temple where the priest continues to watch over the resident flock.",
       outcome: "Released",

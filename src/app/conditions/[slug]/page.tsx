@@ -110,7 +110,9 @@ export default async function ConditionDetailPage({
                   <span className="text-6xl font-bold text-white/10 font-[family-name:var(--font-poppins)]">
                     {condition.percentage}
                   </span>
-                  <p className="text-white/40 text-sm mt-2">of all cases</p>
+                  <p className="text-white/40 text-sm mt-2">
+                    {condition.percentageLabel ?? "of all cases"}
+                  </p>
                 </div>
               </div>
             )}
@@ -139,7 +141,9 @@ export default async function ConditionDetailPage({
                   <div className="text-2xl font-bold text-amber font-[family-name:var(--font-poppins)]">
                     {condition.percentage}
                   </div>
-                  <p className="text-white/60 text-sm mt-1">of total cases</p>
+                  <p className="text-white/60 text-sm mt-1">
+                    {condition.percentageLabel ?? "of total cases"}
+                  </p>
                 </div>
                 <div className="bg-white/10 rounded-xl p-4">
                   <div className="text-2xl font-bold text-amber font-[family-name:var(--font-poppins)]">
