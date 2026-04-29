@@ -1,14 +1,30 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** April 28, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (30+ routes, all working). All 2026-04-28 session commits live on Vercel.
+**Last updated:** April 29, 2026
+**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (31+ routes, all working). All 2026-04-29 session commits live on Vercel.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
 
 ---
 
-## 🆕 What changed on 2026-04-28
+## 🆕 What changed on 2026-04-29
+
+- **`/facility` split into two independent pages: `/clinic` and `/enclosures`** (commit `14481fe`)
+  - Both pages get heavily expanded promotional content reflecting them as core organisational strengths.
+  - **`/clinic`** — "South Asia's Most Advanced Avian Clinic". 9 equipment cards (X-Ray, Modern OT, Ultrasonic Bone Cutter, Surgical Laser, Diagnostic Lab, ICU, Pharmacy, Triage, Surgical Microscopy), 11-image equipment gallery, 5-step clinical journey ending with handoff to aviaries.
+  - **`/enclosures`** — "Where Rescued Birds Become Wild Again". 6 housing types, NEW design-principles section (Low-Stress Design / Hygiene / Behavioural Enrichment), aviary photo gallery, 6-step rehab journey.
+  - **Wiring:** Header dropdown ("Our Work") replaces "Our Facility" with "Our Clinic" + "Bird Enclosures" (desktop + mobile). `next.config.ts` adds 301 redirect `/facility → /clinic` for SEO + old inbound links. Sitemap updated. `/history` and `/treatments` inbound links repointed.
+  - Image folder `/public/facility/*` retained — only the route changed, not the assets.
+- **Plan saved for `/our-specialty` expansion + new `/our-specialty/wing-repair` page** at `docs/PLAN-our-specialty-expansion.md` (commit `dcc454b`). Awaiting user to collect: X-rays, NWRA presentation slides, anatomy diagrams. Decision logged: do **not** use Blender for anatomy diagrams — use NWRA slides + Wikimedia CC-licensed diagrams instead.
+
+**Active pending tasks:**
+- `/our-specialty` expansion + `/our-specialty/wing-repair` page — see `docs/PLAN-our-specialty-expansion.md`. Waiting on assets.
+- "How We Prepare for Kite-Flying Season" post body still describes monsoon electrocutions — content rewrite needed if topic is meant to actually shift.
+
+---
+
+## 🕰️ What changed on 2026-04-28
 
 - **Scaling Avian Impact 2025 report** wired into the existing "2025: Our Biggest Year Ever — 4,184 Birds Rescued" blog post (slug `record-breaking-2025`).
   - Source PDF: `C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf` → `public/scaling-avian-impact.pdf` (13.5 MB)

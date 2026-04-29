@@ -219,30 +219,55 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-28 (Scaling Avian Impact + content polish)
+**Last updated by:** Claude Code — 2026-04-29 (facility split + /our-specialty plan)
 
-**What was just completed (Session 2026-04-28 — content additions, all on `main`):**
-- [x] **Scaling Avian Impact 2025 report** — wired into the existing "2025: Our Biggest Year Ever — 4,184 Birds Rescued" blog post (`record-breaking-2025`)
+**What was just completed (Session 2026-04-29 — facility split + planning, all on `main`):**
+- [x] **`/facility` split into `/clinic` + `/enclosures`** (commit `14481fe`) — both pages get heavily expanded promotional content reflecting them as core organisational strengths.
+  - **`/clinic`** — "South Asia's Most Advanced Avian Clinic". 9 equipment cards (X-Ray, Modern OT, **Ultrasonic Bone Cutter**, **Surgical Laser**, Diagnostic Lab, ICU, Pharmacy, Triage, **Surgical Microscopy**), 11-image equipment gallery, 5-step clinical journey ending with handoff to aviaries. CTA: "Help Us Equip the Clinic".
+  - **`/enclosures`** — "Where Rescued Birds Become Wild Again". 6 housing-type cards, NEW "Why These Enclosures Work" section (Low-Stress Design / Hygiene & Disease Control / Behavioural Enrichment), aviary photo gallery, 6-step rehab journey ending in release. CTA: "Sponsor an Enclosure". Aviaries video reused from old facility page.
+  - **Wiring:** Header dropdown ("Our Work") replaces "Our Facility" with "Our Clinic" + "Bird Enclosures" (desktop + mobile lists). `next.config.ts` adds permanent 301 redirect `/facility → /clinic` so old inbound links and SEO don't break. Sitemap updated. Inbound links from `/history` and `/treatments` repointed.
+  - **Image folder `/public/facility/*` retained** (paths unchanged) — only the route was split, not the assets.
+  - Type-checked clean (`npx tsc --noEmit`).
+- [x] **Plan saved for `/our-specialty` expansion + new `/our-specialty/wing-repair` page** at `docs/PLAN-our-specialty-expansion.md` (commit `dcc454b`). Awaiting user to collect: X-rays, NWRA presentation slides, anatomy diagrams. Plan covers expanded equipment grid, dedicated X-Ray section, and a comprehensive wing-repair page with anatomy / surgical stages / case studies / NWRA slide excerpts.
+  - **Decision logged:** do NOT use Blender/Claude for anatomy diagrams. Use NWRA slides (peer-reviewed, authoritative) + Wikimedia CC-licensed bird wing diagrams as fallback.
+
+**Earlier work this conversation (carried over from 2026-04-28):**
+- **Scaling Avian Impact 2025 report** wired into the existing "2025: Our Biggest Year Ever — 4,184 Birds Rescued" blog post (`record-breaking-2025`).
   - `public/scaling-avian-impact.pdf` (13.5 MB) — full report copied from `C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf`
   - `public/scaling-avian-impact-cover.jpg` (158 KB) — page-1 cover preview rendered at 1800px wide using a fresh `pdfjs-dist` + `@napi-rs/canvas` toolchain at `C:/Users/maxra/AppData/Local/Temp/pdfconv2/`
-  - Post `image` + `pdfUrl` fields populated; excerpt updated to mention "Scaling Avian Impact"
-  - Surfaces automatically: homepage "From Our Blog" (cover thumbnail), `/blog` listing card, and `/blog/record-breaking-2025` (hero image + PDF download banner). Commit `e171a74`.
-- [x] **Blog title retitled** — "How We Prepared for Monsoon Season 2025" → "How We Prepare for Kite-Flying Season" (slug `monsoon-2025-preparedness` retained for link stability; body content unchanged). Commit `9235da4`.
+  - Surfaces automatically on homepage "From Our Blog" (cover thumbnail), `/blog` listing card, and `/blog/record-breaking-2025` (hero image + PDF download banner). Commit `e171a74`.
+- **Blog title retitled** — "How We Prepared for Monsoon Season 2025" → "How We Prepare for Kite-Flying Season" (slug `monsoon-2025-preparedness` retained for link stability; body content unchanged). Commit `9235da4`.
 
 **Pending (flagged, not yet acted on):**
 - The "How We Prepare for Kite-Flying Season" post body still describes monsoon electrocutions, not kite-flying-season manja injuries. Content rewrite needed if the topic is meant to actually shift.
+- `/our-specialty` expansion + `/our-specialty/wing-repair` page — see `docs/PLAN-our-specialty-expansion.md`. Waiting on user assets (X-rays, NWRA decks, anatomy diagrams).
 
 **Earlier work this conversation (carried over from 2026-04-17 late polish):**
 - Founding date corrected site-wide ("late 1990s" → "early 1990s") in 4 files (`constants.ts` ×2, `app/page.tsx`, `wingman-prompt.ts`). Commit `744cfb3`.
 - `/about` "Download Our Brochure" card — replaced FileText icon with real brochure cover image (`public/brochure-cover.jpg`, 194 KB, from `C:/Users/maxra/Pictures/Website Pics/BrochureP1.png`), 3:4 rounded preview with shadow/ring. Commit `ae29482`.
-- `/facility` stats bar — removed "50+ Enclosures & Aviaries" count, replaced "2 Operating Theaters" (factually wrong) with "Advanced — Modern Operation Theater with latest machines"; metadata description also updated. Commit `a31a6f3`.
+- `/facility` stats bar — removed "50+ Enclosures & Aviaries" count, replaced "2 Operating Theaters" (factually wrong) with "Advanced — Modern Operation Theater with latest machines"; metadata description also updated. Commit `a31a6f3`. **Note:** This page no longer exists — facility was split into `/clinic` + `/enclosures` on 2026-04-29.
 
 **New public assets (this conversation):**
 - `public/scaling-avian-impact.pdf` (13.5 MB)
 - `public/scaling-avian-impact-cover.jpg` (158 KB)
 - `public/brochure-cover.jpg` (194 KB)
 
+**New routes (this conversation):**
+- `/clinic` — replaces clinic half of old `/facility`
+- `/enclosures` — replaces aviary half of old `/facility`
+- `/facility` — now a 301 redirect to `/clinic`
+
 **All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-28 — content additions):**
+- [x] **Scaling Avian Impact 2025 report** — wired into the existing "2025: Our Biggest Year Ever — 4,184 Birds Rescued" blog post (`record-breaking-2025`)
+  - `public/scaling-avian-impact.pdf` (13.5 MB) — full report copied from `C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf`
+  - `public/scaling-avian-impact-cover.jpg` (158 KB) — page-1 cover preview rendered at 1800px wide using a fresh `pdfjs-dist` + `@napi-rs/canvas` toolchain at `C:/Users/maxra/AppData/Local/Temp/pdfconv2/`
+  - Post `image` + `pdfUrl` fields populated; excerpt updated to mention "Scaling Avian Impact"
+  - Surfaces automatically: homepage "From Our Blog" (cover thumbnail), `/blog` listing card, and `/blog/record-breaking-2025` (hero image + PDF download banner). Commit `e171a74`.
+- [x] **Blog title retitled** — "How We Prepared for Monsoon Season 2025" → "How We Prepare for Kite-Flying Season". Commit `9235da4`.
 
 ---
 
