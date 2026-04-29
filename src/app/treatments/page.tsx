@@ -262,10 +262,16 @@ export default function TreatmentsPage() {
               Our Specialty <ChevronRight size={16} />
             </Link>
             <Link
-              href="/facility"
+              href="/clinic"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-full text-teal font-medium hover:border-teal hover:shadow-md transition-all"
             >
-              Our Facility <ChevronRight size={16} />
+              Our Clinic <ChevronRight size={16} />
+            </Link>
+            <Link
+              href="/enclosures"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-full text-teal font-medium hover:border-teal hover:shadow-md transition-all"
+            >
+              Bird Enclosures <ChevronRight size={16} />
             </Link>
             <Link
               href="/conditions"

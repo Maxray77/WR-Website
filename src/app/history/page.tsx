@@ -143,7 +143,7 @@ export default function HistoryPage() {
                   Read our full story <ArrowRight size={16} />
                 </Link>
                 <Link
-                  href="/facility"
+                  href="/clinic"
                   className="inline-flex items-center gap-2 text-teal font-semibold hover:text-teal-dark transition-colors"
                 >
                   See the clinic today <ArrowRight size={16} />
