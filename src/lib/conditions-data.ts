@@ -13,7 +13,6 @@ export interface Condition {
   symptoms: string[];
   treatment: string[];
   prevention: string[];
-  recoveryRate: string;
   avgRecoveryTime: string;
   commonSpecies: string[];
   /** Hero image for the condition detail page */
@@ -75,7 +74,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Proper disposal of fishing line and netting",
       "Securing sharp edges on construction sites near nesting areas",
     ],
-    recoveryRate: "~65%",
     avgRecoveryTime: "3–8 weeks",
     commonSpecies: [
       "Black Kite (80%+ of manja cases)",
@@ -137,7 +135,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Community education about protecting nesting sites during storms",
       "Enforcement of wildlife protection laws against deliberate harm",
     ],
-    recoveryRate: "~50%",
     avgRecoveryTime: "6–16 weeks",
     commonSpecies: [
       "Black Kite",
@@ -199,7 +196,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Contact Wildlife Rescue before 'rescuing' a baby bird",
       "Install nest platforms for species displaced by construction",
     ],
-    recoveryRate: "~70%",
     avgRecoveryTime: "4–12 weeks (depending on age at intake)",
     commonSpecies: [
       "Black Kite (chicks fall from urban nests)",
@@ -264,7 +260,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Reduce overcrowding at pigeon feeding sites (temples, markets)",
       "Vaccination programs where feasible for captive populations",
     ],
-    recoveryRate: "High — most juveniles recover with timely care",
     avgRecoveryTime: "3–6 weeks",
     commonSpecies: [
       "Juvenile Black Kite",
@@ -335,7 +330,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Reducing environmental contamination at known bird habitats",
       "Rapid response to reported injured birds — our hotline: +91 98100 29698",
     ],
-    recoveryRate: "~35%",
     avgRecoveryTime: "2–6 weeks (if bird survives the critical first 72 hours)",
     commonSpecies: [
       "Black Kite (from infected manja wounds)",
@@ -354,8 +348,8 @@ export const CONDITIONS_LIST: Condition[] = [
     slug: "methane-burns",
     name: "Methane & Chemical Burns",
     icon: "Flame",
-    percentage: "~2%",
-    annualCases: "~75/year",
+    percentage: "<1%",
+    annualCases: "~30/year",
     severity: "Critical",
     shortDescription:
       "Burns from methane gas ignition at landfills and industrial sites — one of Delhi's most severe and distinctive urban hazards for raptors.",
@@ -391,7 +385,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Faster closure and capping of legacy landfill mountains",
       "Waste segregation to reduce organic content and methane generation",
     ],
-    recoveryRate: "~50%",
     avgRecoveryTime: "8–20 weeks",
     commonSpecies: [
       "Black Kite — most frequent, feeds at landfills year-round",
@@ -462,7 +455,6 @@ export const CONDITIONS_LIST: Condition[] = [
       "Reduced use of lead ammunition near wildlife areas",
       "Proper handling of oil and chemical waste near water bodies",
     ],
-    recoveryRate: "~55% (varies widely by condition)",
     avgRecoveryTime: "1–12 weeks (varies widely)",
     commonSpecies: [
       "All species — these conditions affect every bird we treat",

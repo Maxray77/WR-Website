@@ -89,8 +89,8 @@ The presentation focused on our refined surgical technique for repairing the **p
 Our first NWRA presentation was in Los Angeles in 2018, where we introduced the novel technique. Seven years later, we returned with the refined, staged version.
 
 **What's changed since 2018:**
-- The technique has been tested on 2,000+ birds
-- Recovery rates have improved from 60% to over 80%
+- The technique has been refined and tested on 2,000+ birds
+- The procedure is now staged and reproducible across the team
 - Three other rehabilitation centers in India have adopted our method
 - A veterinary clinic in Pakistan has begun using a modified version
 

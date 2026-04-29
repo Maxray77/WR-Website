@@ -245,15 +245,6 @@ export default function ConditionsPage() {
                             {condition.annualCases}
                           </span>
                         </div>
-                        <div className="h-10 w-px bg-gray-200" />
-                        <div>
-                          <span className="text-sm text-slate">
-                            Recovery:{" "}
-                            <span className="font-semibold text-charcoal">
-                              {condition.recoveryRate}
-                            </span>
-                          </span>
-                        </div>
                       </div>
 
                       {/* CTA */}

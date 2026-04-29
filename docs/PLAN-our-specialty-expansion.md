@@ -51,7 +51,7 @@ Server component, fully data-driven so it's easy to extend.
    - Stage 2: TPLT + EMR tendon repair
    - Stage 3: Propatagium membrane reconstruction
    - Stage 4: Splinting & post-op recovery
-5. **Outcomes & Data** — stat block: "60% → 80%+ recovery rate", "2,000+ birds operated", "Adopted by 4+ international facilities"
+5. **Outcomes & Data** — stat block: "2,000+ birds operated on", "Adopted by 4+ international facilities", "Refined across 7 years (2018 LA → 2025 Seattle)" — note: per project policy we do not cite recovery-rate percentages publicly.
 6. **Case Studies** — 3 deep cases with: case #, intake X-ray, intra-op photo, post-op X-ray, release photo, narrative
 7. **Presented at NWRA Symposiums** — 2 cards (LA 2018 / Seattle 2025) with slide thumbnails and key takeaways
 8. **CTA** — "Fund This Work" donate button

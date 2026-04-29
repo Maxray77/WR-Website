@@ -153,9 +153,9 @@ export default async function ConditionDetailPage({
                 </div>
                 <div className="bg-white/10 rounded-xl p-4">
                   <div className="text-2xl font-bold text-amber font-[family-name:var(--font-poppins)]">
-                    {condition.recoveryRate}
+                    {condition.avgRecoveryTime}
                   </div>
-                  <p className="text-white/60 text-sm mt-1">recovery rate</p>
+                  <p className="text-white/60 text-sm mt-1">avg. recovery time</p>
                 </div>
               </div>
             </div>
