@@ -1,14 +1,39 @@
 # Wildlife Rescue Website — Handoff Guide
 
-**Last updated:** April 29, 2026
-**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content additions (31+ routes, all working). All 2026-04-29 session commits live on Vercel.
+**Last updated:** April 29, 2026 (evening)
+**Status:** Phases 1–4 complete + Wingman AI chatbot + security hardening + content corrections (31+ routes, all working). All 2026-04-29 session commits live on Vercel.
 **Live site:** https://wildlife-rescue-website.vercel.app
 **Repository:** `C:\Users\maxra\Documents\Claude\WR website\wildlife-rescue-website`
 **Branch:** `main`
 
 ---
 
-## 🆕 What changed on 2026-04-29
+## 🆕 What changed on 2026-04-29 evening (content corrections)
+
+- **Antigravity design brief** drafted at `docs/ANTIGRAVITY-DESIGN-BRIEF.md` (commit `19eb598`). Self-contained doc the user is sharing with Google Antigravity to get cosmetic redesign proposals. Covers org context, tech stack + hard constraints, brand tokens, full site map, page-by-page layouts, 3-direction proposal request.
+- **Avian Pox** (`/conditions/avian-pox`) corrected — commits `f09fbce`, `5cb4768`:
+  - Removed all wet-form / dry-form distinction (we don't see wet form in our caseload)
+  - Now framed as juvenile-only, ~60 cases/year (was ~300/year, ~8% of intake)
+  - Listing card headline reads "Juveniles only"; description rewritten to explain adult immunity
+  - Added optional `percentageLabel` field on `Condition` interface so future conditions can override the default "of cases" label
+- **Recovery-rate scrubbed site-wide** (commit `6e596d0`):
+  - Field removed from `Condition` interface
+  - All 6 condition entries no longer carry a `recoveryRate`
+  - Listing card and detail page hero — recovery-rate stat blocks removed; `avgRecoveryTime` is the third stat now
+  - `/treatments` highlights bar — "Recovery Rate ~65%" replaced with "Birds Treated Since 2010 — 38,500+"
+  - NWRA blog post bullet rewritten to drop the "60% → 80%" stat
+  - Plan doc updated to note no-public-rate policy
+  - Verified zero `recovery rate` / `recoveryRate` matches in `src/` or `docs/`
+- **Methane & Chemical Burns** (`/conditions/methane-burns`) — `~2%` → `<1%`, `~75/year` → `~30/year`
+- **Septicemia** (`/conditions/septicemia`):
+  - Renamed from "Septicemia & Infections" → just "Septicemia" (commit `e6435b7`)
+  - Percentage corrected through two iterations: ~10% → ~4% → **~2.5%** (final, commit `876b957`)
+  - annualCases: ~370 → ~150 → **~95/year** (final)
+  - Slug retained for link stability
+
+---
+
+## 🕰️ What changed on 2026-04-29 morning (facility split + planning)
 
 - **`/facility` split into two independent pages: `/clinic` and `/enclosures`** (commit `14481fe`)
   - Both pages get heavily expanded promotional content reflecting them as core organisational strengths.

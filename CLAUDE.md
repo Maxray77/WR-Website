@@ -219,9 +219,60 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-29 (facility split + /our-specialty plan)
+**Last updated by:** Claude Code — 2026-04-29 (evening — content corrections + Antigravity brief)
 
-**What was just completed (Session 2026-04-29 — facility split + planning, all on `main`):**
+**What was just completed (Session 2026-04-29 evening — content corrections, all on `main`):**
+- [x] **Antigravity design brief drafted** — `docs/ANTIGRAVITY-DESIGN-BRIEF.md` (commit `19eb598`). Self-contained briefing for Google Antigravity covering org context, tech stack + hard constraints, brand tokens, full site map, page-by-page layouts, reusable components, redesign goals, and 3-direction proposal request. User will share with Antigravity to get cosmetic redesign options.
+- [x] **Avian Pox corrected** (commits `f09fbce`, `5cb4768`):
+  - Removed all wet/dry form distinction (not relevant to our caseload — we don't see wet form)
+  - Reframed as a juvenile-only condition; ~60 cases/year (was ~300/year, ~8% of intake)
+  - Listing card headline now reads "Juveniles only" instead of a percentage
+  - Description rewritten — adults have established immunity; we see only juveniles, primarily after monsoon
+  - Symptoms / treatment / common species cleaned of all wet-form references
+  - Stripped a literal `**…**` markdown emphasis that was rendering as text
+  - Added optional `percentageLabel` field to `Condition` interface for cases where "of cases" doesn't fit
+- [x] **Recovery-rate scrubbed site-wide** (commit `6e596d0`):
+  - Removed `recoveryRate` field from `Condition` interface and from all 6 entries (cut-wounds, fractures, septicemia, methane, orphans, other-conditions)
+  - Stripped recovery-rate stat blocks from `/conditions` listing card and `/conditions/[slug]` detail hero (the third stat cell now shows `avgRecoveryTime` instead)
+  - `/treatments` highlights bar — "Recovery Rate ~65%" replaced with "Birds Treated Since 2010 — 38,500+"
+  - NWRA blog post bullet rewritten — was "Recovery rates have improved from 60% to over 80%"; now references staged/reproducible technique
+  - Plan doc (`docs/PLAN-our-specialty-expansion.md`) updated to drop recovery-rate stat and note the no-public-rate policy for future wing-repair page
+  - Verified: zero `recovery rate` / `recoveryRate` matches anywhere in `src/` or `docs/`
+- [x] **Methane & Chemical Burns** — percentage `~2%` → `<1%`, annualCases `~75/year` → `~30/year` (commit `6e596d0`)
+- [x] **Septicemia corrected** (commits `e6435b7` + `876b957`):
+  - Renamed from "Septicemia & Infections" → "Septicemia"
+  - Percentage: ~10% → ~4% → **~2.5%** (final)
+  - annualCases: ~370/year → ~150/year → **~95/year** (final)
+  - Description text aligned to ~2.5%
+  - Slug `/conditions/septicemia` retained for link stability
+
+**Earlier work this conversation (carried over from earlier today, 2026-04-29 daytime):**
+- **`/facility` split into `/clinic` + `/enclosures`** (commit `14481fe`) — both pages get heavily expanded promotional content reflecting them as core organisational strengths.
+  - `/clinic` — "South Asia's Most Advanced Avian Clinic". 9 equipment cards (X-Ray, Modern OT, Ultrasonic Bone Cutter, Surgical Laser, Diagnostic Lab, ICU, Pharmacy, Triage, Surgical Microscopy), 11-image equipment gallery, 5-step clinical journey ending with handoff to aviaries.
+  - `/enclosures` — "Where Rescued Birds Become Wild Again". 6 housing-type cards, NEW "Why These Enclosures Work" section (Low-Stress Design / Hygiene & Disease Control / Behavioural Enrichment), aviary photo gallery, 6-step rehab journey ending in release.
+  - Header dropdown ("Our Work") replaces "Our Facility" with "Our Clinic" + "Bird Enclosures" (desktop + mobile lists). `next.config.ts` adds permanent 301 redirect `/facility → /clinic` so old inbound links and SEO don't break. Sitemap updated. Inbound links from `/history` and `/treatments` repointed.
+  - Image folder `/public/facility/*` retained — only the route was split, not the assets.
+- **Plan saved for `/our-specialty` expansion + new `/our-specialty/wing-repair` page** at `docs/PLAN-our-specialty-expansion.md` (commit `dcc454b`). Awaiting user to collect: X-rays, NWRA presentation slides, anatomy diagrams.
+
+**Pending (flagged, not yet acted on):**
+- `/our-specialty` expansion + `/our-specialty/wing-repair` page — see `docs/PLAN-our-specialty-expansion.md`. Waiting on user assets (X-rays, NWRA decks, anatomy diagrams).
+- "How We Prepare for Kite-Flying Season" post body still describes monsoon electrocutions. Content rewrite needed if topic is meant to actually shift to manja injuries.
+- User is sharing `docs/ANTIGRAVITY-DESIGN-BRIEF.md` with Google Antigravity; awaiting redesign proposals.
+
+**New routes (this conversation):**
+- `/clinic` — replaces clinic half of old `/facility`
+- `/enclosures` — replaces aviary half of old `/facility`
+- `/facility` — now 301 → `/clinic`
+
+**New public assets (across this conversation):**
+- `public/scaling-avian-impact.pdf` (13.5 MB) + `public/scaling-avian-impact-cover.jpg` (158 KB)
+- `public/brochure-cover.jpg` (194 KB)
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-29 morning — facility split + planning, all on `main`):**
 - [x] **`/facility` split into `/clinic` + `/enclosures`** (commit `14481fe`) — both pages get heavily expanded promotional content reflecting them as core organisational strengths.
   - **`/clinic`** — "South Asia's Most Advanced Avian Clinic". 9 equipment cards (X-Ray, Modern OT, **Ultrasonic Bone Cutter**, **Surgical Laser**, Diagnostic Lab, ICU, Pharmacy, Triage, **Surgical Microscopy**), 11-image equipment gallery, 5-step clinical journey ending with handoff to aviaries. CTA: "Help Us Equip the Clinic".
   - **`/enclosures`** — "Where Rescued Birds Become Wild Again". 6 housing-type cards, NEW "Why These Enclosures Work" section (Low-Stress Design / Hygiene & Disease Control / Behavioural Enrichment), aviary photo gallery, 6-step rehab journey ending in release. CTA: "Sponsor an Enclosure". Aviaries video reused from old facility page.
@@ -237,10 +288,6 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
   - `public/scaling-avian-impact-cover.jpg` (158 KB) — page-1 cover preview rendered at 1800px wide using a fresh `pdfjs-dist` + `@napi-rs/canvas` toolchain at `C:/Users/maxra/AppData/Local/Temp/pdfconv2/`
   - Surfaces automatically on homepage "From Our Blog" (cover thumbnail), `/blog` listing card, and `/blog/record-breaking-2025` (hero image + PDF download banner). Commit `e171a74`.
 - **Blog title retitled** — "How We Prepared for Monsoon Season 2025" → "How We Prepare for Kite-Flying Season" (slug `monsoon-2025-preparedness` retained for link stability; body content unchanged). Commit `9235da4`.
-
-**Pending (flagged, not yet acted on):**
-- The "How We Prepare for Kite-Flying Season" post body still describes monsoon electrocutions, not kite-flying-season manja injuries. Content rewrite needed if the topic is meant to actually shift.
-- `/our-specialty` expansion + `/our-specialty/wing-repair` page — see `docs/PLAN-our-specialty-expansion.md`. Waiting on user assets (X-rays, NWRA decks, anatomy diagrams).
 
 **Earlier work this conversation (carried over from 2026-04-17 late polish):**
 - Founding date corrected site-wide ("late 1990s" → "early 1990s") in 4 files (`constants.ts` ×2, `app/page.tsx`, `wingman-prompt.ts`). Commit `744cfb3`.
