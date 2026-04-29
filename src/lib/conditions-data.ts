@@ -278,10 +278,10 @@ export const CONDITIONS_LIST: Condition[] = [
   },
   {
     slug: "septicemia",
-    name: "Septicemia & Infections",
+    name: "Septicemia",
     icon: "Thermometer",
-    percentage: "~10%",
-    annualCases: "~370/year",
+    percentage: "~4%",
+    annualCases: "~150/year",
     severity: "Critical",
     image: "/conditions/septicemia-owl-face.jpg",
     images: [
@@ -295,7 +295,7 @@ export const CONDITIONS_LIST: Condition[] = [
     shortDescription:
       "Life-threatening blood infections from untreated wounds, contaminated environments, or secondary to other diseases. Requires aggressive antibiotic therapy.",
     description:
-      "Septicemia — bacterial infection of the bloodstream — is one of the most dangerous conditions Wildlife Rescue encounters. It accounts for approximately 10% of cases and has one of the highest mortality rates. Septicemia typically develops as a secondary complication: an untreated wound becomes infected, bacteria enter the bloodstream, and the infection becomes systemic. In Delhi's warm, humid environment, wounds become infected rapidly — often within hours. Birds brought in with old, untreated injuries frequently present with septicemia. The condition is also common in birds weakened by other diseases, malnutrition, or prolonged stress. Treatment is a race against time: aggressive antibiotic therapy must begin immediately, combined with fluid support and nutritional rehabilitation. Despite our best efforts, septicemia carries a significant mortality rate — early intervention is critical.",
+      "Septicemia — bacterial infection of the bloodstream — is one of the most dangerous conditions Wildlife Rescue encounters. It accounts for approximately 4% of cases and has one of the highest mortality rates. Septicemia typically develops as a secondary complication: an untreated wound becomes infected, bacteria enter the bloodstream, and the infection becomes systemic. In Delhi's warm, humid environment, wounds become infected rapidly — often within hours. Birds brought in with old, untreated injuries frequently present with septicemia. The condition is also common in birds weakened by other diseases, malnutrition, or prolonged stress. Treatment is a race against time: aggressive antibiotic therapy must begin immediately, combined with fluid support and nutritional rehabilitation. Despite our best efforts, septicemia carries a significant mortality rate — early intervention is critical.",
     causes: [
       "Untreated wounds — cuts, fractures, and lacerations that become infected",
       "Contaminated environments — polluted water, landfills, sewage-exposed areas",
