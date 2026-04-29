@@ -222,6 +222,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 **Last updated by:** Claude Code — 2026-04-29 (evening — content corrections + Antigravity brief)
 
 **What was just completed (Session 2026-04-29 evening — content corrections, all on `main`):**
+- [x] **Cut Wounds & Lacerations corrected** — percentage `~35%` → `~40%`, annualCases `~1,300/year` → `~1,500/year`; description text "approximately 35% of all cases" → "approximately 40%". Verified via preview (`/conditions/cut-wounds` serves the new values, zero residual `35%`/`1,300/year`).
 - [x] **Antigravity design brief drafted** — `docs/ANTIGRAVITY-DESIGN-BRIEF.md` (commit `19eb598`). Self-contained briefing for Google Antigravity covering org context, tech stack + hard constraints, brand tokens, full site map, page-by-page layouts, reusable components, redesign goals, and 3-direction proposal request. User will share with Antigravity to get cosmetic redesign options.
 - [x] **Avian Pox corrected** (commits `f09fbce`, `5cb4768`):
   - Removed all wet/dry form distinction (not relevant to our caseload — we don't see wet form)

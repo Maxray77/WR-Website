@@ -36,13 +36,13 @@ export const CONDITIONS_LIST: Condition[] = [
     slug: "cut-wounds",
     name: "Cut Wounds & Lacerations",
     icon: "Scissors",
-    percentage: "~35%",
-    annualCases: "~1,300/year",
+    percentage: "~40%",
+    annualCases: "~1,500/year",
     severity: "Serious",
     shortDescription:
       "The #1 injury we treat. Manja (glass-coated kite string) causes devastating cuts to wings, legs, and bodies of Delhi's raptors.",
     description:
-      "Cut wounds account for approximately 35% of all cases at Wildlife Rescue — making them by far the most common condition we treat. The primary cause is manja, the glass-coated string used in kite flying across Delhi. During festivals like Makar Sankranti and Independence Day, manja-related injuries spike dramatically. These razor-sharp strings can sever tendons, slice through muscle, and even amputate wing tips. Beyond manja, birds also suffer cuts from barbed wire, sheet metal, broken glass, and sharp construction debris scattered across Delhi's urban landscape. Our surgical team has developed specialized techniques over 20+ years to repair even severe tendon and ligament damage — expertise that has been shared with wildlife rehabilitators worldwide.",
+      "Cut wounds account for approximately 40% of all cases at Wildlife Rescue — making them by far the most common condition we treat. The primary cause is manja, the glass-coated string used in kite flying across Delhi. During festivals like Makar Sankranti and Independence Day, manja-related injuries spike dramatically. These razor-sharp strings can sever tendons, slice through muscle, and even amputate wing tips. Beyond manja, birds also suffer cuts from barbed wire, sheet metal, broken glass, and sharp construction debris scattered across Delhi's urban landscape. Our surgical team has developed specialized techniques over 20+ years to repair even severe tendon and ligament damage — expertise that has been shared with wildlife rehabilitators worldwide.",
     causes: [
       "Manja (glass-coated kite string) — accounts for 60%+ of all cut wounds",
       "Barbed wire fencing around construction sites and industrial areas",
