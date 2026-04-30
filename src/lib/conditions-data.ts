@@ -155,13 +155,13 @@ export const CONDITIONS_LIST: Condition[] = [
     slug: "orphans",
     name: "Orphaned & Juvenile Birds",
     icon: "Baby",
-    percentage: "~18%",
-    annualCases: "~670/year",
+    percentage: "~35%",
+    annualCases: "~1,300/year",
     severity: "Moderate",
     shortDescription:
       "Baby birds that fall from nests, are abandoned, or lose their parents. Raising them to independence requires species-specific care over weeks to months.",
     description:
-      "Orphaned and juvenile birds make up about 18% of Wildlife Rescue's caseload, with a dramatic spike during the breeding season (March–August). Most are nestlings or fledglings that have fallen from nests during storms, been displaced by construction, or lost parents to injury or death. Raising orphaned raptors is particularly challenging — they need to develop proper hunting skills and flight capability before release. Wildlife Rescue uses careful imprinting protocols to ensure birds don't become habituated to humans, which would make them unable to survive in the wild. Young raptors are gradually introduced to live prey and given flight training in large aviaries before release. For non-raptor species like pigeons, parakeets, and mynas, the process is shorter but still requires careful hand-feeding and socialization with conspecifics.",
+      "Orphaned and juvenile birds make up about 35% of Wildlife Rescue's caseload, with a dramatic spike during the breeding season (March to June). Most are nestlings or fledglings that have fallen from nests during storms, been displaced by construction, or lost parents to injury or death. Raising orphaned raptors is particularly challenging — they need to develop proper hunting skills and flight capability before release. Wildlife Rescue uses careful imprinting protocols to ensure birds don't become habituated to humans, which would make them unable to survive in the wild. We use soft release technique from our open flight enclosure that help young birds to learn to survive in the wild without the help of their parents and to learn by their own. For non-raptor species the process is shorter but still requires careful hand-feeding and socialization with conspecifics.",
     causes: [
       "Nest destruction during tree cutting, pruning, and construction",
       "Falls from nests during severe storms and high winds",
