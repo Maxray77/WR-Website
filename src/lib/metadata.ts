@@ -13,7 +13,7 @@ export const siteMetadata: Metadata = {
     template: "%s | Wildlife Rescue",
   },
   description:
-    "Wildlife Rescue is the world's largest raptor rescue facility, based in Delhi, India. Featured in the Oscar-nominated documentary 'All That Breathes.' 38,500+ birds rescued since 2010.",
+    "Wildlife Rescue is the world's largest raptor rescue facility, based in Delhi, India. Featured in the Oscar-nominated documentary 'All That Breathes.' 39,000+ birds rescued since 2010.",
   keywords: [
     "wildlife rescue delhi",
     "bird rescue delhi",
@@ -29,7 +29,7 @@ export const siteMetadata: Metadata = {
     siteName: "Wildlife Rescue",
     title: "Wildlife Rescue — Every Wing Deserves a Second Chance",
     description:
-      "The world's largest raptor rescue facility. 38,500+ birds rescued since 2010. Featured in the Oscar-nominated documentary 'All That Breathes.'",
+      "The world's largest raptor rescue facility. 39,000+ birds rescued since 2010. Featured in the Oscar-nominated documentary 'All That Breathes.'",
     url: BASE_URL,
     locale: "en_US",
   },
@@ -37,7 +37,7 @@ export const siteMetadata: Metadata = {
     card: "summary_large_image",
     title: "Wildlife Rescue — Every Wing Deserves a Second Chance",
     description:
-      "The world's largest raptor rescue facility. 38,500+ birds rescued since 2010.",
+      "The world's largest raptor rescue facility. 39,000+ birds rescued since 2010.",
   },
   robots: {
     index: true,

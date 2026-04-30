@@ -24,7 +24,7 @@ export default function Footer() {
             <p className="text-teal-light text-sm leading-relaxed mb-4">
               The world&apos;s largest raptor rescue facility, based in Delhi, India.
               Featured in the Oscar-nominated documentary &quot;All That Breathes.&quot;
-              38,500+ birds rescued since 2010.
+              39,000+ birds rescued since 2010.
             </p>
             <div className="flex gap-3">
               <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">

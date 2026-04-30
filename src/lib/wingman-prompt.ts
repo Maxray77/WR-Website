@@ -15,7 +15,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Social: Instagram @wildliferescueindia | Facebook: facebook.com/wildliferescue.in
 
 ## Impact Numbers
-- 38,500+ birds rescued since 2010
+- 39,000+ birds rescued since 2010
 - 106+ species treated
 - 20+ years of service
 - 26 international awards

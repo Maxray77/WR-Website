@@ -1,6 +1,6 @@
 // ─── Impact Stats ───
 export const IMPACT_STATS = [
-  { number: 38500, suffix: "+", label: "Birds Rescued Since 2010" },
+  { number: 39000, suffix: "+", label: "Birds Rescued Since 2010" },
   { number: 106, suffix: "+", label: "Species Treated" },
   { number: 20, suffix: "+", label: "Years of Service" },
   { number: 26, suffix: "", label: "International Awards" },

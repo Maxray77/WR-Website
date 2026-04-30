@@ -32,7 +32,7 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 const FACILITY_HIGHLIGHTS = [
   { label: "Treatments Daily", value: "30+" },
   { label: "Surgical Procedures/Year", value: "1,500+" },
-  { label: "Birds Treated Since 2010", value: "38,500+" },
+  { label: "Birds Treated Since 2010", value: "39,000+" },
   { label: "Operating Since", value: "2003" },
 ];
 

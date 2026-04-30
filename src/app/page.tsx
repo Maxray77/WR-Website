@@ -88,7 +88,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute bottom-8 left-0 right-0 text-center">
           <p className="text-white/90 text-sm sm:text-base font-semibold tracking-wide uppercase">
-            Steppe Eagle — One of 38,500+ Birds Rescued
+            Steppe Eagle — One of 39,000+ Birds Rescued
           </p>
         </div>
       </section>
