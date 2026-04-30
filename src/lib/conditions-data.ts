@@ -95,13 +95,13 @@ export const CONDITIONS_LIST: Condition[] = [
     slug: "fractures",
     name: "Fractures & Bone Injuries",
     icon: "Bone",
-    percentage: "~20%",
+    percentage: "~13%",
     annualCases: "~750/year",
     severity: "Critical",
     shortDescription:
       "Broken wings and legs from vehicle collisions, electrocution, and falls. Complex fractures require surgical pinning and months of rehabilitation.",
     description:
-      "Fractures are the second most common condition at Wildlife Rescue, accounting for about 20% of all cases. The most common causes are vehicle collisions (especially on highways cutting through green corridors), electrocution from power lines, and falls from nests during storms. Wing fractures are the most critical — a bird that cannot fly cannot survive in the wild. Our surgical team uses intramedullary pins, external fixators, and figure-eight bandaging techniques depending on the fracture type and location. Large raptors like eagles and vultures present the greatest surgical challenge due to their size and the mechanical stress their wings endure during flight. Recovery from fractures is long — typically 6 to 16 weeks — and requires careful physiotherapy to restore flight capability.",
+      "Fractures are the second most common condition at Wildlife Rescue, accounting for about 13% of all cases. The most common causes are vehicle collisions (especially on highways cutting through green corridors), electrocution from power lines, and falls from nests during storms. Wing fractures are the most critical — a bird that cannot fly cannot survive in the wild. Our surgical team uses intramedullary pins, external fixators, and figure-eight bandaging techniques depending on the fracture type and location. Large raptors like eagles and vultures present the greatest surgical challenge due to their size and the mechanical stress their wings endure during flight. Recovery from fractures is long — typically 6 to 16 weeks — and requires careful physiotherapy to restore flight capability.",
     causes: [
       "Vehicle collisions — birds struck by cars, trucks, and trains",
       "Electrocution from contact with power lines and transformers",
