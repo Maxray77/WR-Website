@@ -79,7 +79,7 @@ const CLINIC_FEATURES = [
     icon: <ClipboardList size={28} />,
   },
   {
-    title: "Surgical Microscopy",
+    title: "Clinic Microscope",
     description:
       "Magnification optics for microsurgical work — particularly the propatagium repair, where individual tendons (TPLT, EMR) are identified and re-apposed by hand.",
     icon: <Microscope size={28} />,
