@@ -184,7 +184,6 @@ export default function DonatePage() {
                             <p className="font-semibold text-charcoal group-hover:text-teal transition-colors">
                               Donate via R3 — Tax-Deductible (501c3)
                             </p>
-                            <span className="text-xs bg-teal text-white px-2 py-0.5 rounded-full">Recommended</span>
                           </div>
                           <p className="text-sm text-slate">
                             US tax-deductible receipt · Raptor Rescue and Research Inc. · EIN: 87-3289299
