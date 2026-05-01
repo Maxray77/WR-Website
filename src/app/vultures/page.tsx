@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -30,6 +31,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Critically Endangered",
     threats: "Diclofenac poisoning, food loss, habitat degradation",
     note: "Formerly the most abundant large raptor on Earth — declined 99.9%",
+    image: "/vultures/white-rumped-vulture.jpg",
+    imageCredit: "Petra Karstedt / CC BY-SA 1.0",
   },
   {
     name: "Indian Vulture",
@@ -38,6 +41,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Critically Endangered",
     threats: "Habitat destruction, poisoning, human disturbance",
     note: "Also called Long-billed Vulture — declined 97.4% from 1992-2003",
+    image: "/vultures/indian-vulture.jpg",
+    imageCredit: "Yathin sk / CC BY-SA 3.0",
   },
   {
     name: "Slender-billed Vulture",
@@ -46,6 +51,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Critically Endangered",
     threats: "Diclofenac poisoning, habitat loss, food scarcity",
     note: "Estimated just 150-200 breeding pairs remain",
+    image: "/vultures/slender-billed-vulture.jpg",
+    imageCredit: "gailhampshire / CC BY 2.0",
   },
   {
     name: "Red-headed Vulture",
@@ -54,6 +61,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Critically Endangered",
     threats: "Habitat loss, poisoning, human persecution",
     note: "Once widespread across the subcontinent, now extremely rare",
+    image: "/vultures/red-headed-vulture.jpg",
+    imageCredit: "Vishal Sabharwal / CC BY-SA 3.0",
   },
   {
     name: "Egyptian Vulture",
@@ -62,6 +71,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Endangered",
     threats: "Lead poisoning, electrocution, diclofenac, pesticide exposure",
     note: "Declined >35% per year in India since 1999. WR's primary vulture patient.",
+    image: undefined,
+    imageCredit: undefined,
   },
   {
     name: "Cinereous Vulture",
@@ -70,6 +81,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Vulnerable",
     threats: "Habitat loss, food scarcity, human persecution",
     note: "The largest Old World vulture — wingspan up to 3 meters",
+    image: "/vultures/cinereous-vulture.jpg",
+    imageCredit: "Alastair Rae / CC BY-SA 2.0",
   },
   {
     name: "Bearded Vulture",
@@ -78,6 +91,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Near Threatened",
     threats: "Habitat destruction, food availability decline",
     note: "Also called Lammergeier — feeds primarily on bones",
+    image: "/vultures/bearded-vulture.jpg",
+    imageCredit: "BirdingInSpain / CC BY-SA 3.0",
   },
   {
     name: "Himalayan Vulture",
@@ -86,6 +101,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Near Threatened",
     threats: "Habitat disturbance, climate change",
     note: "One of the largest and heaviest flying birds in the world",
+    image: "/vultures/himalayan-vulture.jpg",
+    imageCredit: "gailhampshire / CC BY 2.0",
   },
   {
     name: "Eurasian Griffon Vulture",
@@ -94,6 +111,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Vulnerable (India)",
     threats: "Habitat loss, poisoning, collision with infrastructure",
     note: "Declining in Central Asia due to changing agricultural practices",
+    image: "/vultures/eurasian-griffon-vulture.jpg",
+    imageCredit: "H. Zell / CC BY-SA 3.0",
   },
 ];
 
@@ -277,12 +296,29 @@ export default function VulturesPage() {
                 key={species.name}
                 className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
               >
-                {/* Photo Placeholder */}
-                <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-teal/10 flex flex-col items-center justify-center">
-                  <Bird size={48} className="text-teal/30" />
-                  <span className="text-xs text-slate/60 mt-2">
-                    Photo placeholder
-                  </span>
+                {/* Photo */}
+                <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-charcoal/5 to-teal/10">
+                  {species.image ? (
+                    <>
+                      <Image
+                        src={species.image}
+                        alt={species.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      {species.imageCredit && (
+                        <span className="absolute bottom-1 right-2 text-[10px] text-white/60 bg-black/30 px-1 rounded">
+                          {species.imageCredit}
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center">
+                      <Bird size={48} className="text-teal/30" />
+                      <span className="text-xs text-slate/60 mt-2">Photo coming soon</span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-5">
                   <div className="flex items-start justify-between gap-2 mb-2">
