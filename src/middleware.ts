@@ -63,10 +63,11 @@ export function middleware(request: NextRequest) {
   // Control referrer information sent with requests
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
-  // Disable unnecessary browser features
+  // Disable unnecessary browser features.
+  // payment= allows Razorpay's checkout domains to use the Payment Request API.
   response.headers.set(
     "Permissions-Policy",
-    "geolocation=(), microphone=(), camera=(), payment=(self)"
+    'geolocation=(), microphone=(), camera=(), payment=(self "https://checkout.razorpay.com" "https://api.razorpay.com")'
   );
 
   // Strict Transport Security — enforce HTTPS for 1 year
