@@ -184,7 +184,7 @@ export default function ClinicPage() {
       <section className="bg-gradient-to-br from-teal-dark to-teal py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block bg-amber/20 text-amber-light px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-            South Asia&apos;s Most Advanced Avian Clinic
+            One of India&apos;s Most Advanced Clinics for Birds
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-[family-name:var(--font-poppins)]">
             Our Clinic
