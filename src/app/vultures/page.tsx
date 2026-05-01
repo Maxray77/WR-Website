@@ -29,8 +29,8 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Gyps bengalensis",
     status: "CR" as const,
     statusLabel: "Critically Endangered",
-    threats: "Diclofenac poisoning, food loss, habitat degradation",
-    note: "Formerly the most abundant large raptor on Earth — declined 99.9%",
+    threats: "Diclofenac poisoning, food source decline, habitat degradation",
+    note: "Bore the brunt of the diclofenac crisis — crashed 99.9% from being the most abundant large raptor on Earth",
     image: "/vultures/white-rumped-vulture.jpg",
     imageCredit: "Petra Karstedt / CC BY-SA 1.0",
   },
@@ -39,8 +39,8 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Gyps indicus",
     status: "CR" as const,
     statusLabel: "Critically Endangered",
-    threats: "Habitat destruction, poisoning, human disturbance",
-    note: "Also called Long-billed Vulture — declined 97.4% from 1992-2003",
+    threats: "Diclofenac poisoning, habitat loss, declining food sources",
+    note: "Also called Long-billed Vulture — one of three Gyps species decimated by diclofenac; declined 97.4% from 1992–2003",
     image: "/vultures/indian-vulture.jpg",
     imageCredit: "Yathin sk / CC BY-SA 3.0",
   },
@@ -50,7 +50,7 @@ const INDIA_VULTURE_SPECIES = [
     status: "CR" as const,
     statusLabel: "Critically Endangered",
     threats: "Diclofenac poisoning, habitat loss, food scarcity",
-    note: "Estimated just 150-200 breeding pairs remain",
+    note: "Rarest of the three diclofenac-hit Gyps species — estimated just 150–200 breeding pairs remain globally",
     image: "/vultures/slender-billed-vulture.jpg",
     imageCredit: "gailhampshire / CC BY 2.0",
   },
@@ -59,8 +59,8 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Sarcogyps calvus",
     status: "CR" as const,
     statusLabel: "Critically Endangered",
-    threats: "Habitat loss, poisoning, human persecution",
-    note: "Once widespread across the subcontinent, now extremely rare",
+    threats: "Diclofenac poisoning, active persecution for traditional medicine, habitat loss",
+    note: "Compounded crisis: diclofenac plus persecution for traditional medicine; solitary habits make nest protection harder",
     image: "/vultures/red-headed-vulture.jpg",
     imageCredit: "Vishal Sabharwal / CC BY-SA 3.0",
   },
@@ -69,8 +69,8 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Neophron percnopterus",
     status: "EN" as const,
     statusLabel: "Endangered",
-    threats: "Lead poisoning, electrocution, diclofenac, pesticide exposure",
-    note: "Declined >35% per year in India since 1999. WR's primary vulture patient.",
+    threats: "Electrocution, diclofenac, pesticide exposure",
+    note: "Unique 'dual jeopardy' — threatened on South Asian wintering grounds AND European/Middle Eastern breeding grounds",
     image: "/vultures/egyptian-vulture.jpg",
     imageCredit: "J.M.Garg / CC BY-SA 3.0",
   },
@@ -79,8 +79,8 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Aegypius monachus",
     status: "VU" as const,
     statusLabel: "Vulnerable",
-    threats: "Habitat loss, food scarcity, human persecution",
-    note: "The largest Old World vulture — wingspan up to 3 meters",
+    threats: "Global population decline, habitat loss in breeding range, NSAID exposure on wintering grounds",
+    note: "Winter visitor only — its global decline reduces how many birds even arrive in India each season",
     image: "/vultures/cinereous-vulture.jpg",
     imageCredit: "Alastair Rae / CC BY-SA 2.0",
   },
@@ -89,18 +89,18 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Gypaetus barbatus",
     status: "NT" as const,
     statusLabel: "Near Threatened",
-    threats: "Habitat destruction, food availability decline",
-    note: "Also called Lammergeier — feeds primarily on bones",
+    threats: "Habitat destruction, poisoning, food source decline",
+    note: "Also called Lammergeier — feeds primarily on bones; restricted to Himalayan ranges in India",
     image: "/vultures/bearded-vulture.jpg",
     imageCredit: "Richard Bartz / CC BY-SA 2.5",
   },
   {
     name: "Himalayan Vulture",
     scientific: "Gyps himalayensis",
-    status: "NT" as const,
-    statusLabel: "Near Threatened",
-    threats: "Habitat disturbance, climate change",
-    note: "One of the largest and heaviest flying birds in the world",
+    status: "LC" as const,
+    statusLabel: "Least Concern",
+    threats: "Power line electrocution, NSAID exposure from plains, habitat disturbance",
+    note: "Relative success story (Least Concern) — but power line electrocution and winter NSAID exposure from the plains are eroding even its numbers",
     image: "/vultures/himalayan-vulture.jpg",
     imageCredit: "gailhampshire / CC BY 2.0",
   },
@@ -109,8 +109,8 @@ const INDIA_VULTURE_SPECIES = [
     scientific: "Gyps fulvus",
     status: "VU" as const,
     statusLabel: "Vulnerable (India)",
-    threats: "Habitat loss, poisoning, collision with infrastructure",
-    note: "Declining in Central Asia due to changing agricultural practices",
+    threats: "Habitat loss, poisoning, collision with power infrastructure",
+    note: "Declining in Central Asia; its global range contraction reduces winter visitor numbers in India",
     image: "/vultures/eurasian-griffon-vulture.jpg",
     imageCredit: "H. Zell / CC BY-SA 3.0",
   },
@@ -365,10 +365,74 @@ export default function VulturesPage() {
 
           <p className="text-center text-xs text-slate mt-6 italic">
             Conservation status per IUCN Red List. CR = Critically Endangered,
-            EN = Endangered, VU = Vulnerable, NT = Near Threatened.
+            EN = Endangered, VU = Vulnerable, NT = Near Threatened, LC = Least Concern.
             <br />
             Source: Kumar et al. (2026) EcoHealth; IUCN (2021).
           </p>
+        </div>
+      </section>
+
+      {/* ─── Key Differences by Species ─── */}
+      <section className="bg-offwhite py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Key Differences by Species"
+            subtitle="Not all vultures face the same threats — understanding these distinctions shapes how we treat and advocate for each one."
+          />
+          <div className="max-w-4xl mx-auto grid gap-5">
+            {[
+              {
+                label: "The Diclofenac Trio",
+                species: "White-rumped, Long-billed & Slender-billed Vultures",
+                text: "These three Gyps species bore the brunt of the diclofenac crisis and are all Critically Endangered. A single contaminated carcass can wipe out an entire flock — they feed communally, so the toxin spreads through dozens of birds at once. Their recovery depends entirely on the permanent ban of veterinary diclofenac and its replacement with meloxicam.",
+                color: "border-red-400 bg-red-50",
+                labelColor: "text-red-700",
+              },
+              {
+                label: "Compounded Crisis",
+                species: "Red-headed Vulture",
+                text: "Diclofenac hit it hard, but this species also faces active persecution — hunted for use in traditional medicine and witchcraft practices. Unlike the communal Gyps species, Red-headed Vultures are largely solitary, making it harder for rangers and rescuers to locate and protect nesting pairs.",
+                color: "border-orange-400 bg-orange-50",
+                labelColor: "text-orange-700",
+              },
+              {
+                label: "Dual Jeopardy",
+                species: "Egyptian Vulture",
+                text: "Unlike India's other vultures, the Egyptian Vulture migrates — spending winters on the Indian subcontinent and breeding in Europe and the Middle East. This means it faces threats on two separate fronts simultaneously: persecution and poisoning in Africa and the Middle East during migration, and NSAID exposure and electrocution in South Asia during winter.",
+                color: "border-amber-400 bg-amber-50",
+                labelColor: "text-amber-700",
+              },
+              {
+                label: "Relative Success Story — But Not Safe",
+                species: "Himalayan Griffon",
+                text: "Currently the only Least Concern vulture in South Asia — its high-altitude breeding range kept it somewhat insulated from the plains-based diclofenac crisis. But power line electrocution and winter NSAID exposure as it descends to lower elevations are eroding even its numbers. 'Least Concern' today does not mean safe tomorrow.",
+                color: "border-teal/40 bg-teal-light",
+                labelColor: "text-teal-dark",
+              },
+              {
+                label: "Global Decline, Local Impact",
+                species: "Cinereous (Black) Vulture",
+                text: "India receives Cinereous Vultures only as winter visitors — it does not breed here. Its global population decline in Europe and Central Asia directly reduces how many birds arrive in India each season. This species is a living barometer of conservation success thousands of kilometres away.",
+                color: "border-slate/40 bg-gray-50",
+                labelColor: "text-charcoal",
+              },
+            ].map((item) => (
+              <div
+                key={item.species}
+                className={`rounded-xl border-l-4 p-5 ${item.color}`}
+              >
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mb-2">
+                  <span className={`text-xs font-bold uppercase tracking-wide ${item.labelColor}`}>
+                    {item.label}
+                  </span>
+                  <span className="text-sm font-semibold text-charcoal">
+                    {item.species}
+                  </span>
+                </div>
+                <p className="text-sm text-slate leading-relaxed">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -471,10 +535,6 @@ export default function VulturesPage() {
                   <li>
                     <span className="font-semibold">Electrocution</span> — burns
                     and injuries from power lines (a leading cause globally)
-                  </li>
-                  <li>
-                    <span className="font-semibold">Lead poisoning</span> — from
-                    ammunition ingested at carcasses
                   </li>
                   <li>
                     <span className="font-semibold">
