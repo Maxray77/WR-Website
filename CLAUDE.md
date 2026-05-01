@@ -219,7 +219,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-01 (vulture page overhaul + clinic polish)
+**Last updated by:** Claude Code — 2026-05-01 (vulture page overhaul + clinic polish + donate fix)
 
 **What was just completed (Session 2026-05-01 — vulture page + UI fixes, all on `main`):**
 - [x] **Vulture photos added** — 9 CC-licensed photos from Wikimedia Commons downloaded, compressed, and wired into `/vultures` species grid. `public/vultures/` directory created. Photos: white-rumped, indian, slender-billed, red-headed, cinereous, bearded (front2 portrait), himalayan, eurasian-griffon, egyptian vultures. Attribution overlays shown on each card.
@@ -235,6 +235,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - [x] **Wingman eagle flipped** — callout bubble eagle emoji now faces right (`-scale-x-100` removed from Wingman.tsx line 77; the default 🦅 faces right without mirroring)
 - [x] **Clinic hero badge updated** — "South Asia's Most Advanced Avian Clinic" → "One of India's Most Advanced Clinics for Birds" (`src/app/clinic/page.tsx`)
 - [x] **Clinic equipment card renamed** — "Surgical Microscopy" → "Clinic Microscope" (`src/app/clinic/page.tsx`)
+- [x] **Donate page** — removed "Recommended" badge from the R3 (501c3) donation option (`src/app/donate/page.tsx`)
 
 **Pending (flagged, not yet acted on):**
 - `/our-specialty` expansion + `/our-specialty/wing-repair` page — see `docs/PLAN-our-specialty-expansion.md`. Waiting on user assets (X-rays, NWRA decks, anatomy diagrams).
