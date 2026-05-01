@@ -100,21 +100,33 @@ export default function Wingman() {
       )}
 
       {/* Floating toggle button */}
-      <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-          setShowBubble(false);
-          sessionStorage.setItem("wingman-bubble-seen", "1");
-        }}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-teal text-white shadow-lg transition-all hover:bg-teal-dark hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
-        aria-label={isOpen ? "Close Wingman chat" : "Open Wingman chat"}
-      >
-        {isOpen ? (
-          <X className="h-6 w-6" />
-        ) : (
-          <Bird className="h-6 w-6 -scale-x-100 animate-bird-idle" />
+      <div className="fixed bottom-6 right-6 z-50">
+        {/* Pulse attention ring — only visible when chat is closed */}
+        {!isOpen && (
+          <span className="absolute inset-0 rounded-full bg-amber animate-wingman-ring pointer-events-none" />
         )}
-      </button>
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+            setShowBubble(false);
+            sessionStorage.setItem("wingman-bubble-seen", "1");
+          }}
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal to-teal-dark text-white shadow-lg transition-all hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
+          aria-label={isOpen ? "Close Wingman chat" : "Open Wingman chat"}
+        >
+          {isOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <span
+              className="text-2xl leading-none select-none animate-wingman-soar"
+              role="img"
+              aria-label="raptor"
+            >
+              🦅
+            </span>
+          )}
+        </button>
+      </div>
 
       {/* Chat panel */}
       {isOpen && (
