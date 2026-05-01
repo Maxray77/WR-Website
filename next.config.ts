@@ -13,6 +13,20 @@ const nextConfig: NextConfig = {
         destination: "/clinic",
         permanent: true,
       },
+      // wildliferescue.org.in → raptorrescue.org (secondary domain → primary, permanent 301).
+      // Preserves the path so /donate still lands on /donate, etc.
+      {
+        source: "/:path*",
+        destination: "https://www.raptorrescue.org/:path*",
+        permanent: true,
+        has: [{ type: "host", value: "wildliferescue.org.in" }],
+      },
+      {
+        source: "/:path*",
+        destination: "https://www.raptorrescue.org/:path*",
+        permanent: true,
+        has: [{ type: "host", value: "www.wildliferescue.org.in" }],
+      },
     ];
   },
 };
