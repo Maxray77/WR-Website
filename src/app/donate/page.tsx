@@ -626,8 +626,20 @@ export default function DonatePage() {
                 key={rescue.title}
                 className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm"
               >
-                <div className="aspect-[3/2] bg-gradient-to-br from-teal-light to-teal/5 flex items-center justify-center">
-                  <span className="text-slate text-sm">Photo Placeholder</span>
+                <div className="aspect-[3/2] relative bg-gradient-to-br from-teal-light to-teal/5">
+                  {rescue.image ? (
+                    <Image
+                      src={rescue.image}
+                      alt={rescue.imageAlt ?? rescue.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-slate text-sm">Photo coming soon</span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <span
