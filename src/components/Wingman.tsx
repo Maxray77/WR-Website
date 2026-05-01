@@ -74,7 +74,7 @@ export default function Wingman() {
           <div className="relative bg-white rounded-2xl rounded-br-none px-4 py-3 shadow-xl border border-gray-200 w-[200px]">
             <div className="flex items-center gap-2 mb-1">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal shrink-0 shadow-sm">
-                <span className="text-lg leading-none" role="img" aria-label="raptor">🦅</span>
+                <span className="text-lg leading-none -scale-x-100 inline-block" role="img" aria-label="raptor">🦅</span>
               </div>
               <p className="text-sm font-semibold text-charcoal leading-snug">
                 Hi! I&apos;m Wingman!
