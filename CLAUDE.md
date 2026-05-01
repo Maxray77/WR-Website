@@ -219,9 +219,51 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-04-29 (evening — content corrections + Antigravity brief)
+**Last updated by:** Claude Code — 2026-05-01 (vulture page overhaul + clinic polish)
 
-**What was just completed (Session 2026-04-29 evening — content corrections, all on `main`):**
+**What was just completed (Session 2026-05-01 — vulture page + UI fixes, all on `main`):**
+- [x] **Vulture photos added** — 9 CC-licensed photos from Wikimedia Commons downloaded, compressed, and wired into `/vultures` species grid. `public/vultures/` directory created. Photos: white-rumped, indian, slender-billed, red-headed, cinereous, bearded (front2 portrait), himalayan, eurasian-griffon, egyptian vultures. Attribution overlays shown on each card.
+- [x] **Vulture species data overhauled** — all 9 entries in `INDIA_VULTURE_SPECIES` rewritten with accurate threats and notes:
+  - Gyps trio (White-rumped, Indian/Long-billed, Slender-billed): diclofenac-focused, all CR
+  - Red-headed: diclofenac + persecution for traditional medicine, solitary habits noted
+  - Egyptian: "dual jeopardy" framing — threatened on both wintering + breeding grounds; lead poisoning removed
+  - Himalayan Griffon: status corrected from NT → **LC**; power line electrocution + NSAID noted
+  - Cinereous: winter visitor only, global decline framing
+- [x] **"Key Differences by Species" section added** to `/vultures` — 5 colour-coded callout cards after the species grid (Diclofenac Trio / Compounded Crisis / Dual Jeopardy / Relative Success Story / Global Decline). Commit `762892b`.
+- [x] **Lead poisoning removed** from "Common Injuries We Treat" card on `/vultures`
+- [x] **Status legend updated** — now includes `LC = Least Concern`
+- [x] **Wingman eagle flipped** — callout bubble eagle emoji now faces right (`-scale-x-100` removed from Wingman.tsx line 77; the default 🦅 faces right without mirroring)
+- [x] **Clinic hero badge updated** — "South Asia's Most Advanced Avian Clinic" → "One of India's Most Advanced Clinics for Birds" (`src/app/clinic/page.tsx`)
+- [x] **Clinic equipment card renamed** — "Surgical Microscopy" → "Clinic Microscope" (`src/app/clinic/page.tsx`)
+
+**Pending (flagged, not yet acted on):**
+- `/our-specialty` expansion + `/our-specialty/wing-repair` page — see `docs/PLAN-our-specialty-expansion.md`. Waiting on user assets (X-rays, NWRA decks, anatomy diagrams).
+- "How We Prepare for Kite-Flying Season" post body still describes monsoon electrocutions. Content rewrite needed if topic is meant to actually shift to manja injuries.
+- User is sharing `docs/ANTIGRAVITY-DESIGN-BRIEF.md` with Google Antigravity; awaiting redesign proposals.
+- Egyptian Vulture placeholder slot on `/vultures` — user has their own wounded vulture photo to add. Drop file at `public/vultures/egyptian-vulture.jpg` (will replace the current Wikimedia photo).
+
+**New public assets (this session):**
+- `public/vultures/white-rumped-vulture.jpg` (30 KB) — Petra Karstedt / CC BY-SA 1.0
+- `public/vultures/indian-vulture.jpg` (59 KB) — Yathin sk / CC BY-SA 3.0
+- `public/vultures/slender-billed-vulture.jpg` (153 KB) — gailhampshire / CC BY 2.0
+- `public/vultures/red-headed-vulture.jpg` (41 KB) — Vishal Sabharwal / CC BY-SA 3.0
+- `public/vultures/cinereous-vulture.jpg` (43 KB) — Alastair Rae / CC BY-SA 2.0
+- `public/vultures/bearded-vulture.jpg` (98 KB) — Richard Bartz / CC BY-SA 2.5
+- `public/vultures/himalayan-vulture.jpg` (177 KB) — gailhampshire / CC BY 2.0
+- `public/vultures/eurasian-griffon-vulture.jpg` (55 KB) — H. Zell / CC BY-SA 3.0
+- `public/vultures/egyptian-vulture.jpg` (111 KB) — J.M.Garg / CC BY-SA 3.0 (placeholder — user to replace with own photo)
+
+**Key files touched this session:**
+- `src/app/vultures/page.tsx` — `image?`/`imageCredit?` fields added to species interface; species data rewritten; "Key Differences by Species" section added; lead poisoning removed; LC added to legend
+- `src/components/Wingman.tsx` — eagle emoji direction fixed (faces right)
+- `src/app/clinic/page.tsx` — hero badge text + "Clinic Microscope" card rename
+- `public/vultures/` — **NEW directory**: 9 compressed vulture photos
+
+**All commits pushed to `main`, auto-deployed to Vercel.**
+
+---
+
+**Previously completed (Session 2026-04-29 evening — content corrections, all on `main`):**
 - [x] **Cut Wounds & Lacerations corrected** — percentage `~35%` → `~40%`, annualCases `~1,300/year` → `~1,500/year`; description text "approximately 35% of all cases" → "approximately 40%". Verified via preview (`/conditions/cut-wounds` serves the new values, zero residual `35%`/`1,300/year`).
 - [x] **Antigravity design brief drafted** — `docs/ANTIGRAVITY-DESIGN-BRIEF.md` (commit `19eb598`). Self-contained briefing for Google Antigravity covering org context, tech stack + hard constraints, brand tokens, full site map, page-by-page layouts, reusable components, redesign goals, and 3-direction proposal request. User will share with Antigravity to get cosmetic redesign options.
 - [x] **Avian Pox corrected** (commits `f09fbce`, `5cb4768`):
