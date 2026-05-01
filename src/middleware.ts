@@ -13,6 +13,8 @@ const ALLOWED_ORIGINS = new Set([
   "https://wildlife-rescue-website.vercel.app",
   "https://www.raptorrescue.org",
   "https://raptorrescue.org",
+  "https://wildliferescue.org.in",
+  "https://www.wildliferescue.org.in",
 ]);
 
 // In development, also allow localhost
