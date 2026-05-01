@@ -71,8 +71,8 @@ const INDIA_VULTURE_SPECIES = [
     statusLabel: "Endangered",
     threats: "Lead poisoning, electrocution, diclofenac, pesticide exposure",
     note: "Declined >35% per year in India since 1999. WR's primary vulture patient.",
-    image: undefined,
-    imageCredit: undefined,
+    image: "/vultures/egyptian-vulture.jpg",
+    imageCredit: "J.M.Garg / CC BY-SA 3.0",
   },
   {
     name: "Cinereous Vulture",
@@ -92,7 +92,7 @@ const INDIA_VULTURE_SPECIES = [
     threats: "Habitat destruction, food availability decline",
     note: "Also called Lammergeier — feeds primarily on bones",
     image: "/vultures/bearded-vulture.jpg",
-    imageCredit: "BirdingInSpain / CC BY-SA 3.0",
+    imageCredit: "Richard Bartz / CC BY-SA 2.5",
   },
   {
     name: "Himalayan Vulture",
