@@ -120,7 +120,7 @@ export default function AboutPage() {
                 className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-shadow"
               >
                 {/* Photo */}
-                <div className="aspect-square bg-gradient-to-br from-teal-light to-teal/10 flex items-center justify-center relative overflow-hidden">
+                <div className="aspect-[4/5] bg-gradient-to-br from-teal-light to-teal/10 flex items-center justify-center relative overflow-hidden">
                   {member.image ? (
                     <Image
                       src={member.image}
