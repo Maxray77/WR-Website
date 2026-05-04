@@ -219,7 +219,14 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-01 (vulture page overhaul + clinic polish + donate fix)
+**Last updated by:** Claude Code — 2026-05-04 (favicon update + staff details Word doc)
+
+**What was just completed (Session 2026-05-04 — favicon + staff details doc, on `claude/hardcore-meninsky-cba263`):**
+- [x] **Favicon replaced** — `src/app/favicon.ico` removed; `src/app/icon.png` added (Wildlife Rescue round logo, white on teal circle background, 512×512, 41 KB). Next.js App Router serves this automatically. Branch pushed, pending merge to `main`.
+- [x] **Staff details Word doc created** — `C:\Users\maxra\Documents\Wildlife Rescue\WR_Staff_Details_for_CSR_Proposal.docx` (16 KB). Contains all 10 team member bios, org registration details, awards table, and CSR drafting notes. For use when asking Claude to write a CSR proposal.
+- [x] **handoff.md created** — `docs/handoff.md` in project root. Summary of current site state, tech stack, and design briefing context for sharing with Claude.ai or designers.
+
+**Branch status:** `claude/hardcore-meninsky-cba263` — favicon commit not yet merged to `main`. Merge to deploy.
 
 **What was just completed (Session 2026-05-01 — vulture page + UI fixes, all on `main`):**
 - [x] **Vulture photos added** — 9 CC-licensed photos from Wikimedia Commons downloaded, compressed, and wired into `/vultures` species grid. `public/vultures/` directory created. Photos: white-rumped, indian, slender-billed, red-headed, cinereous, bearded (front2 portrait), himalayan, eurasian-griffon, egyptian vultures. Attribution overlays shown on each card.
