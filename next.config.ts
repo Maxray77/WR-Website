@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   // For Netlify static deploy: set output: "export" and move src/app/api to _api-disabled
   // For full-featured deploy (Vercel): remove output: "export"
 
+  images: {
+    remotePatterns: [
+      // Sanity CDN — for blog images uploaded via the Studio.
+      { protocol: "https", hostname: "cdn.sanity.io" },
+    ],
+  },
+
   async redirects() {
     return [
       // Old facility page split into /clinic + /enclosures (2026-04-29).

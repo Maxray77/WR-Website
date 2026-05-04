@@ -221,7 +221,24 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 **Last updated by:** Claude Code — 2026-05-04 (favicon update + staff details Word doc)
 
-**What was just completed (Session 2026-05-04 — favicon + staff details doc, on `claude/hardcore-meninsky-cba263`):**
+**What was just completed (Session 2026-05-04 — favicon + staff details doc + Sanity CMS, on `claude/hardcore-meninsky-cba263`):**
+- [x] **Sanity CMS integrated** — replaces static `BLOG_POSTS` array with a headless CMS so non-developer staff can write/publish posts.
+  - **Embedded Studio at `/studio`** — staff log in there to author posts (rich text editor, image uploads, drafts, scheduled publish).
+  - **Schemas:** `post`, `author`, `category`, `blockContent` — in `src/sanity/schemaTypes/`.
+  - **Adapter pattern:** `src/lib/blog.ts` checks env vars; reads from Sanity if configured, falls back to static `blog-data.ts` if not. Blog pages and homepage call this adapter exclusively. Site continues to work without Sanity env vars.
+  - **Migration:** `npm run blog:snapshot` then `npm run blog:migrate` ports the existing 7 posts (markdown→Portable Text + image uploads + dedup'd authors/categories).
+  - **Webhook revalidation:** `/api/revalidate` invalidates cache tags when Sanity publishes — new posts appear within seconds.
+  - **Setup guide for staff:** `docs/sanity-setup.md` (account creation → migration → invite teammates → daily publishing workflow).
+  - **Build passes** with no env vars set (uses static fallback). Activates Sanity once user creates project at sanity.io and adds `NEXT_PUBLIC_SANITY_PROJECT_ID` + token to Vercel.
+  - **New deps:** `sanity`, `next-sanity`, `@sanity/vision`, `@portabletext/react`, `@sanity/image-url`, `@sanity/client`, `dotenv`, `tsx`.
+  - **Note:** Windows native `lightningcss-win32-x64-msvc` binding had to be reinstalled after the npm install dropped it. The .node file was copied from the lightningcss-win32-x64-msvc package into lightningcss/ to satisfy a fallback require path.
+- [x] **Favicon replaced** — `src/app/favicon.ico` removed; `src/app/icon.png` added (Wildlife Rescue round logo, white on teal circle background, 512×512, 41 KB). Next.js App Router serves this automatically.
+- [x] **Staff details Word doc created** — `C:\Users\maxra\Documents\Wildlife Rescue\WR_Staff_Details_for_CSR_Proposal.docx` (16 KB). Contains all 10 team member bios, org registration details, awards table, and CSR drafting notes. For use when asking Claude to write a CSR proposal.
+- [x] **handoff.md created** — `docs/handoff.md` in project root. Summary of current site state, tech stack, and design briefing context for sharing with Claude.ai or designers.
+
+**Branch status:** `claude/hardcore-meninsky-cba263` — favicon + Sanity CMS not yet merged to `main`. Merge to deploy. Sanity will only activate on Vercel once env vars are set there (see `docs/sanity-setup.md`).
+
+**What was just completed (Earlier in 2026-05-04 session — favicon + staff details doc):**
 - [x] **Favicon replaced** — `src/app/favicon.ico` removed; `src/app/icon.png` added (Wildlife Rescue round logo, white on teal circle background, 512×512, 41 KB). Next.js App Router serves this automatically. Branch pushed, pending merge to `main`.
 - [x] **Staff details Word doc created** — `C:\Users\maxra\Documents\Wildlife Rescue\WR_Staff_Details_for_CSR_Proposal.docx` (16 KB). Contains all 10 team member bios, org registration details, awards table, and CSR drafting notes. For use when asking Claude to write a CSR proposal.
 - [x] **handoff.md created** — `docs/handoff.md` in project root. Summary of current site state, tech stack, and design briefing context for sharing with Claude.ai or designers.

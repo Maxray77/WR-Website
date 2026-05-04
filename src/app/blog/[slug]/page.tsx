@@ -5,11 +5,17 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User, FileText, Download } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
 import AnnualReportCard from "@/components/AnnualReportCard";
-import { BLOG_POSTS, getBlogPostBySlug } from "@/lib/blog-data";
+import BlogBody from "@/components/BlogBody";
+import {
+  getBlogPosts,
+  getBlogPostBySlug,
+  getBlogPostSlugs,
+} from "@/lib/blog";
 import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const slugs = await getBlogPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -18,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) return { title: "Post Not Found" };
   return {
     title: post.title,
@@ -32,6 +38,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   Operations: "bg-blue-50 text-blue-600",
   Conservation: "bg-green-50 text-success",
   "Volunteer Stories": "bg-purple-50 text-purple-600",
+  Milestone: "bg-amber-bg text-amber",
 };
 
 export default async function BlogPostPage({
@@ -40,17 +47,16 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) notFound();
 
-  // Resolve the backing annual report entry (if any) so the page can show
-  // the infographic + detailed-cover previews instead of a plain PDF banner.
   const annualReport = post.annualReportYear
     ? ANNUAL_REPORTS.find((r) => r.year === post.annualReportYear)
     : undefined;
 
-  // Simple markdown-like rendering — bold and paragraphs
-  const paragraphs = post.content.split("\n\n").filter(Boolean);
+  // Sibling posts for the "More Posts" rail
+  const allPosts = await getBlogPosts();
+  const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <>
@@ -106,14 +112,13 @@ export default async function BlogPostPage({
         </section>
       ) : (
         <>
-          {/* Hero Image — only when not an annual report */}
-          {post.image && (
+          {post.imageUrl && (
             <section className="bg-offwhite">
               <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
                 <div className="relative aspect-[2/1] rounded-2xl overflow-hidden shadow-xl">
                   <Image
-                    src={post.image}
-                    alt={post.title}
+                    src={post.imageUrl}
+                    alt={post.imageAlt ?? post.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 896px"
                     className="object-cover"
@@ -124,7 +129,6 @@ export default async function BlogPostPage({
             </section>
           )}
 
-          {/* PDF Download Banner — only when not an annual report */}
           {post.pdfUrl && (
             <section className="py-8 bg-offwhite">
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -157,23 +161,7 @@ export default async function BlogPostPage({
       <article className="py-12 lg:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
-            {paragraphs.map((p, i) => {
-              // Handle bold markers **text**
-              const parts = p.split(/\*\*(.*?)\*\*/g);
-              return (
-                <p key={i} className="text-slate leading-relaxed mb-5">
-                  {parts.map((part, j) =>
-                    j % 2 === 1 ? (
-                      <strong key={j} className="text-charcoal font-semibold">
-                        {part}
-                      </strong>
-                    ) : (
-                      part
-                    )
-                  )}
-                </p>
-              );
-            })}
+            <BlogBody body={post.body} />
           </div>
         </div>
       </article>
@@ -200,27 +188,25 @@ export default async function BlogPostPage({
             More Posts
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {BLOG_POSTS.filter((p) => p.slug !== post.slug)
-              .slice(0, 3)
-              .map((related) => (
-                <Link
-                  key={related.slug}
-                  href={`/blog/${related.slug}`}
-                  className="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-shadow group"
+            {related.map((rel) => (
+              <Link
+                key={rel.slug}
+                href={`/blog/${rel.slug}`}
+                className="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-shadow group"
+              >
+                <span
+                  className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                    CATEGORY_COLORS[rel.category] || "bg-gray-100 text-slate"
+                  }`}
                 >
-                  <span
-                    className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                      CATEGORY_COLORS[related.category] || "bg-gray-100 text-slate"
-                    }`}
-                  >
-                    {related.category}
-                  </span>
-                  <h3 className="mt-2 text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
-                    {related.title}
-                  </h3>
-                  <p className="text-xs text-slate mt-1.5">{related.readTime}</p>
-                </Link>
-              ))}
+                  {rel.category}
+                </span>
+                <h3 className="mt-2 text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)] group-hover:text-teal transition-colors">
+                  {rel.title}
+                </h3>
+                <p className="text-xs text-slate mt-1.5">{rel.readTime}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

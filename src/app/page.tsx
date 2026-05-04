@@ -16,10 +16,11 @@ import {
   DONATION_AMOUNTS_USD,
   CONTACT,
 } from "@/lib/constants";
-import { BLOG_POSTS } from "@/lib/blog-data";
+import { getBlogPosts } from "@/lib/blog";
 import { Facebook, Instagram, Youtube, Calendar, Clock, ArrowUpRight } from "lucide-react";
 
-export default function Home() {
+export default async function Home() {
+  const recentPosts = (await getBlogPosts()).slice(0, 3);
   return (
     <>
       {/* ─── Hero ─── */}
@@ -405,17 +406,17 @@ export default function Home() {
           />
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {BLOG_POSTS.slice(0, 3).map((post) => (
+            {recentPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-gray-100 group"
               >
-                {post.image ? (
+                {post.imageUrl ? (
                   <div className="aspect-[3/2] relative">
                     <Image
-                      src={post.image}
-                      alt={post.title}
+                      src={post.imageUrl}
+                      alt={post.imageAlt ?? post.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover"

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ArrowRight, Calendar, Clock, User, FileText } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnnualReportCard from "@/components/AnnualReportCard";
-import { BLOG_POSTS } from "@/lib/blog-data";
+import { getBlogPosts } from "@/lib/blog";
 import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
 export const metadata: Metadata = {
@@ -19,10 +19,21 @@ const CATEGORY_COLORS: Record<string, string> = {
   Operations: "bg-blue-50 text-blue-600",
   Conservation: "bg-green-50 text-success",
   "Volunteer Stories": "bg-purple-50 text-purple-600",
+  Milestone: "bg-amber-bg text-amber",
 };
 
-export default function BlogPage() {
-  const [featured, ...rest] = BLOG_POSTS;
+export default async function BlogPage() {
+  const posts = await getBlogPosts();
+  const [featured, ...rest] = posts;
+
+  if (!featured) {
+    return (
+      <section className="py-24 text-center">
+        <p className="text-slate">No blog posts yet. Add one in the Studio.</p>
+      </section>
+    );
+  }
+
   const featuredReport = featured.annualReportYear
     ? ANNUAL_REPORTS.find((r) => r.year === featured.annualReportYear)
     : undefined;
@@ -83,11 +94,11 @@ export default function BlogPage() {
               className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow max-w-5xl mx-auto"
             >
               <div className="grid md:grid-cols-2">
-                {featured.image ? (
+                {featured.imageUrl ? (
                   <div className="aspect-[4/3] md:aspect-auto relative">
                     <Image
-                      src={featured.image}
-                      alt={featured.title}
+                      src={featured.imageUrl}
+                      alt={featured.imageAlt ?? featured.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
@@ -163,12 +174,11 @@ export default function BlogPage() {
                 href={`/blog/${post.slug}`}
                 className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow flex flex-col"
               >
-                {/* Image wins over PDF placeholder so infographic thumbnails show */}
-                {post.image ? (
+                {post.imageUrl ? (
                   <div className="aspect-[16/9] relative">
                     <Image
-                      src={post.image}
-                      alt={post.title}
+                      src={post.imageUrl}
+                      alt={post.imageAlt ?? post.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover"
