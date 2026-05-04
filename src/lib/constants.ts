@@ -31,7 +31,7 @@ export const TEAM = [
   {
     name: "Mohammad Saud",
     role: "President & Co-Founder",
-    bio: "Mohammad Saud is one of the founders of the organization. Back in 2003, when Saud and Nadeem found a young black kite and brought it home, Saud was actively taking on the responsibilities of Wildlife Rescue. When Wildlife Rescue was officially registered in 2010, Saud became a trustee of the trust and since then he is also the managing trustee and president of the organization. He takes care of the day to day activities of animal care taking and he oversees the running of the clinic.",
+    bio: "Mohammad Saud is one of the founders of Wildlife Rescue and has been central to its development from its earliest beginnings. In 2003, when he and Nadeem rescued a young black kite and brought it into their care, Saud began taking on core responsibilities that formed the foundation of the organization's mission and work. Following the formal registration of Wildlife Rescue in 2010, Saud became a Trustee and has since served as the Managing Trustee and President of the organization. In this leadership role, he oversees the day-to-day operations of Wildlife Rescue, with primary responsibility for animal care and the overall management of the rescue clinic, ensuring high standards of welfare, operational efficiency, and impact.",
     image: "/team/saud.jpg",
     imagePosition: "50% 8%",
   },
