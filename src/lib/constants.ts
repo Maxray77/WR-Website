@@ -49,9 +49,9 @@ export const TEAM = [
     imagePosition: "50% 5%",
   },
   {
-    name: "Mayank",
+    name: "Mayank Vikas",
     role: "Team Member",
-    bio: "A dedicated member of the Wildlife Rescue team, Mayank contributes to the daily care and rehabilitation of rescued birds at the facility.",
+    bio: "Mayank Vikas has been associated with Wildlife Rescue since August 2010, initially enrolling as a volunteer. Since then, Vikas has worked with Wildlife Rescue on legal compliance, fund raising, education and outreach, and hands-on fostering of injured birds. Mayank has a Masters in Environmental Policy & Conservation Ecology from the University of Michigan, Ann Arbor and a PhD in Environmental Science from the University of Wisconsin-Madison.",
     image: "/team/mayank.jpg",
     imagePosition: "50% 30%",
   },
