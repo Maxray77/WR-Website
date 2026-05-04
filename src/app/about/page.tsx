@@ -126,7 +126,8 @@ export default function AboutPage() {
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover object-top"
+                      className="object-cover"
+                      style={{ objectPosition: member.imagePosition ?? "50% 0%" }}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   ) : (

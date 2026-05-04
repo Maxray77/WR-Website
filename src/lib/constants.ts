@@ -39,6 +39,7 @@ export const TEAM = [
     role: "Co-Founder",
     bio: "Nadeem co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s. He serves as Honorary Wildlife Warden and Board Member of Raptor Rescue and Research Inc. (USA). He has presented at NWRA symposiums in Los Angeles and Seattle.",
     image: "/team/nadeem.jpg",
+    imagePosition: "50% 20%",
   },
   {
     name: "Salik Rehman",
