@@ -45,7 +45,7 @@ export const TEAM = [
   {
     name: "Salik Rehman",
     role: "Team Member",
-    bio: "A dedicated member of the Wildlife Rescue team, Salik plays a vital role in the daily rescue and rehabilitation operations, helping care for thousands of birds each year.",
+    bio: "A dedicated member of the Wildlife Rescue team since 2017, Salik plays a vital role in the organization's daily rescue and rehabilitation efforts, contributing to the care of thousands of birds each year. He is responsible for overseeing operational activities and carries primary responsibility for animal care, ensuring effective on-ground execution of rescue and rehabilitation work. Salik is prominently featured in the documentary All That Breathes, alongside Nadeem and Saud, and appears on the official poster of the film, highlighting his integral role in the organization's work.",
     image: "/team/salik.jpg",
     imagePosition: "50% 5%",
   },
