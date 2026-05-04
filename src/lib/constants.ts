@@ -38,7 +38,7 @@ export const TEAM = [
   {
     name: "Nadeem Shehzad",
     role: "Co-Founder",
-    bio: "Nadeem co-founded Wildlife Rescue with Saud in 2003 and has remained closely involved with the organization since its inception. He serves as a Trustee and Secretary, contributing significantly to governance, strategic planning, and organizational oversight, and is actively involved in key decision-making processes. His core areas of responsibility include administration, public relations, regulatory and government compliance, and fundraising, playing a vital role in ensuring the organization's sustainability and effective operations. Nadeem has previously served as an Honorary Wildlife Warden with the Government of NCT of Delhi. He is also a board member of Raptor Rescue and Research Inc., a U.S.-based 501(c)(3) nonprofit organization.",
+    bio: "Nadeem co-founded Wildlife Rescue with Mohammad Saud in 2003 and has remained closely involved with the organization since its inception. He serves as a Trustee and Secretary, playing a key role in governance, strategic planning, and organizational oversight, and is actively involved in institutional decision-making and management responsibilities. His primary areas of responsibility include administration, public relations, regulatory and government compliance, and fundraising, contributing significantly to the organization's long-term sustainability and effective functioning. Nadeem has also served as an Honorary Wildlife Warden with the Government of NCT of Delhi. In addition, he is a board member of Raptor Rescue and Research Inc., a U.S.-based nonprofit organization registered under section 501(c)(3).",
     image: "/team/nadeem.jpg",
     imagePosition: "50% 20%",
   },
