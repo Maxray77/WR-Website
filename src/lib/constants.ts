@@ -45,6 +45,8 @@ export const TEAM = [
     name: "Salik Rehman",
     role: "Team Member",
     bio: "A dedicated member of the Wildlife Rescue team, Salik plays a vital role in the daily rescue and rehabilitation operations, helping care for thousands of birds each year.",
+    image: "/team/salik.jpg",
+    imagePosition: "50% 5%",
   },
   {
     name: "Team Member 4",
