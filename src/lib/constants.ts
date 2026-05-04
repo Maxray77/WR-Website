@@ -49,9 +49,11 @@ export const TEAM = [
     imagePosition: "50% 5%",
   },
   {
-    name: "Team Member 4",
-    role: "Rescue Operations",
-    bio: "Bio and photo to be added.",
+    name: "Mayank",
+    role: "Team Member",
+    bio: "A dedicated member of the Wildlife Rescue team, Mayank contributes to the daily care and rehabilitation of rescued birds at the facility.",
+    image: "/team/mayank.jpg",
+    imagePosition: "50% 30%",
   },
   {
     name: "Team Member 5",
