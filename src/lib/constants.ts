@@ -33,6 +33,7 @@ export const TEAM = [
     role: "President & Co-Founder",
     bio: "Co-founder of Wildlife Rescue, Mohammad Saud has dedicated over two decades to raptor conservation. A self-taught wildlife rehabilitator, he developed novel surgical techniques for repairing wings damaged by kite strings — techniques now adopted by rehabilitators worldwide.",
     image: "/team/saud.jpg",
+    imagePosition: "50% 8%",
   },
   {
     name: "Nadeem Shehzad",
