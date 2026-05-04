@@ -56,9 +56,11 @@ export const TEAM = [
     imagePosition: "50% 30%",
   },
   {
-    name: "Team Member 5",
-    role: "Rehabilitation Specialist",
-    bio: "Bio and photo to be added.",
+    name: "Dr. Jai Prakash Pandey",
+    role: "Veterinarian",
+    bio: "Bio to be added.",
+    image: "/team/dr-pandey.jpg",
+    imagePosition: "50% 20%",
   },
   {
     name: "Team Member 6",
