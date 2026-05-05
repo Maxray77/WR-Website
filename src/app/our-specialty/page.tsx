@@ -41,7 +41,7 @@ const MEDICAL_CONDITIONS = [
   {
     category: "Manja (Kite String) Injuries",
     description:
-      "Glass-coated kite strings sever skin, muscles, tendons, nerves, and bones. The #1 cause of raptor injuries in Delhi, especially during Independence Day and Uttarayan festivals.",
+      "Glass-coated kite strings sever skin, muscles, tendons, nerves, and bones. The #1 cause of raptor injuries in Delhi, all year round and especially during Independence Day and Uttarayan festivals.",
     percentage: "~40%",
   },
   {
