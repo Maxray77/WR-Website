@@ -103,8 +103,8 @@ export default function OurSpecialtyPage() {
                   Nadeem and Saud are not veterinarians. They taught themselves
                   raptor medicine through decades of hands-on experience,
                   learning from experts worldwide, and relentless
-                  experimentation. Their novel surgical technique for repairing
-                  wings damaged by kite strings is now adopted by rehabilitators
+                  research. Their novel surgical technique for repairing
+                  wings damaged by kite strings is now received well by rehabilitators
                   and veterinarians globally.
                 </p>
                 <p className="mt-4 text-slate leading-relaxed">
