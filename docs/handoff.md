@@ -1,6 +1,6 @@
 # Wildlife Rescue Website — Handoff & Design Brief
 
-**Last updated:** 2026-05-04  
+**Last updated:** 2026-05-04 (Sanity CMS integration added)  
 **Live site:** https://wildlife-rescue-website.vercel.app  
 **GitHub:** https://github.com/Maxray77/WR-Website  
 **Target domain:** raptorrescue.org (not yet pointed to Vercel)
@@ -30,6 +30,7 @@ The site covers:
 | Styling | Tailwind CSS v4 — tokens in `globals.css` via `@theme inline` (NOT `tailwind.config.ts`) |
 | Animation | Framer Motion 12.x |
 | AI Chatbot | Vercel AI SDK v6 + OpenAI GPT-4o-mini |
+| Blog CMS | Sanity (embedded Studio at `/studio`) — falls back to static `blog-data.ts` if env vars not set |
 | Hosting | Vercel (auto-deploy from `main`) |
 | Icons | lucide-react |
 
@@ -88,6 +89,8 @@ All defined in `src/app/globals.css`:
 /api/newsletter           POST — newsletter signup
 /api/volunteer            POST — volunteer applications
 /api/report-tagged-bird   POST — tagged bird reports
+/api/revalidate           POST — Sanity webhook for blog cache invalidation
+/studio                   Embedded Sanity Studio — staff CMS for blog authoring
 ```
 
 ---
@@ -129,7 +132,7 @@ The site uses a clean, nature-conservation aesthetic:
 - **Mobile nav** is functional but basic — a hamburger toggle with a stacked link list.
 - **The donate page** has 6 tabs and is complex — a cleaner visual hierarchy here would help conversion.
 - **The homepage hero** cycles through 3 full-bleed images — transition could be smoother.
-- **The blog** uses static data — no CMS yet.
+- **The blog** is now backed by Sanity (headless CMS) via the embedded Studio at `/studio`. Staff can author/publish posts without developer involvement. Falls back to static data if env vars are missing. Setup guide: `docs/sanity-setup.md`.
 - **Wingman** (AI chatbot) floats bottom-right and works well; the design is intentionally minimal.
 - **A full cosmetic redesign brief** exists at `docs/ANTIGRAVITY-DESIGN-BRIEF.md` — written for Google Antigravity.
 
