@@ -170,7 +170,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 - **`master`** — initial Create Next App commit only (legacy, do not use)
 - All old `claude/*` worktree branches have been cleaned up
 - **Remote:** https://github.com/Maxray77/WR-Website.git
-- **Vercel:** https://wildlife-rescue-website.vercel.app (auto-deploys from `main`)
+- **Vercel:** https://wildlife-rescue-website.vercel.app (⚠️ returns DEPLOYMENT_NOT_FOUND as of 2026-05-05 — Vercel GitHub integration may be broken; production domain is raptorrescue.org)
 
 ---
 
@@ -219,7 +219,24 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-04 (Sanity activated + staff blog guide doc)
+**Last updated by:** Claude Code — 2026-05-05 (enclosures + our-specialty content edits)
+
+**What was just completed (Session 2026-05-05 — content edits on /enclosures and /our-specialty):**
+- [x] **`/enclosures` housing descriptions updated from `Recovery Cages.docx`** — Recovery Cages, Flight Aviaries, Chick Nursery, Open-Air Cooled Pens rewritten with WR-provided text (light grammar cleanup). Removed Permanent Resident Housing card, Lifelong Care stat box, and Behavioural Enrichment design principle card.
+- [x] **`/enclosures` rehab journey steps corrected** — Step 2: "stiffened" → "bandaged wings". Steps 4–6 rewritten: Main Flight Aviary drops "Hunting", Outdoor Conditioning Pen trimmed, Release updated to "protected forest" + Black Kites slow-released from flight cage.
+- [x] **`/our-specialty` wording corrections** — "relentless experimentation" → "relentless research"; "adopted by rehabilitators" → "received well by rehabilitators" (all 3 occurrences including hero, NWRA card detail, and Self-Taught paragraph); NWRA card "Now received well..." sentence removed entirely.
+- [x] **`/our-specialty` surgery placeholder replaced** — YouTube embed `FPbSOzekGyg` (privacy-enhanced, youtube-nocookie.com) replaces the "Surgery in Progress — Photo Placeholder" box. CSP already allowed youtube-nocookie.
+- [x] **`/our-specialty` equipment caption** — "that most wildlife rescue facilities cannot perform" → "successfully".
+- [x] **`/our-specialty` manja description** — added "all year round and" before "especially during Independence Day".
+- [x] **`/our-specialty` medical condition percentages updated** — Orphaned & Fallen Chicks ~25% → ~35%; Collision & Electrocution renamed to "Collisions, Fractures & Other Injuries", ~20% → ~14%; Entanglement & Other ~5% → ~1%.
+- All commits pushed to `main` via `git push origin claude/hardcore-meninsky-cba263:main` (commits `131b62f`–`7a5e5f8`).
+
+**⚠️ Vercel auto-deploy is broken as of 2026-05-05:**
+- All 8+ commits from today are on `origin/main` (verified via git) but Vercel has NOT built them.
+- `wildlife-rescue-website.vercel.app` returns `DEPLOYMENT_NOT_FOUND` — the `*.vercel.app` domain is dead.
+- `raptorrescue.org` IS on Vercel (DNS confirmed → 76.76.21.21) but serves stale cached content from ~4+ hours ago.
+- **Root cause:** GitHub → Vercel integration likely disconnected or build is failing. Vercel CLI is not installed on this machine.
+- **Fix:** In Vercel dashboard → Deployments (check if any of today's commits show as deployments). If none, go to Settings → Git → Reconnect GitHub. Or install Vercel CLI (`npm i -g vercel`) and run `vercel deploy --prod` from the project root.
 
 **What was just completed (Session 2026-05-04 — Sanity ACTIVATED end-to-end on `main`):**
 - [x] **Sanity project created** at sanity.io — Project ID: **`ivyjyqwz`**, dataset: `production`
