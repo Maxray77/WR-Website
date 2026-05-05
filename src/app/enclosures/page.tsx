@@ -103,7 +103,7 @@ const REHAB_JOURNEY = [
     step: 2,
     title: "Recovery Cage",
     description:
-      "Restricted movement protects healing surgical sites. Daily wound checks, weight monitoring, and gentle physical therapy on stiffened wings.",
+      "Restricted movement protects healing surgical sites. Daily wound checks, weight monitoring, and gentle physical therapy on bandaged wings.",
   },
   {
     step: 3,
