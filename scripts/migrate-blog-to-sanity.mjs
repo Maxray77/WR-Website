@@ -17,7 +17,7 @@
  * Re-running is safe — uses deterministic _id values so each post is created
  * once (subsequent runs replace the same doc).
  */
-import "dotenv/config";
+import dotenv from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,6 +26,10 @@ import { createClient } from "@sanity/client";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const PUBLIC_DIR = path.join(ROOT, "public");
+
+// Load .env.local first (Next.js convention), then fall back to .env
+dotenv.config({ path: path.join(ROOT, ".env.local") });
+dotenv.config({ path: path.join(ROOT, ".env") });
 
 // ── Sanity client ────────────────────────────────────────────────────────────
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
