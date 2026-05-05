@@ -205,7 +205,7 @@ export default function EnclosuresPage() {
                 A Black Kite recovering from a repaired propatagium may require
                 three to six weeks of structured flight conditioning before it
                 can hunt confidently again. An orphaned Spotted Owlet chick may
-                remain in care for several months before it is capable of
+                remain in care for several weeks before it is capable of
                 surviving independently. An Egyptian Vulture with a healed
                 fracture must slowly rebuild strength and endurance in a
                 controlled flight environment.
