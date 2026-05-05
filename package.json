@@ -23,13 +23,13 @@
     "@upstash/redis": "^1.37.0",
     "ai": "^6.0.135",
     "framer-motion": "^12.38.0",
-    "lightningcss-win32-x64-msvc": "^1.32.0",
     "lucide-react": "^0.577.0",
     "next": "^16.2.4",
     "next-sanity": "^12.4.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "sanity": "^5.23.0"
+    "sanity": "^5.23.0",
+    "styled-components": "^6.4.1"
   },
   "devDependencies": {
     "@sanity/client": "^7.22.0",
