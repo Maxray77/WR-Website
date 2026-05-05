@@ -48,13 +48,13 @@ const MEDICAL_CONDITIONS = [
     category: "Orphaned & Fallen Chicks",
     description:
       "Baby birds that fall from nests need specialized housing, feeding, and gentle care. The goal is always early release once flight-capable.",
-    percentage: "~25%",
+    percentage: "~35%",
   },
   {
-    category: "Collision & Electrocution",
+    category: "Collisions, Fractures & Other Injuries",
     description:
       "Vehicle collisions, window strikes, wall impacts, and wet-wire electrocution during monsoon season cause fractures and internal injuries.",
-    percentage: "~20%",
+    percentage: "~14%",
   },
   {
     category: "Disease & Infection",
@@ -66,7 +66,7 @@ const MEDICAL_CONDITIONS = [
     category: "Entanglement & Other",
     description:
       "Birds trapped in thread, stuck in glue traps, suffering burns, emaciation, dehydration, or contaminated feathers.",
-    percentage: "~5%",
+    percentage: "~1%",
   },
 ];
 
