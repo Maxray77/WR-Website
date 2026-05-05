@@ -33,7 +33,7 @@ const ENCLOSURE_TYPES = [
   {
     title: "Recovery Cages",
     description:
-      "Individually ventilated enclosures for post-surgical patients. Padded interiors, controlled lighting, and limited movement protect freshly repaired wings during the first critical weeks of healing.",
+      "Designed to restrict excessive movement while critical healing takes place. Tiled flooring and three-foot tiled walls maintain high hygiene standards, with the remaining five feet constructed from wood. Each unit accommodates a small group of birds under close observation.",
     icon: <Home size={28} />,
   },
   {
@@ -55,9 +55,9 @@ const ENCLOSURE_TYPES = [
     icon: <TreePine size={28} />,
   },
   {
-    title: "Open-Air Conditioning Pens",
+    title: "Open-Air Moist-Cooled Pens",
     description:
-      "Semi-exposed enclosures that gradually re-acclimatise birds to Delhi&apos;s heat, humidity, monsoon, and temperature swings. Critical bridge between protected indoor recovery and the open sky.",
+      "Semi-open enclosures that help birds gradually re-acclimatise to Delhi's extreme heat. Open-air coolers maintain humidity and reduce thermal stress, providing a vital transition between indoor recovery spaces and full exposure to outdoor conditions and flight training.",
     icon: <Sun size={28} />,
   },
   {
@@ -197,22 +197,25 @@ export default function EnclosuresPage() {
                 A Home for Every Stage of Recovery
               </h2>
               <p className="mt-4 text-slate leading-relaxed text-lg">
-                Surgery is only the beginning. The real work — and the most
-                time-intensive part of rescue — happens after a bird leaves the
-                operating theater.
+                Surgery is only the first step in a bird&rsquo;s return to the
+                wild. The most demanding&mdash;and time-intensive&mdash;work of
+                rescue begins after a bird leaves the operating theatre.
               </p>
               <p className="mt-4 text-slate leading-relaxed">
-                A Black Kite with a repaired propatagium can take six to eight
-                weeks of careful flight conditioning before it&apos;s ready to
-                hunt again. An orphaned Spotted Owlet chick may live with us for
-                months before it can survive alone. An Egyptian Vulture with
-                lead poisoning needs a quiet, dark recovery space, then gradual
-                exposure, then space to soar.
+                A Black Kite recovering from a repaired propatagium may require
+                three to six weeks of structured flight conditioning before it
+                can hunt confidently again. An orphaned Spotted Owlet chick may
+                remain in care for several months before it is capable of
+                surviving independently. An Egyptian Vulture with a healed
+                fracture must slowly rebuild strength and endurance in a
+                controlled flight environment.
               </p>
               <p className="mt-4 text-slate leading-relaxed">
-                Our aviary complex is engineered for these journeys. Every
-                enclosure type was built — and rebuilt — based on what we
-                learned the previous year about what works.
+                Our aviary complex is designed to support each of these
+                rehabilitation journeys. Every enclosure type has been carefully
+                developed&mdash;and continuously refined&mdash;based on lessons
+                learned from previous years of hands-on rescue and
+                rehabilitation work.
               </p>
             </div>
             <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-gray-100 shadow-md">
@@ -233,8 +236,8 @@ export default function EnclosuresPage() {
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="Six Types of Housing"
-            subtitle="Each tuned to a specific phase of recovery — or a specific resident."
+            title="Types of Housing"
+            subtitle="Each enclosure is purpose-built to support a specific stage of recovery."
           />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
