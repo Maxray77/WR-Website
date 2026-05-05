@@ -32,7 +32,7 @@ const TECHNIQUES = [
     description:
       "Full isoflurane anesthesia setup for safe surgical procedures. Hematocrit centrifuge for blood analysis and monitoring bird health throughout treatment.",
     detail:
-      "Professional-grade equipment enables complex surgeries that most wildlife rescue facilities cannot perform.",
+      "Professional-grade equipment enables complex surgeries successfully.",
     icon: <Syringe size={28} />,
   },
 ];
