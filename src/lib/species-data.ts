@@ -177,6 +177,10 @@ export const SPECIES_LIST: Species[] = [
     threatsInDelhi: "Electrocution from power lines at forest edges. Habitat loss as Delhi's Ridge forests face encroachment. Vehicle collisions on roads cutting through forested areas. Disturbance at nest sites.",
     description: "The Crested Serpent Eagle is a magnificent forest raptor that most Delhiites don't even know lives in their city. Found in Delhi's Ridge forests, they represent the wild heart of the capital. Wildlife Rescue treats about 10 per year.",
     funFact: "Their loud, ringing 'kee-kee-kee-kee' call echoing through Delhi's Ridge forests is one of the most evocative wild sounds you can hear in an Indian city. In many Southeast Asian cultures, they're considered a symbol of watchfulness and courage.",
+    image: "/species/crested-serpent-eagle.jpg",
+    images: [
+      { src: "/species/crested-serpent-eagle.jpg", alt: "Crested Serpent Eagle at Wildlife Rescue — distinctive crest and bold barred plumage" },
+    ],
   },
   {
     slug: "blue-rock-pigeon",
