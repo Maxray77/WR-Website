@@ -84,7 +84,7 @@ export default function OurSpecialtyPage() {
           </h1>
           <p className="mt-4 text-xl text-white/80 max-w-2xl mx-auto">
             Pioneering avian orthopedic techniques that are saving raptors in
-            Delhi and being adopted by rehabilitators worldwide.
+            Delhi and being received well by rehabilitators worldwide.
           </p>
         </div>
       </section>
