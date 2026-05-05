@@ -29,7 +29,8 @@
     "next-sanity": "^12.4.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "sanity": "^5.23.0"
+    "sanity": "^5.23.0",
+    "styled-components": "^6.4.1"
   },
   "devDependencies": {
     "@sanity/client": "^7.22.0",
