@@ -16,7 +16,7 @@ const TECHNIQUES = [
     description:
       "Our signature technique repairs wings severely damaged by manja (glass-coated kite string) that severs skin, muscles, tendons, nerves, and bones. This procedure ensures birds retain full flying ability post-surgery.",
     detail:
-      "Presented at NWRA Annual Symposium 2018 (Los Angeles) and refined technique at NWRA 2025 (Seattle). Now adopted by rehabilitators and veterinarians globally.",
+      "Presented at NWRA Annual Symposium 2018 (Los Angeles) and refined technique at NWRA 2025 (Seattle).",
     icon: <Scissors size={28} />,
   },
   {
@@ -32,7 +32,7 @@ const TECHNIQUES = [
     description:
       "Full isoflurane anesthesia setup for safe surgical procedures. Hematocrit centrifuge for blood analysis and monitoring bird health throughout treatment.",
     detail:
-      "Professional-grade equipment enables complex surgeries that most wildlife rescue facilities cannot perform.",
+      "Professional-grade equipment enables complex surgeries successfully.",
     icon: <Syringe size={28} />,
   },
 ];
@@ -41,20 +41,20 @@ const MEDICAL_CONDITIONS = [
   {
     category: "Manja (Kite String) Injuries",
     description:
-      "Glass-coated kite strings sever skin, muscles, tendons, nerves, and bones. The #1 cause of raptor injuries in Delhi, especially during Independence Day and Uttarayan festivals.",
+      "Glass-coated kite strings sever skin, muscles, tendons, nerves, and bones. The #1 cause of raptor injuries in Delhi, all year round and especially during Independence Day and Uttarayan festivals.",
     percentage: "~40%",
   },
   {
     category: "Orphaned & Fallen Chicks",
     description:
       "Baby birds that fall from nests need specialized housing, feeding, and gentle care. The goal is always early release once flight-capable.",
-    percentage: "~25%",
+    percentage: "~35%",
   },
   {
-    category: "Collision & Electrocution",
+    category: "Collisions, Fractures & Other Injuries",
     description:
       "Vehicle collisions, window strikes, wall impacts, and wet-wire electrocution during monsoon season cause fractures and internal injuries.",
-    percentage: "~20%",
+    percentage: "~14%",
   },
   {
     category: "Disease & Infection",
@@ -66,7 +66,7 @@ const MEDICAL_CONDITIONS = [
     category: "Entanglement & Other",
     description:
       "Birds trapped in thread, stuck in glue traps, suffering burns, emaciation, dehydration, or contaminated feathers.",
-    percentage: "~5%",
+    percentage: "~1%",
   },
 ];
 
@@ -84,7 +84,7 @@ export default function OurSpecialtyPage() {
           </h1>
           <p className="mt-4 text-xl text-white/80 max-w-2xl mx-auto">
             Pioneering avian orthopedic techniques that are saving raptors in
-            Delhi and being adopted by rehabilitators worldwide.
+            Delhi and being received well by rehabilitators worldwide.
           </p>
         </div>
       </section>
@@ -103,8 +103,8 @@ export default function OurSpecialtyPage() {
                   Nadeem and Saud are not veterinarians. They taught themselves
                   raptor medicine through decades of hands-on experience,
                   learning from experts worldwide, and relentless
-                  experimentation. Their novel surgical technique for repairing
-                  wings damaged by kite strings is now adopted by rehabilitators
+                  research. Their novel surgical technique for repairing
+                  wings damaged by kite strings is now received well by rehabilitators
                   and veterinarians globally.
                 </p>
                 <p className="mt-4 text-slate leading-relaxed">
@@ -114,13 +114,14 @@ export default function OurSpecialtyPage() {
                   (2025).
                 </p>
               </div>
-              <div className="aspect-[4/3] bg-gradient-to-br from-amber/10 to-amber/5 rounded-xl flex items-center justify-center border border-amber/20">
-                <div className="text-center p-8">
-                  <Scissors size={48} className="text-amber mx-auto mb-3" />
-                  <p className="text-slate text-sm">
-                    Surgery in Progress — Photo Placeholder
-                  </p>
-                </div>
+              <div className="aspect-[4/3] rounded-xl overflow-hidden border border-amber/20 shadow-md">
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/FPbSOzekGyg"
+                  title="Surgery in progress at Wildlife Rescue"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
               </div>
             </div>
           </div>

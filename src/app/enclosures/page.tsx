@@ -103,7 +103,7 @@ const REHAB_JOURNEY = [
     step: 2,
     title: "Recovery Cage",
     description:
-      "Restricted movement protects healing surgical sites. Daily wound checks, weight monitoring, and gentle physical therapy on stiffened wings.",
+      "Restricted movement protects healing surgical sites. Daily wound checks, weight monitoring, and gentle physical therapy on bandaged wings.",
   },
   {
     step: 3,
@@ -115,19 +115,19 @@ const REHAB_JOURNEY = [
     step: 4,
     title: "Main Flight Aviary",
     description:
-      "Large open space. The bird must demonstrate sustained flight, accurate landings, and full range of motion. Hunting and self-feeding skills are reinforced.",
+      "Large open space. The bird must demonstrate sustained flight, accurate landings, and full range of motion. Self-feeding skills are reinforced.",
   },
   {
     step: 5,
     title: "Outdoor Conditioning Pen",
     description:
-      "Re-acclimatisation to Delhi's weather extremes. The bird experiences sun, wind, rain, and ambient noise — everything it will face on release day.",
+      "Re-acclimatisation to Delhi's weather extremes. The bird experiences sun, wind, rain, and ambient noise.",
   },
   {
     step: 6,
     title: "Release",
     description:
-      "Final flight assessment. The bird is taken to a suitable release site — ideally near where it was originally found — and returned to the wild.",
+      "Final flight assessment. The bird is taken to a suitable release site — in a protected forest — and returned to the wild. Birds like Black Kites are slow-released from our flight cage.",
   },
 ];
 
