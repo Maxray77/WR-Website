@@ -219,9 +219,39 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-04 (favicon update + staff details Word doc)
+**Last updated by:** Claude Code — 2026-05-04 (Sanity activated + staff blog guide doc)
 
-**What was just completed (Session 2026-05-04 — favicon + staff details doc + Sanity CMS, on `claude/hardcore-meninsky-cba263`):**
+**What was just completed (Session 2026-05-04 — Sanity ACTIVATED end-to-end on `main`):**
+- [x] **Sanity project created** at sanity.io — Project ID: **`ivyjyqwz`**, dataset: `production`
+- [x] **All 7 existing blog posts migrated to Sanity** via `npm run blog:migrate` — uploaded posts, dedup'd authors (5 unique), categories (6), and featured images. Verified locally — `/blog` reads from Sanity with images served from `cdn.sanity.io/images/ivyjyqwz/production/...`.
+- [x] **Two production fixes shipped** (commit `74baf1a`):
+  - `src/sanity/lib/client.ts` — passes `SANITY_API_WRITE_TOKEN` so reads work against the **default-private dataset**. Token has no `NEXT_PUBLIC_` prefix, so it's server-only and never reaches the browser. Sanity datasets are now private-by-default in newer projects (post-2024) and public reads return empty without auth.
+  - `src/sanity/lib/client.ts` — `useCdn: process.env.NODE_ENV === "production"` (was always-true). The `apicdn.sanity.io` subdomain fails to resolve on some Indian residential ISPs; direct `api.sanity.io` always works.
+  - `scripts/migrate-blog-to-sanity.mjs` — explicitly loads `.env.local` (Next.js convention) instead of relying on dotenv's default `.env` lookup.
+- [x] **`.env.local` configured locally** (both project root and worktree) with all 5 Sanity env vars.
+- [x] **Branch `claude/hardcore-meninsky-cba263` merged to `main` and pushed** (commit `74baf1a`). Vercel auto-deployed.
+- [x] **Staff blog publishing guide created** — `C:\Users\maxra\Documents\Wildlife Rescue\WR_Blog_Publishing_Guide_for_Staff.docx` (15 KB). 9 sections covering login, post-writing, photos, editing/deleting, writing tips, troubleshooting, and contacts. WR-branded (teal/amber). Designed for non-technical staff like Mohammad Afeef and Samia.
+
+**Sanity credentials (do NOT commit; in `.env.local` only):**
+- Project ID: `ivyjyqwz`
+- Dataset: `production`
+- API version: `2024-10-01`
+- Write token: stored in `.env.local` (label: "Migration token", Editor permissions)
+- Revalidate secret: `68a320fe6a1b84a750ac12f72fee905b0f6e52eff4aa8476788d92607e901462`
+
+**Still pending — user must do these in Vercel UI:**
+- [ ] **Add the 5 Sanity env vars to Vercel** (Settings → Environment Variables → apply to Production + Preview + Development): `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`, `SANITY_API_WRITE_TOKEN`, `SANITY_REVALIDATE_SECRET`. Then **redeploy** (Deployments → ⋯ → Redeploy). Until this is done, the **live site uses the static fallback** — Sanity only works locally.
+- [ ] **Set up the Sanity → Vercel webhook** for instant updates (`docs/sanity-setup.md` Step 7). Without it, new posts take up to 5 minutes to appear; with it, they appear in seconds.
+- [ ] **Invite staff to Sanity** as Editors (Sanity Manage → Members → +Invite): Mohammad Afeef, Samia Shafiq, Nadeem (Admin), Saud (Admin).
+- [ ] **Email `WR_Blog_Publishing_Guide_for_Staff.docx` to Afeef and Samia** along with their invite.
+
+**Sanity activation summary:**
+- ✅ Code deployed to `main` (Vercel auto-deployed)
+- ✅ Sanity project created + 7 posts migrated
+- ✅ Working locally (verified via `/blog` and `/studio`)
+- ⏳ Waiting on user to add env vars in Vercel UI to flip the live site over to Sanity
+
+**What was just completed (Earlier 2026-05-04 — Sanity CMS code + migration scripts):**
 - [x] **Sanity CMS integrated** — replaces static `BLOG_POSTS` array with a headless CMS so non-developer staff can write/publish posts.
   - **Embedded Studio at `/studio`** — staff log in there to author posts (rich text editor, image uploads, drafts, scheduled publish).
   - **Schemas:** `post`, `author`, `category`, `blockContent` — in `src/sanity/schemaTypes/`.
