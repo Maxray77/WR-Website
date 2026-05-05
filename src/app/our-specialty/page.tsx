@@ -16,7 +16,7 @@ const TECHNIQUES = [
     description:
       "Our signature technique repairs wings severely damaged by manja (glass-coated kite string) that severs skin, muscles, tendons, nerves, and bones. This procedure ensures birds retain full flying ability post-surgery.",
     detail:
-      "Presented at NWRA Annual Symposium 2018 (Los Angeles) and refined technique at NWRA 2025 (Seattle). Now received well by rehabilitators and veterinarians globally.",
+      "Presented at NWRA Annual Symposium 2018 (Los Angeles) and refined technique at NWRA 2025 (Seattle).",
     icon: <Scissors size={28} />,
   },
   {
