@@ -7,10 +7,8 @@ import {
   Baby,
   TreePine,
   Sun,
-  ShieldCheck,
   Wind,
   Sparkles,
-  Heart,
   ArrowRight,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
@@ -26,26 +24,25 @@ const ENCLOSURE_STATS = [
   { value: "Multi-stage", label: "Aviary Complex" },
   { value: "Species-Specific", label: "Housing Design" },
   { value: "Pre-Release", label: "Flight Conditioning" },
-  { value: "Lifelong", label: "Care for Non-Releasable Birds" },
 ];
 
 const ENCLOSURE_TYPES = [
   {
     title: "Recovery Cages",
     description:
-      "Designed to restrict excessive movement while critical healing takes place. Tiled flooring and three-foot tiled walls maintain high hygiene standards, with the remaining five feet constructed from wood. Each unit accommodates a small group of birds under close observation.",
+      "Ventilated enclosures for post-surgical patients. Limited movement protects freshly repaired wings during the first critical weeks of healing. Tiled floors and walls keep surroundings clean and hygienic.",
     icon: <Home size={28} />,
   },
   {
     title: "Flight Aviaries",
     description:
-      "Spacious netted aviaries — the heart of our rehabilitation programme. Birds rebuild flight muscles, coordination, and stamina here over weeks, often months, before being assessed for release.",
+      "Spacious netted aviaries — the heart of our rehabilitation programme. Birds rebuild flight muscles, coordination, and stamina here over weeks, often months, before being assessed for release. Young birds learn to fly and manoeuvre, and an open section lets them fly out and return at will — a game-changer that gives them time to learn the food and water sources in the surrounding area for a successful rehabilitation. The food kept in our flight cage also helps feed birds that have flown off into areas outside their home range.",
     icon: <Bird size={28} />,
   },
   {
     title: "Chick Nursery",
     description:
-      "Warm, draft-free housing for orphaned and fallen hatchlings. Specialized feeding stations, gentle-handling protocols, and species-correct diets ensure healthy development from helpless chick to independent juvenile.",
+      "Warm, draft-free housing for orphaned and fallen hatchlings. Specialised feeding stations, gentle-handling protocols, and species-correct diets ensure healthy development from helpless chick to independent juvenile. Hatchlings are housed inside the clinic so they remain under constant observation, and a balanced diet ensures speedy growth.",
     icon: <Baby size={28} />,
   },
   {
@@ -55,16 +52,10 @@ const ENCLOSURE_TYPES = [
     icon: <TreePine size={28} />,
   },
   {
-    title: "Open-Air Moist-Cooled Pens",
+    title: "Open-Air Cooled Pens",
     description:
-      "Semi-open enclosures that help birds gradually re-acclimatise to Delhi's extreme heat. Open-air coolers maintain humidity and reduce thermal stress, providing a vital transition between indoor recovery spaces and full exposure to outdoor conditions and flight training.",
+      "Semi-exposed enclosures that gradually re-acclimatise birds to Delhi's heat, humidity, monsoon, and temperature swings — a critical bridge between protected indoor recovery and the open sky. Each enclosure is equipped with moisture-air coolers.",
     icon: <Sun size={28} />,
-  },
-  {
-    title: "Permanent Resident Housing",
-    description:
-      "Birds with permanent disabilities — missing eyes, amputated wings, neurological damage — receive lifelong care in comfortable, enriched enclosures. Many become ambassadors for visitor education.",
-    icon: <ShieldCheck size={28} />,
   },
 ];
 
@@ -80,12 +71,6 @@ const DESIGN_PRINCIPLES = [
     description:
       "Easy-clean surfaces, segregated wards for infectious cases, and routine sanitation protocols. Cross-contamination between recovering and incoming birds is the silent killer in rescue work — we engineer against it.",
     icon: <Sparkles size={24} />,
-  },
-  {
-    title: "Behavioural Enrichment",
-    description:
-      "Perching at multiple heights, varied substrates, hidden food, line-of-sight to other birds. Boredom and learned helplessness in captivity erode the instincts a bird needs to survive after release.",
-    icon: <Heart size={24} />,
   },
 ];
 
