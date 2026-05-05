@@ -114,13 +114,14 @@ export default function OurSpecialtyPage() {
                   (2025).
                 </p>
               </div>
-              <div className="aspect-[4/3] bg-gradient-to-br from-amber/10 to-amber/5 rounded-xl flex items-center justify-center border border-amber/20">
-                <div className="text-center p-8">
-                  <Scissors size={48} className="text-amber mx-auto mb-3" />
-                  <p className="text-slate text-sm">
-                    Surgery in Progress — Photo Placeholder
-                  </p>
-                </div>
+              <div className="aspect-[4/3] rounded-xl overflow-hidden border border-amber/20 shadow-md">
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/FPbSOzekGyg"
+                  title="Surgery in progress at Wildlife Rescue"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
               </div>
             </div>
           </div>
