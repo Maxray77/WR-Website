@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import UsdAmountGrid from "@/components/UsdAmountGrid";
 import {
   DONATION_AMOUNTS_INR,
-  DONATION_AMOUNTS_USD,
   BANK_DETAILS,
   CONTACT,
   FEATURED_RESCUES,
@@ -31,6 +31,11 @@ export default function DonatePage() {
   const [activeTab, setActiveTab] = useState(validTab);
   const [onlineCurrency, setOnlineCurrency] = useState<"inr" | "usd">("inr");
   const razorpayRef = useRef<HTMLDivElement>(null);
+
+  const razorpayButtonId =
+    process.env.NEXT_PUBLIC_RAZORPAY_BUTTON_ID || "pl_H4Jwn7xLqMgktI";
+  const razorpayUrl = (amount: number) =>
+    `https://pages.razorpay.com/${razorpayButtonId}?amount=${amount}`;
 
   // Load Razorpay payment button script when Online tab is active
   useEffect(() => {
@@ -126,21 +131,27 @@ export default function DonatePage() {
                     {/* INR Amount Grid */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                       {DONATION_AMOUNTS_INR.map((item) => (
-                        <div
+                        <a
                           key={item.amount}
-                          className="p-4 rounded-xl border-2 border-gray-200 text-center"
+                          href={razorpayUrl(item.amount)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-4 rounded-xl border-2 border-gray-200 text-center hover:border-amber hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
                         >
-                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
+                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)] group-hover:text-amber transition-colors">
                             ₹{item.amount.toLocaleString()}
                           </div>
                           <p className="text-xs text-slate mt-1">{item.label}</p>
-                        </div>
+                          <p className="text-[10px] text-amber font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Donate now →
+                          </p>
+                        </a>
                       ))}
                     </div>
-                    {/* Razorpay Payment Button */}
+                    {/* Razorpay Payment Button — fallback for custom amount */}
                     <div className="bg-offwhite rounded-xl p-6 text-center">
                       <h3 className="text-lg font-semibold text-charcoal mb-2">
-                        Pay Securely via Razorpay
+                        Or enter a custom amount
                       </h3>
                       <p className="text-sm text-slate mb-4">
                         Credit card, debit card, net banking, and UPI supported
@@ -154,19 +165,12 @@ export default function DonatePage() {
                   </>
                 ) : (
                   <>
-                    {/* USD Amount Grid */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                      {DONATION_AMOUNTS_USD.map((item) => (
-                        <div
-                          key={item.amount}
-                          className="p-4 rounded-xl border-2 border-gray-200 text-center"
-                        >
-                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
-                            ${item.amount}
-                          </div>
-                          <p className="text-xs text-slate mt-1">{item.label}</p>
-                        </div>
-                      ))}
+                    {/* USD Amount Grid — click any amount to choose R3 or GoFundMe */}
+                    <div className="mb-6">
+                      <UsdAmountGrid variant="full" />
+                      <p className="text-center text-xs text-slate mt-3">
+                        Click an amount to choose between R3 (tax-deductible) and GoFundMe
+                      </p>
                     </div>
                     {/* USD Payment Options */}
                     <div className="space-y-4">

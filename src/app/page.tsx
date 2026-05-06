@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Heart } from "lucide-react";
@@ -8,12 +6,12 @@ import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import InstagramFeed from "@/components/InstagramFeed";
+import UsdAmountGrid from "@/components/UsdAmountGrid";
 import {
   IMPACT_STATS,
   FEATURED_RESCUES,
   MEDIA_LOGOS,
   DONATION_AMOUNTS_INR,
-  DONATION_AMOUNTS_USD,
   CONTACT,
 } from "@/lib/constants";
 import { getBlogPosts } from "@/lib/blog";
@@ -322,8 +320,10 @@ export default async function Home() {
             {/* INR amounts */}
             <div id="donate-inr" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {DONATION_AMOUNTS_INR.map((item) => (
-                <Link
-                  href="/donate?tab=online"
+                <a
+                  href={`https://pages.razorpay.com/pl_H4Jwn7xLqMgktI?amount=${item.amount}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   key={item.amount}
                   className="bg-white rounded-xl p-5 text-center border-2 border-gray-100 hover:border-amber hover:shadow-lg transition-all group"
                 >
@@ -331,30 +331,16 @@ export default async function Home() {
                     ₹{item.amount.toLocaleString()}
                   </div>
                   <p className="text-xs text-slate mt-1">{item.label}</p>
-                </Link>
+                </a>
               ))}
             </div>
 
-            {/* USD teaser row */}
-            <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4 opacity-40 pointer-events-none select-none">
-              {DONATION_AMOUNTS_USD.map((item) => (
-                <div
-                  key={item.amount}
-                  className="bg-white rounded-xl p-5 text-center border-2 border-gray-100"
-                >
-                  <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
-                    ${item.amount}
-                  </div>
-                  <p className="text-xs text-slate mt-1">{item.label}</p>
-                </div>
-              ))}
+            {/* USD amount row — click any amount to choose R3 (501c3) or GoFundMe */}
+            <div className="mt-4">
+              <UsdAmountGrid variant="teaser" />
             </div>
             <p className="text-center text-xs text-slate mt-2">
-              Switch to{" "}
-              <Link href="/donate?tab=us" className="text-teal font-semibold hover:underline">
-                🇺🇸 USD / 501(c)(3)
-              </Link>{" "}
-              to donate in US dollars
+              🇺🇸 Click any USD amount to choose 501(c)(3) tax-deductible (R3) or GoFundMe
             </p>
 
             <div className="text-center mt-8">
