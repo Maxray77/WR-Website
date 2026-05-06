@@ -219,9 +219,34 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-05 (Vercel deploy fixes + CSE photo)
+**Last updated by:** Claude Code — 2026-05-06 (USD donation modal + INR direct-pay attempt)
 
-**What was just completed (Session 2026-05-05 evening — Vercel deploy fixes + Crested Serpent Eagle photo):**
+**What was just completed (Session 2026-05-06 — donation amount UX, all on `main`):**
+- [x] **USD amount cards now open an R3 / GoFundMe options modal** (commit `0c17d62`).
+  - New client component `src/components/UsdAmountGrid.tsx` — reusable grid of USD amount buttons; clicking any amount opens a centered modal with the selected amount displayed prominently and two CTAs: **"Donate via R3 — Tax-Deductible (501c3)"** → raptorrescueusa.org/donate, and **"Donate via GoFundMe"** → gofund.me/d9df0362. Modal supports Esc / backdrop / × to dismiss; body scroll-locked while open.
+  - Wired into both **`/` (homepage)** USD teaser row (was previously dimmed/non-clickable, now active with `variant="teaser"`) and **`/donate` Online tab → USD currency** (replacing the previous static USD grid).
+  - Verified in preview: clicking $25 on /donate displays modal with "$25" + correct R3 + GoFundMe links; clicking $50 on / works the same way.
+- [x] **Pre-existing hydration bug in homepage fixed** (same commit) — `src/app/page.tsx` line 1 had `"use client"` despite `Home` being declared `async`. React refuses to render an async client component, which was emitting a console error every render and causing intermittent hydration failures. Removed the directive — `Home` is now a proper Server Component (which is correct, since it `await`s `getBlogPosts()`).
+- [x] **INR direct-pay-via-Razorpay attempt → reverted** (commits `0c17d62` then `1800ce6`).
+  - First attempt: made INR preset cards on both pages link to `https://pages.razorpay.com/pl_H4Jwn7xLqMgktI?amount={n}` so a single click would open Razorpay with the amount prefilled.
+  - **This URL pattern returns 404** — `pl_H4Jwn7xLqMgktI` is a Razorpay **Payment Button widget ID**, not a Payment **Page** ID, so there's no hosted URL at `pages.razorpay.com/pl_*`. User reported the error screen and I reverted.
+  - INR cards on /donate are back to non-clickable suggestion tiles above the embedded Razorpay button (the previous flow). Homepage INR cards are back to `<Link href="/donate?tab=online">`.
+- [x] All commits pushed to `main`. Vercel auto-deploys.
+
+**Pending — true single-click INR donation (deferred at user's request):**
+To make the INR amount cards trigger Razorpay payment in a single click with the amount pre-filled, two options exist:
+1. **Razorpay Checkout integration** — needs the org's public **Razorpay Key ID** (NOT the Button ID) plus a small `/api/create-order` server route that creates an order and returns `order_id`. Then `Razorpay({ key, order_id, amount, ... }).open()` from a click handler. This is the proper integration; works in any Indian bank's checkout flow.
+2. **Razorpay Payment Page** (different product from the current Payment Button) — Razorpay generates a hosted URL like `https://rzp.io/l/xxx` that accepts `?amount=` to prefill. Org needs to create one in the Razorpay dashboard under Payment Pages → New Payment Page. Once created, swap the `pages.razorpay.com/pl_*` URL for the new Payment Page URL.
+The current setup (embedded Razorpay button widget below the suggested-amount tiles) is fully functional — donor clicks the button, types the amount, pays. Only the UX papercut of "click amount → click button → type amount" remains.
+
+**Key files this session:**
+- `src/components/UsdAmountGrid.tsx` — **NEW**: client component, USD grid + modal, supports `variant="full" | "teaser"` for /donate vs / styling
+- `src/app/donate/page.tsx` — Online tab USD branch now uses `<UsdAmountGrid variant="full" />` instead of inline static grid + 2 option cards; INR branch unchanged from original (kept "Pay Securely via Razorpay" header + embedded button)
+- `src/app/page.tsx` — homepage USD teaser row now uses `<UsdAmountGrid variant="teaser" />`; **removed `"use client"` directive** (was an async-client-component bug); INR cards still `<Link href="/donate?tab=online">`
+
+---
+
+**Previously completed (Session 2026-05-05 evening — Vercel deploy fixes + Crested Serpent Eagle photo):**
 - [x] **Vercel deployment unblocked** — `npm install` was failing on Vercel due to two issues:
   - `lightningcss-win32-x64-msvc` was listed as a hard `dependency` in `package.json` — that's a Windows-only native binding that cannot install on Vercel's Linux build runners. Removed from deps; npm now resolves the correct platform binding (linux-x64-gnu on Vercel) automatically via lightningcss's own `optionalDependencies`.
   - `@sanity/codegen` and `@sanity/sdk` have a peer-dep conflict on `@sanity/telemetry` (`^0.9.0` vs `^1.1.0`). Default `npm install` fails strict resolution.
