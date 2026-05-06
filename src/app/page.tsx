@@ -320,10 +320,8 @@ export default async function Home() {
             {/* INR amounts */}
             <div id="donate-inr" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {DONATION_AMOUNTS_INR.map((item) => (
-                <a
-                  href={`https://pages.razorpay.com/pl_H4Jwn7xLqMgktI?amount=${item.amount}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/donate?tab=online"
                   key={item.amount}
                   className="bg-white rounded-xl p-5 text-center border-2 border-gray-100 hover:border-amber hover:shadow-lg transition-all group"
                 >
@@ -331,7 +329,7 @@ export default async function Home() {
                     ₹{item.amount.toLocaleString()}
                   </div>
                   <p className="text-xs text-slate mt-1">{item.label}</p>
-                </a>
+                </Link>
               ))}
             </div>
 

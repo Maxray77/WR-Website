@@ -32,11 +32,6 @@ export default function DonatePage() {
   const [onlineCurrency, setOnlineCurrency] = useState<"inr" | "usd">("inr");
   const razorpayRef = useRef<HTMLDivElement>(null);
 
-  const razorpayButtonId =
-    process.env.NEXT_PUBLIC_RAZORPAY_BUTTON_ID || "pl_H4Jwn7xLqMgktI";
-  const razorpayUrl = (amount: number) =>
-    `https://pages.razorpay.com/${razorpayButtonId}?amount=${amount}`;
-
   // Load Razorpay payment button script when Online tab is active
   useEffect(() => {
     if (activeTab === "online" && razorpayRef.current) {
@@ -128,30 +123,24 @@ export default function DonatePage() {
 
                 {onlineCurrency === "inr" ? (
                   <>
-                    {/* INR Amount Grid */}
+                    {/* INR Amount Grid — suggested amounts */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                       {DONATION_AMOUNTS_INR.map((item) => (
-                        <a
+                        <div
                           key={item.amount}
-                          href={razorpayUrl(item.amount)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-4 rounded-xl border-2 border-gray-200 text-center hover:border-amber hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
+                          className="p-4 rounded-xl border-2 border-gray-200 text-center"
                         >
-                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)] group-hover:text-amber transition-colors">
+                          <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
                             ₹{item.amount.toLocaleString()}
                           </div>
                           <p className="text-xs text-slate mt-1">{item.label}</p>
-                          <p className="text-[10px] text-amber font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            Donate now →
-                          </p>
-                        </a>
+                        </div>
                       ))}
                     </div>
-                    {/* Razorpay Payment Button — fallback for custom amount */}
+                    {/* Razorpay Payment Button */}
                     <div className="bg-offwhite rounded-xl p-6 text-center">
                       <h3 className="text-lg font-semibold text-charcoal mb-2">
-                        Or enter a custom amount
+                        Pay Securely via Razorpay
                       </h3>
                       <p className="text-sm text-slate mb-4">
                         Credit card, debit card, net banking, and UPI supported
