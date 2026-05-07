@@ -49,14 +49,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Open Graph defaults */}
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:site_name" content="Wildlife Rescue" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@wildliferescue" />
       </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         <SkipNav />
