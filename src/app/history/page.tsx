@@ -18,9 +18,19 @@ const EARLY_PHOTOS = [
     description: "Nadeem Shehzad, who co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s.",
   },
   {
-    src: "/history/steppe-eagle-early.jpg",
-    caption: "Steppe Eagle — Early Case",
-    description: "A Steppe Eagle treated at Wildlife Rescue in the early years — Endangered migrants from Central Asia have long been part of the mission.",
+    src: "/history/nadeem-02.jpg",
+    caption: "Nadeem Shehzad",
+    description: "Nadeem Shehzad, co-founder of Wildlife Rescue, in the early years of the rescue.",
+  },
+  {
+    src: "/history/black-eared-kite-02.jpg",
+    caption: "Black Eared Kite",
+    description: "A Black Eared Kite receiving care at Wildlife Rescue — one of the most common raptors treated at the facility.",
+  },
+  {
+    src: "/history/old-ambulance.jpg",
+    caption: "The ambulance",
+    description: "The Wildlife Rescue ambulance used to transport injured birds across Delhi.",
   },
   {
     src: "/history/early-days-01.jpg",
@@ -33,14 +43,29 @@ const EARLY_PHOTOS = [
     description: "Hands-on care for injured birds before the full clinic was established.",
   },
   {
-    src: "/history/early-days-03.jpg",
-    caption: "Community roots",
-    description: "Wildlife Rescue grew from grassroots neighbourhood rescue calls.",
+    src: "/history/saud-with-a-kite.jpg",
+    caption: "Mohammad Saud with a Kite",
+    description: "Mohammad Saud, co-founder of Wildlife Rescue, with an injured Black Kite in the early years.",
   },
   {
-    src: "/history/early-days-04.jpg",
-    caption: "The early team",
-    description: "Founders and early volunteers who built Wildlife Rescue from nothing.",
+    src: "/history/saud-nadeem.jpg",
+    caption: "Nadeem & Saud",
+    description: "Nadeem Shehzad and Mohammad Saud — the co-founders who built Wildlife Rescue from the ground up.",
+  },
+  {
+    src: "/history/old-black-kite.jpg",
+    caption: "Black Kite — Early Case",
+    description: "A Black Kite receiving care in the early days of Wildlife Rescue.",
+  },
+  {
+    src: "/history/nadeem-03.jpg",
+    caption: "Nadeem Shehzad",
+    description: "Nadeem Shehzad with a rescued bird — a scene repeated thousands of times over the years.",
+  },
+  {
+    src: "/history/chhitku-spotted-owlet-chick.jpg",
+    caption: "Chhitku — Spotted Owlet Chick",
+    description: "A rescued Spotted Owlet chick in care at Wildlife Rescue.",
   },
 ];
 
@@ -79,9 +104,9 @@ export default function HistoryPage() {
               <div className="w-12 h-12 bg-teal-light rounded-lg flex items-center justify-center text-teal">
                 <MapPin size={22} />
               </div>
-              <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">Wazirabad Village</h3>
+              <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">Old Delhi</h3>
               <p className="text-slate text-sm leading-relaxed">
-                Word spreads through the neighbourhood. Nadeem and Mohammad Saud begin taking in birds from across Delhi — operating out of a home, with little more than determination and resourcefulness.
+                Word spreads through the neighbourhood. Nadeem and Mohammad Saud begin taking in birds from across Delhi — operating out of their family home in Old Delhi, with little more than determination and resourcefulness. In 2013, they move the rescue to Wazirabad, where it remains today.
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 border border-gray-100 flex flex-col items-start gap-3">
@@ -132,7 +157,7 @@ export default function HistoryPage() {
                 There were no operating theatres then. No X-ray machines, no anaesthesia equipment, no aviaries. Just two men on a motorbike, a handful of cages, and the kind of stubborn compassion that refuses to look away from a suffering animal.
               </p>
               <p className="mt-4 text-slate leading-relaxed">
-                Today, Wildlife Rescue treats over 3,000 birds a year and has pioneered surgical techniques adopted worldwide. But this motorbike is where it all began.
+                Today, Wildlife Rescue treats over 4,000 birds a year and has pioneered surgical techniques adopted worldwide. But this motorbike is where it all began.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
@@ -196,7 +221,7 @@ export default function HistoryPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-teal to-teal-dark rounded-2xl p-8 lg:p-12 text-white text-center">
             <h2 className="text-2xl lg:text-3xl font-bold font-[family-name:var(--font-poppins)]">
-              From One Motorbike to 3,000+ Birds a Year
+              From One Motorbike to 4,000+ Birds a Year
             </h2>
             <p className="mt-4 text-white/80 leading-relaxed max-w-2xl mx-auto">
               Everything at Wildlife Rescue today — the surgical suite, the aviaries, the novel wing-repair techniques, the Oscar-nominated documentary — grew from that same quiet refusal to walk past a suffering bird. Support the next chapter.

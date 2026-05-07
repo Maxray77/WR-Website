@@ -68,7 +68,8 @@
       "Bash(node convert.mjs \"C:/Users/maxra/Downloads/Scaling_Avian_Impact.pdf\" \"C:/Users/maxra/AppData/Local/Temp/pdfconv2/raw-cover.jpg\" 1 2)",
       "Bash(git add *)",
       "Bash(git commit -m 'feat\\(blog\\): add Scaling Avian Impact PDF + cover to record-breaking-2025 post *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(node -e ' *)"
     ]
   }
 }

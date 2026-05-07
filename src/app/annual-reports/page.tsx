@@ -190,7 +190,7 @@ export default function AnnualReportsPage() {
           <div className="space-y-6">
             {[
               { phase: "Phase 1", period: "2010", title: "Home Operations", birds: "362/year", description: "Two brothers rescuing birds from their home in Old Delhi's Walled City. Birds literally 'delivered at home.' Case #317 marks the beginning." },
-              { phase: "Phase 2", period: "2011–2014", title: "Explosive Growth", birds: "1,017–1,926/year", description: "The Charity Birds Hospital partnership ignites. Volume nearly triples in 3 years. Species diversity grows from 9 to 42." },
+              { phase: "Phase 2", period: "2011–2014", title: "Explosive Growth", birds: "1,017–1,926/year", description: "The Charity Birds Hospital partnership ignites. Volume nearly triples in 3 years. In 2013, the rescue moves from Old Delhi to a dedicated facility in Wazirabad Village. Species diversity grows from 9 to 42." },
               { phase: "Phase 3", period: "2015–2018", title: "Consolidation", birds: "~2,100–2,460/year", description: "Operations stabilize and professionalize. Partner network solidifies around 5 core organizations." },
               { phase: "Phase 4", period: "2019–2021", title: "Renewed Growth", birds: "2,532–2,815/year", description: "COVID barely dents operations (−1% in 2020). New partners emerge. Prem Bhawan grows 5x." },
               { phase: "Phase 5", period: "2022–2025", title: "Documentary Era", birds: "3,398–4,184/year", description: "All That Breathes brings global attention. Intake jumps 24% in 2022. 2025 is the highest year ever. 10+ partner organizations active." },
