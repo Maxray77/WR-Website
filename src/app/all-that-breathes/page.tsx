@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Award, Film, Calendar, Globe, Play, ExternalLink, Trophy, Instagram } from "lucide-react";
+import Link from "next/link";
+import { Award, Film, Calendar, Globe, Play, ExternalLink, Trophy, Instagram, BookOpen } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 import {
@@ -174,6 +175,39 @@ export default function AllThatBreathesPage() {
                 {festival}
               </span>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Bird Brothers Book ─── */}
+      <section className="py-12 bg-amber/10 border-y border-amber/20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+            <div className="shrink-0 w-24 rounded-lg overflow-hidden shadow-md">
+              <Image
+                src="/bird-brothers/cover.jpg"
+                alt="Bird Brothers — A Delhi Story book cover"
+                width={160}
+                height={220}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-widest text-amber mb-1">Also Inspired By This Story</p>
+              <h2 className="text-xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                Bird Brothers — A Delhi Story
+              </h2>
+              <p className="mt-1 text-slate text-sm leading-relaxed">
+                An award-winning children's illustrated book by Rina Singh & Barkha Lohia, inspired by Nadeem and Saud's real rescue work in Delhi. Winner of the JLG Gold Award and a Starred Review in School Library Journal.
+              </p>
+            </div>
+            <Link
+              href="/bird-brothers"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-amber text-charcoal font-semibold rounded-full hover:bg-amber-light transition-colors text-sm"
+            >
+              <BookOpen size={16} />
+              Explore the Book
+            </Link>
           </div>
         </div>
       </section>
