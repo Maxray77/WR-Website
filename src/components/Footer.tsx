@@ -54,6 +54,7 @@ export default function Footer() {
                 { href: "/all-that-breathes", label: "All That Breathes" },
                 { href: "/wr-brochure.pdf", label: "CSR Brochure (PDF)", external: true },
                 { href: "/contact", label: "Contact" },
+                { href: "/privacy-policy", label: "Privacy Policy" },
               ].map((link) => (
                 <li key={link.href}>
                   {link.external ? (
