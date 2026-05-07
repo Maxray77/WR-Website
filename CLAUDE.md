@@ -219,9 +219,62 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-06 (USD donation modal + INR direct-pay attempt)
+**Last updated by:** Claude Code — 2026-05-07 (SEO optimisation + privacy policy + cookie consent)
 
-**What was just completed (Session 2026-05-06 — donation amount UX, all on `main`):**
+**What was just completed (Session 2026-05-07 — SEO + privacy + domain pointing, all on `main`):**
+
+- [x] **Domains pointed live to Vercel** — user pointed both `raptorrescue.org` and `wildliferescue.org.in` (plus their `www.` variants) at Vercel. Verified via curl: both `raptorrescue.org` and `www.raptorrescue.org` return HTTP 200 from Vercel with full security headers (CSP, HSTS); `wildliferescue.org.in` 308-redirects to `www.raptorrescue.org`. **Pending in Vercel UI:** set non-www → www canonical redirect on `raptorrescue.org` (currently both serve identical 200s, which is duplicate content for SEO).
+- [x] **Comprehensive SEO optimisation** (commit `5d8168d`):
+  - **`src/lib/metadata.ts`** rewritten — award-led title and description (Oscar nom, Sundance Grand Jury Prize, Cannes Golden Eye, Peabody, Jackson Wild, Gotham), keywords expanded 8 → 24 (founders' names, award names, "All That Breathes", manja injuries, vulture conservation), `openGraph.images` now uses `/founders-combined.jpg` (1600×1200) with alt text, `alternates.canonical` (per-page on /about, /donate, /contact, /all-that-breathes), `googleBot` directives (`max-image-preview: large`, `max-snippet: -1`, `max-video-preview: -1`), correct twitter handle (@wildliferescueindia, was wrong @wildliferescue), `verification:` block stubbed (commented) for Google Search Console / Bing later.
+  - **`src/components/JsonLd.tsx`** — fixed factual errors and enriched. Wrong `taxID: "47-5731705"` (a US 501c3 EIN that someone had attached to the Indian Trust org) replaced with Indian PAN `AAATW2352B`; the US EIN `87-3289299` is now correctly nested under `funder` (R3 entity). Founding date `2003` → `1990` (matches "early 1990s"). Broken `/logo.png` → `/logo-black.png` (real file) as proper `ImageObject` with dimensions. Truncated street address → full `C-6/1, Rehmani Chowk, Street No. 9, Wazirabad Village`. Type changed `NGO` → `["NGO", "AnimalShelter"]`. Added `founders` (Nadeem & Saud), `slogan`, `foundingLocation`, `knowsAbout` (8 expertise areas), `award` array (6 documentary honours), `subjectOf` Movie schema linking to All That Breathes, `@id` anchors so WebSite → Organization graph references resolve, `potentialAction` SearchAction on WebSite for sitelinks search box.
+  - **`src/app/robots.ts`** — added `Disallow: /studio` (Sanity admin) and `host` directive.
+  - **`src/app/sitemap.ts`** — added missing `/bird-brothers` route.
+  - **`src/app/layout.tsx`** — removed hardcoded duplicate OG/Twitter `<meta>` tags that were conflicting with Metadata API output (incl. wrong @wildliferescue Twitter handle).
+  - **One factual error caught and corrected mid-session:** initial JsonLd draft included a fabricated "Rolex Award for Enterprise (Mohammad Saud, 2022)" entry. User flagged it; removed in subsequent commit. Lesson: stick to verifiable facts in CLAUDE.md / constants.ts for structured data.
+- [x] **Privacy policy + cookie consent banner** (commit `01c6560`):
+  - **`/privacy-policy` page** — 15 sections, scroll-spy TOC, written to be DPDP Act 2023 (India) and GDPR (EEA/UK) aware. Documents every third-party processor: Vercel, GA4, Razorpay, GoFundMe, R3, OpenAI (Wingman), Upstash, Sanity, YouTube, Google Maps. Lists user rights, retention periods (24 months for contact, 7 years for donations per FCRA, 14 months for GA4 default), security measures, data subject rights workflow.
+  - **`src/components/CookieConsent.tsx`** — bottom banner appearing 600 ms after first visit; "Essential only" / "Accept all" buttons; localStorage-backed (`wr-cookie-consent` key, version 1); applies stored choice via Consent Mode update on every page load. Dismissable × counts as Essential only.
+  - **Google Consent Mode v2 wired into `layout.tsx`** — inline `beforeInteractive` script defaults `ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage` all to `"denied"` *before* GA4 loads (with `wait_for_update: 500`). Banner flips to `"granted"` only when user clicks Accept all. **GA4 scripts are now gated on a real measurement ID** — `G-XXXXXXXXXX` placeholder no longer loads at all (was firing in production prior to this fix). GA4 config call now uses `anonymize_ip: true`.
+  - **`src/components/Footer.tsx`** — added "Privacy Policy" link to Quick Links.
+  - **`src/app/sitemap.ts`** — added `/privacy-policy`.
+- [x] **All commits pushed to `main`** (`394fc11 → 5d8168d → 01c6560`). Vercel auto-deployed.
+
+**Production state confirmed via curl** (after deploy):
+| URL | HTTP | Notes |
+|---|---|---|
+| `raptorrescue.org` | 200 (Vercel) | Live ✅ — but duplicate of www |
+| `www.raptorrescue.org` | 200 (Vercel) | **Canonical (per metadata)** |
+| `wildliferescue.org.in` | 307 → www | ✅ |
+| `www.wildliferescue.org.in` | 308 → www.raptorrescue.org | ✅ |
+| `/sitemap.xml` | 200 | Reachable |
+| `/robots.txt` | 200 | Has new `Disallow: /studio` |
+
+**Production state — env vars (still pending in Vercel UI):**
+- ❌ `NEXT_PUBLIC_GA_ID` is unset → site loads `G-XXXXXXXXXX`, BUT after this session's gating that placeholder no longer triggers any tracking. Real measurement ID needed to activate analytics. Consent Mode v2 already in place, so GA4 will be DPDP/GDPR-compliant the moment the env var is set.
+- ❌ Sanity env vars (5 of them) still unset → blog still serving static fallback. Verified via curl: all blog images on `/blog` come from `/_next/image?url=%2F...` (local public dir), zero `cdn.sanity.io` URLs.
+- ❌ Upstash Redis env vars unset → rate limiting + persistent storage inactive (graceful fallback to console.log).
+
+**Roadmap document delivered to user:**
+- `C:\Users\maxra\Documents\Wildlife Rescue\WR_Website_Roadmap.docx` (15 KB) — 5-tier prioritised list of remaining improvements (domain canonicalisation, env vars, Search Console, donation conversion tracking, FAQ/Breadcrumb/Article schemas, per-page OG images, video sitemap, newsletter backend, Sentry, image optimisation, Lighthouse, accessibility, /terms + /refund-policy). WR-branded teal/amber. Tier 1 = active blockers; "If you only do three" = top recommendation: domain canonical redirect → privacy + consent (now done) → donation conversion tracking.
+
+**Next step (queued for next session):**
+- User to set `NEXT_PUBLIC_GA_ID`, Sanity env vars, and the non-www → www redirect in Vercel UI.
+- Once GA4 is firing, wire **donation conversion tracking** — Razorpay redirect-on-success URL with `gtag('event', 'donation', ...)`. This is Tier 2 #5 in the roadmap and the natural next implementation task.
+- Verify ownership in Google Search Console once domain canonical is set; paste verification token into the commented `verification:` block in `src/lib/metadata.ts`.
+
+**Key files touched this session:**
+- `src/lib/metadata.ts` — full rewrite
+- `src/components/JsonLd.tsx` — full rewrite (factual fixes + enrichment)
+- `src/app/robots.ts` — disallow /studio + host directive
+- `src/app/sitemap.ts` — added /bird-brothers and /privacy-policy
+- `src/app/layout.tsx` — Consent Mode v2 + gated GA4 + CookieConsent mount + removed duplicate meta
+- `src/components/CookieConsent.tsx` — **NEW** (158 lines)
+- `src/app/privacy-policy/page.tsx` — **NEW** (~290 lines, 15 sections)
+- `src/components/Footer.tsx` — Privacy Policy link added
+
+---
+
+**Previously completed (Session 2026-05-06 — donation amount UX, all on `main`):**
 - [x] **USD amount cards now open an R3 / GoFundMe options modal** (commit `0c17d62`).
   - New client component `src/components/UsdAmountGrid.tsx` — reusable grid of USD amount buttons; clicking any amount opens a centered modal with the selected amount displayed prominently and two CTAs: **"Donate via R3 — Tax-Deductible (501c3)"** → raptorrescueusa.org/donate, and **"Donate via GoFundMe"** → gofund.me/d9df0362. Modal supports Esc / backdrop / × to dismiss; body scroll-locked while open.
   - Wired into both **`/` (homepage)** USD teaser row (was previously dimmed/non-clickable, now active with `variant="teaser"`) and **`/donate` Online tab → USD currency** (replacing the previous static USD grid).
