@@ -37,6 +37,7 @@ export default function DonatePage() {
   const [activeTab, setActiveTab] = useState(validTab);
   const [onlineCurrency, setOnlineCurrency] = useState<"inr" | "usd">("inr");
   const [checkoutLoading, setCheckoutLoading] = useState<number | null>(null);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const razorpayRef = useRef<HTMLDivElement>(null);
 
   // Load Razorpay checkout.js once on mount
@@ -67,14 +68,22 @@ export default function DonatePage() {
 
   async function openRazorpayCheckout(amountInRupees: number) {
     setCheckoutLoading(amountInRupees);
+    setCheckoutError(null);
     try {
       const res = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: amountInRupees * 100 }), // convert to paise
       });
-      if (!res.ok) throw new Error("Order creation failed");
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(`Order failed (${res.status}): ${body.error ?? "unknown"}`);
+      }
       const order = await res.json();
+
+      if (typeof (window as unknown as { Razorpay?: unknown }).Razorpay !== "function") {
+        throw new Error("Payment gateway not loaded — please refresh the page and try again.");
+      }
 
       const rzp = new (window as unknown as { Razorpay: new (opts: unknown) => { open: () => void } }).Razorpay({
         key: order.key_id,
@@ -96,7 +105,9 @@ export default function DonatePage() {
       });
       rzp.open();
     } catch (err) {
+      const msg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       console.error("Razorpay checkout error:", err);
+      setCheckoutError(msg);
     } finally {
       setCheckoutLoading(null);
     }
@@ -190,6 +201,13 @@ export default function DonatePage() {
                         </button>
                       ))}
                     </div>
+                    {/* Error feedback */}
+                    {checkoutError && (
+                      <div className="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-3 text-sm">
+                        <strong>Payment error:</strong> {checkoutError}
+                      </div>
+                    )}
+
                     {/* Razorpay Payment Button */}
                     <div className="bg-offwhite rounded-xl p-6 text-center">
                       <h3 className="text-lg font-semibold text-charcoal mb-2">
