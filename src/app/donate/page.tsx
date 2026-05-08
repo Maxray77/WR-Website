@@ -24,6 +24,12 @@ const TABS = [
   { id: "501c3", label: "501(c)(3) Certificate", icon: <FileText size={16} /> },
 ];
 
+function trackEvent(eventName: string, params: Record<string, string> = {}) {
+  if (typeof window !== "undefined" && typeof (window as { gtag?: Function }).gtag === "function") {
+    (window as { gtag: Function }).gtag("event", eventName, params);
+  }
+}
+
 export default function DonatePage() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
@@ -75,7 +81,7 @@ export default function DonatePage() {
             {TABS.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => { setActiveTab(tab.id); trackEvent("donation_tab_view", { tab: tab.id, tab_label: tab.label }); }}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all ${
                   activeTab === tab.id
                     ? "bg-teal text-white shadow-lg"
@@ -145,7 +151,7 @@ export default function DonatePage() {
                       <p className="text-sm text-slate mb-4">
                         Credit card, debit card, net banking, and UPI supported
                       </p>
-                      <div ref={razorpayRef} className="flex justify-center" />
+                      <div ref={razorpayRef} className="flex justify-center" onClick={() => trackEvent("donation_started", { method: "razorpay", currency: "INR" })} />
                       <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate">
                         <Shield size={14} />
                         <span>Secured by Razorpay — 256-bit encryption</span>
@@ -168,6 +174,7 @@ export default function DonatePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-start gap-4 bg-teal-light rounded-xl p-5 hover:bg-teal/10 transition-colors border border-teal/10 group"
+                        onClick={() => trackEvent("donation_method_click", { method: "R3", currency: "USD" })}
                       >
                         <div className="w-10 h-10 rounded-full bg-teal flex items-center justify-center shrink-0">
                           <Shield size={18} className="text-white" />
@@ -190,6 +197,7 @@ export default function DonatePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-start gap-4 bg-offwhite rounded-xl p-5 hover:bg-gray-100 transition-colors border border-gray-200 group"
+                        onClick={() => trackEvent("donation_method_click", { method: "GoFundMe", currency: "USD" })}
                       >
                         <div className="w-10 h-10 rounded-full bg-amber flex items-center justify-center shrink-0">
                           <Heart size={18} className="text-white" />
@@ -341,6 +349,7 @@ export default function DonatePage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-block w-full text-center bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                      onClick={() => trackEvent("donation_method_click", { method: "R3", currency: "USD" })}
                     >
                       Donate via R3 Website
                     </a>
@@ -369,6 +378,7 @@ export default function DonatePage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-block w-full text-center bg-amber hover:bg-amber-light text-charcoal font-semibold px-6 py-3 rounded-lg transition-colors"
+                      onClick={() => trackEvent("donation_method_click", { method: "GoFundMe", currency: "USD" })}
                     >
                       Donate via GoFundMe
                     </a>
@@ -405,6 +415,7 @@ export default function DonatePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-amber hover:bg-amber-light text-charcoal font-semibold px-8 py-3 rounded-full transition-colors"
+                    onClick={() => trackEvent("donation_method_click", { method: "GoFundMe", currency: "USD" })}
                   >
                     Open GoFundMe Page
                   </a>
