@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
         destination: "/clinic",
         permanent: true,
       },
+      // raptorrescue.org (non-www) → www.raptorrescue.org (canonical).
+      // Eliminates duplicate-content risk from both versions returning 200.
+      {
+        source: "/:path*",
+        destination: "https://www.raptorrescue.org/:path*",
+        permanent: true,
+        has: [{ type: "host", value: "raptorrescue.org" }],
+      },
       // wildliferescue.org.in → raptorrescue.org (secondary domain → primary, permanent 301).
       // Preserves the path so /donate still lands on /donate, etc.
       {
