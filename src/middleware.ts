@@ -30,9 +30,12 @@ function isAllowedOrigin(origin: string | null): boolean {
 
 export function middleware(request: NextRequest) {
   // --- CSRF: Block cross-origin POST requests to API routes ---
+  // Exempt /api/razorpay-webhook — Razorpay servers POST from their own origin;
+  // security is provided by HMAC-SHA256 signature verification inside the route.
   if (
     request.method === "POST" &&
-    request.nextUrl.pathname.startsWith("/api/")
+    request.nextUrl.pathname.startsWith("/api/") &&
+    request.nextUrl.pathname !== "/api/razorpay-webhook"
   ) {
     const origin = request.headers.get("origin");
 

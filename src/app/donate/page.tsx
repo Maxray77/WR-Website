@@ -36,14 +36,22 @@ export default function DonatePage() {
   const validTab = TABS.find((t) => t.id === tabParam)?.id ?? "upi";
   const [activeTab, setActiveTab] = useState(validTab);
   const [onlineCurrency, setOnlineCurrency] = useState<"inr" | "usd">("inr");
+  const [checkoutLoading, setCheckoutLoading] = useState<number | null>(null);
   const razorpayRef = useRef<HTMLDivElement>(null);
+
+  // Load Razorpay checkout.js once on mount
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => { document.body.removeChild(script); };
+  }, []);
 
   // Load Razorpay payment button script when Online tab is active
   useEffect(() => {
     if (activeTab === "online" && razorpayRef.current) {
-      // Clear previous content
       razorpayRef.current.innerHTML = "";
-
       const form = document.createElement("form");
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/payment-button.js";
@@ -56,6 +64,43 @@ export default function DonatePage() {
       razorpayRef.current.appendChild(form);
     }
   }, [activeTab]);
+
+  async function openRazorpayCheckout(amountInRupees: number) {
+    setCheckoutLoading(amountInRupees);
+    try {
+      const res = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amountInRupees * 100 }), // convert to paise
+      });
+      if (!res.ok) throw new Error("Order creation failed");
+      const order = await res.json();
+
+      const rzp = new (window as unknown as { Razorpay: new (opts: unknown) => { open: () => void } }).Razorpay({
+        key: order.key_id,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.order_id,
+        name: "Wildlife Rescue",
+        description: "Bird Rescue & Rehabilitation — Delhi",
+        image: "/logo-black.png",
+        theme: { color: "#0A6E5C" },
+        handler: function (response: { razorpay_payment_id: string }) {
+          trackEvent("donation", {
+            method: "razorpay",
+            currency: "INR",
+            value: String(amountInRupees),
+            transaction_id: response.razorpay_payment_id,
+          });
+        },
+      });
+      rzp.open();
+    } catch (err) {
+      console.error("Razorpay checkout error:", err);
+    } finally {
+      setCheckoutLoading(null);
+    }
+  }
 
   return (
     <>
@@ -129,18 +174,20 @@ export default function DonatePage() {
 
                 {onlineCurrency === "inr" ? (
                   <>
-                    {/* INR Amount Grid — suggested amounts */}
+                    {/* INR Amount Grid — click any amount to open Razorpay */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                       {DONATION_AMOUNTS_INR.map((item) => (
-                        <div
+                        <button
                           key={item.amount}
-                          className="p-4 rounded-xl border-2 border-gray-200 text-center"
+                          onClick={() => openRazorpayCheckout(item.amount)}
+                          disabled={checkoutLoading !== null}
+                          className="p-4 rounded-xl border-2 border-gray-200 text-center hover:border-teal hover:bg-teal-light transition-all disabled:opacity-60 disabled:cursor-wait"
                         >
                           <div className="text-2xl font-bold text-teal font-[family-name:var(--font-poppins)]">
-                            ₹{item.amount.toLocaleString()}
+                            {checkoutLoading === item.amount ? "…" : `₹${item.amount.toLocaleString()}`}
                           </div>
                           <p className="text-xs text-slate mt-1">{item.label}</p>
-                        </div>
+                        </button>
                       ))}
                     </div>
                     {/* Razorpay Payment Button */}
