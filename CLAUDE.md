@@ -158,8 +158,11 @@ npm run lint      # ESLint
 
 **Environment variables (`.env.local`):**
 ```
-OPENAI_API_KEY=sk-...            # Required for Wingman chatbot
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
+OPENAI_API_KEY=sk-...                  # Required for Wingman chatbot
+NEXT_PUBLIC_GA_ID=G-FQLSMRBG87        # Google Analytics 4 (live)
+NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_ # Razorpay Checkout.js (public key)
+RAZORPAY_KEY_SECRET=...               # Razorpay secret (server only, never public)
+RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 ```
 
 ---
@@ -219,7 +222,48 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # Optional — Google Analytics 4
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-07 (SEO optimisation + privacy policy + cookie consent)
+**Last updated by:** Claude Code — 2026-05-08 (GA4 activation + donation tracking + Razorpay Checkout.js)
+
+**What was just completed (Session 2026-05-08 — analytics + Razorpay, all on `main`):**
+
+- [x] **GA4 activated** — user added `NEXT_PUBLIC_GA_ID=G-FQLSMRBG87` to Vercel. Confirmed live: `window.gtag` fires, `G-FQLSMRBG87` script loads from `googletagmanager.com`, `dataLayer` populated. Consent Mode v2 already in place from last session — analytics only fires for visitors who click "Accept all".
+- [x] **Donation conversion tracking** (commit `8815df9`) — `src/app/donate/page.tsx` now fires three GA4 events:
+  - `donation_tab_view` — fires with `{ tab, tab_label }` whenever any payment method tab is clicked
+  - `donation_method_click` — fires with `{ method: "R3"|"GoFundMe", currency: "USD" }` on all R3 and GoFundMe links (3 locations each)
+  - `donation_started` — fires with `{ method: "razorpay", currency: "INR" }` when Razorpay button area is clicked
+- [x] **Razorpay Checkout.js integration** (commit `87531f4`):
+  - **`src/app/api/create-order/route.ts`** — NEW server route; creates a Razorpay order via `api.razorpay.com/v1/orders` using `RAZORPAY_KEY_SECRET`; validates amount (paise, 100–10,000,000 range); returns `order_id`, `amount`, `currency`, `key_id`
+  - **INR amount cards on `/donate`** — converted from static `<div>` tiles to clickable `<button>` elements; clicking any preset amount (₹500/₹1,000/₹2,500/₹5,000) calls `/api/create-order`, then opens Razorpay Checkout modal with amount prefilled; loading state shows `…` on the clicked card; hover styles added (teal border + teal-light bg)
+  - **`checkout.js` loaded on mount** — `https://checkout.razorpay.com/v1/checkout.js` appended to `<body>` via `useEffect`; `window.Razorpay` available when user clicks
+  - **Success handler** — fires `gtag('event', 'donation', { method, currency, value, transaction_id })` on payment completion (client-side, before modal closes)
+  - **Existing payment button widget retained** — still shown below the amount grid for custom/arbitrary amounts
+  - **`src/app/api/razorpay-webhook/route.ts`** — NEW webhook route; verifies `x-razorpay-signature` via HMAC-SHA256 against `RAZORPAY_WEBHOOK_SECRET`; on `payment.captured` event logs payment and optionally fires GA4 Measurement Protocol if `GA4_MEASUREMENT_PROTOCOL_SECRET` is set
+  - **`src/middleware.ts`** — `/api/razorpay-webhook` exempted from CSRF origin check (Razorpay POSTs from their own servers; secured by HMAC signature instead)
+- [x] **Verified locally** — API call returns valid `order_id`; `window.Razorpay` loads; clicking ₹500 opens Razorpay checkout modal. TypeScript clean (`tsc --noEmit` zero errors).
+
+**Production state — env vars still pending in Vercel UI (Razorpay):**
+- ❌ `NEXT_PUBLIC_RAZORPAY_KEY_ID` = `rzp_live_SmqDYOtmo672CL` — needed for checkout.js to initialise
+- ❌ `RAZORPAY_KEY_SECRET` = (in `.env.local`) — needed for `/api/create-order` to call Razorpay API
+- ❌ `RAZORPAY_WEBHOOK_SECRET` = `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796` — needed for webhook verification
+
+**Razorpay webhook still needs to be registered:**
+- URL: `https://www.raptorrescue.org/api/razorpay-webhook`
+- Secret: `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796`
+- Event: `payment.captured`
+- In Razorpay dashboard: **Settings → Webhooks → Add New Webhook**
+
+**Next step (queued for next session):**
+- User to add the 3 Razorpay env vars to Vercel and register the webhook
+- Then: Sanity env vars (5 vars) to flip live blog from static fallback to Sanity CMS
+- Then: Google Search Console verification
+
+**Key files touched this session:**
+- `src/app/donate/page.tsx` — GA4 tracking events + Checkout.js integration + clickable INR cards
+- `src/app/api/create-order/route.ts` — **NEW**: Razorpay order creation route
+- `src/app/api/razorpay-webhook/route.ts` — **NEW**: webhook verification + GA4 Measurement Protocol
+- `src/middleware.ts` — webhook CSRF exemption added
+
+---
 
 **What was just completed (Session 2026-05-07 — SEO + privacy + domain pointing, all on `main`):**
 

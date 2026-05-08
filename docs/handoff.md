@@ -1,9 +1,9 @@
 # Wildlife Rescue Website — Handoff & Design Brief
 
-**Last updated:** 2026-05-04 (Sanity CMS integration added)  
-**Live site:** https://wildlife-rescue-website.vercel.app  
+**Last updated:** 2026-05-08 (GA4 live + Razorpay Checkout.js + donation tracking)  
+**Live site:** https://www.raptorrescue.org  
 **GitHub:** https://github.com/Maxray77/WR-Website  
-**Target domain:** raptorrescue.org (not yet pointed to Vercel)
+**Secondary domain:** wildliferescue.org.in → 308 redirects to www.raptorrescue.org
 
 ---
 
@@ -61,7 +61,7 @@ All defined in `src/app/globals.css`:
 ```
 /                         Homepage — hero, stats, rescue stories, blog, Instagram, newsletter
 /about                    Our story, timeline, team bios, awards, brochure download
-/donate                   6-tab: UPI QR / Razorpay / Bank / US 501c3 / GoFundMe / Cheque
+/donate                   8-tab: UPI QR / Razorpay (Checkout.js) / Bank / US 501c3 / GoFundMe / Cheque / 80(G) cert / 501c3 cert
 /contact                  Form, map, emergency hotline
 /all-that-breathes        Documentary — trailer, awards, streaming, fan art gallery
 /our-specialty            Surgical specialties (propatagium, manja wound repair)
@@ -89,6 +89,8 @@ All defined in `src/app/globals.css`:
 /api/newsletter           POST — newsletter signup
 /api/volunteer            POST — volunteer applications
 /api/report-tagged-bird   POST — tagged bird reports
+/api/create-order         POST — creates Razorpay order (server-side, returns order_id)
+/api/razorpay-webhook     POST — Razorpay payment.captured webhook (HMAC verified)
 /api/revalidate           POST — Sanity webhook for blog cache invalidation
 /studio                   Embedded Sanity Studio — staff CMS for blog authoring
 ```
@@ -130,7 +132,8 @@ The site uses a clean, nature-conservation aesthetic:
 - **Placeholder images** remain on some pages (some species, some conditions).
 - **Typography scale** is ad-hoc — heading sizes vary across pages and are not systematically defined.
 - **Mobile nav** is functional but basic — a hamburger toggle with a stacked link list.
-- **The donate page** has 6 tabs and is complex — a cleaner visual hierarchy here would help conversion.
+- **The donate page** has 8 tabs. INR preset cards now open Razorpay Checkout with amount prefilled (requires `NEXT_PUBLIC_RAZORPAY_KEY_ID` + `RAZORPAY_KEY_SECRET` env vars in Vercel — not yet set on live). Payment button widget still shown for custom amounts.
+- **GA4 is live** — `G-FQLSMRBG87`, Consent Mode v2, donation funnel events (`donation_tab_view`, `donation_method_click`, `donation_started`, `donation` on completion).
 - **The homepage hero** cycles through 3 full-bleed images — transition could be smoother.
 - **The blog** is now backed by Sanity (headless CMS) via the embedded Studio at `/studio`. Staff can author/publish posts without developer involvement. Falls back to static data if env vars are missing. Setup guide: `docs/sanity-setup.md`.
 - **Wingman** (AI chatbot) floats bottom-right and works well; the design is intentionally minimal.
