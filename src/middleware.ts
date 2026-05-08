@@ -54,6 +54,12 @@ export function middleware(request: NextRequest) {
   // --- Security headers on all responses ---
   const response = NextResponse.next();
 
+  // Sanity Studio (/studio/*) is a third-party SPA that makes many connections
+  // to *.sanity.io (API, CDN, WebSocket). Skip the restrictive CSP for those
+  // routes so the Studio can operate normally.
+  const isStudio = request.nextUrl.pathname.startsWith("/studio");
+  if (isStudio) return response;
+
   // Prevent MIME-type sniffing
   response.headers.set("X-Content-Type-Options", "nosniff");
 
