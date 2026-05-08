@@ -86,6 +86,26 @@ export default function AnnualReportCard({
                 One-Page Infographic
               </p>
             </a>
+          ) : report.infographicPdf ? (
+            <a
+              href={report.infographicPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block"
+            >
+              <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-md border border-gray-200 bg-gradient-to-br from-teal-light to-offwhite flex flex-col items-center justify-center text-center px-6 group-hover:shadow-xl transition-shadow">
+                <ImageIcon size={40} className="text-teal/60 mb-3 group-hover:text-teal transition-colors" />
+                <p className="text-sm font-semibold text-charcoal/80">
+                  {report.year} Infographic
+                </p>
+                <p className="text-xs text-teal mt-2 font-semibold group-hover:underline">
+                  View →
+                </p>
+              </div>
+              <p className="text-xs text-slate mt-2 text-center font-medium">
+                One-Page Infographic
+              </p>
+            </a>
           ) : (
             <div className="block">
               <div className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-md border border-dashed border-gray-300 bg-gradient-to-br from-teal-light/50 to-offwhite flex flex-col items-center justify-center text-center px-6">

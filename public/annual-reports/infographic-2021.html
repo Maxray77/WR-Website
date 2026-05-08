@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<title>Wildlife Rescue — 2021 Annual Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<script src="/annual-reports/image-slot.js"></script>
+<style>
+  :root {
+    --paper: #f3ead8;
+    --paper-deep: #ece1c9;
+    --paper-soft: #f8f1df;
+    --ink: #1d1a14;
+    --ink-soft: #3a342a;
+    --ink-mute: #7a6e58;
+    --rust:   oklch(0.58 0.14 38);
+    --ochre:  oklch(0.74 0.13 75);
+    --sage:   oklch(0.58 0.08 145);
+    --dusk:   oklch(0.40 0.09 245);
+    --plum:   oklch(0.42 0.10 20);
+    --cream:  oklch(0.95 0.04 85);
+    --rust-soft:  oklch(0.86 0.06 40);
+    --ochre-soft: oklch(0.91 0.06 80);
+    --sage-soft:  oklch(0.88 0.04 145);
+    --dusk-soft:  oklch(0.85 0.04 240);
+    --rule: rgba(29,26,20,0.18);
+    --rule-strong: rgba(29,26,20,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-feature-settings: "ss01", "ss02";
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 8%, rgba(217,164,65,0.10), transparent 35%),
+      radial-gradient(circle at 90% 60%, rgba(197,83,42,0.08), transparent 40%);
+  }
+
+  /* ============= TYPE SYSTEM ============= */
+  .display { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; letter-spacing: -0.01em; line-height: 0.92; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-feature-settings: "tnum"; }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); }
+  .italic { font-style: italic; }
+
+  /* ============= LAYOUT ============= */
+  .poster { width: 1200px; margin: 0 auto; padding: 56px 64px 96px; position: relative; }
+
+  /* ============= MASTHEAD ============= */
+  .masthead {
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 18px 0 14px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+  .masthead .left  { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .masthead .center { font-family: "Instrument Serif", serif; font-style: italic; font-size: 22px; letter-spacing: 0.02em; }
+  .masthead .right { text-align: right; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .masthead .dot { display: inline-block; width: 8px; height: 8px; background: var(--rust); border-radius: 50%; vertical-align: middle; margin-right: 8px; }
+
+  /* ============= HERO ============= */
+  .hero {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    align-items: end;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero .kicker { font-family: "Instrument Serif", serif; font-style: italic; font-size: 28px; color: var(--ink-soft); line-height: 1.15; max-width: 38ch; }
+  .hero h1 { margin: 0; font-size: 260px; line-height: 0.82; letter-spacing: -0.04em; color: var(--ink); position: relative; }
+  .hero h1 .comma { color: var(--rust); }
+  .hero h1 small { display: block; font-family: "Space Grotesk", sans-serif; font-size: 18px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-mute); margin-top: 18px; font-weight: 500; }
+  .hero .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+  .hero .meta .cell { border-top: 1px solid var(--ink); padding-top: 10px; }
+  .hero .meta .cell .num { font-family: "Instrument Serif", serif; font-size: 56px; line-height: 1; }
+  .hero .meta .cell .lab { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin-top: 6px; }
+
+  /* ============= SECTION HEAD ============= */
+  .sect-head {
+    margin: 64px 0 24px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 24px; border-bottom: 1px solid var(--ink); padding-bottom: 12px;
+  }
+  .sect-head h2 { margin: 0; font-family: "Instrument Serif", serif; font-size: 48px; line-height: 1; letter-spacing: -0.01em; }
+  .sect-head .sect-num { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.16em; color: var(--ink-mute); }
+
+  /* ============= SPLIT ============= */
+  .split { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+  .split-bar { background: var(--paper-soft); border: 1px solid var(--rule); padding: 28px; position: relative; overflow: hidden; }
+  .split-bar .label-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .split-bar .label-row .l { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
+  .stacked { display: flex; height: 92px; border-radius: 4px; overflow: hidden; border: 1px solid var(--ink); }
+  .stacked .seg { display: flex; align-items: flex-end; padding: 14px 18px; color: var(--paper); font-family: "Instrument Serif", serif; font-size: 32px; position: relative; }
+  .stacked .seg.raptors { background: var(--rust); flex: 2552; }
+  .stacked .seg.other   { background: var(--ochre); flex: 215; color: var(--ink); }
+  .stacked .seg .pct { position: absolute; top: 12px; left: 18px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; }
+  .legend { display: flex; gap: 28px; margin-top: 18px; font-size: 13px; }
+  .legend .item { display: flex; align-items: center; gap: 8px; }
+  .legend .sw { width: 14px; height: 14px; border: 1px solid var(--ink); }
+  .legend .sw.r { background: var(--rust); }
+  .legend .sw.o { background: var(--ochre); }
+  .split-side { background: var(--ink); color: var(--paper); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; }
+  .split-side .quote { font-family: "Instrument Serif", serif; font-style: italic; font-size: 26px; line-height: 1.25; }
+  .split-side .quote::before { content: "\201C"; font-size: 64px; line-height: 0; vertical-align: -18px; color: var(--ochre); margin-right: 4px; }
+  .split-side .by { margin-top: 24px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ochre); }
+
+  /* ============= BLACK KITE FEATURE ============= */
+  .feature { margin-top: 28px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
+  .feat-card { background: linear-gradient(180deg, var(--rust) 0%, var(--plum) 100%); color: var(--paper); padding: 36px; position: relative; overflow: hidden; }
+  .feat-card .eyebrow { color: rgba(243,234,216,0.7); }
+  .feat-card .name { font-family: "Instrument Serif", serif; font-size: 76px; line-height: 0.95; margin: 8px 0 0; }
+  .feat-card .name em { color: var(--ochre); font-style: italic; }
+  .feat-card .stat { margin-top: 28px; display: flex; align-items: baseline; gap: 14px; }
+  .feat-card .stat .big { font-family: "Instrument Serif", serif; font-size: 140px; line-height: 0.9; letter-spacing: -0.03em; }
+  .feat-card .stat .pct-block { border-left: 1px solid rgba(243,234,216,0.4); padding-left: 14px; }
+  .feat-card .stat .pct-block .v { font-family: "Instrument Serif", serif; font-size: 36px; line-height: 1; }
+  .feat-card .stat .pct-block .l { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; margin-top: 4px; }
+  .feat-card p { margin: 24px 0 0; font-size: 14px; line-height: 1.55; max-width: 38ch; color: rgba(243,234,216,0.85); }
+  .feat-photo { position: relative; background: var(--paper-deep); border: 1px solid var(--rule); min-height: 360px; overflow: hidden; }
+  .feat-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ============= TOP SPECIES BARS ============= */
+  .top-species { margin-top: 28px; background: var(--paper-soft); border: 1px solid var(--rule); padding: 32px 36px; }
+  .top-species h3 { margin: 0 0 4px; font-family: "Instrument Serif", serif; font-size: 32px; }
+  .top-species .sub { color: var(--ink-mute); font-size: 13px; margin-bottom: 24px; }
+  .bar-list { display: grid; gap: 14px; }
+  .bar-row { display: grid; grid-template-columns: 28px 1fr 80px; gap: 16px; align-items: center; }
+  .bar-row .rank { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; }
+  .bar-row .name { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+  .bar-row .bar { height: 22px; background: var(--rust); border: 1px solid var(--ink); flex-grow: 1; }
+  .bar-row .bar.kite { background: var(--rust); }
+  .bar-row .bar.bek  { background: var(--rust); opacity: 0.7; }
+  .bar-row .bar.barn { background: var(--dusk); }
+  .bar-row .bar.shik { background: var(--rust); opacity: 0.55; }
+  .bar-row .bar.cse  { background: var(--rust); opacity: 0.45; }
+  .bar-row .bar.spo  { background: var(--dusk); opacity: 0.7; }
+  .bar-row .bar.eg   { background: var(--rust); opacity: 0.4; }
+  .bar-row .bar.ce   { background: var(--ochre); }
+  .bar-row .bar.brp  { background: var(--ochre); opacity: 0.85; }
+  .bar-row .bar.igh  { background: var(--ochre); opacity: 0.7; }
+  .bar-row .num-cell { text-align: right; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 15px; }
+
+  /* ============= 42 SPECIES GRID ============= */
+  .species-grid { margin-top: 28px; background: var(--ink); color: var(--paper); padding: 36px; }
+  .species-grid .head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(243,234,216,0.25); padding-bottom: 14px; margin-bottom: 20px; }
+  .species-grid h3 { margin: 0; font-family: "Instrument Serif", serif; font-size: 36px; }
+  .species-grid .head .meta { display: flex; gap: 28px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243,234,216,0.6); }
+  .grid42 { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 28px; row-gap: 0; }
+  .grid42 .row { display: grid; grid-template-columns: 24px 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px dotted rgba(243,234,216,0.18); font-size: 13px; }
+  .grid42 .row .n  { font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(243,234,216,0.5); }
+  .grid42 .row .sp { color: var(--paper); }
+  .grid42 .row .v  { font-family: "JetBrains Mono", monospace; font-weight: 500; color: var(--ochre); }
+  .grid42 .row.singleton .v { color: rgba(243,234,216,0.55); }
+  .grid42 .row.major .sp { color: var(--ochre); }
+  .grid42 .row.major .v  { font-size: 16px; color: var(--ochre); }
+  .species-foot { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid rgba(243,234,216,0.4); padding-top: 18px; }
+  .species-foot .cell { padding-right: 18px; }
+  .species-foot .cell .v { font-family: "Instrument Serif", serif; font-size: 44px; line-height: 1; }
+  .species-foot .cell .l { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(243,234,216,0.6); margin-top: 6px; }
+
+  /* ============= TAXONOMY BREAKDOWN ============= */
+  .taxonomy { margin-top: 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .tax-card { background: var(--paper-soft); border: 1px solid var(--ink); padding: 20px; position: relative; min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; }
+  .tax-card .group { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); }
+  .tax-card .name  { font-family: "Instrument Serif", serif; font-size: 26px; line-height: 1.05; margin-top: 4px; }
+  .tax-card .num   { font-family: "Instrument Serif", serif; font-size: 64px; line-height: 1; color: var(--rust); }
+  .tax-card .num small { font-size: 14px; font-family: "JetBrains Mono", monospace; color: var(--ink-mute); margin-left: 6px; letter-spacing: 0.08em; }
+  .tax-card .species-count { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); }
+  .tax-card.raptors { background: var(--rust); color: var(--paper); border-color: var(--ink); }
+  .tax-card.raptors .group, .tax-card.raptors .species-count { color: rgba(243,234,216,0.7); }
+  .tax-card.raptors .num { color: var(--paper); }
+  .tax-card.raptors .num small { color: rgba(243,234,216,0.6); }
+
+  /* ============= FACILITIES ============= */
+  .facilities-block { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .new-list { background: var(--sage); color: var(--paper); padding: 36px; position: relative; }
+  .new-list .label { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(243,234,216,0.7); margin-bottom: 16px; }
+  .new-list h3 { margin: 0 0 24px; font-family: "Instrument Serif", serif; font-size: 56px; line-height: 0.95; }
+  .new-list ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgba(243,234,216,0.3); }
+  .new-list li { padding: 16px 0; border-bottom: 1px solid rgba(243,234,216,0.3); display: flex; align-items: center; justify-content: space-between; font-size: 22px; }
+  .new-list li .n { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(243,234,216,0.55); }
+  .new-list li .check { width: 20px; height: 20px; border-radius: 50%; background: var(--ochre); display: inline-flex; align-items: center; justify-content: center; margin-right: 14px; color: var(--ink); font-weight: 700; font-size: 12px; }
+  .new-list li .name { display: flex; align-items: center; font-family: "Instrument Serif", serif; font-style: italic; font-size: 28px; }
+  .enclosure { background: var(--paper-soft); border: 1px solid var(--rule); padding: 32px; display: flex; flex-direction: column; }
+  .enclosure h3 { margin: 0; font-family: "Instrument Serif", serif; font-size: 36px; line-height: 1; }
+  .enclosure .desc { color: var(--ink-mute); font-size: 13px; margin: 8px 0 22px; max-width: 36ch; line-height: 1.5; }
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .spec { border: 1px solid var(--ink); padding: 16px; background: var(--paper); }
+  .spec .num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; color: var(--ink-mute); }
+  .spec .label { font-family: "Instrument Serif", serif; font-size: 22px; line-height: 1.05; margin-top: 6px; }
+  .enc-photo { margin-top: 16px; flex-grow: 1; min-height: 140px; background: var(--paper-deep); border: 1px solid var(--rule); position: relative; overflow: hidden; }
+  .enc-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ============= MILESTONE STRIP ============= */
+  .milestone {
+    margin-top: 28px; background: var(--ink); color: var(--paper); padding: 32px 40px;
+    display: grid; grid-template-columns: 220px 1fr 240px; gap: 32px; align-items: center;
+  }
+  .milestone .pre  { font-family: "Instrument Serif", serif; font-style: italic; font-size: 22px; color: var(--ochre); }
+  .milestone .big  { font-family: "Instrument Serif", serif; font-size: 64px; line-height: 0.95; letter-spacing: -0.02em; text-wrap: balance; }
+  .milestone .post { font-size: 13px; line-height: 1.45; max-width: 28ch; color: rgba(243,234,216,0.75); }
+
+  /* ============= COLOPHON ============= */
+  .colophon {
+    margin-top: 56px; border-top: 2px solid var(--ink); padding-top: 18px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-family: "JetBrains Mono", monospace; color: var(--ink-mute);
+  }
+  .colophon .center { text-align: center; }
+  .colophon .right  { text-align: right; }
+
+  /* ============= UTIL ============= */
+  .underline-rust { box-shadow: inset 0 -8px 0 rgba(197,83,42,0.25); }
+</style>
+</head>
+<body>
+<main class="poster">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="left">Wildlife Rescue — Raptor Rescue &amp; Rehab. Centre</div>
+    <div class="center">An Annual Report in Numbers</div>
+    <div class="right"><span class="dot"></span>Issue 2021 · Vol. XII</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow">A record-breaking year</div>
+      <p class="kicker">In 2021, more wings passed through our clinic than ever before. The numbers below tell the story of one calendar year — bird by bird, species by species.</p>
+      <div class="meta">
+        <div class="cell"><div class="num mono">42</div><div class="lab">Different species</div></div>
+        <div class="cell"><div class="num mono">365</div><div class="lab">Days on call</div></div>
+      </div>
+    </div>
+    <div>
+      <h1 class="display">2<span class="comma">,</span>767<small>Birds &amp; animals rescued — highest ever</small></h1>
+    </div>
+  </section>
+
+  <!-- SECTION: SPLIT -->
+  <div class="sect-head">
+    <h2 class="display">The split — raptors and the rest.</h2>
+    <div class="sect-num">§ 01 / Composition</div>
+  </div>
+
+  <section class="split">
+    <div class="split-bar">
+      <div class="label-row">
+        <span class="l">2,767 admissions, by group</span>
+        <span class="l">2021</span>
+      </div>
+      <div class="stacked">
+        <div class="seg raptors"><span class="pct">92.2%</span>2,552 raptors</div>
+        <div class="seg other"><span class="pct">7.8%</span>215</div>
+      </div>
+      <div class="legend">
+        <div class="item"><span class="sw r"></span>Raptors — kites, owls, eagles, falcons, vultures, harriers</div>
+        <div class="item"><span class="sw o"></span>Other birds &amp; wildlife</div>
+      </div>
+    </div>
+    <aside class="split-side">
+      <div class="quote">
+        Every nine out of ten birds that came through our gates in 2021 was a bird of prey — and most of those were Black Kites pulled from the city sky.
+      </div>
+      <div class="by">— Operations summary, 2021</div>
+    </aside>
+  </section>
+
+  <!-- SECTION: BLACK KITE -->
+  <div class="sect-head">
+    <h2 class="display">The Black Kite, in full.</h2>
+    <div class="sect-num">§ 02 / The headline species</div>
+  </div>
+
+  <section class="feature">
+    <div class="feat-card">
+      <div class="eyebrow">Most-rescued species</div>
+      <h3 class="name">Black <em>Kite</em><br/><span style="font-style:italic;font-size:36px;opacity:0.7;">Milvus migrans</span></h3>
+      <div class="stat">
+        <div class="big mono">2,362</div>
+        <div class="pct-block">
+          <div class="v mono">85.4%</div>
+          <div class="l">of all rescues</div>
+        </div>
+      </div>
+      <p>Urban scavenger. Threaded through Indian skylines, brought down by kite-string, power-lines, heat exhaustion and dehydration. The single largest workload of the year — by a margin no other species comes close to.</p>
+    </div>
+    <div class="feat-photo">
+      <img src="/species/black-kite-01.jpg" alt="Black Kite in care at Wildlife Rescue clinic" />
+    </div>
+  </section>
+
+  <!-- SECTION: TOP SPECIES -->
+  <section class="top-species">
+    <h3>Top ten by volume</h3>
+    <div class="sub">After the Black Kite, a long tail. Numbers shown are share of total admissions.</div>
+    <div class="bar-list">
+      <div class="bar-row"><div class="rank mono">01</div><div class="name"><span style="flex:1">Black Kite</span><div class="bar kite" style="width:100%"></div></div><div class="num-cell">2,362</div></div>
+      <div class="bar-row"><div class="rank mono">02</div><div class="name"><span style="flex:1">Blue Rock Pigeon</span><div class="bar brp" style="width:5.7%"></div></div><div class="num-cell">135</div></div>
+      <div class="bar-row"><div class="rank mono">03</div><div class="name"><span style="flex:1">Black-Eared Kite</span><div class="bar bek" style="width:2.9%"></div></div><div class="num-cell">68</div></div>
+      <div class="bar-row"><div class="rank mono">04</div><div class="name"><span style="flex:1">Barn Owl</span><div class="bar barn" style="width:2.7%"></div></div><div class="num-cell">64</div></div>
+      <div class="bar-row"><div class="rank mono">05</div><div class="name"><span style="flex:1">Shikra</span><div class="bar shik" style="width:0.9%"></div></div><div class="num-cell">21</div></div>
+      <div class="bar-row"><div class="rank mono">06</div><div class="name"><span style="flex:1">Cattle Egret</span><div class="bar ce" style="width:0.64%"></div></div><div class="num-cell">15</div></div>
+      <div class="bar-row"><div class="rank mono">07</div><div class="name"><span style="flex:1">Crested Serpent Eagle</span><div class="bar cse" style="width:0.55%"></div></div><div class="num-cell">13</div></div>
+      <div class="bar-row"><div class="rank mono">08</div><div class="name"><span style="flex:1">Indian Grey Hornbill</span><div class="bar igh" style="width:0.47%"></div></div><div class="num-cell">11</div></div>
+      <div class="bar-row"><div class="rank mono">09</div><div class="name"><span style="flex:1">Spotted Owlet</span><div class="bar spo" style="width:0.42%"></div></div><div class="num-cell">10</div></div>
+      <div class="bar-row"><div class="rank mono">10</div><div class="name"><span style="flex:1">Common Crow</span><div class="bar eg" style="width:0.38%"></div></div><div class="num-cell">9</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION: GROUPED -->
+  <div class="sect-head">
+    <h2 class="display">By family — who came through the door.</h2>
+    <div class="sect-num">§ 03 / Taxonomy</div>
+  </div>
+
+  <section class="taxonomy">
+    <div class="tax-card raptors">
+      <div>
+        <div class="group">Group 01</div>
+        <div class="name">Kites,<br/>Eagles &amp; Hawks</div>
+      </div>
+      <div>
+        <div class="num mono">2,469<small>birds</small></div>
+        <div class="species-count">8 species · incl. Booted Eagle, Marsh Harrier</div>
+      </div>
+    </div>
+    <div class="tax-card">
+      <div>
+        <div class="group">Group 02</div>
+        <div class="name">Owls<br/>(Strigiformes)</div>
+      </div>
+      <div>
+        <div class="num mono">78<small>birds</small></div>
+        <div class="species-count">5 species · Barn, Spotted, Long-Eared, Pallid &amp; Indian Scops</div>
+      </div>
+    </div>
+    <div class="tax-card">
+      <div>
+        <div class="group">Group 03</div>
+        <div class="name">Falcons<br/>&amp; allies</div>
+      </div>
+      <div>
+        <div class="num mono">7<small>birds</small></div>
+        <div class="species-count">3 species · Egyptian Vulture, Peregrine, Eurasian Hobby</div>
+      </div>
+    </div>
+    <div class="tax-card">
+      <div>
+        <div class="group">Group 04</div>
+        <div class="name">Pigeons,<br/>Songbirds &amp; Other</div>
+      </div>
+      <div>
+        <div class="num mono">213<small>animals</small></div>
+        <div class="species-count">26 species · incl. reptiles &amp; one Fruit Bat</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: ALL 42 -->
+  <div class="sect-head">
+    <h2 class="display">All forty-two species.</h2>
+    <div class="sect-num">§ 04 / The full ledger</div>
+  </div>
+
+  <section class="species-grid">
+    <div class="head">
+      <h3>2021 species ledger</h3>
+      <div class="meta">
+        <span>Total · 2,767</span>
+        <span>Species · 42</span>
+        <span>Source · Internal admissions log</span>
+      </div>
+    </div>
+    <div class="grid42" id="grid42">
+      <!-- filled by JS -->
+    </div>
+    <div class="species-foot">
+      <div class="cell"><div class="v mono">19</div><div class="l">Species with 1 individual</div></div>
+      <div class="cell"><div class="v mono">14</div><div class="l">Species with 2–10 individuals</div></div>
+      <div class="cell"><div class="v mono">9</div><div class="l">Species with &gt;10 individuals</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION: FACILITIES -->
+  <div class="sect-head">
+    <h2 class="display">Built this year.</h2>
+    <div class="sect-num">§ 05 / Development</div>
+  </div>
+
+  <section class="facilities-block">
+    <div class="new-list">
+      <div class="label">Five firsts in 2021</div>
+      <h3>The best year,<br/><em style="font-style:italic;">development-wise.</em></h3>
+      <ul>
+        <li><div class="name"><span class="check">✦</span>New Facilities</div><span class="n">01</span></li>
+        <li><div class="name"><span class="check">✦</span>New Enclosures</div><span class="n">02</span></li>
+        <li><div class="name"><span class="check">✦</span>New Clinic</div><span class="n">03</span></li>
+        <li><div class="name"><span class="check">✦</span>New Office</div><span class="n">04</span></li>
+        <li><div class="name"><span class="check">✦</span>New Website</div><span class="n">05</span></li>
+      </ul>
+    </div>
+    <div class="enclosure">
+      <div class="eyebrow">Enclosure spec</div>
+      <h3>Built clean, built to last.</h3>
+      <div class="desc">Each new enclosure is finished to clinical standards — easy to disinfect, hard to chew, kind to talons.</div>
+      <div class="spec-grid">
+        <div class="spec"><div class="num">A.</div><div class="label">Tile floors<br/>and walls</div></div>
+        <div class="spec"><div class="num">B.</div><div class="label">Stainless<br/>steel doors</div></div>
+        <div class="spec"><div class="num">C.</div><div class="label">Stainless<br/>interior grill</div></div>
+        <div class="spec"><div class="num">D.</div><div class="label">New<br/>perches</div></div>
+      </div>
+      <div class="enc-photo">
+        <img src="/facility/enclosure-01.jpg" alt="New Wildlife Rescue enclosure interior — tile floors, stainless steel" />
+      </div>
+    </div>
+  </section>
+
+  <!-- MILESTONE -->
+  <section class="milestone">
+    <div class="pre">All things considered,<br/>2021 was —</div>
+    <div class="big">our biggest year yet.</div>
+    <div class="post">More birds rescued than any year prior. New clinic, new office, new website. A foundation poured for the years ahead.</div>
+  </section>
+
+  <!-- COLOPHON -->
+  <footer class="colophon">
+    <div>Wildlife Rescue — Raptor Rescue &amp; Rehab. Centre · Delhi</div>
+    <div class="center">www.raptorrescue.org</div>
+    <div class="right">Annual Report · 2021</div>
+  </footer>
+
+</main>
+
+<script>
+  const SPECIES = [
+    [1,"Black Kite",2362],[2,"Black-Eared Kite",68],[3,"Barn Owl",64],
+    [4,"Shikra",21],[5,"Crested Serpent Eagle",13],[6,"Cattle Egret",15],
+    [7,"Spotted Owlet",10],[8,"Egyptian Vulture",5],[9,"Blue Rock Pigeon",135],
+    [10,"Indian Grey Hornbill",11],[11,"Common Crow",9],[12,"Common Moorhen",4],
+    [13,"Yellow-Footed Green Pigeon",4],[14,"Eurasian Thick-Knee",3],
+    [15,"White-Breasted Kingfisher",3],[16,"Black-Headed Gull",3],
+    [17,"Red-Wattled Lapwing",3],[18,"Painted Stork",2],[19,"Pond Heron",2],
+    [20,"Asian Koel",2],[21,"Black Ibis",2],[22,"Black-Headed Ibis",2],
+    [23,"Indian Scops Owl",2],[24,"Indian Tree Pie",2],[25,"Indian Cormorant",2],
+    [26,"Brown-Headed Barbet",2],[27,"Peregrine Falcon",1],[28,"Pallid Scops Owl",1],
+    [29,"Booted Eagle",1],[30,"Waterhen",1],[31,"Oriental Honey Buzzard",1],
+    [32,"Fruit Bat",1],[33,"Indian Tent Turtle",1],[34,"Barn Swallow",1],
+    [35,"Indian Nightjar",1],[36,"Spotted Black Terrapin",1],
+    [37,"Three-Striped Roof Terrapin",1],[38,"Eurasian Hobby",1],
+    [39,"Rose-Ringed Parakeet",1],[40,"Eurasian Marsh Harrier",1],
+    [41,"Long-Eared Owl",1],[42,"Common Myna",1]
+  ];
+
+  const grid = document.getElementById("grid42");
+  const rows = 14;
+  const cols = 3;
+  const ordered = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const idx = c * rows + r;
+      if (SPECIES[idx]) ordered.push(SPECIES[idx]);
+    }
+  }
+  ordered.forEach(([n, name, v]) => {
+    const div = document.createElement("div");
+    div.className = "row" + (v === 1 ? " singleton" : "") + (v >= 50 ? " major" : "");
+    div.innerHTML = `<span class="n">${String(n).padStart(2,"0")}</span><span class="sp">${name}</span><span class="v">${v.toLocaleString()}</span>`;
+    grid.appendChild(div);
+  });
+</script>
+</body>
+</html>
