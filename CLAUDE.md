@@ -222,9 +222,34 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-08 (GA4 activation + donation tracking + Razorpay Checkout.js)
+**Last updated by:** Claude Code — 2026-05-09 (Razorpay env vars + webhook activated + Sanity CMS env vars set)
 
-**What was just completed (Session 2026-05-08 — analytics + Razorpay, all on `main`):**
+**What was just completed (Session 2026-05-09 — Razorpay live + Sanity live):**
+
+- [x] **Razorpay Checkout.js fully live in production**:
+  - All 3 env vars set in Vercel: `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`
+  - Initial credentials had wrong Key ID (`rzp_live_SmqDYOtmo672CL` per CLAUDE.md was incorrect — actual was `rzp_live_SnHujqnnz34ul0`); secret was also a Stripe key by mistake (`sk_live_...` prefix). Both rotated again afterwards (current Key ID: `rzp_live_SnIx4rCXJyioqk`).
+  - `/api/create-order` verified live: returns `{ order_id, amount, currency, key_id }` with HTTP 200 from Razorpay
+  - **Webhook registered in Razorpay dashboard** — URL `https://www.raptorrescue.org/api/razorpay-webhook`, event `payment.captured`, HMAC-SHA256 signature verification working
+  - Webhook endpoint verified: returns 400 "Missing signature" / 400 "Invalid signature" correctly (NOT 500 — confirms env var is read)
+  - Debug commit (`c4b704a`) added temporary error detail surfacing to diagnose auth failure; reverted in `8cfb4a7` after fix confirmed
+- [x] **Sanity CMS activated in production**:
+  - All 5 env vars set in Vercel: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`, `SANITY_API_WRITE_TOKEN`, `SANITY_REVALIDATE_SECRET`
+  - **Verified live**: `/blog` now serves 47 images from `cdn.sanity.io` (only 8 `/_next/image` URLs remain, all page chrome/non-blog)
+  - Sanity Studio at `/studio` returns 200 OK
+  - Live blog flipped from static fallback → Sanity CMS. Mohammad Afeef and Samia can now publish posts via Studio.
+
+**Pending follow-ups from this session:**
+- ⚠️ **Rotate `SANITY_API_WRITE_TOKEN`** — old token was exposed in chat. Sanity Manage → API → Tokens → revoke + regenerate (Editor permissions). Update Vercel + local `.env.local`.
+- Set up Sanity → Vercel webhook for instant publishing updates (currently relies on default revalidation)
+- Invite Mohammad Afeef + Samia to Sanity as Editors (Sanity Manage → Members → +Invite)
+- Email `WR_Blog_Publishing_Guide_for_Staff.docx` to staff
+- Optional: `GA4_MEASUREMENT_PROTOCOL_SECRET` env var to enable server-side GA4 conversion events from Razorpay webhook
+- Google Search Console verification (paste token into commented `verification:` block in `src/lib/metadata.ts`)
+
+---
+
+**Previously completed (Session 2026-05-08 — analytics + Razorpay, all on `main`):**
 
 - [x] **GA4 activated** — user added `NEXT_PUBLIC_GA_ID=G-FQLSMRBG87` to Vercel. Confirmed live: `window.gtag` fires, `G-FQLSMRBG87` script loads from `googletagmanager.com`, `dataLayer` populated. Consent Mode v2 already in place from last session — analytics only fires for visitors who click "Accept all".
 - [x] **Donation conversion tracking** (commit `8815df9`) — `src/app/donate/page.tsx` now fires three GA4 events:
