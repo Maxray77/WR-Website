@@ -36,8 +36,9 @@ export async function POST(request: NextRequest) {
   });
 
   if (!rzpRes.ok) {
-    console.error("Razorpay order creation failed:", await rzpRes.text());
-    return Response.json({ error: "Failed to create order" }, { status: 502 });
+    const detail = await rzpRes.text();
+    console.error("Razorpay order creation failed:", detail);
+    return Response.json({ error: "Failed to create order", detail }, { status: 502 });
   }
 
   const order = await rzpRes.json();
