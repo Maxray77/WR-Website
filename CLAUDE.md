@@ -241,21 +241,23 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
   - **`src/middleware.ts`** — `/api/razorpay-webhook` exempted from CSRF origin check (Razorpay POSTs from their own servers; secured by HMAC signature instead)
 - [x] **Verified locally** — API call returns valid `order_id`; `window.Razorpay` loads; clicking ₹500 opens Razorpay checkout modal. TypeScript clean (`tsc --noEmit` zero errors).
 
-**Production state — env vars still pending in Vercel UI (Razorpay):**
-- ❌ `NEXT_PUBLIC_RAZORPAY_KEY_ID` = `rzp_live_SmqDYOtmo672CL` — needed for checkout.js to initialise
-- ❌ `RAZORPAY_KEY_SECRET` = (in `.env.local`) — needed for `/api/create-order` to call Razorpay API
-- ❌ `RAZORPAY_WEBHOOK_SECRET` = `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796` — needed for webhook verification
+**Production state — Razorpay env vars (verified working 2026-05-09):**
+- ✅ `NEXT_PUBLIC_RAZORPAY_KEY_ID` = `rzp_live_SnHujqnnz34ul0` — set and verified
+- ✅ `RAZORPAY_KEY_SECRET` = set and verified (`/api/create-order` returns live `order_id`)
+- ❓ `RAZORPAY_WEBHOOK_SECRET` = `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796` — needs to be set in Vercel
 
-**Razorpay webhook still needs to be registered:**
+**Razorpay webhook still needs to be registered in Razorpay dashboard:**
 - URL: `https://www.raptorrescue.org/api/razorpay-webhook`
 - Secret: `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796`
 - Event: `payment.captured`
 - In Razorpay dashboard: **Settings → Webhooks → Add New Webhook**
 
+**Note:** Regenerate `RAZORPAY_KEY_SECRET` in Razorpay dashboard — the old secret was exposed in chat on 2026-05-09. Update Vercel env var after regenerating.
+
 **Next step (queued for next session):**
-- User to add the 3 Razorpay env vars to Vercel and register the webhook
-- Then: Sanity env vars (5 vars) to flip live blog from static fallback to Sanity CMS
-- Then: Google Search Console verification
+- Register Razorpay webhook in Razorpay dashboard + add `RAZORPAY_WEBHOOK_SECRET` to Vercel
+- Sanity env vars (5 vars) to flip live blog from static fallback to Sanity CMS
+- Google Search Console verification
 
 **Key files touched this session:**
 - `src/app/donate/page.tsx` — GA4 tracking events + Checkout.js integration + clickable INR cards
