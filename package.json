@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "sanity manifest extract --path public/studio/static",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
