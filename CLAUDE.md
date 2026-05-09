@@ -243,9 +243,20 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 - ⚠️ **Rotate `SANITY_API_WRITE_TOKEN`** — old token was exposed in chat. Sanity Manage → API → Tokens → revoke + regenerate (Editor permissions). Update Vercel + local `.env.local`.
 - Set up Sanity → Vercel webhook for instant publishing updates (currently relies on default revalidation)
 - Invite Mohammad Afeef + Samia to Sanity as Editors (Sanity Manage → Members → +Invite)
-- Email `WR_Blog_Publishing_Guide_for_Staff.docx` to staff
+- Email blog publishing guide to staff (latest version: `C:\Users\maxra\Documents\Wildlife Rescue\WR_Blog_Publishing_Guide_for_Staff_2026-05-09.docx`)
 - Optional: `GA4_MEASUREMENT_PROTOCOL_SECRET` env var to enable server-side GA4 conversion events from Razorpay webhook
 - Google Search Console verification (paste token into commented `verification:` block in `src/lib/metadata.ts`)
+- After Vercel deploys commit `4c70a4c`, click "Refresh table" in Sanity Manage → Studio compatibility overview — should show ✓ Compatible (was "Unknown / refused to connect" because catch-all `/studio/[[...tool]]` was intercepting manifest requests)
+
+**Late-session additions (2026-05-09 evening):**
+- [x] **Created updated staff blog publishing guide** — `WR_Blog_Publishing_Guide_for_Staff_2026-05-09.docx` (15 KB) at `C:\Users\maxra\Documents\Wildlife Rescue\`. WR-branded teal/amber, 9 sections covering login, Studio overview, writing posts, photos, troubleshooting, and contacts.
+- [x] **Sanity packages upgraded** (commit `86c3c71`) — `sanity` 5.23 → 5.24, `@sanity/vision` 5.23 → 5.24, `next-sanity` 12.4.0 → 12.4.5
+- [x] **Studio manifest published** (commit `4c70a4c`) — `npx sanity manifest extract --path public/studio/static` generates `create-manifest.json`, `create-schema.json`, `create-tools.json` (~12 KB total). Files committed AND added as `prebuild` npm script so they regenerate on every Vercel build. Fixes the "Unknown / refused to connect" status in Sanity Manage's Studio compatibility overview.
+
+**Tomorrow's pickup:**
+1. Verify Sanity Manage compatibility check (click Refresh after Vercel deploy completes)
+2. Rotate `SANITY_API_WRITE_TOKEN` (security hygiene — was exposed in chat today)
+3. Google Search Console verification
 
 ---
 
