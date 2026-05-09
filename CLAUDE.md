@@ -241,21 +241,17 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
   - **`src/middleware.ts`** — `/api/razorpay-webhook` exempted from CSRF origin check (Razorpay POSTs from their own servers; secured by HMAC signature instead)
 - [x] **Verified locally** — API call returns valid `order_id`; `window.Razorpay` loads; clicking ₹500 opens Razorpay checkout modal. TypeScript clean (`tsc --noEmit` zero errors).
 
-**Production state — Razorpay env vars (verified working 2026-05-09):**
-- ✅ `NEXT_PUBLIC_RAZORPAY_KEY_ID` = `rzp_live_SnHujqnnz34ul0` — set and verified
-- ✅ `RAZORPAY_KEY_SECRET` = set and verified (`/api/create-order` returns live `order_id`)
-- ❓ `RAZORPAY_WEBHOOK_SECRET` = `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796` — needs to be set in Vercel
+**Production state — Razorpay fully live and verified (2026-05-09):**
+- ✅ `NEXT_PUBLIC_RAZORPAY_KEY_ID` = `rzp_live_SnIx4rCXJyioqk` (rotated after exposure earlier in session) — set and verified
+- ✅ `RAZORPAY_KEY_SECRET` = rotated and verified (`/api/create-order` returns live `order_id`)
+- ✅ `RAZORPAY_WEBHOOK_SECRET` = `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796` — set in Vercel
+- ✅ **Razorpay webhook registered** in dashboard at `https://www.raptorrescue.org/api/razorpay-webhook` for `payment.captured` event
+- Verified webhook endpoint responds correctly: 400 "Missing signature" without sig, 400 "Invalid signature" with bogus sig (NOT 500 "Webhook not configured" — confirms env var is read)
 
-**Razorpay webhook still needs to be registered in Razorpay dashboard:**
-- URL: `https://www.raptorrescue.org/api/razorpay-webhook`
-- Secret: `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796`
-- Event: `payment.captured`
-- In Razorpay dashboard: **Settings → Webhooks → Add New Webhook**
-
-**Note:** Regenerate `RAZORPAY_KEY_SECRET` in Razorpay dashboard — the old secret was exposed in chat on 2026-05-09. Update Vercel env var after regenerating.
+**Optional follow-up (not blocking):**
+- `GA4_MEASUREMENT_PROTOCOL_SECRET` — to enable server-side GA4 conversion events from webhook (currently webhook just logs payments). Get from Google Analytics → Admin → Data Streams → Measurement Protocol API secrets.
 
 **Next step (queued for next session):**
-- Register Razorpay webhook in Razorpay dashboard + add `RAZORPAY_WEBHOOK_SECRET` to Vercel
 - Sanity env vars (5 vars) to flip live blog from static fallback to Sanity CMS
 - Google Search Console verification
 
