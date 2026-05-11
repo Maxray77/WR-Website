@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { FileText, TrendingUp, DollarSign, Users, FileSpreadsheet } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnnualReportCard from "@/components/AnnualReportCard";
+import YearlyExpenditureBreakdown from "@/components/YearlyExpenditureBreakdown";
 import { RESCUE_BY_YEAR } from "@/lib/constants";
 import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
@@ -57,16 +58,6 @@ const FINANCIAL_TABLE: FinSection[] = [
   },
 ];
 
-// Cumulative 5-year expenditure (FY 2020-21 through FY 2024-25), sourced from the
-// Income & Expenditure A/c of each audited statement. Percentages are share of the
-// 5-year Total Expenditure (₹1,37,92,581).
-const EXPENDITURE_BREAKDOWN = [
-  { category: "Salaries, Wages & Honorarium", amount: "₹69,94,242", percentage: "50.7%", color: "bg-teal" },
-  { category: "Food for Birds", amount: "₹12,17,347", percentage: "8.8%", color: "bg-amber" },
-  { category: "Rescue & Release Logistics", amount: "₹4,82,106", percentage: "3.5%", color: "bg-success" },
-  { category: "Medicine for Birds", amount: "₹2,75,675", percentage: "2.0%", color: "bg-danger" },
-  { category: "Other Operating Expenses", amount: "₹48,23,212", percentage: "35.0%", color: "bg-slate" },
-];
 
 export default function AnnualReportsPage() {
   const maxRescue = Math.max(...RESCUE_BY_YEAR.map((r) => r.total));
@@ -251,34 +242,15 @@ export default function AnnualReportsPage() {
             </a>
           </div>
 
-          {/* 5-Year Expenditure Breakdown */}
+          {/* Per-Year Expenditure Breakdown — interactive year tabs */}
           <h3 className="text-2xl font-bold text-charcoal text-center mb-2 font-[family-name:var(--font-poppins)]">
             Where Your Money Goes
           </h3>
-          <p className="text-center text-sm text-slate mb-8">
-            Cumulative 5-year expenditure  •  FY 2020-21 through FY 2024-25  •  Total <span className="font-semibold text-teal-dark">₹1,37,92,581</span>
+          <p className="text-center text-sm text-slate mb-6">
+            Select a financial year to see how funds were spent
           </p>
 
-          <div className="max-w-2xl mx-auto space-y-4">
-            {EXPENDITURE_BREAKDOWN.map((item) => (
-              <div key={item.category} className="bg-white rounded-xl p-4 border border-gray-100">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-semibold text-charcoal">
-                    {item.category}
-                  </span>
-                  <span className="text-sm text-slate font-mono">
-                    {item.amount} ({item.percentage})
-                  </span>
-                </div>
-                <div className="w-full bg-offwhite rounded-full h-3">
-                  <div
-                    className={`h-full ${item.color} rounded-full`}
-                    style={{ width: item.percentage }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          <YearlyExpenditureBreakdown />
         </div>
       </section>
 
