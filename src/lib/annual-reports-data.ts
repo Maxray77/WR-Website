@@ -72,7 +72,8 @@ export const ANNUAL_REPORTS: AnnualReport[] = [
     headline: "2021 In Numbers — 2,767 Birds, 42 Species",
     summary:
       "A record-breaking year. 2,767 birds and animals rescued across 42 species — the highest intake in Wildlife Rescue history at that point. Black Kites alone accounted for 2,362 rescues (85.4%). New clinic, new enclosures, new office: the year infrastructure caught up with ambition.",
-    infographicPdf: "/annual-reports/infographic-2021.html",
+    infographicImage: "/annual-reports/infographic-2021.jpg",
+    infographicPdf: "/annual-reports/infographic-2021.jpg",
     coverImage: "/annual-reports/cover-2021.jpg",
     fullReportPdf: "/annual-reports/wr-annual-report-2021.pdf",
     keyStats: [
