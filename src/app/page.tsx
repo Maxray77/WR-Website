@@ -238,6 +238,21 @@ export default async function Home() {
       {/* ─── Documentary Spotlight ─── */}
       <section className="py-16 lg:py-24 bg-charcoal text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Poster — centered above the trailer */}
+          <div className="flex justify-center mb-10 lg:mb-14">
+            <Link href="/all-that-breathes" className="block group">
+              <div className="relative w-full max-w-xs sm:max-w-sm aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 transition-transform group-hover:scale-[1.02]">
+                <Image
+                  src="/atb-poster.jpg"
+                  alt="All That Breathes — HBO Original. Academy Award Nominee, Documentary Feature Film."
+                  fill
+                  sizes="(max-width: 640px) 100vw, 384px"
+                  className="object-cover"
+                />
+              </div>
+            </Link>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden">
               <iframe
