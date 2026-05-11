@@ -251,8 +251,8 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
   - **Build verified clean** via `npx tsc --noEmit`. Preview at desktop width (1400px) shows all 5 FY columns rendering with section bands, surplus highlight, and downloads working.
 
 **Pending pickup for future sessions:**
+- **Per-year "Where Your Money Goes" breakdown — needs detail refinement** (commit `250d2ff`). User flagged that some of the bucket categorisation needs further tweaking. Source data is in `src/components/YearlyExpenditureBreakdown.tsx` (client component, year tabs FY 20-21 → FY 24-25). Currently uses 5 buckets: Salaries/Wages/Honorarium, Food for Birds, Rescue & Release Logistics, Medicine for Birds, Other Operating Expenses. Likely refinements requested: split "Other Operating Expenses" into more meaningful sub-categories (Rent ₹2.40 L recurring, Depreciation, Utilities, etc.), or re-classify which items belong in which bucket. Bucket sums currently reconcile to I&E A/c total for each year to the rupee — preserve that invariant when refining.
 - 2019-20 financial detail — if the user sources those audited statements, add as a 7th column to the FINANCIAL_TABLE in `src/app/annual-reports/page.tsx` and re-generate Excel/PDF.
-- The "Where Your Money Goes (2024-25)" Salaries & Wages line currently shows `₹22,88,060` (53.6%); actual from FY 24-25 statements is `₹22,82,060` (Honorarium ₹9,00,000 + Salaries ₹10,27,332 + Wages ₹3,54,728). Off by ₹6,000. Refresh when polishing.
 - Annual reports for FY 2025-26 will follow the same pattern — drop the audited PDF in `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\` and re-run the same workflow (render at 4× scale → visual OCR → update `FINANCIAL_TABLE` array → re-generate Excel/PDF → commit).
 
 **Tooling reference (for next financial extraction):**

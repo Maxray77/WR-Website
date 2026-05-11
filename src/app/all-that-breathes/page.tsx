@@ -18,8 +18,22 @@ export default function AllThatBreathesPage() {
   return (
     <>
       {/* ─── Hero ─── */}
-      <section className="bg-charcoal py-20 lg:py-28 text-white">
+      <section className="bg-charcoal py-16 lg:py-20 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Poster — centered, prominent */}
+          <div className="flex justify-center mb-12 lg:mb-16">
+            <div className="relative w-full max-w-md lg:max-w-lg aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+              <Image
+                src="/atb-poster.jpg"
+                alt="All That Breathes — HBO Original. Academy Award Nominee, Documentary Feature Film. Official poster."
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 512px"
+                className="object-cover"
+              />
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Video embed */}
             <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden relative group">
