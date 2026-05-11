@@ -222,9 +222,40 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-09 (Razorpay env vars + webhook activated + Sanity CMS env vars set)
+**Last updated by:** Claude Code — 2026-05-11 (2021 infographic added + Financial Transparency drafting started)
 
-**What was just completed (Session 2026-05-09 — Razorpay live + Sanity live):**
+**What was just completed (Session 2026-05-11 — 2021 infographic + financial table draft):**
+
+- [x] **2021 Annual Report infographic captured and live** (commit `b59ad2d`, pushed to `main`).
+  - Captured `https://www.raptorrescue.org/annual-reports/infographic-2021.html` via headless Puppeteer (1200×4510 portrait) using temp install at `%TEMP%\puppeteer-temp\`.
+  - Compressed to JPEG at 1200px wide → 513 KB, saved to `public/annual-reports/infographic-2021.jpg`.
+  - Wired into `src/lib/annual-reports-data.ts` 2021 entry: added `infographicImage` and pointed `infographicPdf` at the JPG (no separate PDF for 2021). Replaces the "Coming soon" placeholder on `/annual-reports`.
+- [x] **5-Year Financial Transparency drafting — IN PROGRESS** (no commits yet).
+  - User shared 5 scanned PDF financial statements at `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\5 Year FD\`:
+    - `Financial Statments Consolidated 2020-21.pdf` (4 pages)
+    - `WR Consolidated 21-22.pdf` (4 pages)
+    - `WR Consolidated 2022-23.pdf` (4 pages — different page order: BS, R&P, I&E, FA)
+    - `Consolidated 2023-24.pdf` (4 pages)
+    - `FY 2024-25 Consolidated.pdf` (4 pages)
+  - All 5 are scanned/image-based (zero extractable text). Used `pypdfium2` (Python) at 4× scale → PNG renders saved to `%TEMP%\wr-fd-pages-hi\` for visual OCR.
+  - Document structure (consistent across years): p1 Balance Sheet, p2 Income & Expenditure A/c, p3 Receipts & Payments A/c, p4 Fixed Assets Schedule.
+  - Drafted a 5-year summary table covering: Total Income (donations cash / kind / other / interest), Total Expenditure (Direct + Indirect + Fixed Asset purchase on I&E for FY20-21 & FY21-22 only), Surplus/Deficit, Closing Fixed Assets WDV, Closing Cash & Bank, Total Assets, Capital Fund, Unsecured Loans.
+  - Several figures flagged ⚠️ as OCR-uncertain — awaiting user verification before locking in the Excel:
+    - FY 21-22 Donations (could be 22,64,672 vs 24,64,672), FY 21-22 Interest, FY 21-22 Direct/Indirect split
+    - FY 24-25 Surplus has a 20-paise discrepancy between Balance Sheet (4,22,304.51) and I&E (4,22,304.31)
+  - **Important categorization caveat noted for user:** Direct/Indirect classification shifts year-on-year (Salaries appears under Direct in FY23-24 but split differently in FY24-25), so the public table should probably show a single **Total Expenditure** rather than split — the split doesn't tell a meaningful programme-vs-admin story across years.
+  - **Next step:** user to verify the flagged figures, then build the Excel file (target: `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\5 Year FD\WR_5Year_Financial_Summary.xlsx`), then convert to PDF and wire onto `/annual-reports` as a Financial Transparency section.
+
+**Pending pickup for next session (Financial Transparency):**
+1. User verifies ⚠️ flagged numbers against the original PDFs.
+2. Build Excel summary with `openpyxl` (Python). Suggested format: one sheet with the 5-year columnar summary, brand-styled (teal headers, amber accent for totals).
+3. Convert to PDF (e.g. via LibreOffice headless, or `reportlab` direct).
+4. Add a new "Financial Transparency" section to `src/app/annual-reports/page.tsx` — likely an HTML table version (for SEO + accessibility) plus a "Download Excel / PDF" link. Place above the existing per-year cards or as a new section anchor.
+5. Drop the Excel + PDF files in `public/annual-reports/`.
+
+---
+
+**Previously completed (Session 2026-05-09 — Razorpay live + Sanity live):**
 
 - [x] **Razorpay Checkout.js fully live in production**:
   - All 3 env vars set in Vercel: `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`
