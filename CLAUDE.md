@@ -222,36 +222,44 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-11 (2021 infographic added + Financial Transparency drafting started)
+**Last updated by:** Claude Code — 2026-05-11 (2021 infographic + 5-Year Financial Transparency table live on `main`)
 
-**What was just completed (Session 2026-05-11 — 2021 infographic + financial table draft):**
+**What was just completed (Session 2026-05-11 — three commits, all live on `main`):**
 
-- [x] **2021 Annual Report infographic captured and live** (commit `b59ad2d`, pushed to `main`).
+- [x] **2021 Annual Report infographic captured and live** (commit `b59ad2d`).
   - Captured `https://www.raptorrescue.org/annual-reports/infographic-2021.html` via headless Puppeteer (1200×4510 portrait) using temp install at `%TEMP%\puppeteer-temp\`.
   - Compressed to JPEG at 1200px wide → 513 KB, saved to `public/annual-reports/infographic-2021.jpg`.
   - Wired into `src/lib/annual-reports-data.ts` 2021 entry: added `infographicImage` and pointed `infographicPdf` at the JPG (no separate PDF for 2021). Replaces the "Coming soon" placeholder on `/annual-reports`.
-- [x] **5-Year Financial Transparency drafting — IN PROGRESS** (no commits yet).
-  - User shared 5 scanned PDF financial statements at `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\5 Year FD\`:
-    - `Financial Statments Consolidated 2020-21.pdf` (4 pages)
-    - `WR Consolidated 21-22.pdf` (4 pages)
-    - `WR Consolidated 2022-23.pdf` (4 pages — different page order: BS, R&P, I&E, FA)
-    - `Consolidated 2023-24.pdf` (4 pages)
-    - `FY 2024-25 Consolidated.pdf` (4 pages)
-  - All 5 are scanned/image-based (zero extractable text). Used `pypdfium2` (Python) at 4× scale → PNG renders saved to `%TEMP%\wr-fd-pages-hi\` for visual OCR.
-  - Document structure (consistent across years): p1 Balance Sheet, p2 Income & Expenditure A/c, p3 Receipts & Payments A/c, p4 Fixed Assets Schedule.
-  - Drafted a 5-year summary table covering: Total Income (donations cash / kind / other / interest), Total Expenditure (Direct + Indirect + Fixed Asset purchase on I&E for FY20-21 & FY21-22 only), Surplus/Deficit, Closing Fixed Assets WDV, Closing Cash & Bank, Total Assets, Capital Fund, Unsecured Loans.
-  - Several figures flagged ⚠️ as OCR-uncertain — awaiting user verification before locking in the Excel:
-    - FY 21-22 Donations (could be 22,64,672 vs 24,64,672), FY 21-22 Interest, FY 21-22 Direct/Indirect split
-    - FY 24-25 Surplus has a 20-paise discrepancy between Balance Sheet (4,22,304.51) and I&E (4,22,304.31)
-  - **Important categorization caveat noted for user:** Direct/Indirect classification shifts year-on-year (Salaries appears under Direct in FY23-24 but split differently in FY24-25), so the public table should probably show a single **Total Expenditure** rather than split — the split doesn't tell a meaningful programme-vs-admin story across years.
-  - **Next step:** user to verify the flagged figures, then build the Excel file (target: `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\5 Year FD\WR_5Year_Financial_Summary.xlsx`), then convert to PDF and wire onto `/annual-reports` as a Financial Transparency section.
+- [x] **5-Year Financial Transparency table — fully shipped end-to-end** (commits `dfd5e7a`, `1d3cf9d`).
+  - **Source documents:** 5 scanned PDFs at `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\5 Year FD\` (FY 2020-21 through FY 2024-25, all audited by A. Rehman & Associates CA). All 5 PDFs were scanned/image-based (zero extractable text); used `pypdfium2` at 4–6× scale → PNG renders for visual OCR.
+  - **Page mapping per PDF:** p1 Balance Sheet, p2 Income & Expenditure A/c, p3 Receipts & Payments A/c, p4 Fixed Assets Schedule — **except FY 22-23 which has p2 and p3 swapped**.
+  - **Critical OCR correction caught and fixed mid-session:** FY 21-22 Donations Received was `22,64,672.60` (not `24,64,672` as first read); Direct Expenses `4,66,185.47` (not `6,06,185.47`); Total Income `22,72,104.60` (not `24,72,104`). Always re-render flagged digits at 6× zoom + crop into halves to disambiguate.
+  - **Verified arithmetic for every year:** Direct + Indirect (+ FCRA capex-on-I&E for FY20-21/21-22) + Surplus = Total per I&E A/c, matches to the rupee.
+  - **Known source-document inconsistency (not OCR):** FY 24-25 surplus is `4,22,304.31` on the I&E but `4,22,304.51` on the Balance Sheet — 20-paise rounding mismatch in the auditor's PDF itself. Footnoted on the website table; the I&E figure is the one used.
+  - **Excel built with `openpyxl`** at `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\5 Year FD\WR_5Year_Financial_Summary.xlsx` (7.5 KB). Single sheet, WR brand colors (teal header, teal-light section bands, off-white bold totals, amber surplus row), Indian lakh-style number format `##,##,##,##0.00`, frozen header + first column, 7 notes at bottom.
+  - **PDF built with `reportlab`** (since no LibreOffice on this machine) at the same path, `.pdf` extension (5.8 KB, landscape A4). Matches Excel content + styling. **Lesson:** Don't waste time hunting for LibreOffice/soffice on Windows — go straight to `reportlab` for direct generation; the styling primitives (`TableStyle`, `Paragraph`, `colors.HexColor`) map cleanly to the brand tokens.
+  - **Both files committed to `public/annual-reports/`** as `wr-financials-5yr.{xlsx,pdf}`. Verified via fetch HEAD: 200 OK with correct `application/pdf` and `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` Content-Types; PDF bytes intact (`%PDF-1.4`…`%%EOF`).
+  - **`/annual-reports` page Financial Transparency section completely rewritten** (`src/app/annual-reports/page.tsx`):
+    - **Replaced** the previous 2-column (Year / Income / Expenditure) static table with a **4-section, 6-column rich table** (line item + FY 20-21 through FY 24-25): INCOME / EXPENDITURE per I&E / CAPITAL INVESTMENT per FA Schedule / BALANCE SHEET closing.
+    - **Dropped** the prior FY 2019-20 row — we don't have the audited detail breakdown for that year. Can be added back if those statements are sourced.
+    - **Sticky first column** (`sticky left-0 z-10`) so the line-item label stays visible during horizontal scroll on mobile/tablet.
+    - Three categorization styles: section banners (teal-light), bold totals (off-white + teal-dark text), amber surplus row.
+    - Two footnotes wired below the table (FCRA capex reclassification from FY 22-23 onwards; FY 24-25 ambulance + clinic equipment investment breakdown).
+    - Two download buttons: PDF (teal solid) + Excel (white outline) using `FileText` and `FileSpreadsheet` from `lucide-react`.
+    - **Kept** the existing "Where Your Money Goes (2024-25)" expenditure breakdown that sits below the new table — visual complement, untouched.
+  - **React Fragment key gotcha caught:** Initial implementation used `<>...</>` inside `.map()`, which triggered "Each child in a list should have a unique key prop" warnings. Fixed by importing `React` and using `<React.Fragment key={...}>`. Stale errors lingered in the browser console after the fix (turbopack didn't clear them) but the actual page rendered correctly — verified via DOM probe rather than trusting the error log.
+  - **Build verified clean** via `npx tsc --noEmit`. Preview at desktop width (1400px) shows all 5 FY columns rendering with section bands, surplus highlight, and downloads working.
 
-**Pending pickup for next session (Financial Transparency):**
-1. User verifies ⚠️ flagged numbers against the original PDFs.
-2. Build Excel summary with `openpyxl` (Python). Suggested format: one sheet with the 5-year columnar summary, brand-styled (teal headers, amber accent for totals).
-3. Convert to PDF (e.g. via LibreOffice headless, or `reportlab` direct).
-4. Add a new "Financial Transparency" section to `src/app/annual-reports/page.tsx` — likely an HTML table version (for SEO + accessibility) plus a "Download Excel / PDF" link. Place above the existing per-year cards or as a new section anchor.
-5. Drop the Excel + PDF files in `public/annual-reports/`.
+**Pending pickup for future sessions:**
+- 2019-20 financial detail — if the user sources those audited statements, add as a 7th column to the FINANCIAL_TABLE in `src/app/annual-reports/page.tsx` and re-generate Excel/PDF.
+- The "Where Your Money Goes (2024-25)" Salaries & Wages line currently shows `₹22,88,060` (53.6%); actual from FY 24-25 statements is `₹22,82,060` (Honorarium ₹9,00,000 + Salaries ₹10,27,332 + Wages ₹3,54,728). Off by ₹6,000. Refresh when polishing.
+- Annual reports for FY 2025-26 will follow the same pattern — drop the audited PDF in `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\` and re-run the same workflow (render at 4× scale → visual OCR → update `FINANCIAL_TABLE` array → re-generate Excel/PDF → commit).
+
+**Tooling reference (for next financial extraction):**
+- Render PDFs to PNG: `python` + `pypdfium2`, `page.render(scale=4.0).to_pil().save(...)` — works without poppler/tesseract. Increase to scale 6.0 + crop halves when a specific digit is ambiguous.
+- Excel build script saved at `C:\Users\maxra\AppData\Local\Temp\build_financial_xlsx.py` (reusable; just update the `add_row()` calls).
+- PDF build script saved at `C:\Users\maxra\AppData\Local\Temp\build_financial_pdf.py` (same).
+- Draft notes saved at `docs/financial-transparency-draft.md` (markdown table + ⚠️ flag conventions + helper Python snippets).
 
 ---
 
