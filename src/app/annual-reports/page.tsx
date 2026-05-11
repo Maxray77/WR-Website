@@ -57,12 +57,15 @@ const FINANCIAL_TABLE: FinSection[] = [
   },
 ];
 
+// Cumulative 5-year expenditure (FY 2020-21 through FY 2024-25), sourced from the
+// Income & Expenditure A/c of each audited statement. Percentages are share of the
+// 5-year Total Expenditure (₹1,37,92,581).
 const EXPENDITURE_BREAKDOWN = [
-  { category: "Salaries & Wages", amount: "₹22,88,060", percentage: "53.6%", color: "bg-teal" },
-  { category: "Food for Birds", amount: "₹2,00,903", percentage: "4.7%", color: "bg-amber" },
-  { category: "Rescue & Release", amount: "₹1,28,208", percentage: "3.0%", color: "bg-success" },
-  { category: "Medicine for Birds", amount: "₹63,044", percentage: "1.5%", color: "bg-danger" },
-  { category: "Other Expenses", amount: "₹15,86,431", percentage: "37.2%", color: "bg-slate" },
+  { category: "Salaries, Wages & Honorarium", amount: "₹69,94,242", percentage: "50.7%", color: "bg-teal" },
+  { category: "Food for Birds", amount: "₹12,17,347", percentage: "8.8%", color: "bg-amber" },
+  { category: "Rescue & Release Logistics", amount: "₹4,82,106", percentage: "3.5%", color: "bg-success" },
+  { category: "Medicine for Birds", amount: "₹2,75,675", percentage: "2.0%", color: "bg-danger" },
+  { category: "Other Operating Expenses", amount: "₹48,23,212", percentage: "35.0%", color: "bg-slate" },
 ];
 
 export default function AnnualReportsPage() {
@@ -248,10 +251,13 @@ export default function AnnualReportsPage() {
             </a>
           </div>
 
-          {/* Expenditure Breakdown */}
-          <h3 className="text-2xl font-bold text-charcoal text-center mb-8 font-[family-name:var(--font-poppins)]">
-            Where Your Money Goes (2024-25)
+          {/* 5-Year Expenditure Breakdown */}
+          <h3 className="text-2xl font-bold text-charcoal text-center mb-2 font-[family-name:var(--font-poppins)]">
+            Where Your Money Goes
           </h3>
+          <p className="text-center text-sm text-slate mb-8">
+            Cumulative 5-year expenditure  •  FY 2020-21 through FY 2024-25  •  Total <span className="font-semibold text-teal-dark">₹1,37,92,581</span>
+          </p>
 
           <div className="max-w-2xl mx-auto space-y-4">
             {EXPENDITURE_BREAKDOWN.map((item) => (
