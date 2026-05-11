@@ -222,7 +222,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-11 (2021 infographic + 5-Year Financial Transparency table live on `main`)
+**Last updated by:** Claude Code — 2026-05-11 (full session: 2021 infographic + 5-Year Financial Transparency + per-year breakdown + ATB poster on /all-that-breathes and homepage)
 
 **What was just completed (Session 2026-05-11 — three commits, all live on `main`):**
 
@@ -249,6 +249,12 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
     - **Kept** the existing "Where Your Money Goes (2024-25)" expenditure breakdown that sits below the new table — visual complement, untouched.
   - **React Fragment key gotcha caught:** Initial implementation used `<>...</>` inside `.map()`, which triggered "Each child in a list should have a unique key prop" warnings. Fixed by importing `React` and using `<React.Fragment key={...}>`. Stale errors lingered in the browser console after the fix (turbopack didn't clear them) but the actual page rendered correctly — verified via DOM probe rather than trusting the error log.
   - **Build verified clean** via `npx tsc --noEmit`. Preview at desktop width (1400px) shows all 5 FY columns rendering with section bands, surplus highlight, and downloads working.
+
+**Also completed in this session (later additions):**
+
+- [x] **Per-year "Where Your Money Goes" expenditure breakdown** with interactive year tabs (commits `1757760` then `250d2ff`). First implemented as cumulative 5-year totals (`1757760`), then the user asked to switch to per-year — extracted into `src/components/YearlyExpenditureBreakdown.tsx` (client component, "use client" + `useState`). Year tabs (FY 24-25 default → FY 20-21) at the top; each tab swaps the 5-bucket progress bars to that year's figures.
+  - **Hydration gotcha caught:** The interactive tabs initially didn't switch (clicking did nothing). DOM probe showed the button had no React fiber attached — i.e. the section hadn't hydrated. Root cause was stale turbopack cache from an earlier `<>` fragment that I'd already replaced with `<React.Fragment>`. Fix: stop the dev server, `rm -rf .next`, restart. After cache clear, fiber attached and tabs switched correctly. **Lesson:** When a client component renders SSR HTML but click handlers don't fire, first check `Object.getOwnPropertyNames(el).filter(k => k.startsWith('__react'))` — if it's `[]`, hydration failed; nuke `.next` and restart.
+- [x] **HBO Academy Award Nominee poster** added to both `/all-that-breathes` and homepage Documentary Spotlight (commits `c4643b1`, `d254331`). Source: `C:\Users\maxra\Pictures\ATB Pics\Poster ATB.png` (1.4 MB PNG) → compressed via sharp-cli to `public/atb-poster.jpg` (122 KB, 1000×1000). On `/all-that-breathes`: centered at top of charcoal hero, max 512px wide, rounded with shadow + white ring (`ring-1 ring-white/10`). On homepage: same poster, max 384px wide, centered above the trailer iframe, wrapped in `<Link href="/all-that-breathes">` with `group-hover:scale-[1.02]` for subtle interactivity. **Note:** User initially asked for the "Every Minute of the film is gold dust" Guardian-quote poster, but couldn't find one online with that exact text — they swapped to this Academy Award Nominee poster.
 
 **Pending pickup for future sessions:**
 - **Per-year "Where Your Money Goes" breakdown — needs detail refinement** (commit `250d2ff`). User flagged that some of the bucket categorisation needs further tweaking. Source data is in `src/components/YearlyExpenditureBreakdown.tsx` (client component, year tabs FY 20-21 → FY 24-25). Currently uses 5 buckets: Salaries/Wages/Honorarium, Food for Birds, Rescue & Release Logistics, Medicine for Birds, Other Operating Expenses. Likely refinements requested: split "Other Operating Expenses" into more meaningful sub-categories (Rent ₹2.40 L recurring, Depreciation, Utilities, etc.), or re-classify which items belong in which bucket. Bucket sums currently reconcile to I&E A/c total for each year to the rupee — preserve that invariant when refining.
