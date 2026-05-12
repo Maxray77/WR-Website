@@ -85,7 +85,7 @@ export default function AnnualReportsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {[
               { icon: <TrendingUp size={24} />, stat: "12x", label: "Growth in 15 years", sub: "362 → 4,184 birds/year" },
-              { icon: <Users size={24} />, stat: `${totalRescued.toLocaleString()}+`, label: "Total birds rescued", sub: `Case #317 to #${(316 + totalRescued).toLocaleString()}` },
+              { icon: <Users size={24} />, stat: "39,000+", label: "Total birds rescued", sub: "" },
               { icon: <TrendingUp size={24} />, stat: "17.7%", label: "Compound annual growth", sub: "Consistent acceleration" },
               { icon: <DollarSign size={24} />, stat: "₹42.7L", label: "Annual budget (2024-25)", sub: "5x growth in 5 years" },
             ].map((m) => (
@@ -97,7 +97,7 @@ export default function AnnualReportsPage() {
                   {m.stat}
                 </div>
                 <p className="text-charcoal font-semibold text-sm mt-1">{m.label}</p>
-                <p className="text-slate text-xs mt-0.5">{m.sub}</p>
+                {m.sub && <p className="text-slate text-xs mt-0.5">{m.sub}</p>}
               </div>
             ))}
           </div>
