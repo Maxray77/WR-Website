@@ -104,8 +104,8 @@ export default function AnnualReportsPage() {
 
           {/* ─── Intake Chart ─── */}
           <SectionHeading
-            title="Annual Intake: 2010–2025"
-            subtitle="Birds rescued per year — from founding to record-breaking 2025."
+            title="Annual Intake: Since 2010"
+            subtitle="Birds rescued per year — from founding to today."
           />
 
           <div className="bg-white rounded-2xl border border-gray-100 p-6 lg:p-10">
