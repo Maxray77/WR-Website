@@ -222,9 +222,43 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-11 (full session: 2021 infographic + 5-Year Financial Transparency + per-year breakdown + ATB poster on /all-that-breathes and homepage)
+**Last updated by:** Claude Code — 2026-05-12 (intake data correction 2010-2020 from audited Excel records + ATB poster layout bug fix + annual-reports stat tweaks)
 
-**What was just completed (Session 2026-05-11 — three commits, all live on `main`):**
+**What was just completed (Session 2026-05-12 — five commits, all live on `main`):**
+
+- [x] **Intake data 2010-2020 corrected against audited case records** (commit `d1f8ba6`). Source: `C:\Users\maxra\Documents\Wildlife Rescue\Data\2010-2020\2010 to 2020.xlsx` — 11 sheets, one per year, each containing every individual case record with `C.no.`, `DATE`, `ANIMAL`, `Caller`, `PLACE`. Total row count per sheet = true annual intake.
+  - **Method:** `openpyxl` + count rows where `C.no.` (column A) is numeric. Excel case numbers are sequential (2010 starts at #317, 2020 ends at #20,245). Row count and `(last-first+1)` matched perfectly for 7 of 11 years; off by 1-6 for 2011, 2015, 2019 (renumbered cases / data entry artifacts) — trusted the row count as the source of truth since it counts actual case entries.
+  - **Corrections applied to `src/lib/constants.ts` `RESCUE_BY_YEAR`:** 2011: 1,017→1,011 | 2012: 1,303→**1,346** | 2013: 1,306→**1,324** | 2014: 1,926→**1,974** | 2015: 2,460→**2,306** | 2016: 2,307→**2,365** | 2019: 2,564→2,565 | 2020: 2,532→**2,489**. Years 2010, 2017, 2018 were already correct.
+  - **Knock-on text corrections:** TIMELINE 2011 entry "181% to 1,017 birds" → "179% to 1,011 birds" (recalc: (1011-362)/362 = 179.3%). TIMELINE 2014 "1,926 birds rescued" → "1,974 birds rescued". TIMELINE 2020 "drops only 1%" → "drops only 3%" (recalc: (2489-2565)/2565 = -2.96%, so previous "−1%" was wrong even against the *old* numbers — likely a typo from when the page was first written). Annual-reports page Phase 2 range "1,017–1,926/year" → "1,011–1,974/year", Phase 3 "~2,100–2,460/year" → "~2,083–2,365/year", Phase 4 "2,532–2,815/year" → "2,489–2,815/year" + "−1% in 2020" → "−3% in 2020".
+- [x] **Intake chart heading retitled** (commit `77255b2`) — `/annual-reports` H2 "Annual Intake: 2010–2025" → "Annual Intake: Since 2010"; subtitle "Birds rescued per year — from founding to record-breaking 2025." → "from founding to today." Reason: the chart already includes a partial-year 2026 bar, so the range label was misleading.
+- [x] **ATB poster on homepage layout bug — DEBUGGED + FIXED** (commit `d709f28`). User reported the poster was invisible despite hard refresh, incognito, mobile data, and Vercel redeploy.
+  - **Root cause** (took DOM probing to find): the poster anchor `<Link className="block group">` sat inside a `flex justify-center` container. As a flex child with no explicit width and no flex-basis, the anchor collapsed to **0 width**, which collapsed the inner `w-full aspect-square` div to **0×0**. The image WAS loading (`complete: true`, `naturalWidth: 416`) — just rendering invisibly in a zero-size box. This is why no amount of cache-busting helped: the HTML was correct, the bytes were valid, the layout was broken from day one.
+  - **Diagnostic process:** curl confirmed `<img src="/_next/image?url=%2Fatb-poster.jpg...">` present in HTML and `/atb-poster.jpg` returned 200 with valid JPEG bytes. Empty commit `c684ac7` triggered a fresh Vercel deploy as a sanity check (didn't help — predictable in hindsight). Then started local dev server and used `preview_eval` to read `getBoundingClientRect()` on the image and walk up the parent chain — that's when the 0×0 collapse showed up at the `<a class="block group">` level.
+  - **Fix:** moved `w-full max-w-xs sm:max-w-sm` from the inner div onto the `<Link>` itself. Anchor now gets a real flex-item size (320px on mobile, 384px on sm+), and the inner div's `w-full aspect-square` correctly fills it. Also added `priority` to the `<Image>` to disable lazy-loading (this is a key brand asset, worth eagerly loading; rules out lazy-load flakiness on slow networks).
+  - **Verified locally:** anchor rect = 320×320, image rect = 320×320, screenshot confirms poster renders inside the dark Documentary Spotlight section above the trailer. **Lesson:** When user reports "not showing" but curl confirms the element is in the HTML, don't keep redeploying — open a local dev server and probe the live DOM with `getBoundingClientRect()` immediately. A 0×0 element is invisible but indistinguishable from "missing" without a DOM probe.
+- [x] **"Total birds rescued" stat tweaked** (commit `641691a`) — `/annual-reports` 4-stat grid second card: hardcoded to **"39,000+"** (was dynamic from `RESCUE_BY_YEAR` sum, displaying 38,456+); case-number subtitle "Case #317 to #38,772" removed. The `<p>` rendering `m.sub` is now conditional (`{m.sub && <p>...</p>}`) so the empty sub doesn't leave dead vertical space; the other three cards keep their subtitles. **Temporary** — when user has audited 2026 numbers through 30 April 2026, swap line 88 back to the dynamic form `\`${totalRescued.toLocaleString()}+\`` and `\`Case #317 to #${(316 + totalRescued).toLocaleString()}\``, and update the 2026 entry in `constants.ts:196` to the real total.
+
+**Tooling notes from this session:**
+- Excel intake extraction: `python -c "import openpyxl; wb = openpyxl.load_workbook(...); for sh in wb.sheetnames: ws=wb[sh]; count = sum(1 for row in ws.iter_rows(values_only=True) if isinstance(row[0], (int, float)))"`. Avoid printing every row — Windows cp1252 console will choke on em-dashes (−). When you must print, redirect to a file with UTF-8 encoding.
+- DOM-probing the production site through a local Next.js dev server proxy is the fastest way to investigate "it's in the HTML but I can't see it" complaints. `getBoundingClientRect()` returning 0×0 is the smoking gun for collapsed layouts.
+
+**Production state — what's live on `main` after this session:**
+| Page | What changed |
+|---|---|
+| `/` (homepage) | ATB Academy Award Nominee poster now actually renders above trailer (320×320 mobile, 384×384 sm+) |
+| `/annual-reports` | Intake chart: 7 corrected bars + heading "Since 2010" + corrected % growth labels; "Total birds rescued" stat shows "39,000+" without case-number subtitle |
+| `/about` | TIMELINE entries 2011 + 2014 + 2020 show corrected numbers |
+| Anywhere using `RESCUE_BY_YEAR` | Sum is now 38,456 → will become 39,000+ once user adds full Apr-2026 data |
+
+**Pending pickup for future sessions:**
+- Update `RESCUE_BY_YEAR` 2026 entry once full Jan-Apr 2026 audited data is ready (currently shows 951 as "partial Jan-Mar"). When updating, revert annual-reports stat card line 88 to dynamic form and re-render the `m.sub` conditional inline so the case-number subtitle returns.
+- Per-year "Where Your Money Goes" bucket refinement (carry-over from 2026-05-11) — user flagged some categorisation needs tweaking in `src/components/YearlyExpenditureBreakdown.tsx`.
+- 2019-20 financial detail — if user sources audited statements, add as 7th column to `FINANCIAL_TABLE` in `src/app/annual-reports/page.tsx` and re-generate Excel/PDF.
+- 2021 infographic JPG slot — currently "Coming soon" placeholder; full 2021 PDF is live.
+
+---
+
+**Previously completed (Session 2026-05-11 — three commits, all live on `main`):**
 
 - [x] **2021 Annual Report infographic captured and live** (commit `b59ad2d`).
   - Captured `https://www.raptorrescue.org/annual-reports/infographic-2021.html` via headless Puppeteer (1200×4510 portrait) using temp install at `%TEMP%\puppeteer-temp\`.
