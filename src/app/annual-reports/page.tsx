@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const FINANCIAL_YEARS = ["FY 2020-21", "FY 2021-22", "FY 2022-23", "FY 2023-24", "FY 2024-25"];
 
-type FinRow = { label: string; values: (string | null)[]; bold?: boolean; surplus?: boolean };
+type FinRow = { label: string; values: (string | null)[]; usd?: (string | null)[]; bold?: boolean; surplus?: boolean };
 type FinSection = { heading: string; rows: FinRow[] };
 
 const FINANCIAL_TABLE: FinSection[] = [
@@ -26,7 +26,7 @@ const FINANCIAL_TABLE: FinSection[] = [
       { label: "Donations Received in Kind", values: [null,         null,         "₹2,07,068",  "₹60,465",    "₹1,56,016"] },
       { label: "Other Income / Job Work",    values: [null,         null,         null,         "₹37,654",    "₹1,26,730"] },
       { label: "Interest Received",          values: ["₹14,247",    "₹7,432",     "₹12,543",    "₹19,247",    "₹22,548"] },
-      { label: "Total Income",               values: ["₹21,17,859", "₹22,72,105", "₹31,06,297", "₹30,08,132", "₹42,66,647"], bold: true },
+      { label: "Total Income",               values: ["₹21,17,859", "₹22,72,105", "₹31,06,297", "₹30,08,132", "₹42,66,647"], usd: ["~$28,543", "~$30,498", "~$38,732", "~$36,330", "~$50,493"], bold: true },
     ],
   },
   {
@@ -35,8 +35,8 @@ const FINANCIAL_TABLE: FinSection[] = [
       { label: "Direct Expenses",            values: ["₹6,38,868",  "₹4,66,185",  "₹13,46,398", "₹28,15,233", "₹34,72,571"] },
       { label: "Indirect Expenses",          values: ["₹9,60,559",  "₹16,16,859", "₹12,65,313", "₹1,24,488",  "₹3,71,772"] },
       { label: "Fixed Asset Purchased — FCRA (on I&E)¹", values: ["₹2,80,435", "₹33,900", null, null, null] },
-      { label: "Total Expenditure",          values: ["₹18,79,862", "₹21,16,945", "₹26,11,711", "₹29,39,721", "₹42,44,343"], bold: true },
-      { label: "Surplus / (Deficit)",        values: ["₹2,31,997",  "₹1,55,180",  "₹3,00,591",  "₹68,411",    "₹4,22,304"],   surplus: true },
+      { label: "Total Expenditure",          values: ["₹18,79,862", "₹21,16,945", "₹26,11,711", "₹29,39,721", "₹42,44,343"], usd: ["~$25,335", "~$28,415", "~$32,565", "~$35,504", "~$50,229"], bold: true },
+      { label: "Surplus / (Deficit)",        values: ["₹2,31,997",  "₹1,55,180",  "₹3,00,591",  "₹68,411",    "₹4,22,304"],   usd: ["~$3,127", "~$2,083", "~$3,748", "~$826", "~$4,997"], surplus: true },
     ],
   },
   {
@@ -51,7 +51,7 @@ const FINANCIAL_TABLE: FinSection[] = [
       { label: "Fixed Assets — Net Book Value (WDV)", values: ["₹1,90,448", "₹2,93,098", "₹3,17,701", "₹4,67,208", "₹15,56,533"] },
       { label: "Cash & Bank balances",       values: ["₹2,19,589", "₹3,49,273", "₹5,98,438", "₹4,46,409", "₹1,16,375"] },
       { label: "Security Deposit",           values: ["₹40,000",   "₹40,000",   "₹40,000",   "₹40,000",   "₹40,000"] },
-      { label: "Total Assets",               values: ["₹4,50,837", "₹6,82,361", "₹9,55,849", "₹9,76,566", "₹19,14,374"], bold: true },
+      { label: "Total Assets",               values: ["₹4,50,837", "₹6,82,361", "₹9,55,849", "₹9,76,566", "₹19,14,374"], usd: ["~$6,076", "~$9,159", "~$11,919", "~$11,794", "~$22,655"], bold: true },
       { label: "Capital Fund (closing)",     values: ["₹2,31,513", "₹3,86,692", "₹6,87,283", "₹7,55,694", "₹11,77,998"] },
       { label: "Unsecured Loans (closing)",  values: ["₹1,32,844", "₹1,32,444", "₹1,32,444", "₹1,01,942", "₹44,122"] },
     ],
@@ -197,6 +197,11 @@ export default function AnnualReportsPage() {
                                 className={`px-4 py-2.5 text-right font-mono whitespace-nowrap ${valueCls}`}
                               >
                                 {v ?? <span className="text-slate">—</span>}
+                                {row.usd?.[idx] && (
+                                  <span className="block text-xs font-normal text-slate/80 mt-0.5">
+                                    {row.usd[idx]}
+                                  </span>
+                                )}
                               </td>
                             ))}
                           </tr>
@@ -219,6 +224,9 @@ export default function AnnualReportsPage() {
             </p>
             <p>
               Figures compiled from audited consolidated financial statements (A. Rehman & Associates, Chartered Accountants). Direct vs Indirect Expense classification varies year-on-year in the source statements; Total Expenditure is the directly comparable measure.
+            </p>
+            <p>
+              US$ figures are translated from the audited INR figures at the FY-average RBI reference rate for each financial year (FY 2020-21: ₹74.2/$, FY 2021-22: ₹74.5/$, FY 2022-23: ₹80.2/$, FY 2023-24: ₹82.8/$, FY 2024-25: ₹84.5/$). Audited figures are in INR; USD shown for international donors and is indicative only.
             </p>
           </div>
 
