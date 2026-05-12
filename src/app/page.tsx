@@ -240,12 +240,13 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Poster — centered above the trailer */}
           <div className="flex justify-center mb-10 lg:mb-14">
-            <Link href="/all-that-breathes" className="block group">
-              <div className="relative w-full max-w-xs sm:max-w-sm aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 transition-transform group-hover:scale-[1.02]">
+            <Link href="/all-that-breathes" className="block group w-full max-w-xs sm:max-w-sm">
+              <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 transition-transform group-hover:scale-[1.02]">
                 <Image
                   src="/atb-poster.jpg"
                   alt="All That Breathes — HBO Original. Academy Award Nominee, Documentary Feature Film."
                   fill
+                  priority
                   sizes="(max-width: 640px) 100vw, 384px"
                   className="object-cover"
                 />
