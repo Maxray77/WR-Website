@@ -281,6 +281,13 @@ export default function DonatePage() {
                         <Shield size={14} />
                         <span>Secured by Razorpay — 256-bit encryption</span>
                       </div>
+                      <p className="mt-3 text-xs text-slate leading-relaxed">
+                        Donations are voluntary charitable contributions and are generally non-refundable. Please review our{" "}
+                        <a href="/refund-policy" className="text-teal underline hover:text-teal-dark">Refund &amp; Cancellation Policy</a>
+                        {" "}and{" "}
+                        <a href="/terms" className="text-teal underline hover:text-teal-dark">Terms of Service</a>
+                        {" "}before proceeding.
+                      </p>
                     </div>
                   </>
                 ) : (
