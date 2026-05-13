@@ -272,8 +272,8 @@ export default function RefundPolicyPage() {
           <strong>{CONTACT.usFiscalSponsor.name}</strong> (EIN: {CONTACT.usFiscalSponsor.ein})
           are governed by R3&apos;s own refund and acknowledgement policies. For refund
           requests on US-side donations, please write to{" "}
-          <a href="mailto:contact@raptorrescueusa.org" className="text-teal hover:underline">
-            contact@raptorrescueusa.org
+          <a href="mailto:nshehzad@raptorrescueusa.org" className="text-teal hover:underline">
+            nshehzad@raptorrescueusa.org
           </a>{" "}
           or visit{" "}
           <a
