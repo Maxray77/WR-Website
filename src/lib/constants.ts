@@ -193,7 +193,7 @@ export const RESCUE_BY_YEAR = [
   { year: 2023, total: 3398 },
   { year: 2024, total: 3670 },
   { year: 2025, total: 4184 },
-  { year: 2026, total: 951 }, // Partial year (Jan–Mar)
+  { year: 2026, total: 1807 }, // Partial year (Jan 1 – 13 May)
 ];
 
 // ─── Donation Amounts ───
