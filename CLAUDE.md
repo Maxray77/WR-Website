@@ -222,9 +222,49 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-12 (intake data correction + ATB poster layout bug fix + annual-reports stat tweaks + "Rescue & Medical Expenses" bucket merge + USD figures with FY-average RBI rates)
+**Last updated by:** Claude Code — 2026-05-13 (Donate page UPI redesign + Razorpay-compliance policy pages)
 
-**What was just completed (Session 2026-05-12 — seven commits, all live on `main`):**
+**What was just completed (Session 2026-05-13 — three commits, all live on `main`):**
+
+- [x] **Donate page layout redesign — UPI QR promoted to always-visible card** (commit `6cc62c1`). The QR code used to live inside the "Scan & Pay (UPI)" tab, which was the default tab — so the tall QR image was the first thing donors saw and pushed the other tabs down/out of view. Restructured `src/app/donate/page.tsx`:
+  - **Removed "upi" from the `TABS` array** entirely (8 tabs → 7 tabs).
+  - **Default `activeTab` changed from `"upi"` to `"online"`** — so the INR preset amount buttons are now the first thing donors see in the tab panel.
+  - **New always-visible "Scan & Pay via UPI" card** rendered *above* the tab strip, containing the QR code, UPI ID badge, "How to Pay" 3-step list, and the 80(G) receipt tip. Sits in its own `bg-white rounded-2xl border` panel with a teal phone icon next to the heading.
+  - **Effect:** Indian mobile donors see the QR immediately without clicking anything. International donors / card payers see the tab strip + preset amounts immediately below, no scrolling past the QR needed.
+  - **Verified locally** via DOM probe + screenshot — both layouts render clean, tabs are accessible, no `activeTab === "upi"` orphan code left.
+- [x] **Razorpay-compliance policy pages — `/refund-policy` and `/terms`** (commit `e661e53`). Razorpay requires Indian merchants to publicly link Refund/Cancellation, Terms of Service, Privacy Policy (already had it), and Contact (already had it) before approving live-mode merchant accounts. The Tier-5 `/terms + /refund-policy` item in the website roadmap is now complete.
+  - **`/refund-policy`** — `src/app/refund-policy/page.tsx` (~290 lines). 12 sections: scope, nature of donation as gift, general no-refund rule, eligible refund exceptions (duplicate / wrong amount / unauthorised / technical error / missing 80G receipt), how to request, Razorpay 5–10 working day refund window, failed transaction guidance, no recurring subscriptions, 80(G) receipt issuance (10 working days after donor sends Name + PAN + Address + transaction ID), international donations routing (R3 → `nshehzad@raptorrescueusa.org` + GoFundMe), chargeback guidance ("contact us first"), contact block. Scroll-spy TOC. Last-updated date: 13 May 2026.
+  - **`/terms`** — `src/app/terms/page.tsx` (~310 lines). 16 sections: acceptance, about Wildlife Rescue (Indian Trusts Act 2010 + FCRA + 80G IDs), permitted use + prohibited acts, donations (donor warranties re: lawful source / FCRA compliance / acceptance discretion), payment processors disclosed (Razorpay, R3, GoFundMe), user-submitted content licence, IP rights, third-party services, Wingman AI disclaimer (informational only, not vet/medical advice, urgent → call hotline), warranty disclaimer, liability cap at "lesser of damages or sum of donations in past 12 months", indemnification, termination, Delhi jurisdiction (Indian law). Same scroll-spy TOC pattern as privacy policy.
+  - **Donate page disclaimer** — small text added directly under the Razorpay button inside the "Pay Securely via Razorpay" card: *"Donations are voluntary charitable contributions and are generally non-refundable. Please review our Refund & Cancellation Policy and Terms of Service before proceeding."* Both phrases link to the new pages.
+  - **Footer** — `src/components/Footer.tsx` Quick Links now has 3 legal links in order: Refund Policy, Terms of Service, Privacy Policy.
+  - **Sitemap** — `src/app/sitemap.ts` registers both new routes with `yearly` change frequency, priority 0.3.
+  - **TypeScript clean** (`npx tsc --noEmit` zero errors). Verified both pages render via DOM probe (refund: 13 h2s incl. "Contents"; terms: 17 h2s incl. "Contents").
+- [x] **International donations contact email corrected** (commit `43f008f`). On `/refund-policy` section 10, the placeholder `contact@raptorrescueusa.org` (which doesn't exist) was replaced with the real US-side contact `nshehzad@raptorrescueusa.org`. One-line fix.
+
+**Action item still open for user (NOT done in this session — requires Razorpay dashboard access):**
+- Razorpay Dashboard → Account & Settings → Website Details. Paste these three URLs into the policy field so compliance can see them during the next merchant review:
+  - `https://www.raptorrescue.org/refund-policy`
+  - `https://www.raptorrescue.org/terms`
+  - `https://www.raptorrescue.org/privacy-policy`
+
+**Analytics question raised this session (no code changes — informational, for next session's reference):**
+- User asked where to check site traffic + visitor location. Pointed them at:
+  - **GA4** (measurement ID `G-FQLSMRBG87`, already live since 2026-05-08) — Reports → User → Demographics → Demographic details, change dimension to City or Region. Real-time tab also has live country/city. Note: only "Accept all" visitors are tracked due to Consent Mode v2; "Essential only" clicks are *not* in GA4 (typical 30–60% under-count).
+  - **Vercel Analytics + Vercel Observability → Logs** — for cookieless raw request counts with country-code geo. 30-day retention on free plan.
+
+**Key files touched this session:**
+- `src/app/donate/page.tsx` — UPI tab removed from `TABS`, default tab `"online"`, new always-visible UPI card rendered above tab strip, Razorpay button disclaimer added with links to /refund-policy and /terms
+- `src/app/refund-policy/page.tsx` — **NEW** (~290 lines, 12 sections)
+- `src/app/terms/page.tsx` — **NEW** (~310 lines, 16 sections)
+- `src/components/Footer.tsx` — Refund Policy + Terms of Service added to Quick Links
+- `src/app/sitemap.ts` — `/refund-policy` and `/terms` registered
+
+**Uncommitted local state at session end:**
+- `.claude/settings.local.json` — workstation-specific, untracked / dirty (expected, never committed)
+
+---
+
+**Previously completed (Session 2026-05-12 — seven commits, all live on `main`):**
 
 - [x] **"Rescue & Medical Expenses" merged bucket** on `/annual-reports` "Where Your Money Goes" (commit `a7ac893`). Collapsed `YearlyExpenditureBreakdown.tsx` from 5 buckets to 3 by merging six audited I&E A/c lines: Food for Birds + Medicine for Birds + Rescue & Release Logistics + Clinic Rent + Ambulance/Vehicle Maintenance + Service Charges.
   - **Source:** re-rendered the 5-Year FD PDFs at 4× scale via `pypdfium2` (cache at `%TEMP%\wr-fd-pages-hi\`). Extracted Clinic Rent / Vehicle Maintenance / Service Charges per year from the I&E A/c page (p2 except FY 22-23 where p2/p3 are swapped). FY 2020-21 has no separate Vehicle Maintenance or Service Charges lines — the bucket only includes Food + Medicine + R&R + Clinic Rent (₹80,000, which is much lower than other years' ₹2,40,000+; likely partial-year COVID rent).
