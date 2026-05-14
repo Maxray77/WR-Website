@@ -45,7 +45,7 @@ export const TEAM = [
   {
     name: "Salik Rehman",
     role: "Wildlife Rehabilitator",
-    bio: "A dedicated member of the Wildlife Rescue team since 2017, Salik plays a vital role in the organization's daily rescue and rehabilitation efforts, contributing to the care and recovery of thousands of birds each year. He oversees key operational activities and carries primary responsibility for animal care, ensuring the effective on-ground execution of rescue, treatment, and rehabilitation work. Salik is prominently featured in the internationally acclaimed documentary All That Breathes, alongside Nadeem and Mohammad Saud, and appears on the official poster of the film. His presence in the documentary highlights his integral role in Wildlife Rescue's work and the organization's broader impact. He holds a Bachelor of Arts (Honours) in Hindi from Delhi University. Outside of his professional responsibilities, Salik enjoys swimming, playing cricket, and watching films, reflecting a balanced interest in fitness, sports, and culture.",
+    bio: "A dedicated member of the Wildlife Rescue team since 2017, Salik plays a vital role in the organization's daily rescue and rehabilitation efforts, contributing to the care and recovery of thousands of birds each year. He oversees key operational activities and carries primary responsibility for animal care, ensuring the effective on-ground execution of rescue, treatment, and rehabilitation work. Salik is prominently featured in the internationally acclaimed documentary All That Breathes, alongside Nadeem and Mohammad Saud, and appears on the official poster of the film. His presence in the documentary highlights his integral role in Wildlife Rescue's work and the organization's broader impact. He holds a Bachelor of Arts (Honours) in Hindi from Delhi University. Outside of his professional responsibilities, Salik enjoys swimming, playing cricket, video games, and watching films, reflecting a balanced interest in fitness, sports, and culture.",
     image: "/team/salik.jpg",
     imagePosition: "50% 5%",
   },
@@ -92,7 +92,7 @@ export const TEAM = [
     imagePosition: "50% 20%",
   },
   {
-    name: "Samia Shafiq",
+    name: "Samia",
     role: "Conservation Educator",
     bio: "Samia brings over a decade of experience across administration, counselling, and education, and has been working with Wildlife Rescue as an educator since 2026. In her current role, she focuses on conservation education, with a special emphasis on bird protection and environmental awareness. Through Wildlife Rescue's outreach initiatives, Samia conducts interactive educational programs in schools, engaging young students through videos, presentations, quizzes, and hands-on activities. Her approach makes environmental learning accessible, engaging, and meaningful, helping inspire the next generation of wildlife stewards. Driven by a commitment to fitness and a deep love for nature, Samia brings energy, empathy, and purpose to her work, strengthening the organization's mission through education and community engagement. She holds a Bachelor of Arts from Delhi University.",
     image: "/team/samia.jpg",
