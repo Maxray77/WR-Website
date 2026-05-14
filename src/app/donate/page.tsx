@@ -76,30 +76,34 @@ export default function DonatePage() {
     trackEvent("donor_modal_open", { amount: String(amountInRupees) });
   }
 
-  // Step 2: modal submits → create order with donor details → open Razorpay
-  async function handleDonorSubmit(donor: DonorFormData) {
+  // Step 2: modal submits → create order with donor details → open Razorpay.
+  // `donor` is null when the donor chose "skip 80G" — we pass no donor field
+  // and the webhook will synthesize an anonymous record.
+  async function handleDonorSubmit(donor: DonorFormData | null) {
     const amountInRupees = pendingAmount;
     if (!amountInRupees) throw new Error("Missing amount");
     setCheckoutLoading(amountInRupees);
     try {
+      const payload: Record<string, unknown> = { amount: amountInRupees * 100 };
+      if (donor) {
+        payload.donor = {
+          name: donor.name,
+          email: donor.email,
+          phone: donor.phone || undefined,
+          pan: donor.pan,
+          addressLine1: donor.addressLine1,
+          city: donor.city,
+          state: donor.state,
+          pincode: donor.pincode,
+          country: donor.country,
+          anonymous: false,
+        };
+      }
+
       const res = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: amountInRupees * 100,
-          donor: {
-            name: donor.name,
-            email: donor.email,
-            phone: donor.phone || undefined,
-            pan: donor.anonymous ? undefined : donor.pan,
-            addressLine1: donor.anonymous ? undefined : donor.addressLine1,
-            city: donor.anonymous ? undefined : donor.city,
-            state: donor.anonymous ? undefined : donor.state,
-            pincode: donor.anonymous ? undefined : donor.pincode,
-            country: donor.anonymous ? undefined : donor.country,
-            anonymous: donor.anonymous,
-          },
-        }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -111,6 +115,8 @@ export default function DonatePage() {
         throw new Error("Payment gateway not loaded — please refresh the page and try again.");
       }
 
+      trackEvent("donation_path", { receipt_80g: donor ? "yes" : "no", amount: String(amountInRupees) });
+
       const rzp = new (window as unknown as { Razorpay: new (opts: unknown) => { open: () => void } }).Razorpay({
         key: order.key_id,
         amount: order.amount,
@@ -120,17 +126,16 @@ export default function DonatePage() {
         description: "Bird Rescue & Rehabilitation — Delhi",
         image: "/logo-black.png",
         theme: { color: "#0A6E5C" },
-        prefill: {
-          name: donor.name,
-          email: donor.email,
-          contact: donor.phone || undefined,
-        },
+        prefill: donor
+          ? { name: donor.name, email: donor.email, contact: donor.phone || undefined }
+          : undefined,
         handler: function (response: { razorpay_payment_id: string }) {
           trackEvent("donation", {
             method: "razorpay",
             currency: "INR",
             value: String(amountInRupees),
             transaction_id: response.razorpay_payment_id,
+            receipt_80g: donor ? "yes" : "no",
           });
         },
       });
