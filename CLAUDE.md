@@ -222,9 +222,150 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-13 (Donate page UPI redesign + Razorpay-compliance policy pages)
+**Last updated by:** Claude Code — 2026-05-14 (2026 intake data refresh + team profile edits + 80(G) donation receipt system Phase 1a)
 
-**What was just completed (Session 2026-05-13 — three commits, all live on `main`):**
+**What was just completed (Session 2026-05-14 — six commits, all live on `main`):**
+
+- [x] **2026 intake records refreshed from source spreadsheet** (commit `de721f6`). Source: `C:\Users\maxra\Documents\Wildlife Rescue\Data\Intake Records\2026\Cases 2026.xlsx`.
+  - **Method:** `openpyxl` + count rows where DATE column (col C) is a real `datetime` and C.No. (col A) is numeric. 1,807 cases from 1 Jan 2026 to 13 May 2026, case #37,650 → #39,456. Row count matches `(max - min + 1)` exactly = zero gaps/duplicates in the source data.
+  - **`src/lib/constants.ts:196`** — `RESCUE_BY_YEAR` 2026 entry: 951 (Jan–Mar placeholder) → 1,807, comment updated to "Partial year (Jan 1 – 13 May)". New sum across all years = 39,312.
+  - **`src/app/annual-reports/page.tsx:88`** — "Total birds rescued" stat card: hardcoded `"39,000+"` → dynamic `${totalRescued.toLocaleString()}+` (now renders **39,312+**) with new subtitle "2026 partial through 13 May".
+  - **`src/lib/wingman-prompt.ts`** — chatbot's partial-year line: `Jan–Mar: 951` → `Jan 1 – 13 May: 1,807`. Per-year list also refreshed to match the audited values that landed in `RESCUE_BY_YEAR` during the 2026-05-12 session (2011: 1,011 ✓ etc.) — wingman had been showing stale pre-audit numbers.
+  - **Marketing references unchanged:** the various rounded `"39,000+"` strings in Footer, metadata, JsonLd, homepage, treatments, bird-brothers, IMPACT_STATS were left alone — `"39,000+"` is still accurate against 39,312 and changing 8 files for a +312 delta isn't worth the churn. Bump them when we hit 40,000.
+
+- [x] **Team profile edits — Sana photo + Samia surname + Salik hobby** (commit `16fca81`).
+  - **`/public/team/sana.jpg`** replaced from `C:\Users\maxra\Pictures\Website Pics\Staff WR\Sana.jpeg`. Compressed with `PIL.Image.thumbnail((1200, 1200), LANCZOS)` + `ImageOps.exif_transpose` (to apply orientation tag) + `quality=82 optimize=True progressive=True` → 82 KB / 792×1200.
+  - **`Samia Shafiq` → `Samia`** — surname dropped from display name in `src/lib/constants.ts`. Verified `Shafiq` no longer appears anywhere in `src/` after the edit.
+  - **Salik Rehman bio** — "swimming, playing cricket, and watching films" → "swimming, playing cricket, video games, and watching films". User flagged video games had been omitted.
+
+- [x] **New volunteer added — Ahmad Ghazali** (commit `0e66764`). New 10th team member appended at the end of `TEAM` array in `src/lib/constants.ts`.
+  - **Photo** `C:\Users\maxra\Pictures\Website Pics\Staff WR\Ahmad.jpeg` → `/public/team/ahmad.jpg` (19 KB, 432×628). Source already had correct orientation, no rotation needed.
+  - **Role:** Volunteer. **Bio:** the user-supplied four-paragraph text was collapsed into a single paragraph (matches the format of the other 9 entries — `TEAM` uses single-paragraph bios consistently). Joined the age-14 origin, school + biology + future-vet aspirations, baby-season role, and dedication framing into one ~135-word bio.
+
+- [x] **80(G) donation receipt system — Phase 1a shipped** (commits `1f92286` + `3156349` + `37da6a6`). This is the first half of a two-stage automated 80(G) compliance system. Stage 1 = provisional receipt at payment time; Stage 2 = Form 10BE certificate after annual Form 10BD filing with IT Dept.
+
+  **Phase 1a (this session) — Data capture + persistence + admin export + 80G cert delivery:**
+
+  - **`src/lib/donations.ts`** — NEW (~230 lines). The data layer.
+    - Types: `DonorDetails`, `DonationRecord` with FY-keyed sequential receipt numbers (`WR/2026-27/000001` format).
+    - `validateDonorDetails()` — server-side PAN regex `^[A-Z]{5}[0-9]{4}[A-Z]$`, email, Indian pincode `^[1-9][0-9]{5}$`, header-injection blocking, length caps. Anonymous path only needs name + email.
+    - `getFinancialYear()` — India FY runs 1 Apr – 31 Mar. Returns `"2026-27"`.
+    - `encryptPan()` / `decryptPan()` — AES-256-GCM if `PAN_ENCRYPTION_KEY` env var is 32-byte hex; otherwise plaintext fallback with `console.warn`. Encrypted PAN stored as `base64(iv).base64(ct).base64(tag)`.
+    - `nextReceiptNumber(fy)` — atomic `redis.incr` on `donation:fy:{fy}:counter`. Throws if Redis not configured (fail loud rather than ship duplicate receipt numbers).
+    - `storeDonorDraft(orderId, donor)` / `getDonorDraft(orderId)` — donor PII keyed by Razorpay order_id, 24h TTL. Bridge between create-order and webhook.
+    - `persistDonation(...)` — idempotent NX-guarded write to `donation:payment:{paymentId}`. Indexes into `donation:fy:{fy}:index` (sorted set, score = captured_at) for admin listing. If two concurrent webhook deliveries race the same payment_id, the loser burns its receipt number (gap in sequence is acceptable; duplicate is not).
+    - `listDonationsForFy(fy)` — admin export.
+    - `STATIC_RECEIPT_ATTACHMENTS` constant — exported list of static PDFs to attach alongside the dynamically-generated provisional receipt PDF in Phase 1b emails. Currently `[{ publicPath: "/80g-certificate.pdf", filename: "Wildlife-Rescue-80G-Certificate.pdf", description: "..." }]`. Forms the "tax pack" the donor forwards to their CA.
+
+  - **`src/components/DonorDetailsModal.tsx`** — NEW (~340 lines). Two-step modal, opens when user clicks any INR amount card on `/donate`.
+    - **Step 1 ("choice")** — Title "Would you like an 80(G) tax-deduction receipt?" + 2 prominent cards side-by-side (desktop) / stacked (mobile):
+      - LEFT: "No, donate directly" — neutral white card with subtle hover (border-teal + lift). Icon: Heart. Sub: "Skip to payment — no personal details needed beyond your card / UPI." Bullets: "Fastest option" / "No tax-deduction certificate". Click → `onSubmit(null)`.
+      - RIGHT: "Yes, I'd like an 80(G) receipt" — visually prominent teal-gradient card with **amber "Tax-Deductible" badge** floating at top-right. Icon: FileCheck (amber-light on teal). Sub: "Claim a 50% deduction from your taxable income." Bullets: "I'll share my name, PAN & address" / "Receipt issued instantly by email" / "Form 10BE certificate after FY filing". Click → `step = "details"`.
+    - **Step 2 ("details")** — Existing PAN/address form, only rendered if Yes was clicked. "← Back to options" link at top to return to step 1 (form state preserved). Anonymous toggle removed (now handled by the choice step). Single full-width "Continue to pay ₹X →" submit CTA.
+    - Header strip shows "Step 1 of 2" / "Step 2 of 2" so donors always know where they are; donation amount displayed prominently in the header.
+    - Validation order matters: name → email → PAN → address → city → state → pincode. First failure surfaces a specific, helpful error message inline (red toast with AlertCircle icon).
+    - Country field removed — defaults to India internally (80G only applies to Indian tax-payers; non-Indian donors use the No path).
+    - `onSubmit` signature is `(donor: DonorFormData | null) => Promise<void>`. `null` = skip 80G; defined = full 80G flow.
+
+  - **`src/components/DonationThankYou.tsx`** — NEW (~120 lines). Post-Razorpay-success overlay (z-index 110, above other modals).
+    - **Triggered from** Razorpay's `handler` callback in `donate/page.tsx`; takes `{ paymentId, amount, receipt80g, donorEmail }`.
+    - Teal-gradient header with `CheckCircle2` icon: "Thank You for Saving Lives — Your donation of ₹X was successful."
+    - **Razorpay Payment ID** card with copy-to-clipboard button.
+    - **80(G) Certificate card** — extra-emphasised teal-bordered card for 80G donors, neutral for non-80G. Big "Download 80(G) Certificate" button → `<a href="/80g-certificate.pdf" download="Wildlife-Rescue-80G-Certificate.pdf">`. **This is the immediate delivery of the 80(G) certificate at the moment of successful donation** — before Phase 1b emails are wired up, the donor still gets the cert.
+    - **Provisional receipt note** — for 80G donors: "Will be emailed to {donorEmail} shortly" + Form 10BE explainer. For non-80G donors: "Want to claim 80(G) later? Email us with these details."
+    - Esc / × / backdrop close. Body scroll-locked while open.
+
+  - **`src/app/api/create-order/route.ts`** — UPDATED. Now accepts optional `donor` field alongside `amount`. Calls `validateDonorDetails()` server-side; returns 400 with helpful error string on PAN/email/pincode validation failure. Order of operations: validate body → validate donor → check Razorpay keys (returns 503 if missing; this order means devs working locally still see donor-validation feedback). On success, `storeDonorDraft(order.id, donor)` stashes PII in Redis keyed by Razorpay order_id, **NOT** in Razorpay's `notes` field — PAN/address never leave our infrastructure. Razorpay's notes only get a `donor_email` marker and `donor_anonymous: "true"|"false"` flag for their dashboard's reference.
+
+  - **`src/app/api/razorpay-webhook/route.ts`** — UPDATED. HMAC signature verification unchanged. On `payment.captured`:
+    1. Look up donor draft via `getDonorDraft(payment.order_id)`.
+    2. If no draft (Redis down, legacy flow, etc.) → synthesize anonymous donor from Razorpay's basic fields (`payment.email`, `payment.contact`) so the donation is never lost.
+    3. `persistDonation(...)` — idempotent NX write, assigns receipt number, indexes into FY sorted set, encrypts PAN if key configured.
+    4. Existing GA4 Measurement Protocol conversion event still fires unchanged.
+    5. Failure handling: persistence errors are caught and logged but **always return 200** to Razorpay so they don't retry-storm the webhook. Donor still paid; can be reconciled from Razorpay dashboard if needed.
+    6. TODO marker added for Phase 1b — when receipt email goes out, attach BOTH the generated provisional receipt PDF AND the static 80G cert from `STATIC_RECEIPT_ATTACHMENTS`.
+
+  - **`src/app/api/admin/donations/route.ts`** — NEW (~110 lines). Admin CSV/JSON export of donations by FY.
+    - **Auth:** HTTP Basic via `ADMIN_USERNAME` + `ADMIN_PASSWORD` env vars. Returns 503 if those aren't set (safe by default — endpoint stays inert).
+    - **Default output (`?format=10bd`)**: Form 10BD-compatible CSV with all official columns (SL.NO, Pre-Acknowledgement Number = our receipt number, Name, ID Type=1 for PAN, ID Number=PAN, Section Code=`80G(5)(iv)`, UIN blank, Donation Type=Specific Grant, Mode of receipt=Other than Cash, Amount INR) plus contextual columns (Email, Phone, Address, City, State, Pincode, Country, Razorpay Payment ID, Captured At). UTF-8 with BOM for Excel. CA uploads this to incometax.gov.in.
+    - **JSON output (`?format=json`)** — full record dump for debugging; PAN never returned in plaintext (replaced with `[encrypted]` marker).
+    - **Usage:** `curl -u <user>:<pass> "https://www.raptorrescue.org/api/admin/donations?fy=2026-27" -o WR-donations-2026-27.csv`
+
+  - **`src/app/donate/page.tsx`** — UPDATED. INR amount cards rewired:
+    - Old flow: click ₹500 → POST `/api/create-order` → Razorpay opens.
+    - New flow: click ₹500 → `DonorDetailsModal` opens at step "choice" → user picks No or Yes → step 2 form (if Yes) → POST `/api/create-order` with donor field → Razorpay opens → on success `setThankYou(...)` mounts `DonationThankYou` overlay.
+    - `handleDonorSubmit(donor: DonorFormData | null)` — if `donor` is `null` (No path), creates order without `donor` field; webhook handles via fallback. If defined (Yes path), includes full donor object with `anonymous: false`.
+    - Razorpay `prefill` receives donor name/email/phone when available (skipped for No path so Razorpay collects them via its own UI).
+    - GA4 events: `donation_path { receipt_80g: yes|no, amount }` fires on order create; existing `donation` event now includes `receipt_80g` flag for funnel analysis.
+    - **Existing embedded Razorpay payment button widget below the amount grid is unchanged** — donors with arbitrary/custom amounts still get the original flow. This is the fallback if anything ever breaks on the new modal.
+
+**Production state — what's live on `main` after this session:**
+
+| Component | Status | Requires env var? |
+|---|---|---|
+| 2026 intake numbers updated to 1,807 across the site | ✅ Live | None |
+| Team page reflects Sana photo, Samia (no surname), Salik (+ video games), Ahmad Ghazali | ✅ Live | None |
+| Donor-details modal (choice-first UX) before Razorpay | ✅ Live | None |
+| `/api/create-order` validates donor + stashes draft in Redis keyed by order_id | ✅ Live | Existing Razorpay + Upstash |
+| Webhook persists donation with FY-sequential receipt number + idempotent NX guard | ✅ Live | Existing Razorpay + Upstash |
+| Post-payment thank-you screen with 80(G) cert download | ✅ Live | None (cert already in `/public`) |
+| Admin Form 10BD CSV export at `/api/admin/donations` | ✅ Live | `ADMIN_USERNAME` + `ADMIN_PASSWORD` (returns 503 until set) |
+| PAN encryption at rest (AES-256-GCM) | ✅ Coded; falls back to plaintext + warn | `PAN_ENCRYPTION_KEY` (32-byte hex) |
+| Automated emailed PDF receipt + 80G cert as "tax pack" | ⏳ Phase 1b — next session | `RESEND_API_KEY` when ready |
+
+**Env vars to add in Vercel before this is collecting real-donor data:**
+
+```
+ADMIN_USERNAME           # any string, you choose
+ADMIN_PASSWORD           # any strong password (used for HTTP Basic auth)
+PAN_ENCRYPTION_KEY       # 64 hex chars = 32 bytes. Generate once with: openssl rand -hex 32
+                         # NEVER rotate casually — old encrypted PANs cannot be decrypted without the original key.
+```
+
+Without these the system still works:
+- Without `ADMIN_USERNAME/PASSWORD` → admin export returns 503 (safe default; no one can pull donor PII from the endpoint).
+- Without `PAN_ENCRYPTION_KEY` → PAN stored plaintext in private Redis with `console.warn`. Set this asap to be safe.
+
+**Pending for Phase 1b (next session) — automated emailed receipts:**
+
+- User to **create a Resend account** at resend.com (free tier covers 3k emails/month, plenty for ~3k donors/year) and add `RESEND_API_KEY` + `RECEIPT_FROM_EMAIL` (e.g. `receipts@raptorrescue.org`) to Vercel env vars.
+- User to **talk with CA / tax counsel** about (1) exact disclaimer wording on the provisional receipt PDF, (2) authorised signatory (Nadeem/Saud digital signature image), (3) whether to flag CSR/FCRA donations for exclusion from Form 10BD, (4) minimum donation amount for receipt (if any).
+- Then I'll build:
+  - `@react-pdf/renderer` template for the provisional receipt with WR letterhead, 80G reg no. AAATW2352B25DL02, PAN AAATW2352B, donor name/PAN/address, receipt number, amount in words + digits, mode, payment ID, statutory disclaimer.
+  - Resend integration with PDF attached + the static 80G cert as a second attachment (auto-picked from `STATIC_RECEIPT_ATTACHMENTS`).
+  - Webhook fires the email after `persistDonation` returns `{ created: true }`. Idempotent — won't re-email on duplicate webhook delivery.
+
+**Key files touched this session:**
+
+- `src/lib/constants.ts` — `RESCUE_BY_YEAR` 2026 entry refreshed; `TEAM` array: Sana imagePosition retained, Samia surname dropped, Salik bio updated, Ahmad Ghazali appended at end.
+- `src/app/annual-reports/page.tsx` — stat card switched from hardcoded to dynamic.
+- `src/lib/wingman-prompt.ts` — partial-year line + per-year list refreshed.
+- `src/lib/donations.ts` — **NEW** (~250 lines): data layer, validation, encryption, persistence, FY logic, `STATIC_RECEIPT_ATTACHMENTS`.
+- `src/components/DonorDetailsModal.tsx` — **NEW** (~340 lines): two-step modal (choice → details).
+- `src/components/DonationThankYou.tsx` — **NEW** (~120 lines): post-payment overlay with 80G cert download.
+- `src/app/api/create-order/route.ts` — accepts donor, validates, stashes draft.
+- `src/app/api/razorpay-webhook/route.ts` — persists donation, fallback for missing draft, TODO marker for Phase 1b.
+- `src/app/api/admin/donations/route.ts` — **NEW** (~110 lines): Form 10BD CSV export with HTTP Basic auth.
+- `src/app/donate/page.tsx` — rewired INR amount click → modal → Razorpay → thank-you.
+- `public/team/sana.jpg` — replaced (792×1200, 82 KB).
+- `public/team/ahmad.jpg` — **NEW** (432×628, 19 KB).
+- `public/80g-certificate.pdf` — unchanged; already on disk from the existing /donate 80(G) tab. Confirmed identical hash to `C:\Users\maxra\Documents\Wildlife Rescue\12A Renewal\2026\Certificates\80(G) 2026.pdf` (md5 `4699ffb0…`).
+
+**Tooling notes from this session:**
+
+- **Excel intake extraction:** `python -c "import openpyxl; wb = openpyxl.load_workbook(path, data_only=True); ws = wb.active; cases = [r for r in ws.iter_rows(min_row=3, values_only=True) if isinstance(r[2], datetime.datetime) and isinstance(r[0], (int,float))]"`. Row count is authoritative — the source spreadsheet may have trailing empty rows (the 2026 file goes to row 2353 but only the first 1,807 have a valid DATE).
+- **Photo compression:** `from PIL import Image, ImageOps; im = Image.open(src); im = ImageOps.exif_transpose(im); im.thumbnail((1200, 1200), Image.LANCZOS); im.save(dst, 'JPEG', quality=82, optimize=True, progressive=True)`. The `exif_transpose` step is essential — without it, photos with EXIF orientation tags render sideways on web (this bit us before on the Black Eared Kite). Cygwin/Git Bash + Python 3.14 on Windows: avoid printing UTF-8 chars (arrow, em-dash) to the console, they choke cp1252.
+- **Idempotent Redis writes for receipt numbering:** `await redis.set(key, value, { nx: true })` returns `null` if key already exists. Pattern for "first writer wins" + counter race avoidance: INCR first to claim a number, then SETNX the record. If SETNX returns null, you lost the race — the counter you spent is now a gap in the sequence, but that's acceptable; what's NOT acceptable is two records sharing the same receipt number.
+- **Validation order in API routes:** put cheap content validations (regex, length, type) BEFORE expensive env-var/network checks (Razorpay keys). Local devs without prod credentials still see useful feedback; users with bad input get clear errors fast.
+
+**Uncommitted local state at session end:**
+
+- `.claude/settings.local.json` — workstation-specific, untracked / dirty (expected, never committed).
+- `.claude/scheduled_tasks.lock` — runtime artifact from a ScheduleWakeup call earlier in the session; harmless, untracked.
+
+---
+
+**Session 2026-05-13 — three commits, all live on `main`:**
 
 - [x] **Donate page layout redesign — UPI QR promoted to always-visible card** (commit `6cc62c1`). The QR code used to live inside the "Scan & Pay (UPI)" tab, which was the default tab — so the tall QR image was the first thing donors saw and pushed the other tabs down/out of view. Restructured `src/app/donate/page.tsx`:
   - **Removed "upi" from the `TABS` array** entirely (8 tabs → 7 tabs).
