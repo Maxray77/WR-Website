@@ -98,6 +98,13 @@ export const TEAM = [
     image: "/team/samia.jpg",
     imagePosition: "50% 20%",
   },
+  {
+    name: "Ahmad Ghazali",
+    role: "Volunteer",
+    bio: "Ahmad Ghazali has been a dedicated and valued member of our team since he first joined us at the age of 14. Despite still being in school, Ahmad consistently demonstrates remarkable commitment, responsibility, and a genuine passion for animal care. Currently pursuing his studies in biology, Ahmad has clear aspirations to become a veterinarian in the future. His enthusiasm for learning and his love for animals are evident in everything he does. He is always eager to gain hands-on experience and continually seeks opportunities to expand his knowledge and skills. Ahmad plays an especially important role during the busy baby season, the most demanding time of the year for our organization. During these periods, he is always ready to lend a helping hand wherever needed, showing reliability, teamwork, and a strong work ethic well beyond his years. His dedication, positive attitude, and compassion make him an invaluable volunteer, and we are proud to support his journey toward a future career in veterinary care.",
+    image: "/team/ahmad.jpg",
+    imagePosition: "50% 20%",
+  },
 ];
 
 // ─── Awards (Documentary) ───
