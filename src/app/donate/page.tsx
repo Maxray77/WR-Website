@@ -7,6 +7,7 @@ import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, Pi
 import SectionHeading from "@/components/SectionHeading";
 import UsdAmountGrid from "@/components/UsdAmountGrid";
 import DonorDetailsModal, { type DonorFormData } from "@/components/DonorDetailsModal";
+import DonationThankYou from "@/components/DonationThankYou";
 import {
   DONATION_AMOUNTS_INR,
   BANK_DETAILS,
@@ -40,6 +41,12 @@ export default function DonatePage() {
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [donorModalOpen, setDonorModalOpen] = useState(false);
   const [pendingAmount, setPendingAmount] = useState<number | null>(null);
+  const [thankYou, setThankYou] = useState<{
+    paymentId: string;
+    amount: number;
+    receipt80g: boolean;
+    donorEmail: string | null;
+  } | null>(null);
   const razorpayRef = useRef<HTMLDivElement>(null);
 
   // Load Razorpay checkout.js once on mount
@@ -137,6 +144,13 @@ export default function DonatePage() {
             transaction_id: response.razorpay_payment_id,
             receipt_80g: donor ? "yes" : "no",
           });
+          // Show post-payment thank-you screen with 80G cert download
+          setThankYou({
+            paymentId: response.razorpay_payment_id,
+            amount: amountInRupees,
+            receipt80g: !!donor,
+            donorEmail: donor?.email ?? null,
+          });
         },
       });
       // close modal just before Razorpay opens so they don't overlap
@@ -160,6 +174,8 @@ export default function DonatePage() {
         onClose={() => setDonorModalOpen(false)}
         onSubmit={handleDonorSubmit}
       />
+
+      {thankYou && <DonationThankYou data={thankYou} onClose={() => setThankYou(null)} />}
 
       {/* ─── Hero ─── */}
       <section className="bg-gradient-to-br from-amber/10 via-amber-bg to-white py-20 lg:py-28">

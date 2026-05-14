@@ -90,6 +90,13 @@ export async function POST(request: NextRequest) {
       console.log(
         `[Razorpay] Donation ${result.created ? "persisted" : "already existed"}: receipt ${result.record.receiptNumber} (FY ${result.record.fy})`
       );
+
+      // Phase 1b — when receipt email goes out, attach BOTH:
+      //   1. Dynamically-generated provisional receipt PDF (from @react-pdf/renderer)
+      //   2. Static 80(G) certificate PDF (from STATIC_RECEIPT_ATTACHMENTS in
+      //      src/lib/donations.ts — currently /public/80g-certificate.pdf)
+      // Only send if result.record.status === "provisional_issued" and donor
+      // is not anonymous. See STATIC_RECEIPT_ATTACHMENTS for the file list.
     } catch (err) {
       // Persistence failure must NOT cause webhook retry storms or expose
       // internals. Log and continue — donor still paid; can be reconciled

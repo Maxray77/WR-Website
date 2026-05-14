@@ -18,6 +18,19 @@ import { redis } from "./redis";
  * (32-byte hex). Falls back to plaintext with a server log warning if missing.
  */
 
+// ─── Static attachments delivered with every 80(G) receipt email ──────────
+//
+// Phase 1b's receipt-email builder MUST attach the static 80(G) certificate
+// alongside the dynamically-generated provisional receipt PDF. Reference:
+// these two files form one logical "tax pack" for the donor + their CA.
+export const STATIC_RECEIPT_ATTACHMENTS = [
+  {
+    publicPath: "/80g-certificate.pdf",
+    filename: "Wildlife-Rescue-80G-Certificate.pdf",
+    description: "Wildlife Rescue's Form 10AC 80(G) approval certificate (valid AY 2027-28 to 2031-32)",
+  },
+] as const;
+
 // ─── Types ─────────────────────────────────────────────────────────────────
 
 export interface DonorDetails {
