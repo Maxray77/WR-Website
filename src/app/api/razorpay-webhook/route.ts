@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import crypto from "crypto";
+import { getDonorDraft, persistDonation } from "@/lib/donations";
 
 export async function POST(request: NextRequest) {
   const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
@@ -24,7 +25,23 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  let event: { event: string; payload: { payment: { entity: { id: string; amount: number; currency: string; email?: string } } } };
+  let event: {
+    event: string;
+    payload: {
+      payment: {
+        entity: {
+          id: string;
+          order_id?: string;
+          amount: number;
+          currency: string;
+          email?: string;
+          contact?: string;
+          notes?: Record<string, string | null>;
+          created_at?: number; // unix seconds
+        };
+      };
+    };
+  };
   try {
     event = JSON.parse(body);
   } catch {
@@ -36,10 +53,51 @@ export async function POST(request: NextRequest) {
     const amountInRupees = payment.amount / 100;
 
     console.log(
-      `[Razorpay] Payment captured — ID: ${payment.id}, Amount: ₹${amountInRupees}`
+      `[Razorpay] Payment captured — ID: ${payment.id}, Order: ${payment.order_id ?? "(none)"}, Amount: ₹${amountInRupees}`
     );
 
-    // Fire server-side GA4 event via Measurement Protocol if configured
+    // ─── Persist donation record (Phase 1a) ────────────────────────────
+    try {
+      const orderId = payment.order_id ?? "";
+      let donor = orderId ? await getDonorDraft(orderId) : null;
+
+      // Fallback: synthesize an anonymous donor record from Razorpay's basic
+      // fields if no draft was stored. This happens if create-order failed to
+      // stash (Redis down, legacy donate flow, etc.). The donation is still
+      // logged — donor can request a receipt manually.
+      if (!donor) {
+        const fallbackEmail = payment.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payment.email)
+          ? payment.email
+          : "no-email@example.invalid";
+        donor = {
+          name: payment.notes?.donor_name ?? "Anonymous Donor",
+          email: fallbackEmail,
+          phone: payment.contact ?? undefined,
+          anonymous: true,
+        };
+        console.warn(`[Razorpay] No donor draft for order ${orderId} — fell back to anonymous.`);
+      }
+
+      const capturedAt = payment.created_at ? new Date(payment.created_at * 1000) : new Date();
+      const result = await persistDonation({
+        paymentId: payment.id,
+        orderId,
+        amount: payment.amount,
+        currency: payment.currency,
+        capturedAt,
+        donor,
+      });
+      console.log(
+        `[Razorpay] Donation ${result.created ? "persisted" : "already existed"}: receipt ${result.record.receiptNumber} (FY ${result.record.fy})`
+      );
+    } catch (err) {
+      // Persistence failure must NOT cause webhook retry storms or expose
+      // internals. Log and continue — donor still paid; can be reconciled
+      // from Razorpay dashboard.
+      console.error("[Razorpay] persistDonation failed:", err);
+    }
+
+    // ─── GA4 server-side conversion event (existing) ───────────────────
     const gaId = process.env.NEXT_PUBLIC_GA_ID;
     const gaMpSecret = process.env.GA4_MEASUREMENT_PROTOCOL_SECRET;
     if (gaId && gaMpSecret) {
