@@ -2,10 +2,18 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Security middleware — applies to all routes.
+ * Security proxy — applies to all routes.
  *
- * 1. Security headers on every response (XSS, clickjacking, MIME sniffing)
- * 2. Origin validation on POST requests to /api/* (CSRF protection)
+ * Renamed from `middleware.ts` per the Next.js 16 file-convention deprecation
+ * (https://nextjs.org/docs/app/api-reference/file-conventions/proxy). Behaviour
+ * is otherwise unchanged.
+ *
+ * 1. Origin validation on POST /api/* (CSRF protection)
+ * 2. Security headers on every response (clickjacking, MIME sniffing, etc.)
+ * 3. Content-Security-Policy on app routes; CSP is skipped for /studio because
+ *    Sanity Studio is a third-party SPA that opens many connections to
+ *    *.sanity.io. Other headers (incl. X-Frame-Options) still apply to /studio
+ *    so the Studio is not iframe-able for clickjacking.
  */
 
 // Allowed origins — add your production domain(s) here
@@ -28,7 +36,7 @@ function isAllowedOrigin(origin: string | null): boolean {
   return ALLOWED_ORIGINS.has(origin);
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // --- CSRF: Block cross-origin POST requests to API routes ---
   // Exempt /api/razorpay-webhook — Razorpay servers POST from their own origin;
   // security is provided by HMAC-SHA256 signature verification inside the route.
@@ -53,17 +61,13 @@ export function middleware(request: NextRequest) {
 
   // --- Security headers on all responses ---
   const response = NextResponse.next();
-
-  // Sanity Studio (/studio/*) is a third-party SPA that makes many connections
-  // to *.sanity.io (API, CDN, WebSocket). Skip the restrictive CSP for those
-  // routes so the Studio can operate normally.
   const isStudio = request.nextUrl.pathname.startsWith("/studio");
-  if (isStudio) return response;
 
   // Prevent MIME-type sniffing
   response.headers.set("X-Content-Type-Options", "nosniff");
 
   // Prevent clickjacking — only allow our own site to frame pages
+  // (also applies to /studio, which would otherwise be iframe-able)
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
 
   // XSS filter (legacy browsers)
@@ -84,6 +88,11 @@ export function middleware(request: NextRequest) {
     "Strict-Transport-Security",
     "max-age=31536000; includeSubDomains"
   );
+
+  // CSP is incompatible with Sanity Studio's many *.sanity.io connections
+  // (API, CDN, WebSocket). Skip only the CSP for /studio; clickjacking
+  // protection above (X-Frame-Options) still applies.
+  if (isStudio) return response;
 
   // Content Security Policy.
   // Pragmatic allowlist: 'unsafe-inline' is still needed for Next.js inline
@@ -112,7 +121,7 @@ export function middleware(request: NextRequest) {
 }
 
 /**
- * Apply middleware to all routes except static assets and Next.js internals.
+ * Apply proxy to all routes except static assets and Next.js internals.
  */
 export const config = {
   matcher: [

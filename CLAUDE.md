@@ -222,9 +222,78 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-14 (2026 intake data refresh + team profile edits + 80(G) donation receipt system Phase 1a)
+**Last updated by:** Claude Code — 2026-05-15 (security audit resumed — Next.js 16.2.6 bump + 5 hardening fixes; PR #1 awaiting env vars + merge)
 
-**What was just completed (Session 2026-05-14 — six commits, all live on `main`):**
+**What was just completed (Session 2026-05-15 — security audit resumed, two commits on PR #1 awaiting merge):**
+
+- [x] **Resumed the 2026-04-21 security audit** — closed Next.js advisories disclosed since then + hardened the new code added during the 80(G) Phase 1a work (admin donations export, donor PII flow, Razorpay live, Sanity Studio). All work on branch `claude/charming-goldstine-60bad2` → PR [WR-Website#1](https://github.com/Maxray77/WR-Website/pull/1). **NOT YET MERGED** — see env-var action items below; the code now fails closed without them.
+
+  **Commit `f0d7184` — `chore(deps): bump next 16.2.4→16.2.6 + sanity 5.24→5.25.1`.** Closes **14 npm-audit findings** disclosed since the 2026-04-21 audit:
+  - 13 Next.js advisories. **Two are particularly load-bearing for our setup:** GHSA-26hh-7cqf-hhc6 + GHSA-267c-6grr-h53f are **middleware/proxy bypasses via segment-prefetch routes** — these directly undercut the origin-allowlist proxy in `src/proxy.ts`. Also: middleware bypass via dynamic route param injection (GHSA-492v-c6pp-mqqv), Pages-Router i18n bypass (GHSA-36qx-fr4f-26g5), cache-poisonable redirects (GHSA-3g8h-86w9-wvmq), SSRF on WebSocket upgrade (GHSA-c4j6-fc7j-m34r), XSS with CSP nonces (GHSA-ffhc-5mcf-pf4q), XSS in beforeInteractive scripts (GHSA-gx5p-jg67-6x7h), two RSC cache poisoning advisories (GHSA-vfv6-92ff-j949, GHSA-wfc6-r584-vfw7), and three DoS advisories (Server Components GHSA-8h8q-6873-q5fj, Cache Components GHSA-mg66-mrh9-m8jx, Image Optimization API GHSA-h64f-5h5j-jqjh).
+  - postcss XSS via unescaped `</style>` (GHSA-qx2v-qp2m-jg93, transitive via Next).
+  - Sanity 5.24 → 5.25.1 + `@sanity/vision` realigned to ^5.25.1 (patch + minor).
+  - **Remaining 6 moderate findings are build-time-only transitives** in Next's bundled postcss 8.4.31 and Sanity CLI's js-yaml. NOT runtime-exploitable; await upstream releases. `npm audit fix --force` would downgrade Next to v9 — do not run.
+
+  **Commit `e238164` — `security: timing attacks, admin rate limit, PAN fail-closed, /studio headers`.** Five code fixes:
+
+  1. **Razorpay webhook HMAC compare is timing-safe** — `src/app/api/razorpay-webhook/route.ts`. Was `signature !== expectedSignature` (string compare, byte-by-byte timing leak). Now `crypto.timingSafeEqual` on equal-length hex buffers, with try/catch around `Buffer.from(hex)` (which silently truncates malformed input — explicit length-equality check is required *before* `timingSafeEqual`, which throws on length mismatch).
+  2. **Admin auth is timing-safe + rate-limited** — `src/app/api/admin/donations/route.ts`. Was `u !== adminUser || p !== adminPass` with no rate limit, so credentials could be brute-forced byte-by-byte. Now zero-padded `crypto.timingSafeEqual` on both fields with a separate length check; no short-circuit between user and password (both compared unconditionally). **New `admin` rate-limit bucket** in `src/lib/redis.ts` at 20 req/hr per IP, **applied before auth** so 401 churn can't bypass throttling.
+  3. **PAN encryption is fail-closed** — `src/lib/donations.ts`. Was: missing `PAN_ENCRYPTION_KEY` → PAN persisted plaintext with only a `console.warn` (real donor PANs at rest until rotation). Now: missing/invalid key → PAN **dropped from the persisted record** + logged loudly via `console.error`; donation still recorded with name/address (donor paid; we can't lose the transaction); manual receipt path required when this happens. Plaintext PAN never lands in Redis at the `donation:payment:*` key. Also exported `isPanEncryptionAvailable()` helper for future callers.
+  4. **Sanity client prefers read-only token** — `src/sanity/lib/client.ts`. Was hardcoded `token: process.env.SANITY_API_WRITE_TOKEN` for all server-side reads. Now `process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN` — read token wins; write token kept as backwards-compat fallback. Scopes blast radius if server env ever leaks (read access only, no mutation/publish/delete). Migration scripts (`scripts/migrate-blog-to-sanity.mjs`) explicitly load the write token and continue to need Editor permissions.
+  5. **`src/middleware.ts` → `src/proxy.ts`** — Next.js 16 file-convention rename per [the official deprecation](https://nextjs.org/docs/app/api-reference/file-conventions/proxy). Renamed file + renamed export from `middleware` to `proxy`. Build footer now reads `ƒ Proxy (Middleware)` confirming the rename. **Also tightened `/studio` handling:** was bypassing ALL security headers (no X-Frame-Options, no HSTS, etc.). Now `/studio` still emits `X-Frame-Options: SAMEORIGIN`, HSTS, `X-Content-Type-Options`, `Permissions-Policy`, etc. — only the restrictive CSP is skipped (Sanity Studio needs many `*.sanity.io` connections). Closes a clickjacking gap on Studio.
+
+**Production security posture once PR #1 merges:**
+
+| Control | Status |
+|---|---|
+| HSTS (1y, includeSubDomains) | ✅ |
+| **X-Frame-Options on app routes AND /studio** | ✅ **NEW** |
+| Content-Security-Policy (app routes) | ✅ |
+| CSRF (origin-allowlist proxy) | ✅ (now in `src/proxy.ts`) |
+| **Razorpay HMAC timing-safe** | ✅ **NEW** |
+| **Admin auth timing-safe + rate-limited (20/hr)** | ✅ **NEW** |
+| **PAN encryption fail-closed** | ✅ **NEW** (was open-closed) |
+| **Sanity client read-only-preferred** | ✅ **NEW** |
+| Rate limiting (chat, contact, newsletter, **admin**) | ✅ |
+| Razorpay sandboxed iframe (not dangerouslySetInnerHTML) | ✅ |
+| `.env` / `.git` / source maps | 404 ✅ |
+| `npm audit --omit=dev` | 6 build-time moderates (was 14 incl. 1 high + 13 advisories) ✅ |
+
+**Action items still pending — REQUIRED before merging PR #1:**
+- [ ] **Set `PAN_ENCRYPTION_KEY`** in Vercel. Generate once: `openssl rand -hex 32`. **STORE OFFLINE** — rotation = old encrypted PANs become unrecoverable. Without this, PAN-bearing donations after merge will be persisted *without* PAN (donation succeeds, donor email captured, but receipt issuance needs manual PAN re-capture by email).
+- [ ] **Create `SANITY_API_READ_TOKEN`** in Sanity Manage → API → Tokens → Viewer scope. Add to Vercel. Then **remove `SANITY_API_WRITE_TOKEN` from server env** (keep only where the migration scripts run).
+- [ ] **Set `ADMIN_USERNAME` + `ADMIN_PASSWORD`** in Vercel before the next Form 10BD CSV export window. Endpoint returns 503 until both are set (safe default — admin endpoint is inert).
+- [ ] **Rotate `SANITY_API_WRITE_TOKEN`** — still flagged from 2026-05-09 (was exposed in chat).
+- [ ] **Enable Vercel Firewall rules** in dashboard (~10 min UI clicks). Original 2026-04-21 pending list item.
+- [ ] **Verify GitHub Dependabot + Secret Scanning are on** — repo Settings → Security. Original 2026-04-21 pending list item.
+
+**Known limitation (documented; non-blocking — defer to next session):**
+- **Donor draft (24h Redis TTL keyed by Razorpay `order_id`) still stores PAN plaintext** between create-order and webhook capture. `storeDonorDraft` in `src/lib/donations.ts` was NOT changed. Upstash is encrypted at rest, so PAN-at-disk is encrypted; the gap is only "in-flight through application memory + Redis REST API" during the 24h window. Tighten when Phase 1b receipt emails ship (encrypt the draft's PAN field; transparent decrypt on `getDonorDraft`).
+
+**Tooling notes from this session:**
+- **`npm install <pkg> --package-lock-only --legacy-peer-deps`** updates only the lockfile without writing `node_modules`. Useful in worktrees where you want a fast version bump for audit purposes; full install can come later. Saved ~30s vs. a full install during the audit.
+- **`npm run prebuild` regenerates `public/studio/static/*.json` using local `.env.local`.** Caught at the last minute: my worktree had no `.env.local`, so the regenerated `create-manifest.json` had `projectId: ""` and `dataset: ""` — committing that would have broken the live Studio. **Always `git checkout HEAD -- public/studio/static/` before committing if `.env.local` isn't set up in the worktree.** Vercel regenerates these correctly on every build using its own env vars; the committed versions just need to be valid.
+- **Constant-time string compare with `crypto.timingSafeEqual`:** the function throws on length mismatch. To avoid leaking length via the throw, zero-pad both buffers to the same max length, run `timingSafeEqual` on the padded buffers, then AND with a constant-time length equality check. See the `constantTimeEqual` helper in `src/app/api/admin/donations/route.ts`.
+- **For HMAC hex compare:** `Buffer.from(input, "hex")` silently truncates invalid input (returns shorter buffer than expected). Always check `sigBuf.length === expBuf.length && sigBuf.length > 0` before passing to `timingSafeEqual`. See `src/app/api/razorpay-webhook/route.ts`.
+- **Next.js 16 file-convention rename:** the codemod `npx @next/codemod@canary middleware-to-proxy .` automates the rename, but for our small case I just renamed the file via `git rm` + `Write` and changed `export function middleware()` to `export function proxy()` by hand. Both `default export` and `named proxy export` work in Next.js 16; we use the named export. After the rename, `npm run build` footer shows `ƒ Proxy (Middleware)` instead of the old `ƒ Middleware`.
+
+**Key files touched this session:**
+- `package.json`, `package-lock.json` — next 16.2.4 → 16.2.6, sanity 5.24 → 5.25.1, @sanity/vision 5.25.1
+- `src/app/api/razorpay-webhook/route.ts` — `crypto.timingSafeEqual` on HMAC signature compare
+- `src/app/api/admin/donations/route.ts` — zero-padded constant-time auth via local `constantTimeEqual` helper; rate-limit check added at top of GET handler
+- `src/lib/donations.ts` — `persistDonation` fail-closed on PAN encryption; exported `isPanEncryptionAvailable()`
+- `src/lib/redis.ts` — new `admin` rate-limit bucket (20/hr per IP); `checkRateLimit` union expanded to include `"admin"`
+- `src/sanity/lib/client.ts` — `SANITY_API_READ_TOKEN || SANITY_API_WRITE_TOKEN` token selection
+- `src/proxy.ts` — **NEW** (renamed from `src/middleware.ts`); export renamed `middleware` → `proxy`; `/studio` no longer bypasses headers, only the restrictive CSP
+- `src/middleware.ts` — **DELETED** (replaced by proxy.ts; rename detected at 81% similarity by git)
+
+**Uncommitted local state at session end:**
+- `.claude/settings.local.json` — workstation-specific, untracked / dirty (expected, never committed)
+- Branch `claude/charming-goldstine-60bad2` pushed to origin with 2 commits ahead of `main`; PR [WR-Website#1](https://github.com/Maxray77/WR-Website/pull/1) open and waiting on the env-var action items above
+
+---
+
+**Previously completed (Session 2026-05-14 — six commits, all live on `main`):**
 
 - [x] **2026 intake records refreshed from source spreadsheet** (commit `de721f6`). Source: `C:\Users\maxra\Documents\Wildlife Rescue\Data\Intake Records\2026\Cases 2026.xlsx`.
   - **Method:** `openpyxl` + count rows where DATE column (col C) is a real `datetime` and C.No. (col A) is numeric. 1,807 cases from 1 Jan 2026 to 13 May 2026, case #37,650 → #39,456. Row count matches `(max - min + 1)` exactly = zero gaps/duplicates in the source data.

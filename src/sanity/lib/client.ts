@@ -2,13 +2,20 @@ import { createClient } from "next-sanity";
 import { apiVersion, dataset, projectId } from "../env";
 
 /**
- * Server-side Sanity client.
+ * Server-side Sanity client (read-only path).
  *
- * Uses SANITY_API_WRITE_TOKEN (no NEXT_PUBLIC_ prefix → never sent to the
- * browser) so reads work even when the dataset is set to Private. The token
- * is only available in Server Components / API routes / build-time fetches.
+ * Token selection order:
+ *   1. SANITY_API_READ_TOKEN — preferred. Create one in Sanity Manage →
+ *      API → Tokens with Viewer permissions. Scopes the blast radius if
+ *      server env ever leaks: an attacker can read content but cannot
+ *      mutate / publish / delete.
+ *   2. SANITY_API_WRITE_TOKEN — legacy fallback so the site keeps working
+ *      while you provision the read token. Should be removed once the
+ *      read token is set in Vercel.
  *
- * For a fully public dataset you can drop the token and queries still work.
+ * Neither variable is prefixed NEXT_PUBLIC_ — both stay server-side.
+ * Migration scripts (scripts/migrate-blog-to-sanity.mjs) explicitly load the
+ * write token and continue to need Editor permissions.
  */
 export const client = createClient({
   projectId,
@@ -18,5 +25,6 @@ export const client = createClient({
   // block or fail to resolve. Use direct API (api.sanity.io) in dev.
   useCdn: process.env.NODE_ENV === "production",
   perspective: "published",
-  token: process.env.SANITY_API_WRITE_TOKEN,
+  token:
+    process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
 });

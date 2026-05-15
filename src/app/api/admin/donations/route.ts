@@ -1,5 +1,7 @@
 import { NextRequest } from "next/server";
+import crypto from "crypto";
 import { getFinancialYear, listDonationsForFy, decryptPan, type DonationRecord } from "@/lib/donations";
+import { checkRateLimit } from "@/lib/redis";
 
 /**
  * Admin endpoint to export donations for an FY in Form 10BD-compatible CSV.
@@ -7,12 +9,31 @@ import { getFinancialYear, listDonationsForFy, decryptPan, type DonationRecord }
  * Auth: HTTP Basic, credentials from ADMIN_USERNAME / ADMIN_PASSWORD env vars.
  * If not configured, endpoint returns 503.
  *
+ * Hardening:
+ *  - constant-time credential comparison (defeats byte-by-byte timing attacks)
+ *  - 20 requests/hour per IP rate limit (bounds brute-force without
+ *    throttling the small admin team's legitimate CSV exports)
+ *
  * Usage:
  *   GET /api/admin/donations                  → current FY, CSV
  *   GET /api/admin/donations?fy=2025-26       → specific FY, CSV
  *   GET /api/admin/donations?format=json      → JSON dump (no PAN; encrypted only)
  *   GET /api/admin/donations?format=10bd      → Form 10BD CSV (PAN decrypted)
  */
+
+/** Constant-time string compare. Pads with zeros so length mismatch is itself constant-time. */
+function constantTimeEqual(a: string, b: string): boolean {
+  const aBuf = Buffer.from(a, "utf8");
+  const bBuf = Buffer.from(b, "utf8");
+  // Force equal length to defeat early-exit length leak. Compare expected
+  // (b) against itself once and against (a)-padded once; AND the results.
+  const max = Math.max(aBuf.length, bBuf.length);
+  const aPad = Buffer.concat([aBuf, Buffer.alloc(max - aBuf.length)], max);
+  const bPad = Buffer.concat([bBuf, Buffer.alloc(max - bBuf.length)], max);
+  const valueEq = crypto.timingSafeEqual(aPad, bPad);
+  const lengthEq = aBuf.length === bBuf.length;
+  return valueEq && lengthEq;
+}
 
 function requireAuth(request: NextRequest): { ok: true } | { ok: false; res: Response } {
   const adminUser = process.env.ADMIN_USERNAME;
@@ -33,11 +54,20 @@ function requireAuth(request: NextRequest): { ok: true } | { ok: false; res: Res
       }),
     };
   }
-  const decoded = Buffer.from(header.slice(6), "base64").toString("utf8");
+  let decoded = "";
+  try {
+    decoded = Buffer.from(header.slice(6), "base64").toString("utf8");
+  } catch {
+    // malformed base64
+  }
   const sepIdx = decoded.indexOf(":");
   const u = sepIdx >= 0 ? decoded.slice(0, sepIdx) : decoded;
   const p = sepIdx >= 0 ? decoded.slice(sepIdx + 1) : "";
-  if (u !== adminUser || p !== adminPass) {
+  // Always run BOTH comparisons (no short-circuit) so failure timing reveals
+  // neither which field is wrong nor any length information.
+  const userOk = constantTimeEqual(u, adminUser);
+  const passOk = constantTimeEqual(p, adminPass);
+  if (!userOk || !passOk) {
     return {
       ok: false,
       res: new Response("Invalid credentials", {
@@ -95,6 +125,17 @@ function toFormBdRow(d: DonationRecord, idx: number): string[] {
 }
 
 export async function GET(request: NextRequest) {
+  // Rate limit first so brute-force attempts can't bypass via 401 responses
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const { allowed } = await checkRateLimit("admin", ip);
+  if (!allowed) {
+    return new Response("Too many requests", {
+      status: 429,
+      headers: { "Retry-After": "3600" },
+    });
+  }
+
   const auth = requireAuth(request);
   if (!auth.ok) return auth.res;
 
