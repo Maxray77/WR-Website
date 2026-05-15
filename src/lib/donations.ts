@@ -132,6 +132,11 @@ function getEncryptionKey(): Buffer | null {
   return Buffer.from(hex, "hex");
 }
 
+/** True if PAN_ENCRYPTION_KEY is configured and valid. Cheap; callers may gate on this. */
+export function isPanEncryptionAvailable(): boolean {
+  return getEncryptionKey() !== null;
+}
+
 export function encryptPan(pan: string): string | null {
   const key = getEncryptionKey();
   if (!key) return null;
@@ -229,7 +234,26 @@ export async function persistDonation(params: {
   const fy = getFinancialYear(params.capturedAt);
   const receiptNumber = await nextReceiptNumber(fy);
 
-  const panEncrypted = params.donor.pan ? encryptPan(params.donor.pan) : null;
+  // PAN handling: fail-closed.
+  //   - If PAN supplied AND encryption is configured → store encrypted, drop plaintext.
+  //   - If PAN supplied BUT encryption is NOT configured → drop PAN entirely + log loudly.
+  //     The donation is still recorded (donor paid; we must not lose the
+  //     transaction) but plaintext PAN is never persisted. Receipt issuance
+  //     for that donor will require manual PAN re-capture by email.
+  let panEncrypted: string | null = null;
+  let donorForRecord: DonorDetails = params.donor;
+  if (params.donor.pan) {
+    panEncrypted = encryptPan(params.donor.pan);
+    if (panEncrypted) {
+      donorForRecord = { ...params.donor, pan: undefined };
+    } else {
+      console.error(
+        `[donations] PAN_ENCRYPTION_KEY missing/invalid — refusing to persist plaintext PAN. ` +
+          `Payment ${params.paymentId}: donor name kept, PAN dropped, manual receipt needed.`
+      );
+      donorForRecord = { ...params.donor, pan: undefined };
+    }
+  }
 
   const record: DonationRecord = {
     paymentId: params.paymentId,
@@ -239,9 +263,7 @@ export async function persistDonation(params: {
     capturedAt: params.capturedAt.toISOString(),
     receiptNumber,
     fy,
-    donor: panEncrypted
-      ? { ...params.donor, pan: undefined } // drop plaintext PAN from main record
-      : params.donor,
+    donor: donorForRecord,
     panEncrypted,
     status: "provisional_issued",
   };

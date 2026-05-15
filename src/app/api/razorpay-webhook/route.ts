@@ -21,7 +21,21 @@ export async function POST(request: NextRequest) {
     .update(body)
     .digest("hex");
 
-  if (signature !== expectedSignature) {
+  // Constant-time comparison to defeat byte-by-byte timing attacks on the
+  // HMAC signature. Buffer.from(hex) is robust to odd-length / non-hex input
+  // (yields a truncated/empty buffer), so we explicitly require equal lengths.
+  let signaturesMatch = false;
+  try {
+    const sigBuf = Buffer.from(signature, "hex");
+    const expBuf = Buffer.from(expectedSignature, "hex");
+    if (sigBuf.length > 0 && sigBuf.length === expBuf.length) {
+      signaturesMatch = crypto.timingSafeEqual(sigBuf, expBuf);
+    }
+  } catch {
+    signaturesMatch = false;
+  }
+
+  if (!signaturesMatch) {
     return Response.json({ error: "Invalid signature" }, { status: 400 });
   }
 
