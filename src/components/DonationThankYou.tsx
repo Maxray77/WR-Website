@@ -20,7 +20,7 @@ interface Props {
  *   - Confirmation of payment + Razorpay payment ID
  *   - Immediate download link for Wildlife Rescue's 80(G) registration certificate
  *   - Note that a provisional receipt email will arrive shortly (once Phase 1b ships;
- *     for now the donor can email nadeem@raptorrescue.org with their payment ID to request one)
+ *     for now the donor can email saud@raptorrescue.org with their payment ID to request one)
  */
 export default function DonationThankYou({ data, onClose }: Props) {
   useEffect(() => {
@@ -116,7 +116,7 @@ export default function DonationThankYou({ data, onClose }: Props) {
                     shortly. Your Form 10BE certificate will be issued after we file Form 10BD with the Income Tax Department (by 31 May of next FY).
                   </p>
                   <p className="text-xs text-slate mt-2">
-                    Haven&apos;t received it within an hour? Email <a className="text-teal underline" href="mailto:nadeem@raptorrescue.org">nadeem@raptorrescue.org</a> with the payment ID above.
+                    Haven&apos;t received it within an hour? Email <a className="text-teal underline" href="mailto:saud@raptorrescue.org">saud@raptorrescue.org</a> with the payment ID above.
                   </p>
                 </div>
               </div>
@@ -130,7 +130,7 @@ export default function DonationThankYou({ data, onClose }: Props) {
                 <div className="flex-1">
                   <h3 className="font-bold text-charcoal">Want to claim 80(G) later?</h3>
                   <p className="text-sm text-slate mt-1 leading-relaxed">
-                    No problem. Email <a className="text-teal underline" href="mailto:nadeem@raptorrescue.org">nadeem@raptorrescue.org</a> with your name, PAN, address, and the payment ID above. We&apos;ll issue a provisional receipt within 10 working days.
+                    No problem. Email <a className="text-teal underline" href="mailto:saud@raptorrescue.org">saud@raptorrescue.org</a> with your name, PAN, address, and the payment ID above. We&apos;ll issue a provisional receipt within 10 working days.
                   </p>
                 </div>
               </div>
