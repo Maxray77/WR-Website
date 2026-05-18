@@ -44,7 +44,7 @@ const ORG = {
 
 const SIGNATORY = {
   name: "Mohammad Saud",
-  role: "Trustee",
+  role: "Treasurer",
 };
 
 // Optional signature image — drop a 200×80 PNG at this path to enable.
@@ -230,9 +230,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   signatureImage: {
-    width: 110,
-    height: 36,
-    marginBottom: 3,
+    width: 140,
+    height: 60,
+    marginBottom: 2,
     objectFit: "contain",
   },
   signatureLine: {
@@ -302,18 +302,26 @@ function maskPanForDisplay(pan: string): string {
   return `${pan.slice(0, 5)}XXXX${pan.slice(9)}`;
 }
 
-let signatureImageExists: boolean | null = null;
-function hasSignatureImage(): boolean {
-  if (signatureImageExists !== null) return signatureImageExists;
+/**
+ * Load the signature image as a Buffer at module load time. Returns null if
+ * the file doesn't exist (template falls back to a blank signature line).
+ *
+ * Buffer-based loading sidesteps a @react-pdf/renderer quirk where Windows
+ * absolute paths sometimes don't render (image area reserved but image absent).
+ */
+function loadSignatureImage(): Buffer | null {
   try {
-    // dynamic require avoids bundling fs in edge; this module is server-only anyway
     const fs = require("fs") as typeof import("fs");
-    signatureImageExists = fs.existsSync(SIGNATURE_IMAGE_PATH);
-  } catch {
-    signatureImageExists = false;
+    if (!fs.existsSync(SIGNATURE_IMAGE_PATH)) return null;
+    return fs.readFileSync(SIGNATURE_IMAGE_PATH);
+  } catch (err) {
+    console.error("[receipt-pdf] loadSignatureImage failed:", err);
+    return null;
   }
-  return signatureImageExists;
 }
+
+// Cached at module load — file is small (~70 KB) and only changes between deploys.
+const SIGNATURE_IMAGE_BUFFER = loadSignatureImage();
 
 // ─── Document component ────────────────────────────────────────────────────
 
@@ -332,7 +340,7 @@ function ReceiptDocument({ record, pan }: ReceiptProps) {
   const { donor, amount, capturedAt, receiptNumber, paymentId, fy } = record;
   const rupees = amount / 100;
   const displayPan = pan ? maskPanForDisplay(pan) : pan === "" ? "Not provided" : "On file (encrypted)";
-  const showSignatureImage = hasSignatureImage();
+  const showSignatureImage = SIGNATURE_IMAGE_BUFFER !== null;
 
   return (
     <Document
@@ -471,8 +479,8 @@ function ReceiptDocument({ record, pan }: ReceiptProps) {
         {/* Signature */}
         <View style={styles.signatureRow}>
           <View style={styles.signatureBox}>
-            {showSignatureImage ? (
-              <Image src={SIGNATURE_IMAGE_PATH} style={styles.signatureImage} />
+            {showSignatureImage && SIGNATURE_IMAGE_BUFFER ? (
+              <Image src={SIGNATURE_IMAGE_BUFFER} style={styles.signatureImage} />
             ) : (
               <View style={styles.signatureLine} />
             )}
