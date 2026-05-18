@@ -22,12 +22,12 @@ import { renderReceiptPdf } from "./receipt-pdf";
  *                          "onboarding@resend.dev" while testing)
  *
  * Optional:
- *   - RECEIPT_REPLY_TO   — defaults to "nadeem@raptorrescue.org"
+ *   - RECEIPT_REPLY_TO   — defaults to "saud@raptorrescue.org"
  *   - RECEIPT_BCC        — comma-separated, e.g. for internal archival
  */
 
 const FROM_FALLBACK = "Wildlife Rescue <onboarding@resend.dev>";
-const REPLY_TO_FALLBACK = "nadeem@raptorrescue.org";
+const REPLY_TO_FALLBACK = "saud@raptorrescue.org";
 
 function getResendClient(): Resend | null {
   const key = process.env.RESEND_API_KEY;
@@ -156,7 +156,7 @@ function buildHtmlBody(record: DonationRecord): string {
               <hr style="border:none;border-top:1px solid #E5E7EB;margin:24px 0;" />
 
               <p style="margin:0 0 12px;font-size:15px;line-height:1.6;">
-                If you have any questions about your donation or this receipt, please reply to this email or write to <a href="mailto:nadeem@raptorrescue.org" style="color:#0A6E5C;text-decoration:none;">nadeem@raptorrescue.org</a> quoting receipt number <strong>${escapeHtml(receiptNumber)}</strong>.
+                If you have any questions about your donation or this receipt, please reply to this email or write to <a href="mailto:saud@raptorrescue.org" style="color:#0A6E5C;text-decoration:none;">saud@raptorrescue.org</a> quoting receipt number <strong>${escapeHtml(receiptNumber)}</strong>.
               </p>
 
               <p style="margin:16px 0 0;font-size:15px;line-height:1.6;">

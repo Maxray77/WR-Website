@@ -33,7 +33,7 @@ const ORG = {
   registeredOffice: "2970, Shah Ganj, Ajmeri Gate, Delhi - 110006, India",
   operationsAddress: "C-6/1, Rehmani Chowk, Street No. 9, Wazirabad Village, Delhi - 110084",
   phone: "+91 98100 29698",
-  email: "nadeem@raptorrescue.org",
+  email: "saud@raptorrescue.org",
   website: "www.raptorrescue.org",
   pan: "AAATW2352B",
   reg80g: "AAATW2352B25DL02",
@@ -472,7 +472,7 @@ function ReceiptDocument({ record, pan }: ReceiptProps) {
           by 31 May of the following year) — please retain that for income-tax filing. Deduction under Section
           80(G) is available subject to the conditions and limits prescribed under the Income-tax Act, 1961,
           including the aggregate ceiling of 10% of adjusted gross total income. This receipt is
-          computer-generated and is valid without a physical seal. For queries, write to nadeem@raptorrescue.org
+          computer-generated and is valid without a physical seal. For queries, write to saud@raptorrescue.org
           quoting the receipt number above.
         </Text>
 
