@@ -4,17 +4,17 @@ import { Ratelimit } from "@upstash/ratelimit";
 /**
  * Upstash Redis client — used for rate limiting and persistent storage.
  *
- * Required env vars:
- *   UPSTASH_REDIS_REST_URL
- *   UPSTASH_REDIS_REST_TOKEN
+ * Required env vars (either naming convention works):
+ *   - UPSTASH_REDIS_REST_URL    + UPSTASH_REDIS_REST_TOKEN   (Upstash direct / old Vercel KV setup)
+ *   - KV_REST_API_URL           + KV_REST_API_TOKEN          (newer Vercel Marketplace integration)
  *
- * Set up at https://console.upstash.com or via Vercel Marketplace integration.
- * If not configured, rate limiting and storage gracefully degrade.
+ * Set up at https://console.upstash.com OR via Vercel Storage tab → Upstash for
+ * Redis. If neither pair is set, rate limiting and storage gracefully degrade.
  */
 
 function createRedis(): Redis | null {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
   if (!url || !token) return null;
   return new Redis({ url, token });
 }
