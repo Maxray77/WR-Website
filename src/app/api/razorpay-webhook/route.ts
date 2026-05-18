@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import crypto from "crypto";
 import { getDonorDraft, persistDonation } from "@/lib/donations";
+import { sendDonationReceipt } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
@@ -91,12 +92,24 @@ export async function POST(request: NextRequest) {
         `[Razorpay] Donation ${result.created ? "persisted" : "already existed"}: receipt ${result.record.receiptNumber} (FY ${result.record.fy})`
       );
 
-      // Phase 1b — when receipt email goes out, attach BOTH:
-      //   1. Dynamically-generated provisional receipt PDF (from @react-pdf/renderer)
-      //   2. Static 80(G) certificate PDF (from STATIC_RECEIPT_ATTACHMENTS in
-      //      src/lib/donations.ts — currently /public/80g-certificate.pdf)
-      // Only send if result.record.status === "provisional_issued" and donor
-      // is not anonymous. See STATIC_RECEIPT_ATTACHMENTS for the file list.
+      // Phase 1b — send tax-pack email (provisional receipt PDF + static 80G cert).
+      // Only fire on `created: true` so duplicate webhook deliveries don't double-email.
+      // Email failures are returned, not thrown — donation is already persisted.
+      if (result.created) {
+        try {
+          const emailResult = await sendDonationReceipt(result.record);
+          if (emailResult.sent) {
+            console.log(`[Razorpay] Receipt email sent for ${result.record.receiptNumber}`);
+          } else if (emailResult.skipped) {
+            console.log(`[Razorpay] Receipt email skipped (${emailResult.skipped}) for ${result.record.receiptNumber}`);
+          } else if (emailResult.error) {
+            console.error(`[Razorpay] Receipt email failed for ${result.record.receiptNumber}:`, emailResult.error);
+          }
+        } catch (err) {
+          // Defensive: sendDonationReceipt already catches; this is belt-and-suspenders.
+          console.error("[Razorpay] sendDonationReceipt threw:", err);
+        }
+      }
     } catch (err) {
       // Persistence failure must NOT cause webhook retry storms or expose
       // internals. Log and continue — donor still paid; can be reconciled

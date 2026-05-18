@@ -222,9 +222,156 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-14 (2026 intake data refresh + team profile edits + 80(G) donation receipt system Phase 1a)
+**Last updated by:** Claude Code — 2026-05-18 (80(G) donation receipt system Phase 1b — automated emailed PDF receipts wired up; uncommitted on worktree branch)
 
-**What was just completed (Session 2026-05-14 — six commits, all live on `main`):**
+**What was just completed (Session 2026-05-18 — Phase 1b emailed receipts, NOT YET COMMITTED, on worktree branch `claude/heuristic-blackburn-293ce5`):**
+
+This session implements the second half of the 80(G) receipt system. Phase 1a (committed 2026-05-14) captures donor details and persists donations with FY-sequential receipt numbers. Phase 1b (this session) generates the provisional 80(G) receipt PDF and emails it to the donor as a tax-pack alongside the static 80G certificate.
+
+- [x] **Packages installed**: `@react-pdf/renderer@^4.3.2` (PDF generation, server-side) + `resend@^6.12.3` (email delivery). `package.json` + `package-lock.json` updated.
+
+- [x] **`src/lib/amount-in-words.ts`** — NEW (~65 lines). Converts integer rupee amount to Indian-numbering words using lakhs/crores. Examples:
+  - `amountInWords(500)` → "Five Hundred Rupees Only"
+  - `amountInWords(125000)` → "One Lakh Twenty Five Thousand Rupees Only"
+  - `amountInWords(10000000)` → "One Crore Rupees Only"
+  Note: returns "X Rupees Only" — caller must NOT prepend "Rupees" (this was a bug caught during preview — "(Rupees Two Thousand Rupees Only)").
+
+- [x] **`src/lib/receipt-pdf.tsx`** — NEW (~290 lines). React component using `@react-pdf/renderer` that emits the provisional 80(G) receipt as an A4 PDF.
+  - Layout: header (logo top-left, org details top-right), teal title bar with receipt number on the right, four sections (Donor Details / Donation Details / Tax Exemption Details / Disclaimer + signature), fixed footer with operations address + receipt number.
+  - Renders single-page A4 even for large amounts (tested ₹2,500 and ₹1,25,000). Verified visually via `/api/admin/receipt-preview` against the live PDF rendered.
+  - PAN handling: caller decrypts the encrypted PAN and passes it in; PDF displays masked form `ABCDE` + `XXXX` + last digit (`ABCDEXXXXF`) — never the full PAN. If decryption fails, displays "On file (encrypted)".
+  - **Placeholders that need CA/user sign-off before going live:**
+    - `SIGNATORY = { name: "Mohammad Saud", role: "Trustee" }` — typed only, no image. Drop a 200×80 PNG at `public/signature.png` and the template auto-detects + renders it instead of the blank signature line.
+    - Statutory disclaimer wording — paraphrased from standard 80(G) language, CA should confirm.
+    - Constant `LOGO_PATH = public/logo-receipt.png` — compressed from `logo-black.png` (1.87 MB → 69 KB, 500×435) using PIL.
+  - Helper: `nextAY(fy)` converts "2026-27" → "2027-28" for the Assessment Year display.
+  - Public API: `renderReceiptPdf(record: DonationRecord, pan?: string): Promise<Buffer>` (async, uses `renderToBuffer` from @react-pdf/renderer).
+
+- [x] **`src/lib/email.ts`** — NEW (~210 lines). Resend wrapper that ships the "tax pack" email.
+  - Public API: `sendDonationReceipt(record: DonationRecord): Promise<SendReceiptResult>` where `SendReceiptResult = { sent: boolean, skipped?: "no_api_key"|"anonymous_donor"|"missing_email", messageId?: string, error?: string }`. Never throws — webhook can decide what to log.
+  - **Skip conditions** (return early, don't email):
+    - `donor.anonymous === true` (opted out of 80G — no receipt to send)
+    - missing or fallback email (`no-email@example.invalid` from webhook's anonymous synthesis path)
+    - `RESEND_API_KEY` env var not set (gracefully no-ops with `console.warn`)
+  - **PAN decryption**: pulls `record.panEncrypted` through `decryptPan()` exported from `donations.ts`. Falls back to inline `record.donor.pan` for legacy records pre-encryption.
+  - **Attachments**: dynamically-generated receipt PDF (filename `Wildlife-Rescue-Receipt-WR-{fy}-{seq}.pdf` with `/` replaced by `-`) + static 80G cert from `STATIC_RECEIPT_ATTACHMENTS` in `donations.ts` (`public/80g-certificate.pdf`). Static PDFs loaded via `fs.readFile(path.join(process.cwd(), 'public', ...))` — works on Vercel (public/ is bundled with the deployment).
+  - **HTML email body**: WR-branded teal gradient header + amount summary card (teal-light bg) + amber-bordered "tax pack" callout explaining the two attachments + Form 10BE next-step note (will arrive after Form 10BD filing, typically by 31 May the following year) + reply-to instructions + signed by "Nadeem & Saud, Co-Founders" + footer with org compliance IDs.
+  - Env vars consumed:
+    - `RESEND_API_KEY` (required) — from resend.com → API Keys
+    - `RECEIPT_FROM_EMAIL` (optional; defaults to `Wildlife Rescue <onboarding@resend.dev>` for testing without a verified domain)
+    - `RECEIPT_REPLY_TO` (optional; defaults to `nadeem@raptorrescue.org`)
+    - `RECEIPT_BCC` (optional; comma-separated for internal archival)
+
+- [x] **`src/app/api/razorpay-webhook/route.ts`** — UPDATED. After `persistDonation` returns `{ created: true }`, calls `sendDonationReceipt(record)`. Wrapped in try/catch (defensive — `sendDonationReceipt` already catches internally). Logs result. **Only fires on `created: true`** so duplicate webhook deliveries (which Razorpay does on transient failures) don't double-email. The full chain is now: signature verify → JSON parse → persist (idempotent NX) → if-created send email → GA4 conversion → return 200.
+
+- [x] **`src/app/api/admin/receipt-preview/route.ts`** — NEW (~95 lines). HTTP Basic-auth-protected GET endpoint that renders a sample receipt PDF inline in the browser. Same auth pattern as `/api/admin/donations` (ADMIN_USERNAME + ADMIN_PASSWORD; returns 503 if either unset). Accepts query params: `name`, `email`, `phone`, `amount` (rupees), `pan`, `city`, `state`, `pincode`, `address`. Use this to spot-check layout after any edit to `receipt-pdf.tsx`. Example:
+  ```
+  curl -u wr-admin:<password> 'http://localhost:3000/api/admin/receipt-preview?name=Jane+Doe&amount=2500&pan=ABCDE1234F' -o preview.pdf
+  ```
+
+- [x] **`public/logo-receipt.png`** — NEW (69 KB, 500×435). Compressed from `public/logo-black.png` (1.87 MB) using `PIL.Image.thumbnail((500, 500), LANCZOS)`. Used by `receipt-pdf.tsx` for the letterhead logo.
+
+**Verification done this session:**
+- `npm run build` passes clean (Next.js 16.2.4, Turbopack, 68 routes, no new warnings).
+- `npx tsc --noEmit` clean.
+- Receipt PDF rendered end-to-end via dev server + `/api/admin/receipt-preview`. Tested with ₹2,500 (single page, donor at Bangalore) and ₹1,25,000 (Mumbai, Maharashtra). Both fit on one A4 page. Indian numbering verified (`₹1,25,000.00` with lakh comma + "One Lakh Twenty Five Thousand" in words).
+- Bug caught and fixed mid-session: PDF was emitting "Rupees X Rupees Only" because both the layout and `amountInWords()` were adding "Rupees". Fixed by dropping "Rupees" prefix from the template — `amountInWords()` returns it.
+- Layout iteration: first render emitted 2 pages with signature stranded on page 2. Compressed paddings (page padding 36→28, section margin 14→8, kvRow gap 4→2, signature top margin 28→14), trimmed disclaimer slightly, dropped font size from 10→9.5. Now consistently fits one page across the realistic donation range.
+
+**Production state — what's NOT yet live (because nothing has been committed/merged):**
+
+| Component | Status |
+|---|---|
+| All Phase 1b code is on the worktree branch `claude/heuristic-blackburn-293ce5` | ⏳ Not committed, not on main |
+| `npm install @react-pdf/renderer resend` adds these as direct deps | ⏳ package.json modified, not committed |
+| Vercel build will need these new packages when this merges to main | (already passes locally with `--legacy-peer-deps` already in `.npmrc` + `vercel.json`) |
+
+**Env vars to add in Vercel before Phase 1b actually emails real donors:**
+
+```
+RESEND_API_KEY            # From resend.com → API Keys → "Create API Key"
+RECEIPT_FROM_EMAIL        # e.g. "Wildlife Rescue <receipts@raptorrescue.org>"
+                          # Requires verifying raptorrescue.org as sending domain in Resend
+                          # (Resend → Domains → Add Domain → add SPF/DKIM/MX records via your DNS provider)
+                          # While testing, can use Resend's default "onboarding@resend.dev"
+RECEIPT_REPLY_TO          # optional, defaults to nadeem@raptorrescue.org
+RECEIPT_BCC               # optional, comma-separated. Could set to nadeem@raptorrescue.org for internal archive
+```
+
+Plus the Phase 1a env vars that were queued and are still needed:
+
+```
+ADMIN_USERNAME            # any string; used for /api/admin/donations + /api/admin/receipt-preview
+ADMIN_PASSWORD            # strong password
+PAN_ENCRYPTION_KEY        # 64-hex (32 bytes). Generate with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+                          # ⚠️ NEVER rotate casually — old encrypted PANs cannot be decrypted without the original key
+```
+
+Without `RESEND_API_KEY`:
+- Donation persistence still works (Phase 1a unaffected).
+- `sendDonationReceipt` no-ops with `console.warn("RESEND_API_KEY not configured")`.
+- Donor still sees the post-payment thank-you screen with the 80G cert download (Phase 1a) — they just don't get an email.
+
+Without `RECEIPT_FROM_EMAIL`:
+- Falls back to `onboarding@resend.dev` (Resend's default sender). Email still ships; just looks less branded.
+
+**Resend setup the user still needs to do:**
+
+1. **Create a Resend account** at resend.com (free, 3k emails/month).
+2. **Generate an API key** (Resend → API Keys → "Create API Key"; full access; copy once, can't view again). Add as `RESEND_API_KEY` in Vercel.
+3. **Verify raptorrescue.org as a sending domain** (Resend → Domains → Add Domain → enter "raptorrescue.org"). Resend will give you 5 DNS records (SPF/DKIM/DMARC + return-path). Add these to GoDaddy/Cloudflare or wherever raptorrescue.org DNS is hosted. Verification typically takes 5-30 minutes after the DNS records propagate. Until verified, emails will be rejected from `receipts@raptorrescue.org`.
+4. **Test before going live**: pull `RESEND_API_KEY` into local `.env.local`, run a real ₹100 test donation through Razorpay in test mode, confirm email arrives at your inbox with both PDFs attached.
+5. **Optional but recommended**: add a `RECEIPT_BCC=archive@raptorrescue.org` (or whatever — even your own inbox) so you have an internal copy of every receipt sent.
+
+**CA/legal sign-off the user still owes:**
+
+These were flagged as placeholders during this session. The receipt will still work with current defaults, but should be reviewed before the first real donor receives one:
+
+- **Signatory image** — currently typed name "Mohammad Saud, Trustee" with no signature image. The template auto-detects `public/signature.png` (200×80 transparent PNG) and renders it above the typed name if present. Get a clean digital signature scan from Nadeem or Saud and drop it at that path.
+- **Disclaimer wording** — currently the paraphrased standard 80(G) language. CA should confirm the exact phrasing they want for "this is a provisional receipt; Form 10BE follows" + 10% AGTI ceiling language. Lives in `src/lib/receipt-pdf.tsx` inside the `<Text style={styles.disclaimer}>` block.
+- **FCRA exclusion flag** — if any of the donations need to be excluded from Form 10BD (e.g. CSR contributions or FCRA-restricted donations), we need to add a flag to the donation record and CSV export. Currently not implemented; all donations included in Form 10BD CSV export.
+- **Minimum amount for receipt** — currently no minimum (₹1 would still get a receipt). If CA recommends a floor (e.g. ₹100 to avoid issuing receipts for nominal donations that won't be claimed), add an early-return in `sendDonationReceipt`.
+
+**Local dev testing instructions:**
+
+To test the full flow on your machine:
+
+```bash
+# 1. Worktree already has .env.local with ADMIN_USERNAME + ADMIN_PASSWORD + PAN_ENCRYPTION_KEY set
+# 2. Run dev server
+npm run dev
+
+# 3. Preview the PDF (returns inline PDF; opens in browser)
+curl -u wr-admin:local-dev-only-2026 'http://localhost:3000/api/admin/receipt-preview?name=Test+Donor&amount=5000&pan=ABCDE1234F' -o /tmp/test.pdf
+# Or open in browser: http://localhost:3000/api/admin/receipt-preview?... (it'll prompt for the auth)
+
+# 4. To test the full webhook+email path, set RESEND_API_KEY temporarily in .env.local and
+#    fire a synthetic webhook payload at /api/razorpay-webhook with a valid HMAC signature.
+#    (This is involved; easier to just do a real ₹100 Razorpay test-mode donation once
+#    RESEND_API_KEY is in Vercel preview env.)
+```
+
+**Key files touched this session:**
+
+- `src/lib/amount-in-words.ts` — **NEW** (~65 lines)
+- `src/lib/receipt-pdf.tsx` — **NEW** (~290 lines): @react-pdf/renderer A4 template
+- `src/lib/email.ts` — **NEW** (~210 lines): Resend wrapper, attachments, HTML body
+- `src/app/api/razorpay-webhook/route.ts` — UPDATED: import `sendDonationReceipt`, call after `result.created`
+- `src/app/api/admin/receipt-preview/route.ts` — **NEW** (~95 lines): HTTP Basic auth, sample data
+- `public/logo-receipt.png` — **NEW** (69 KB, compressed 500×435 version of logo-black.png)
+- `package.json` + `package-lock.json` — `@react-pdf/renderer ^4.3.2` + `resend ^6.12.3` added
+
+**Pending pickup for future sessions (Phase 1c+ ideas):**
+
+- **Form 10BE certificate auto-issuance** (Stage 2 of the compliance flow). After WR files Form 10BD with the IT Dept (typically Apr-May post FY close), the IT Dept issues Form 10BE per-donor. We'll need to ingest those (likely a manual CSV upload from the user) and email them out to donors who got provisional receipts the previous year. Each donor record currently has a `status: "provisional_issued"` field that flips to `"10be_issued"` once the formal cert is delivered.
+- **Donor self-service receipt re-fetch** — if a donor loses their email, they should be able to look up their receipt by payment ID + email. Add an unprotected `/api/receipt-lookup?payment=pay_xxx&email=foo@bar.com` that re-renders the same PDF (rate-limited).
+- **Bulk re-send** — admin endpoint to re-send receipts in bulk (for cases where Resend went down during webhook fire).
+- **Signature image** — drop a real one at `public/signature.png`.
+- **Disclaimer + signatory CA review** before first real donor email.
+
+---
+
+**Previously completed (Session 2026-05-14 — six commits, all live on `main`):**
 
 - [x] **2026 intake records refreshed from source spreadsheet** (commit `de721f6`). Source: `C:\Users\maxra\Documents\Wildlife Rescue\Data\Intake Records\2026\Cases 2026.xlsx`.
   - **Method:** `openpyxl` + count rows where DATE column (col C) is a real `datetime` and C.No. (col A) is numeric. 1,807 cases from 1 Jan 2026 to 13 May 2026, case #37,650 → #39,456. Row count matches `(max - min + 1)` exactly = zero gaps/duplicates in the source data.
