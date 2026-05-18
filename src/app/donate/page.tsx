@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight } from "lucide-react";
@@ -47,7 +47,7 @@ export default function DonatePage() {
     receipt80g: boolean;
     donorEmail: string | null;
   } | null>(null);
-  const razorpayRef = useRef<HTMLDivElement>(null);
+  const [customAmount, setCustomAmount] = useState("");
 
   // Load Razorpay checkout.js once on mount
   useEffect(() => {
@@ -58,29 +58,26 @@ export default function DonatePage() {
     return () => { document.body.removeChild(script); };
   }, []);
 
-  // Load Razorpay payment button script when Online tab is active
-  useEffect(() => {
-    if (activeTab === "online" && razorpayRef.current) {
-      razorpayRef.current.innerHTML = "";
-      const form = document.createElement("form");
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/payment-button.js";
-      script.setAttribute(
-        "data-payment_button_id",
-        process.env.NEXT_PUBLIC_RAZORPAY_BUTTON_ID || "pl_H4Jwn7xLqMgktI"
-      );
-      script.async = true;
-      form.appendChild(script);
-      razorpayRef.current.appendChild(form);
-    }
-  }, [activeTab]);
-
   // Step 1: clicking an amount opens the donor-details modal (does not call API yet)
   function startCheckout(amountInRupees: number) {
     setCheckoutError(null);
     setPendingAmount(amountInRupees);
     setDonorModalOpen(true);
     trackEvent("donor_modal_open", { amount: String(amountInRupees) });
+  }
+
+  // Custom amount entry: validate then route through the same modal flow as presets.
+  function handleCustomAmount() {
+    const n = parseInt(customAmount.replace(/[^0-9]/g, ""), 10);
+    if (!Number.isFinite(n) || n < 1) {
+      setCheckoutError("Please enter a valid amount in rupees (min ₹1)");
+      return;
+    }
+    if (n > 100000) {
+      setCheckoutError("For donations above ₹1,00,000, please email saud@raptorrescue.org so we can guide you through the bank transfer + 80(G) receipt process directly.");
+      return;
+    }
+    startCheckout(n);
   }
 
   // Step 2: modal submits → create order with donor details → open Razorpay.
@@ -247,7 +244,7 @@ export default function DonatePage() {
                 <div className="bg-amber-bg rounded-lg p-4 mt-4">
                   <p className="text-sm text-charcoal">
                     <strong>Tip:</strong> After payment, email{" "}
-                    <a href={`mailto:${CONTACT.email}`} className="font-mono text-teal underline hover:text-teal-dark">{CONTACT.email}</a>{" "}
+                    <a href="mailto:saud@raptorrescue.org" className="font-mono text-teal underline hover:text-teal-dark">saud@raptorrescue.org</a>{" "}
                     with your transaction ID for an 80(G) tax receipt, along with your Name, Address, and PAN.
                   </p>
                 </div>
@@ -309,7 +306,7 @@ export default function DonatePage() {
                 {onlineCurrency === "inr" ? (
                   <>
                     {/* INR Amount Grid — click any amount to open Razorpay */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
                       {DONATION_AMOUNTS_INR.map((item) => (
                         <button
                           key={item.amount}
@@ -331,20 +328,48 @@ export default function DonatePage() {
                       </div>
                     )}
 
-                    {/* Razorpay Payment Button */}
-                    <div className="bg-offwhite rounded-xl p-6 text-center">
-                      <h3 className="text-lg font-semibold text-charcoal mb-2">
-                        Pay Securely via Razorpay
+                    {/* Custom amount — routes through the same modal flow as presets so
+                        80(G) receipt option is preserved for every donation, regardless of amount. */}
+                    <div className="bg-offwhite rounded-xl p-6">
+                      <h3 className="text-lg font-semibold text-charcoal mb-1 text-center">
+                        Want to give a different amount?
                       </h3>
-                      <p className="text-sm text-slate mb-4">
-                        Credit card, debit card, net banking, and UPI supported
+                      <p className="text-sm text-slate mb-4 text-center">
+                        Enter any amount in ₹ — same secure payment, same 80(G) receipt option.
                       </p>
-                      <div ref={razorpayRef} className="flex justify-center" onClick={() => trackEvent("donation_started", { method: "razorpay", currency: "INR" })} />
+                      <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <div className="relative flex-1">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate font-medium pointer-events-none">₹</span>
+                          <input
+                            type="number"
+                            inputMode="numeric"
+                            min={1}
+                            max={100000}
+                            step={1}
+                            value={customAmount}
+                            onChange={(e) => { setCustomAmount(e.target.value); setCheckoutError(null); }}
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleCustomAmount(); } }}
+                            placeholder="Amount"
+                            aria-label="Custom donation amount in rupees"
+                            className="w-full pl-8 pr-3 py-3 rounded-lg border-2 border-gray-200 bg-white focus:border-teal focus:outline-none text-charcoal"
+                            disabled={checkoutLoading !== null}
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleCustomAmount}
+                          disabled={checkoutLoading !== null || !customAmount}
+                          className="px-6 py-3 rounded-lg bg-teal text-white font-semibold hover:bg-teal-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-1.5"
+                        >
+                          Continue
+                          <ArrowRight size={16} />
+                        </button>
+                      </div>
                       <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate">
                         <Shield size={14} />
                         <span>Secured by Razorpay — 256-bit encryption</span>
                       </div>
-                      <p className="mt-3 text-xs text-slate leading-relaxed">
+                      <p className="mt-3 text-xs text-slate leading-relaxed text-center max-w-md mx-auto">
                         Donations are voluntary charitable contributions and are generally non-refundable. Please review our{" "}
                         <a href="/refund-policy" className="text-teal underline hover:text-teal-dark">Refund &amp; Cancellation Policy</a>
                         {" "}and{" "}
@@ -436,7 +461,7 @@ export default function DonatePage() {
                   ))}
                 </div>
                 <p className="text-sm text-slate mt-4">
-                  After transferring, please email {CONTACT.email} with your
+                  After transferring, please email <a href="mailto:saud@raptorrescue.org" className="text-teal underline hover:text-teal-dark">saud@raptorrescue.org</a> with your
                   transaction details for a receipt.
                 </p>
               </div>

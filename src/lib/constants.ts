@@ -205,6 +205,7 @@ export const RESCUE_BY_YEAR = [
 
 // ─── Donation Amounts ───
 export const DONATION_AMOUNTS_INR = [
+  { amount: 100, label: "Every rupee helps" },
   { amount: 500, label: "Feeds one bird for a week" },
   { amount: 1000, label: "Covers medicine for one raptor" },
   { amount: 2500, label: "Covers surgery for one bird" },
