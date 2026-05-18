@@ -222,11 +222,72 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-18 (80(G) donation receipt system Phase 1b — automated emailed PDF receipts wired up; uncommitted on worktree branch)
+**Last updated by:** Claude Code — 2026-05-18 (80(G) donation receipt system Phase 1b — emailed PDF receipts shipped end-to-end and verified live; ₹100 preset + custom-amount input added; nadeem@ → saud@ refactored across donor-facing surfaces; Upstash Redis activated)
 
-**What was just completed (Session 2026-05-18 — Phase 1b emailed receipts, NOT YET COMMITTED, on worktree branch `claude/heuristic-blackburn-293ce5`):**
+**Session 2026-05-18 — Phase 1b shipped, all on `main` and verified with a real ₹100 test donation that arrived in user's inbox with both PDFs attached.**
 
-This session implements the second half of the 80(G) receipt system. Phase 1a (committed 2026-05-14) captures donor details and persists donations with FY-sequential receipt numbers. Phase 1b (this session) generates the provisional 80(G) receipt PDF and emails it to the donor as a tax-pack alongside the static 80G certificate.
+This session implemented the second half of the 80(G) receipt system (PDF generation + Resend email delivery), did the operational rollout (Resend account, raptorrescue.org domain verification, Vercel env vars, Upstash Redis activation), debugged + fixed three issues caught during the live test (Redis not configured, Windows path issue on @react-pdf/renderer, embedded Razorpay widget bypassing the 80G flow), and shipped associated UX improvements (₹100 preset, custom-amount input).
+
+**Final commit chain on `main` from this session (oldest → newest):**
+
+- `bd8a6a2` `feat(donations): Phase 1b — automated emailed PDF receipts via Resend` — initial Phase 1b code (PDF template, Resend wrapper, webhook integration, admin preview endpoint, ~1700 LOC across 5 new files + 1 modified)
+- `ece0da8` `feat(receipts): add Mohammad Saud signature image + role correction` — Saud's transparent-background signature PNG added at `public/signature.png`; SIGNATORY.role fixed to "Treasurer" (was "Trustee"); fixed a @react-pdf/renderer Windows-absolute-path bug by switching `<Image src={path} />` → `<Image src={buffer} />` (path-based silently reserved layout space but didn't embed the PNG; buffer-based renders correctly cross-platform)
+- `e197231` `fix(receipts): point donor-facing email to saud@ (was nadeem@)` — ORG.email + disclaimer in receipt PDF + Resend HTML email body all point to Saud (he handles donations, Nadeem doesn't)
+- `a413372` `fix(donations): point thank-you screen receipt-query email to saud@` — two donor-facing references on the post-payment thank-you modal (`DonationThankYou.tsx`)
+- `c1374db` `fix(redis): accept KV_REST_API_* env var names too` — Vercel Marketplace Upstash integration creates env vars with `KV_REST_API_*` prefix (legacy Vercel KV branding); code now reads either `UPSTASH_REDIS_REST_*` or `KV_REST_API_*` so the integration "just works" without manual env-var renaming
+- `bdd7876` `feat(donations): add ₹100 preset + custom amount input, drop Razorpay widget` — ₹100 "Every rupee helps" added to DONATION_AMOUNTS_INR; grid widened to 5 columns; embedded Razorpay payment-button widget replaced with "Want to give a different amount?" inline ₹ input + Continue button that routes through the same 80(G) modal as preset cards (so custom amounts no longer create orphan donations); UPI Tip + Bank Transfer fallback texts updated to saud@
+
+**Operational rollout completed this session (NOT just code):**
+
+| Step | What | Status |
+|---|---|---|
+| 1 | Resend account created at resend.com (free tier, 3k emails/month) | ✅ Done |
+| 2 | API key generated, added to Vercel as `RESEND_API_KEY` | ✅ Done |
+| 3 | `raptorrescue.org` verified as Resend sending domain (DNS records added at GoDaddy: SPF TXT, DKIM CNAMEs, MX, DMARC) | ✅ Done — Resend shows green verified ✓ |
+| 4 | `RECEIPT_FROM_EMAIL` set in Vercel: `Wildlife Rescue <receipts@raptorrescue.org>` | ✅ Done |
+| 5 | `RECEIPT_REPLY_TO` set in Vercel: `saud@raptorrescue.org` | ✅ Done |
+| 6 | `ADMIN_USERNAME` + `ADMIN_PASSWORD` set in Vercel (user chose own credentials, stored in user's password manager) | ✅ Done |
+| 7 | `PAN_ENCRYPTION_KEY` set in Vercel (fresh 32-byte hex, generated this session: `d1ace17d65...`; saved in user's password manager — DO NOT ROTATE) | ✅ Done |
+| 8 | Upstash for Redis database created via Vercel → Storage → Marketplace (database name `upstash-kv-canary-elephant`, Mumbai region, free tier, connected to all envs) | ✅ Done |
+| 9 | Live preview of receipt verified at `/api/admin/receipt-preview` — signature renders, layout fits one page, branding correct | ✅ Done |
+| 10 | Live end-to-end test: real ₹100 donation through `/donate` → thank-you screen + 80G cert download → receipt email arrived within 30s with two PDFs attached | ✅ Verified |
+
+**Production state — what donors experience right now:**
+
+1. Visits `https://www.raptorrescue.org/donate`
+2. Sees 5 INR preset amount cards (₹100, ₹500, ₹1,000, ₹2,500, ₹5,000) OR uses the "Want to give a different amount?" input below for any custom amount up to ₹1,00,000
+3. Clicking any amount opens the choice modal: "Would you like an 80(G) tax-deduction receipt?" with two prominent cards (No / Yes)
+4. **Yes path**: donor fills name, email, PAN, address. Server validates PAN regex, blocks header injection, etc. Then Razorpay Checkout opens with amount prefilled
+5. **No path**: skips straight to Razorpay Checkout
+6. After payment captures: Razorpay handler fires the thank-you overlay with Razorpay Payment ID + "Download 80(G) Certificate" button (immediate static cert download)
+7. Razorpay webhook fires at `https://www.raptorrescue.org/api/razorpay-webhook` (~5-30 seconds after capture)
+8. Webhook validates HMAC, looks up donor draft in Redis, calls `persistDonation()` which: assigns receipt number `WR/2026-27/000NNN` via atomic Redis INCR (idempotent NX guard so duplicate webhook deliveries don't double-issue), encrypts PAN with AES-256-GCM, stores donation record, indexes into the FY sorted set
+9. If `created: true`, `sendDonationReceipt()` fires: generates the provisional receipt PDF on-the-fly (`@react-pdf/renderer` → Buffer), reads the static 80G cert from `public/80g-certificate.pdf`, sends Resend email with both PDFs attached. Skips silently if donor is anonymous or no email
+10. Donor sees the receipt email in their inbox within ~30 seconds. Reply-To routes to Saud
+
+**Admin workflow:**
+
+- `https://www.raptorrescue.org/api/admin/donations?fy=2026-27` (HTTP Basic auth) → returns Form 10BD-compatible CSV with all donor details (Pre-Acknowledgement Number = our receipt number, Name, ID Type=1 for PAN, PAN, Section Code=`80G(5)(iv)`, etc.). User's CA uploads this to incometax.gov.in. JSON output also available at `?format=json` (with PAN replaced by `[encrypted]` marker for safety).
+- `https://www.raptorrescue.org/api/admin/receipt-preview?name=...&amount=...&pan=...` (HTTP Basic auth) → renders a sample receipt PDF inline for layout spot-checks.
+
+**Open issues / pending pickup for future sessions:**
+
+- **CA review of disclaimer wording** in `src/lib/receipt-pdf.tsx` (search for `styles.disclaimer`). Current wording is standard 80(G) paraphrasing; CA should confirm exact phrasing required.
+- **Form 10BE auto-issuance (Phase 2)** — after FY closes (31 March 2027 for current donations), WR files Form 10BD with IT Dept, they issue per-donor Form 10BE certificates. Need an admin endpoint that ingests those (CSV upload), updates each donation record's `status` from `provisional_issued` → `10be_issued`, and emails the formal cert to each donor. Build this around April-May 2027.
+- **`/vultures` real photos** — 10 placeholders to replace with WR's own photos when available (current photos are Wikimedia CC-licensed; Egyptian Vulture in particular flagged for replacement with user's own wounded-vulture photo).
+- **Per-year "Where Your Money Goes" bucket refinement** (`src/components/YearlyExpenditureBreakdown.tsx`) — user previously flagged some bucket categorisation needs tweaking (e.g. split "Other Operating Expenses" further). Bucket sums currently reconcile to I&E A/c totals to the rupee; preserve that invariant when refining.
+- **2021 infographic PDF wrapper (optional)** — `infographicPdf` field for 2021 currently points to the JPG file, so clicking "Download infographic" downloads a JPG instead of a PDF (other years have separate `.pdf` files). Cosmetic only; can be left as-is.
+- **Sanity write token rotation** — was exposed in chat 2026-05-09; not yet rotated. Sanity Manage → API → Tokens → revoke + regenerate (Editor permissions). Update Vercel + local `.env.local`.
+
+**Pending pickup specific to Phase 1b (one-time setup tasks):**
+
+- **Confirm Resend deliverability with a wider variety of email providers** — test sends to Gmail, Outlook/Hotmail, Yahoo, ProtonMail, common Indian providers (Rediffmail, BSNL, etc.) to make sure receipt emails aren't going to spam on first send. Resend handles SPF/DKIM/DMARC well but some receivers (especially corporate filters) treat new sending domains conservatively for the first few days.
+- **Optional: `RECEIPT_BCC` env var** — if user wants every receipt to also BCC an internal address for archival (e.g. an archive folder Saud monitors), add `RECEIPT_BCC=saud@raptorrescue.org` (or whatever) to Vercel.
+- **Optional: GA4 conversion tracking secret** — `GA4_MEASUREMENT_PROTOCOL_SECRET` env var (from GA4 Admin → Data Streams → Measurement Protocol API secrets) — enables server-side conversion events from the webhook in addition to the client-side `gtag` events. Not blocking; just deeper analytics.
+
+---
+
+**Original Phase 1b technical notes (Session 2026-05-18 — describes the code that was committed in `bd8a6a2`):**
 
 - [x] **Packages installed**: `@react-pdf/renderer@^4.3.2` (PDF generation, server-side) + `resend@^6.12.3` (email delivery). `package.json` + `package-lock.json` updated.
 
@@ -594,7 +655,7 @@ Without these the system still works:
 - Update `RESCUE_BY_YEAR` 2026 entry once full Jan-Apr 2026 audited data is ready (currently shows 951 as "partial Jan-Mar"). When updating, revert annual-reports stat card line 88 to dynamic form and re-render the `m.sub` conditional inline so the case-number subtitle returns.
 - Per-year "Where Your Money Goes" bucket refinement (carry-over from 2026-05-11) — user flagged some categorisation needs tweaking in `src/components/YearlyExpenditureBreakdown.tsx`.
 - 2019-20 financial detail — if user sources audited statements, add as 7th column to `FINANCIAL_TABLE` in `src/app/annual-reports/page.tsx` and re-generate Excel/PDF.
-- 2021 infographic JPG slot — currently "Coming soon" placeholder; full 2021 PDF is live.
+- ~~2021 infographic JPG slot~~ — DONE (live as of 2026-05-18, wired into `annual-reports-data.ts` with `infographicImage` + `infographicPdf` both pointing to `/annual-reports/infographic-2021.jpg`).
 
 ---
 
@@ -1392,7 +1453,7 @@ The current setup (embedded Razorpay button widget below the suggested-amount ti
 - `public/species/barn-owl-release.mp4` — **NEW**: Barn Owl video (33 MB)
 
 **Pending for future sessions:**
-- 2021 infographic — only the detailed PDF is wired up; infographic slot shows "Coming soon" placeholder. Drop `infographic-2021.jpg` + optional `wr-annual-infographic-2021.pdf` in `public/annual-reports/` and add `infographicImage` / `infographicPdf` (+ `infographicOrientation` and `keyStats`) to the 2021 entry in `annual-reports-data.ts`.
+- ~~2021 infographic — only the detailed PDF is wired up~~ — DONE (infographic-2021.jpg shipped, wired into data file, live on /annual-reports as of 2026-05-18).
 - Earlier years (2019 and before) — append new entries to `ANNUAL_REPORTS` array as they become available
 - Barn Owl video (33 MB) is larger than other species videos — compress with ffmpeg when available
 
