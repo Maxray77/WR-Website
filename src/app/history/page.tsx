@@ -39,8 +39,8 @@ const EARLY_PHOTOS = [
   },
   {
     src: "/history/early-days-04.jpg",
-    caption: "Nadeem in the Rooftop Enclosure (c. 2007)",
-    description: "Nadeem with a recovering Black Kite, surrounded by others in the early rooftop enclosure — years before the clinic and aviary complex existed.",
+    caption: "Nadeem with a Black Eared Kite (c. 2007)",
+    description: "Nadeem holding a Black Eared Kite — a migratory raptor from the Central Asian steppes that winters in India — in the early rooftop enclosure, years before the clinic and aviary complex existed.",
   },
   {
     src: "/history/saud-with-a-kite.jpg",
