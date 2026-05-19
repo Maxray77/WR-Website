@@ -13,11 +13,6 @@ export const metadata: Metadata = {
 
 const EARLY_PHOTOS = [
   {
-    src: "/history/nadeem-early.jpg",
-    caption: "Nadeem Shehzad — Co-Founder",
-    description: "Nadeem Shehzad, who co-founded Wildlife Rescue after finding an injured Black Kite in the early 1990s.",
-  },
-  {
     src: "/history/nadeem-02.jpg",
     caption: "Nadeem Shehzad",
     description: "Nadeem Shehzad, co-founder of Wildlife Rescue, in the early years of the rescue.",
@@ -41,11 +36,6 @@ const EARLY_PHOTOS = [
     src: "/history/early-days-02.jpg",
     caption: "Steppe Eagle on Nadeem's Bed — February 2010",
     description: "A Steppe Eagle recovering with a bandaged wing — resting on Nadeem's own bed. Wildlife Rescue had no clinic or office yet; birds were treated and housed at home.",
-  },
-  {
-    src: "/history/early-days-03.jpg",
-    caption: "Nadeem with a Black Eared Kite",
-    description: "Nadeem holding a Black Eared Kite — a migratory kite from the Central Asian steppes that overwinters in Delhi.",
   },
   {
     src: "/history/early-days-04.jpg",
