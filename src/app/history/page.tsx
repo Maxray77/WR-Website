@@ -34,13 +34,23 @@ const EARLY_PHOTOS = [
   },
   {
     src: "/history/early-days-01.jpg",
-    caption: "Early days at the rescue",
-    description: "The team at work in the early years of Wildlife Rescue.",
+    caption: "Nadeem with a Scops Owl",
+    description: "Nadeem cradling a rescued Scops Owl — one of the small nocturnal raptors that frequently come into care, often after window collisions or being mistaken for ill omens.",
   },
   {
     src: "/history/early-days-02.jpg",
-    caption: "Bird rehabilitation",
-    description: "Hands-on care for injured birds before the full clinic was established.",
+    caption: "Steppe Eagle on Nadeem's Bed — February 2010",
+    description: "A Steppe Eagle recovering with a bandaged wing — resting on Nadeem's own bed. Wildlife Rescue had no clinic or office yet; birds were treated and housed at home.",
+  },
+  {
+    src: "/history/early-days-03.jpg",
+    caption: "Nadeem with a Black Eared Kite",
+    description: "Nadeem holding a Black Eared Kite — a migratory kite from the Central Asian steppes that overwinters in Delhi.",
+  },
+  {
+    src: "/history/early-days-04.jpg",
+    caption: "Nadeem in the Rooftop Enclosure (c. 2007)",
+    description: "Nadeem with a recovering Black Kite, surrounded by others in the early rooftop enclosure — years before the clinic and aviary complex existed.",
   },
   {
     src: "/history/saud-with-a-kite.jpg",
@@ -56,6 +66,7 @@ const EARLY_PHOTOS = [
     src: "/history/old-black-kite.jpg",
     caption: "Black Kite — Early Case",
     description: "A Black Kite receiving care in the early days of Wildlife Rescue.",
+    objectPosition: "center top",
   },
   {
     src: "/history/nadeem-03.jpg",
@@ -199,6 +210,7 @@ export default function HistoryPage() {
                     alt={photo.caption}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
                     sizes="(max-width: 640px) 100vw, 50vw"
                   />
                 </div>
