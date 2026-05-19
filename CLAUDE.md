@@ -222,6 +222,38 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-05-20 (bulk photo refresh — history/gallery/clinic/enclosures + new Greater Coucal species)
+
+**Session 2026-05-20 — two commits pushed to `main`: `d0b226a` (initial bulk refresh) and `cdc7666` (more clinic/enclosure/species photos).**
+
+Content-only session. All photos compressed via `PIL.Image.thumbnail((1800,1800), LANCZOS)` + `ImageOps.exif_transpose` + JPEG q=82 progressive. One CR3 raw file converted with `rawpy` (installed mid-session). No code logic changes.
+
+**Pages touched:**
+
+- **`/history`** — added Scops Owl 05 portrait at `public/history/scops-owl-05.jpg`. Set `objectPosition: "center top"` on Scops Owl entry and `"center 25%"` on Chhitku entry to bring their faces into frame. Initially added a "Saud With a Bird" photo but user flagged it as a duplicate of the existing "Saud Treating a Black Kite" — removed and deleted the file.
+- **`/gallery`** — user asked to trim hard, then started adding. Final state: 7 cards (Black Eared Kite from species, Manja Thread in Wound, Black Kite, Painted Stork, Crow Under Gas Anesthesia, Black Headed Ibis Under Anesthesia, Cattle Egret in Clinic). Photos at `public/gallery/*.jpg`. All other placeholder/aspirational PHOTOS entries deleted. **Known limitation (NOT fixed, flagged to user):** the lightbox at `src/app/gallery/page.tsx:168` still renders a "Full-size Photo Placeholder" gradient instead of the actual image. Pre-existing — fix is a 5-line change to swap the placeholder div for an `<Image>` using `lightboxPhoto.src`.
+- **`/clinic`** — `EQUIPMENT_GALLERY` array in `src/app/clinic/page.tsx` extended with 13 new photos (Ultrasonic Scalpel & Vessel Sealer + console + attachments grouped together, Microwave Ablation Machine, Gas Anesthesia + MAM combined setup, Centrifuge, Automatic Blood Chemistry Analyzer, Clinic Microscope, Staff Daily Routine, Black Kite with Manja Cut Wound case, Laser Cautery & Physical Therapy ×2 views, Digital X-Ray with DR Detector + dedicated gas anesthesia, X-Ray Control & Switch, Black Kite under anesthesia for X-Ray, Bandage Change, Fluid Therapy for Hydration). Also added a NEW `CLINIC_FEATURES` card "Ultrasonic Scalpel & Vessel Sealer" with `Scissors` icon between the existing Surgical Laser and Diagnostic Lab cards. All photos in `public/facility/*.jpg`.
+- **`/enclosures`** — `AVIARY_GALLERY` extended from 3 → 9 cards (added enclosure-04 through enclosure-09 at `public/facility/`).
+- **`/species/greater-coucal`** — NEW species entry at end of `SPECIES_LIST` in `src/lib/species-data.ts`. Slug `greater-coucal`, scientific name *Centropus sinensis*, ~10/year, "Ground Cuckoo" category. Full habitat/diet/behavior/threats/funFact. Single image at `public/species/greater-coucal-01.jpg` (converted from CR3 raw). **Important:** the source photo has the bird's face on the right side; user flagged that face was cropped in the hero, fixed with `imagePosition: "right center"`. CR3 → JPEG conversion required `pip install rawpy` mid-session.
+
+**Tooling notes for next photo session:**
+
+- `.CR3` Canon raw files: PIL can't read them. Use `rawpy.imread(src).postprocess(use_camera_wb=True)` → `Image.fromarray()`. The `extract_thumb()` shortcut returned format type 4 (unsupported) on this camera's CR3s, so full demosaic was required. ~3-5s per image for a 6022×4024 sensor.
+- Windows console cp1252 chokes on em-dashes / non-ASCII when Python prints. Either redirect to a file with UTF-8 or stick to ASCII in `print()` statements during one-liners.
+- Preview server `eval` flakes when navigating via `window.location.href` — page sometimes lands at `chrome-error://` or `localhost:3000/` even though curl confirms the route returns 200. Workaround: use `location.href = '/foo'` (relative) and wrap the verification in `new Promise(r => setTimeout(...))` with 1500-2500ms delay. If that still misses, fetch directly with curl + grep for the H1.
+
+**Two commits pushed to `main`:**
+
+- `d0b226a` — initial bulk refresh: history (Scops Owl + face crops), gallery trim to 7, clinic Ultrasonic Scalpel + console + attachments + Microwave + Centrifuge + Blood Chemistry + Microscope + Staff routine + manja cut wound + Gas+MAM
+- `cdc7666` — second pass: clinic Laser Cautery ×2 + Digital X-Ray + control switch + Black Kite X-Ray anesthesia + Bandage Change + Fluid Therapy; enclosure-04 through 09; Greater Coucal species
+
+**Open / pending:**
+
+- **Gallery lightbox shows placeholder, not the actual photo** — pre-existing, flagged but not fixed. 5-line fix in `src/app/gallery/page.tsx:168`.
+- Verify Vercel deploy completes cleanly (both commits) — no code changes, only data + images, so build risk is low.
+
+**~~Previous session~~ (2026-05-18) handoff retained below for context:**
+
 **Last updated by:** Claude Code — 2026-05-18 (80(G) donation receipt system Phase 1b — emailed PDF receipts shipped end-to-end and verified live; ₹100 preset + custom-amount input added; nadeem@ → saud@ refactored across donor-facing surfaces; Upstash Redis activated)
 
 **Session 2026-05-18 — Phase 1b shipped, all on `main` and verified with a real ₹100 test donation that arrived in user's inbox with both PDFs attached.**
