@@ -48,6 +48,11 @@ const EARLY_PHOTOS = [
     description: "Mohammad Saud, co-founder of Wildlife Rescue, with an injured Black Kite in the early years.",
   },
   {
+    src: "/history/saud-clinic-early.jpg",
+    caption: "Saud Treating a Black Kite",
+    description: "Mohammad Saud working on an injured Black Kite in the early home-based clinic — long before the surgical suite, X-ray, and dedicated treatment rooms existed.",
+  },
+  {
     src: "/history/saud-nadeem.jpg",
     caption: "Nadeem & Saud",
     description: "Nadeem Shehzad and Mohammad Saud — the co-founders who built Wildlife Rescue from the ground up.",

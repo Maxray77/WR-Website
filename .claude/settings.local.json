@@ -69,7 +69,8 @@
       "Bash(git add *)",
       "Bash(git commit -m 'feat\\(blog\\): add Scaling Avian Impact PDF + cover to record-breaking-2025 post *)",
       "Bash(git push *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(git commit -m 'content: add Saud-treating-kite history photo + scops-owl-05 species photo *)"
     ]
   }
 }
