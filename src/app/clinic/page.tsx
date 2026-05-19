@@ -199,6 +199,41 @@ const EQUIPMENT_GALLERY = [
     alt: "Gas anesthesia setup alongside the microwave ablation machine in the Wildlife Rescue operating theater",
     caption: "Gas Anesthesia + Microwave Ablation Setup",
   },
+  {
+    src: "/facility/laser-cautery-therapy.jpg",
+    alt: "Laser cautery and physical therapy machine at Wildlife Rescue clinic — used for wound sealing and post-operative recovery",
+    caption: "Laser Cautery & Physical Therapy Machine",
+  },
+  {
+    src: "/facility/laser-cautery-therapy-02.jpg",
+    alt: "Laser cautery and physical therapy machine at Wildlife Rescue clinic — alternate view",
+    caption: "Laser Cautery & Physical Therapy — Alternate View",
+  },
+  {
+    src: "/facility/digital-xray-dr-detector.jpg",
+    alt: "Digital X-Ray machine with DR detector and a dedicated gas anesthesia machine for X-Ray procedures at Wildlife Rescue clinic",
+    caption: "Digital X-Ray with DR Detector + Gas Anesthesia",
+  },
+  {
+    src: "/facility/xray-control-switch.jpg",
+    alt: "X-Ray machine control panel and exposure switch at Wildlife Rescue clinic",
+    caption: "X-Ray Machine — Control & Switch",
+  },
+  {
+    src: "/facility/black-kite-xray-anesthesia.jpg",
+    alt: "A Black Kite under gas anesthesia being positioned for an X-Ray exposure at Wildlife Rescue clinic",
+    caption: "Black Kite — Under Anesthesia for X-Ray",
+  },
+  {
+    src: "/facility/bandage-change.jpg",
+    alt: "Wildlife Rescue staff performing a bandage change on a recovering bird at the clinic",
+    caption: "Bandage Change at the Clinic",
+  },
+  {
+    src: "/facility/fluid-therapy-hydration.jpg",
+    alt: "Fluid therapy being administered to a recovering bird for hydration at Wildlife Rescue clinic",
+    caption: "Fluid Therapy for Hydration",
+  },
 ];
 
 const CLINIC_JOURNEY = [

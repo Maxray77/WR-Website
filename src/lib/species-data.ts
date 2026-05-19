@@ -406,6 +406,29 @@ export const SPECIES_LIST: Species[] = [
     description: "The Indian Grey Hornbill is a barometer of urban tree health. Their presence indicates mature trees with cavities — a rapidly declining resource in Delhi's development boom. Wildlife Rescue treats about 15 per year.",
     funFact: "When the female hornbill seals herself inside the nesting cavity, she undergoes a complete feather molt — becoming temporarily flightless. She depends entirely on the male for food for up to 3 months. If the male dies, the female and chicks are trapped.",
   },
+  {
+    slug: "greater-coucal",
+    name: "Greater Coucal",
+    scientificName: "Centropus sinensis",
+    conservationStatus: "Least Concern",
+    iucnColor: "text-success",
+    percentage: "~0.3%",
+    annualCases: "~10/year",
+    category: "Ground Cuckoo",
+    habitat: "Dense scrub, thickets, gardens, and the edges of cultivation across the Indian plains. In Delhi, found in overgrown parks, the Ridge, and wooded urban patches with thick undergrowth.",
+    range: "Resident across South and Southeast Asia — from Pakistan and India through Bangladesh, Sri Lanka, and into China and Indonesia.",
+    diet: "Opportunistic omnivore — insects, caterpillars, small reptiles, frogs, eggs and nestlings of other birds, and occasionally fruit. Often described as a ground-hunting predator.",
+    size: "Body length 48 cm, weight 250–350g. Large crow-sized bird with glossy black head and body, deep chestnut wings, and a long graduated tail. Striking red iris.",
+    behavior: "A non-parasitic cuckoo — unlike most cuckoos, the Greater Coucal builds its own nest and raises its own young. Solitary and skulking, often heard before seen — its deep, resonant 'coop-coop-coop' call carries through scrubland at dawn.",
+    threatsInDelhi: "Loss of dense undergrowth as parks and wastelands are 'cleaned up.' Pesticide poisoning (secondary, from insect prey). Window collisions when flying low between bushes. Cats.",
+    description: "The Greater Coucal is one of Delhi's most distinctive but often-overlooked birds — a large, ground-hunting cuckoo with striking chestnut wings and a deep booming call. Wildlife Rescue treats roughly 10 per year, usually after collisions or cat attacks.",
+    funFact: "Despite belonging to the cuckoo family, the Greater Coucal is one of the very few non-parasitic cuckoos in the world — it raises its own young rather than dumping eggs in other birds' nests. Its tail and short rounded wings make it look more like a pheasant than a typical cuckoo.",
+    image: "/species/greater-coucal-01.jpg",
+    imagePosition: "right center",
+    images: [
+      { src: "/species/greater-coucal-01.jpg", alt: "Greater Coucal at Wildlife Rescue clinic — glossy black plumage with chestnut wings and red eye" },
+    ],
+  },
 ];
 
 export function getSpeciesBySlug(slug: string): Species | undefined {

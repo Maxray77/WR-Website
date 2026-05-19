@@ -90,6 +90,36 @@ const AVIARY_GALLERY = [
     alt: "Raptors including Egyptian Vultures and Black Kites perched together in an aviary enclosure viewed through mesh at Wildlife Rescue",
     caption: "Aviary Interior — Species Mix",
   },
+  {
+    src: "/facility/enclosure-04.jpg",
+    alt: "Raptors inside an enclosure at the Wildlife Rescue aviary complex",
+    caption: "Inside the Aviary Complex",
+  },
+  {
+    src: "/facility/enclosure-05.jpg",
+    alt: "Birds perched at multiple levels inside a Wildlife Rescue enclosure",
+    caption: "Multi-Level Perching",
+  },
+  {
+    src: "/facility/enclosure-06.jpg",
+    alt: "Rehabilitating birds in a flight enclosure at Wildlife Rescue",
+    caption: "Flight Conditioning Enclosure",
+  },
+  {
+    src: "/facility/enclosure-07.jpg",
+    alt: "Wildlife Rescue aviary complex interior with birds in rehabilitation",
+    caption: "Aviary Complex — Rehabilitation in Progress",
+  },
+  {
+    src: "/facility/enclosure-08.jpg",
+    alt: "Birds inside a Wildlife Rescue enclosure during rehabilitation",
+    caption: "Enclosure Interior",
+  },
+  {
+    src: "/facility/enclosure-09.jpg",
+    alt: "Wide view of a Wildlife Rescue aviary with multiple recovering birds",
+    caption: "Aviary — Wide View",
+  },
 ];
 
 const REHAB_JOURNEY = [
