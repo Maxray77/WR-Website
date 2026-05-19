@@ -277,7 +277,7 @@ This session implemented the second half of the 80(G) receipt system (PDF genera
 - **`/vultures` real photos** — 10 placeholders to replace with WR's own photos when available (current photos are Wikimedia CC-licensed; Egyptian Vulture in particular flagged for replacement with user's own wounded-vulture photo).
 - **Per-year "Where Your Money Goes" bucket refinement** (`src/components/YearlyExpenditureBreakdown.tsx`) — user previously flagged some bucket categorisation needs tweaking (e.g. split "Other Operating Expenses" further). Bucket sums currently reconcile to I&E A/c totals to the rupee; preserve that invariant when refining.
 - **2021 infographic PDF wrapper (optional)** — `infographicPdf` field for 2021 currently points to the JPG file, so clicking "Download infographic" downloads a JPG instead of a PDF (other years have separate `.pdf` files). Cosmetic only; can be left as-is.
-- **Sanity write token rotation** — was exposed in chat 2026-05-09; not yet rotated. Sanity Manage → API → Tokens → revoke + regenerate (Editor permissions). Update Vercel + local `.env.local`.
+- ~~**Sanity write token rotation**~~ — DONE 2026-05-18. Old token revoked, new token issued and set in Vercel + local `.env.local`. Verified 2026-05-19: `/blog` serves images from `cdn.sanity.io` (authenticated reads working).
 
 **Pending pickup specific to Phase 1b (one-time setup tasks):**
 
@@ -720,7 +720,7 @@ Without these the system still works:
   - Live blog flipped from static fallback → Sanity CMS. Mohammad Afeef and Samia can now publish posts via Studio.
 
 **Pending follow-ups from this session:**
-- ⚠️ **Rotate `SANITY_API_WRITE_TOKEN`** — old token was exposed in chat. Sanity Manage → API → Tokens → revoke + regenerate (Editor permissions). Update Vercel + local `.env.local`.
+- ~~⚠️ **Rotate `SANITY_API_WRITE_TOKEN`**~~ — DONE 2026-05-18.
 - Set up Sanity → Vercel webhook for instant publishing updates (currently relies on default revalidation)
 - Invite Mohammad Afeef + Samia to Sanity as Editors (Sanity Manage → Members → +Invite)
 - Email blog publishing guide to staff (latest version: `C:\Users\maxra\Documents\Wildlife Rescue\WR_Blog_Publishing_Guide_for_Staff_2026-05-09.docx`)
@@ -735,7 +735,7 @@ Without these the system still works:
 
 **Tomorrow's pickup:**
 1. Verify Sanity Manage compatibility check (click Refresh after Vercel deploy completes)
-2. Rotate `SANITY_API_WRITE_TOKEN` (security hygiene — was exposed in chat today)
+2. ~~Rotate `SANITY_API_WRITE_TOKEN`~~ — DONE 2026-05-18
 3. Google Search Console verification
 
 ---
