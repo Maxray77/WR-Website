@@ -48,6 +48,12 @@ const EARLY_PHOTOS = [
     description: "Mohammad Saud, co-founder of Wildlife Rescue, with an injured Black Kite in the early years.",
   },
   {
+    src: "/history/scops-owl-05.jpg",
+    caption: "Scops Owl",
+    description: "A rescued Scops Owl — a small, nocturnal raptor that often arrives at the rescue after window collisions or being mistaken for ill omens.",
+    objectPosition: "center top",
+  },
+  {
     src: "/history/saud-clinic-early.jpg",
     caption: "Saud Treating a Black Kite",
     description: "Mohammad Saud working on an injured Black Kite in the early home-based clinic — long before the surgical suite, X-ray, and dedicated treatment rooms existed.",
@@ -72,6 +78,7 @@ const EARLY_PHOTOS = [
     src: "/history/chhitku-spotted-owlet-chick.jpg",
     caption: "Chhitku — Spotted Owlet Chick",
     description: "A rescued Spotted Owlet chick in care at Wildlife Rescue.",
+    objectPosition: "center 25%",
   },
 ];
 

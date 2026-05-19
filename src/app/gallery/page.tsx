@@ -16,27 +16,13 @@ const CATEGORIES = [
 ];
 
 const PHOTOS = [
-  { id: 1, title: "Black Kite in Flight", category: "Releases", description: "A recovered Black Kite soaring over the Yamuna floodplains after successful rehabilitation." },
-  { id: 2, title: "Manja String Surgery", category: "Clinic", description: "Our team performing the novel wing repair surgery on a manja-injured raptor." },
-  { id: 3, title: "Founders at Work", category: "Team", description: "Nadeem and Saud examining an injured Black Kite at the rescue center." },
   { id: 17, title: "Black Eared Kite", category: "Species", src: "/species/black-eared-kite-02.jpg", description: "A Black Eared Kite — the migratory winter visitor from Central Asia — at Wildlife Rescue clinic." },
-  { id: 4, title: "Baby Barn Owl", category: "Species", description: "A juvenile Barn Owl being hand-fed during rehabilitation." },
-  { id: 5, title: "Monsoon Rescue", category: "Rescues", description: "Emergency rescue during monsoon season — collecting an electrocuted raptor from wet power lines." },
-  { id: 6, title: "Release Day Celebration", category: "Events", description: "Community members watching as 12 rehabilitated Black Kites are released together." },
-  { id: 7, title: "Egyptian Vulture Close-up", category: "Species", description: "A rare and endangered Egyptian Vulture being treated at our facility." },
-  { id: 8, title: "X-Ray Imaging", category: "Clinic", description: "Using our on-site X-ray machine to diagnose a wing fracture." },
-  { id: 9, title: "Rescue Vehicle on Duty", category: "Rescues", description: "Our Tata EV responding to an emergency call in South Delhi." },
-  { id: 10, title: "Shikra Recovery", category: "Species", description: "A fierce little Shikra (sparrowhawk) recovering from a glue trap incident." },
-  { id: 11, title: "Team Group Photo", category: "Team", description: "The Wildlife Rescue team outside the center in Wazirabad Village." },
-  { id: 12, title: "Feeding Time", category: "Clinic", description: "Daily feeding of 40+ birds in care — a logistics operation requiring precision and dedication." },
-  { id: 13, title: "Kite Festival Aftermath", category: "Rescues", description: "The aftermath of Uttarayan — dozens of manja-injured birds arriving in a single day." },
-  { id: 14, title: "Crested Serpent Eagle", category: "Species", description: "A majestic Crested Serpent Eagle recovering from electrical burns." },
-  { id: 15, title: "Laser Treatment Session", category: "Clinic", description: "Using VAYMED Class 4 laser for tissue regeneration on a healing wing." },
-  { id: 16, title: "Night Rescue Operation", category: "Rescues", description: "Responding to a late-night call — an owl trapped in a factory vent." },
-  { id: 18, title: "Methane Burn — Black Eared Kite", category: "Clinic", src: "/conditions/methane-burn-01.jpg", description: "Black Eared Kite with severe methane burn injuries from a landfill gas ignition event." },
-  { id: 19, title: "Methane Burn — Assessment", category: "Clinic", src: "/conditions/methane-burn-02.jpg", description: "Close-up assessment of methane burn wounds — a hazard unique to Delhi's vast landfill sites." },
-  { id: 20, title: "Methane Burn — Treatment", category: "Clinic", src: "/conditions/methane-burn-03.jpg", description: "Burn treatment in progress — laser therapy and wound management for a landfill burn case." },
-  { id: 21, title: "Methane Burn — Recovery", category: "Clinic", src: "/conditions/methane-burn-04.jpg", description: "Early burn case recovery — one of Wildlife Rescue's most challenging condition categories." },
+  { id: 22, title: "Manja Thread in the Wound", category: "Clinic", src: "/gallery/black-kite-manja-wound.jpg", description: "A Black Kite with kite-flying manja thread found embedded in the wound — the sharp glass-coated string slices wing tendons and skin, sometimes remaining lodged in tissue for days before rescue." },
+  { id: 23, title: "Black Kite", category: "Species", src: "/gallery/black-kite.jpg", description: "A Black Kite — the most common raptor in Delhi's skies and the species at the heart of Wildlife Rescue's work." },
+  { id: 24, title: "Painted Stork", category: "Species", src: "/gallery/painted-stork.jpg", description: "A Painted Stork in care at Wildlife Rescue — a tall wading bird of India's wetlands, occasionally arriving at the clinic with injuries from power lines or fishing line entanglement." },
+  { id: 25, title: "Crow Under Gas Anesthesia", category: "Clinic", src: "/gallery/crow-gas-anesthesia.jpg", description: "A Crow undergoing gas anesthesia for a medical procedure at the Wildlife Rescue clinic." },
+  { id: 26, title: "Black Headed Ibis Under Anesthesia", category: "Clinic", src: "/gallery/black-headed-ibis-anesthesia.jpg", description: "A Black Headed Ibis under gas anesthesia at the Wildlife Rescue clinic — a wetland bird occasionally treated for injuries from fishing line, power lines, or predator attacks." },
+  { id: 27, title: "Cattle Egret in the Clinic", category: "Clinic", src: "/gallery/cattle-egret-clinic.jpg", description: "A Cattle Egret in care at the Wildlife Rescue clinic — these small white herons follow grazing livestock for insects and sometimes arrive injured from collisions or entanglement." },
 ];
 
 // Color mapping for category badges

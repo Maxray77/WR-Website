@@ -12,6 +12,7 @@ import {
   Microscope,
   ArrowRight,
   Stethoscope,
+  Scissors,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -53,6 +54,12 @@ const CLINIC_FEATURES = [
     description:
       "Therapeutic and surgical laser equipment for wound debridement, accelerated healing of manja-cut tissue, and post-operative therapy on burn and electrocution cases.",
     icon: <Stethoscope size={28} />,
+  },
+  {
+    title: "Ultrasonic Scalpel & Vessel Sealer",
+    description:
+      "Advanced surgical instrument that simultaneously cuts tissue and seals blood vessels through high-frequency ultrasonic vibration — dramatically reducing bleeding, operative time, and post-surgical inflammation during complex procedures.",
+    icon: <Scissors size={28} />,
   },
   {
     title: "Diagnostic Laboratory",
@@ -113,6 +120,21 @@ const EQUIPMENT_GALLERY = [
     caption: "Operating Theater",
   },
   {
+    src: "/facility/ultrasonic-scalpel-vessel-sealer.jpg",
+    alt: "Ultrasonic Scalpel and Vessel Sealer — advanced surgical machine at Wildlife Rescue clinic",
+    caption: "Ultrasonic Scalpel & Vessel Sealer",
+  },
+  {
+    src: "/facility/uss-additional.jpg",
+    alt: "Ultrasonic Scalpel and Vessel Sealer console at Wildlife Rescue clinic",
+    caption: "Ultrasonic Scalpel & Vessel Sealer — Console",
+  },
+  {
+    src: "/facility/uss-attachments.jpg",
+    alt: "Attachments and handpieces for the Ultrasonic Scalpel and Vessel Sealer at Wildlife Rescue clinic",
+    caption: "Ultrasonic Scalpel & Vessel Sealer — Attachments",
+  },
+  {
     src: "/facility/laser-surgery.jpg",
     alt: "Close-up of laser surgical procedure on a raptor at Wildlife Rescue",
     caption: "Laser Surgery",
@@ -141,6 +163,41 @@ const EQUIPMENT_GALLERY = [
     src: "/treatments/painkiller-drops.jpg",
     alt: "Wildlife Rescue staff administering oral pain medication to a recovering raptor",
     caption: "Pain Management",
+  },
+  {
+    src: "/facility/black-kite-manja-cut-wound.jpg",
+    alt: "Black Kite with a manja cut wound being treated at Wildlife Rescue clinic",
+    caption: "Black Kite — Manja Cut Wound",
+  },
+  {
+    src: "/facility/staff-daily-routine.jpg",
+    alt: "Wildlife Rescue staff busy with their daily routine at the clinic",
+    caption: "Staff — Daily Routine",
+  },
+  {
+    src: "/facility/centrifuge-machine.jpg",
+    alt: "Centrifuge machine for blood work at Wildlife Rescue clinic — essential for avian hematology and diagnostics",
+    caption: "Centrifuge — Blood Work",
+  },
+  {
+    src: "/facility/blood-chemistry-analyzer.jpg",
+    alt: "Automatic blood chemistry analyzer at Wildlife Rescue clinic — runs liver, kidney, and electrolyte panels on avian patients",
+    caption: "Automatic Blood Chemistry Analyzer",
+  },
+  {
+    src: "/facility/microscope.jpg",
+    alt: "Clinic microscope at Wildlife Rescue used for parasitology, cytology, and microsurgical work",
+    caption: "Clinic Microscope",
+  },
+  {
+    src: "/facility/microwave-ablation.jpg",
+    alt: "Microwave ablation machine at Wildlife Rescue clinic — used for precision tissue ablation in avian surgery",
+    caption: "Microwave Ablation Machine",
+  },
+  {
+    src: "/facility/gas-anesthesia-with-mam.jpg",
+    alt: "Gas anesthesia setup alongside the microwave ablation machine in the Wildlife Rescue operating theater",
+    caption: "Gas Anesthesia + Microwave Ablation Setup",
   },
 ];
 
