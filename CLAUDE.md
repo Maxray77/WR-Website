@@ -222,9 +222,31 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-20 (bulk photo refresh — history/gallery/clinic/enclosures + new Greater Coucal species)
+**Last updated by:** Claude Code — 2026-05-20 (multi-year "Where Your Money Goes" with audited line-item breakdowns)
 
-**Session 2026-05-20 — two commits pushed to `main`: `d0b226a` (initial bulk refresh) and `cdc7666` (more clinic/enclosure/species photos).**
+**Session 2026-05-20 (afternoon) — `/annual-reports` financial transparency overhaul, commit `58edf01` pushed to `main` (live):**
+- [x] **New interactive 5-year expenditure breakdown** on `/annual-reports`. Replaced the static FY 2024-25 stub with a year-tab picker (FY 2020-21 → 2024-25). Each year shows 6 top-level heads (Salaries & Honorarium · Wages · Food for Birds · Rescue & Release Logistics · Medicine + Service Charges + Direct Hospital · Other Operational Expenses) with %-of-total bars and named sub-line-items. Other Operational is broken into 5 transparency sub-buckets (Audit & Professional · Office & Utilities · Repair & Vehicle Maintenance · Staff Welfare & Travel · Depreciation & Misc). Capital Investment shown separately below the bars (off-I&E equipment).
+- [x] **Data sourced from per-year audited Excel I&E A/c** in `C:\Users\maxra\Documents\Wildlife Rescue\Accounts\Audit YYYY-YY\…\Wildlife Rescue'YY Consolidated.xlsx` (FY 21-22, 22-23, 23-24, 24-25). FY 20-21 reconstructed from the 5-year binder PDF (no Excel for that year; sums exactly to audited total).
+- [x] **Two totals corrected in the existing 5-year financial table** to match audited Excel (resolved a conflict with a parallel-session commit that used outdated binder-summary figures):
+  - FY 22-23 Direct Expenses: ₹13,46,398 → **₹15,40,394**
+  - FY 22-23 Total Expenditure: ₹26,11,711 → **₹28,05,707**
+  - FY 24-25 Total Expenditure: ₹42,44,343 → **₹38,44,343** (matches audited surplus ₹4,22,304 = Income ₹42,66,647 − Exp ₹38,44,343)
+- [x] **Deleted `src/components/YearlyExpenditureBreakdown.tsx`** (the parallel-session simpler 3-bucket version) in favour of the more detailed `ExpenditureBreakdown.tsx`.
+
+**New files:**
+- `src/lib/expenditure-data.ts` — typed `YearExpenditure[]` with per-year heads + subItems + capex; `formatINR()` (Indian lakh/crore grouping) + `formatUSD()` helpers; flat ₹84.5/USD conversion.
+- `src/components/ExpenditureBreakdown.tsx` — client component (`"use client"`); 5 year tabs, total expenditure headline (₹ + ~US$), per-head bars with chevron-bulleted sub-items, Capital Investment block, Income/Expenditure/Surplus stat tiles, audit footnote. Falls back to "Detailed breakdown coming soon" stub if a year has no `heads` array (none currently).
+
+**Methodology notes (in case the audit firm changes again next year):**
+- The audit firm's Direct/Indirect classification changes year-on-year. From FY 23-24 onwards most items moved into Direct; FY 24-25 introduced separate "Salaries" and "Honorarium" lines (previously clubbed). The component's 6-head bucketing is methodology-agnostic — just map each new line item into one of the 6 heads in `expenditure-data.ts`.
+- FY 22-23 onwards: capex is on the Balance Sheet, not on the I&E A/c (per audit notes). FY 24-25 capex = ₹12.7L (ambulance ₹10.15L + anaesthesia machine ₹1.41L + oxygen concentrator ₹57k + other clinic equipment).
+- "Wages" line in FY 22-23 = "Rescue Staff Salaries" (renamed). In FY 23-24 it dropped to ₹29,700 (residual); most rescue staff comp consolidated into "Salaries & Honorarium" (₹18.04L) that year.
+- USD conversion uses flat ₹84.5/USD in the new component for visual consistency. The existing financial table above it uses per-year RBI FY-average rates (more accurate); both shown on the page.
+
+---
+
+**Previously completed (Session 2026-05-20 morning — bulk photo refresh):**
+- Two commits pushed to `main`: `d0b226a` (initial bulk refresh) and `cdc7666` (more clinic/enclosure/species photos).
 
 Content-only session. All photos compressed via `PIL.Image.thumbnail((1800,1800), LANCZOS)` + `ImageOps.exif_transpose` + JPEG q=82 progressive. One CR3 raw file converted with `rawpy` (installed mid-session). No code logic changes.
 
