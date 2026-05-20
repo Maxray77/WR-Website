@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { FileText, TrendingUp, DollarSign, Users, FileSpreadsheet } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnnualReportCard from "@/components/AnnualReportCard";
-import YearlyExpenditureBreakdown from "@/components/YearlyExpenditureBreakdown";
+import ExpenditureBreakdown from "@/components/ExpenditureBreakdown";
 import { RESCUE_BY_YEAR } from "@/lib/constants";
 import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
@@ -32,10 +32,10 @@ const FINANCIAL_TABLE: FinSection[] = [
   {
     heading: "Expenditure (per Income & Expenditure A/c)",
     rows: [
-      { label: "Direct Expenses",            values: ["₹6,38,868",  "₹4,66,185",  "₹13,46,398", "₹28,15,233", "₹34,72,571"] },
+      { label: "Direct Expenses",            values: ["₹6,38,868",  "₹4,66,185",  "₹15,40,394", "₹28,15,233", "₹34,72,571"] },
       { label: "Indirect Expenses",          values: ["₹9,60,559",  "₹16,16,859", "₹12,65,313", "₹1,24,488",  "₹3,71,772"] },
       { label: "Fixed Asset Purchased — FCRA (on I&E)¹", values: ["₹2,80,435", "₹33,900", null, null, null] },
-      { label: "Total Expenditure",          values: ["₹18,79,862", "₹21,16,945", "₹26,11,711", "₹29,39,721", "₹42,44,343"], usd: ["~$25,335", "~$28,415", "~$32,565", "~$35,504", "~$50,229"], bold: true },
+      { label: "Total Expenditure",          values: ["₹18,79,862", "₹21,16,944", "₹28,05,707", "₹29,39,721", "₹38,44,343"], usd: ["~$25,335", "~$28,415", "~$34,984", "~$35,504", "~$45,495"], bold: true },
       { label: "Surplus / (Deficit)",        values: ["₹2,31,997",  "₹1,55,180",  "₹3,00,591",  "₹68,411",    "₹4,22,304"],   usd: ["~$3,127", "~$2,083", "~$3,748", "~$826", "~$4,997"], surplus: true },
     ],
   },
@@ -57,7 +57,6 @@ const FINANCIAL_TABLE: FinSection[] = [
     ],
   },
 ];
-
 
 export default function AnnualReportsPage() {
   const maxRescue = Math.max(...RESCUE_BY_YEAR.map((r) => r.total));
@@ -251,14 +250,7 @@ export default function AnnualReportsPage() {
           </div>
 
           {/* Per-Year Expenditure Breakdown — interactive year tabs */}
-          <h3 className="text-2xl font-bold text-charcoal text-center mb-2 font-[family-name:var(--font-poppins)]">
-            Where Your Money Goes
-          </h3>
-          <p className="text-center text-sm text-slate mb-6">
-            Select a financial year to see how funds were spent
-          </p>
-
-          <YearlyExpenditureBreakdown />
+          <ExpenditureBreakdown />
         </div>
       </section>
 
