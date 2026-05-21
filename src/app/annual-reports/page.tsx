@@ -6,7 +6,6 @@ import AnnualReportCard from "@/components/AnnualReportCard";
 import IntakeSpeciesSection from "@/components/intake/IntakeSpeciesSection";
 import IntakeConditionsSection from "@/components/intake/IntakeConditionsSection";
 import IntakeAgeSection from "@/components/intake/IntakeAgeSection";
-import IntakePartnersSection from "@/components/intake/IntakePartnersSection";
 import { RESCUE_BY_YEAR } from "@/lib/constants";
 import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
@@ -91,11 +90,10 @@ export default function AnnualReportsPage() {
         </div>
       </section>
 
-      {/* ─── NEW: Species / Conditions / Age / Partners ─── */}
+      {/* ─── Species / Conditions / Age ─── */}
       <IntakeSpeciesSection />
       <IntakeConditionsSection />
       <IntakeAgeSection />
-      <IntakePartnersSection />
 
       {/* ─── Five Growth Phases ─── */}
       <section className="bg-offwhite py-16 lg:py-24">
