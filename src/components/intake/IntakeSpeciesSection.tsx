@@ -19,12 +19,38 @@ function pct(cases: number): string {
 export default function IntakeSpeciesSection() {
   const [expanded, setExpanded] = useState(false);
 
-  // Non-target species excluded from the featured top-10 cards (Wildlife
-  // Rescue's focus is raptors + scheduled species; pigeons are kept in the
-  // full appendix list further down for transparency).
-  const FEATURED_EXCLUSIONS = new Set(["Pigeon", "Blue Rock Pigeon"]);
+  // Featured cards = raptors only (Wildlife Rescue is a raptor specialist).
+  // All other species — egrets, crows, hornbills, kingfishers, pigeons,
+  // ibises, etc. — are kept in the full appendix list below for transparency
+  // but don't appear in the prominent plate cards.
+  const RAPTORS = new Set([
+    // Kites
+    "Black Kite", "Black Eared Kite", "Black-Winged Kite",
+    // Hawks / sparrowhawks
+    "Shikra", "Besra",
+    // Eagles
+    "Crested Serpent Eagle", "Short-Toed Snake Eagle", "Booted Eagle",
+    "Steppe Eagle", "Tawny Eagle", "Eastern Imperial Eagle",
+    // Buzzards
+    "Oriental Honey Buzzard", "Common Buzzard", "White Eyed Buzzard",
+    "Long Legged Buzzard",
+    // Vultures
+    "Egyptian Vulture", "White-Rumped Vulture", "Indian Vulture",
+    "Slender-Billed Vulture", "Red-Headed Vulture", "Cinereous Vulture",
+    "Eurasian Griffon", "Himalayan Griffon", "Himalayan Vulture",
+    "Bearded Vulture",
+    // Falcons
+    "Peregrine Falcon", "Common Kestrel", "Eurasian Hobby",
+    "Laggar Falcon", "Shaheen Falcon",
+    // Harriers
+    "Eurasian Marsh Harrier", "Marsh Harrier", "Pied Harrier",
+    // Owls (incl. owlets — same order Strigiformes)
+    "Barn Owl", "Spotted Owlet", "Indian Scops Owl", "Pallid Scops Owl",
+    "Oriental Scops Owl", "Rock Eagle Owl", "Brown Fish Owl",
+    "Brown Hawk Owl", "Jungle Owlet", "Long Eared Owl",
+  ]);
   const featured = SPECIES_BREAKDOWN
-    .filter((s) => !FEATURED_EXCLUSIONS.has(s.name))
+    .filter((s) => RAPTORS.has(s.name))
     .slice(0, 10);
   const featuredNames = new Set(featured.map((s) => s.name));
   // Appendix = everything NOT in the featured cards (still in rank order).
@@ -44,19 +70,25 @@ export default function IntakeSpeciesSection() {
 
         {/* Lead paragraph */}
         <p className="max-w-3xl mx-auto text-center text-slate text-lg leading-relaxed -mt-4 mb-12">
-          As a raptor rescue, Black Kites — the iconic birds of prey ruling
-          Delhi&apos;s skies — dominate our intake at{" "}
+          As a raptor rescue, our core focus is the birds of prey ruling
+          Delhi&apos;s skies — Black Kites, owls, eagles, vultures, and falcons.
+          Black Kites alone account for{" "}
           <strong className="text-teal-dark">
             {blackKitePct}% of all rescues
           </strong>
-          . Beyond that, our records span Critically Endangered vultures, owls,
-          eagles, hornbills, and the wider community of wild birds we treat.
+          . While we also care for the wider community of wild birds —
+          egrets, hornbills, crows, kingfishers — these are the species at the
+          heart of our work.
         </p>
 
-        {/* ─── Featured Species Grid (raptors + scheduled species; pigeons appendixed) ─── */}
-        <h3 className="text-xl font-bold text-charcoal text-center mb-8 font-[family-name:var(--font-poppins)]">
-          Featured Species
+        {/* ─── Featured Raptors Grid ─── */}
+        <h3 className="text-xl font-bold text-charcoal text-center mb-2 font-[family-name:var(--font-poppins)]">
+          Featured Raptors
         </h3>
+        <p className="text-center text-sm text-slate max-w-2xl mx-auto mb-8">
+          Our top-10 birds of prey by intake. Non-raptor species are listed in
+          the full appendix below.
+        </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 lg:gap-5">
           {featured.map((s, idx) => (
             <SpeciesCard key={s.name} species={s} rank={idx + 1} />
