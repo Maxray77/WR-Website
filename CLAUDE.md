@@ -222,9 +222,105 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-21 (Master Intake Database pilot — 2010-2020 ingested; "Where Your Money Goes" wages-merged; annual-reports split into /annual-reports + /financials)
+**Last updated by:** Claude Code — 2026-05-21 (evening) — Master Intake Database COMPLETE (39,681 cases, 2010-2026); `src/lib/intake-data.ts` exported from master file for upcoming page sections.
 
-**Session 2026-05-21 — three threads of work, all on `main` for the website + a new data foundation in `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\`.**
+**Session 2026-05-21 (evening continuation) — Master Intake Database expanded to full 17-year coverage, IUCN classifications filled, aggregated rollups exported to TypeScript for the website.**
+
+### What was done this evening
+
+1. **Expanded master file from 11 years (2010-2020) to all 17 years (2010-2026).** New year folders ingested:
+   - `Data/Intake Records/2021/` through `2026/` — all monthly files + annual consolidated `Annual2021.xlsx`, `2024.xlsx`, `Annual 2024.xlsx`, `2025.xlsx`, `Cases 2026.xlsx`
+   - Supplementary files from `D:/Case Rocord/`: `Case 2017.xlsx` (full year), `2023/October Birds.xlsx`, `2023/December Birds.xlsx`, `2023/October Other Birds 2.xlsx`, `2023/December Other Birds 2.xlsx`
+   - `Data/Intake Records/2019/March Other Birds 2019.xlsx` (missing register file)
+
+2. **Final coverage state** — 39,681 unique cases. Intake months 12/12 for all years; register months 12/12 for 2019, 2021, 2023; 10-11/12 for other completed years; partial for 2025/2026 (in progress).
+
+3. **Data rules locked in this session** (carry forward):
+   - Black Kite (J/H/F) suffix extracted to Age column; (M) suffix to **new Hybrid column** (not Age). Species column always shows "Black Kite" — group-by-Species rolls up all ages.
+   - (OHB) suffix → species recoded to "Oriental Honey Buzzard"
+   - (DOA) suffix → moves to Final Status = "Dead On Arrival", strips from species
+   - All "Mr./Mrs./Ms./Miss/Dr./Prof./Capt./Maj./Col." prefixed partner names auto-excluded from Partners list (Mr. Rajiv Jain + Mr. Umar manually added as employees). Shri/Sri/Smt/Sh deliberately kept since they appear in legitimate org names.
+   - "Anomaly: Date year differs from source-file year" renamed to **"Inventory — Cross-Year Cases"** — these 4,036 cases are scheduled-species birds being declared to Forest Department / wildlife authorities while under multi-year care. Legitimate, not anomalous.
+
+4. **Partner aliases** (full list now in `build_master_intake.py`):
+   - **Sanjay Gandhi Animal Care Center** ← SGACC, S. G. Animal Care Center, …Centre variants
+   - **S.V.S.J. Sewa Trust** ← Shri Vijaynand Surishwar Jain Seva/Sewa Trust (full name), Shahdra/Shahadra Bird Hospital, Bird Hospital Shahdra/Shahadra
+   - **Charity Birds Hospital** ← Charity Bird Hospital (singular variant)
+
+5. **Species aliases** (full list in script): 25+ typo + abbreviation merges including "blackkite" → Black Kite, "cattel egret" → Cattle Egret, "creasted serpent eagle" → Crested Serpent Eagle, "cs eagle" → Crested Serpent Eagle, "scopes owl" → Indian Scops Owl, "rose ring perakeet" → Rose-Ringed Parakeet, "five stripped palm squirrel" → Five-Striped Palm Squirrel, "asian koel" = Common Koel = Indian Koel = Koel, "spectacle cobra" = Indian Cobra. Black Kite ≠ Black Eared Kite (different species). "Pigeon" (mix-breed racing) ≠ "Blue Rock Pigeon" (wild) — kept separate.
+
+6. **IUCN classifications filled for top 69 species (98.9% of cases)**:
+   - All major raptors, vultures (CR for Gyps species, EN for Egyptian + Steppe), wetland birds, common Indian birds
+   - Filtered to display CR/EN/VU/NT only on public page (LC + unknown → no badge)
+   - Remaining 192 species (1.1% of cases) are generic names ("Pigeon", "Lapwing", "Dove") that can't be classified or one-off typos
+
+7. **`src/lib/intake-data.ts` exported** — single auto-generated TypeScript module the website imports for the upcoming page sections. Contains:
+   - `INTAKE_TOTAL = 39681`
+   - `SPECIES_BREAKDOWN` — 261 species with case counts + IUCN
+   - `CONDITION_BREAKDOWN` — 18 categories aggregated from free-text condition column (Manja Injuries 39.1%, Orphans 18.5%, Fractures 16.3%, etc. — based on 7,230 documented register cases)
+   - `AGE_BREAKDOWN` — Adult/Juvenile/Fledgling/Nestling/Hatchling
+   - `PARTNER_BREAKDOWN` — 859 org partners (individuals excluded)
+   - `YEARLY_INTAKE` — annual totals 2010-2026
+   - Re-generate via: `python "C:/Users/maxra/Documents/Wildlife Rescue/Data/Master Data/export_intake_data.py"`
+
+### Files produced this session
+
+**On disk (outside repo) — `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\`:**
+- `Master Intake Database.xlsx` (~1.4 MB) — 6 sheets: Intake, Sources, Species Map, Partners, Conflicts Log, Audit Log
+- `build_master_intake.py` — re-runnable, supports 3 file locations (`Wildlife Department Records/Intake Records/`, `Data/Intake Records/`, `D:/Case Rocord/`) + explicit EXTRA_FILES list for one-off paths
+- `export_intake_data.py` — reads the .xlsx, runs condition classification + age cross-extraction + partner filtering, emits `intake-data.ts`
+
+**In the repo:**
+- `src/lib/intake-data.ts` — auto-generated, ~49 KB, ready to import
+
+### Pending pickup for next session
+
+**Page-build phase** — `/annual-reports` gets new sections (the user wants these per the earlier roadmap):
+
+1. **"Who We Rescue — Species"** (the centerpiece) — featured top 10 with vintage public-domain plates (John Gould, Audubon, Daniel Giraud Elliot from Wikimedia), endangered highlights using CR/EN/VU/NT badges only, collapsible full-list appendix of all 261 species for credibility.
+
+2. **"Why They Come In — Conditions"** — Manja Injuries leading at 39.1%, must include clear caveat that this is based on register data (7,230 cases of scheduled species), not all 39,681 intake records.
+
+3. **"Who They Are — Age"** — donut/bar chart of Adult/Juvenile/Fledgling/Nestling/Hatchling. Caveat: 94.5% of cases lack explicit age marker — show 26%-of-documented-cases-were-chicks as the honest framing.
+
+4. **"Where They Are Transferred From"** — top partner orgs. Top 4 (Charity Birds Hospital, SVSJ, SGACC, Prem Bhawan) account for 80.7% of intake. Brief intro paragraph for each.
+
+5. **Source illustrations from Wikimedia Commons** — public-domain ornithological plates (John Gould *Birds of Asia* 1850-1883 most relevant for Indian raptors/vultures). Manual download, sharp-cli compression, save to `/public/plates/`, full attribution on the page.
+
+**Outstanding data gaps to fill if user finds them** (audit-log entries):
+- 2017 Jan-Oct register files (only have Nov, Dec)
+- 2018 Jan + Dec intake files (binder provides the data, but no monthly attribution)
+- 2020 Feb register
+- 2022 Nov register
+- 2024 Jun register
+- 2025/2026 registers (years in progress)
+
+**Top species headline numbers (memorise these for page-design conversations):**
+
+| Cases | Species |
+|---|---|
+| 32,356 | Black Kite (incl. juveniles + hatchlings + fledglings) |
+| 1,337 | Blue Rock Pigeon |
+| 1,078 | Barn Owl |
+| 749 | Black Eared Kite |
+| 460 | Shikra |
+| 415 | Cattle Egret |
+| 341 | Common Crow |
+| 157 | Spotted Owlet |
+| 102 | Indian Grey Hornbill |
+| 90 | Crested Serpent Eagle |
+
+**Top condition story (among 7,230 documented):** Manja Injuries 39.1% → Orphans/Chicks 18.5% → Fractures 16.3%. This is the page's emotional hook.
+
+**Top partner concentration:** Top 4 orgs handle 80.7% of intake. This is the "Where they are transferred from" story.
+
+---
+
+**Previous evening status was the morning thread (`/annual-reports` page split, Wages-merge, 2025 PDF refresh, Master Intake pilot at 2010-2020) — that's preserved in the git history at commit `5099d7b`.**
+
+---
+
+**Session 2026-05-21 (morning) — three threads of work, all on `main` for the website + a new data foundation in `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\`.**
 
 ### Thread 1 — `/annual-reports` "Where Your Money Goes" simplification
 - Merged Wages into Salaries & Honorarium head per year ("Wages, Salaries & Honorarium") in `src/lib/expenditure-data.ts` (all 5 years).
