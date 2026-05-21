@@ -19,8 +19,16 @@ function pct(cases: number): string {
 export default function IntakeSpeciesSection() {
   const [expanded, setExpanded] = useState(false);
 
-  const top10 = SPECIES_BREAKDOWN.slice(0, 10);
-  const rest = SPECIES_BREAKDOWN.slice(10);
+  // Non-target species excluded from the featured top-10 cards (Wildlife
+  // Rescue's focus is raptors + scheduled species; pigeons are kept in the
+  // full appendix list further down for transparency).
+  const FEATURED_EXCLUSIONS = new Set(["Pigeon", "Blue Rock Pigeon"]);
+  const featured = SPECIES_BREAKDOWN
+    .filter((s) => !FEATURED_EXCLUSIONS.has(s.name))
+    .slice(0, 10);
+  const featuredNames = new Set(featured.map((s) => s.name));
+  // Appendix = everything NOT in the featured cards (still in rank order).
+  const rest = SPECIES_BREAKDOWN.filter((s) => !featuredNames.has(s.name));
   const endangeredOnly = SPECIES_BREAKDOWN.filter((s) => isEndangered(s.iucn));
 
   const blackKite = SPECIES_BREAKDOWN[0]; // by case count, will be Black Kite
@@ -36,20 +44,21 @@ export default function IntakeSpeciesSection() {
 
         {/* Lead paragraph */}
         <p className="max-w-3xl mx-auto text-center text-slate text-lg leading-relaxed -mt-4 mb-12">
-          Black Kites — the iconic raptors of Delhi&apos;s skies — dominate our intake at{" "}
+          As a raptor rescue, Black Kites — the iconic birds of prey ruling
+          Delhi&apos;s skies — dominate our intake at{" "}
           <strong className="text-teal-dark">
             {blackKitePct}% of all rescues
           </strong>
-          . But our records span everything from Critically Endangered vultures to
-          common pigeons, sparrows, and the occasional reptile or mammal.
+          . Beyond that, our records span Critically Endangered vultures, owls,
+          eagles, hornbills, and the wider community of wild birds we treat.
         </p>
 
-        {/* ─── Top 10 Species Grid ─── */}
+        {/* ─── Featured Species Grid (raptors + scheduled species; pigeons appendixed) ─── */}
         <h3 className="text-xl font-bold text-charcoal text-center mb-8 font-[family-name:var(--font-poppins)]">
-          Top 10 Species by Intake
+          Featured Species
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 lg:gap-5">
-          {top10.map((s, idx) => (
+          {featured.map((s, idx) => (
             <SpeciesCard key={s.name} species={s} rank={idx + 1} />
           ))}
         </div>
