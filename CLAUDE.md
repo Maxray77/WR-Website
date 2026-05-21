@@ -222,7 +222,114 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-20 (multi-year "Where Your Money Goes" with audited line-item breakdowns)
+**Last updated by:** Claude Code — 2026-05-21 (Master Intake Database pilot — 2010-2020 ingested; "Where Your Money Goes" wages-merged; annual-reports split into /annual-reports + /financials)
+
+**Session 2026-05-21 — three threads of work, all on `main` for the website + a new data foundation in `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\`.**
+
+### Thread 1 — `/annual-reports` "Where Your Money Goes" simplification
+- Merged Wages into Salaries & Honorarium head per year ("Wages, Salaries & Honorarium") in `src/lib/expenditure-data.ts` (all 5 years).
+- Removed sub-item bullets from `src/components/ExpenditureBreakdown.tsx` render (data preserved in the file; just hidden).
+- Added inline note below the bars: "Top-level heads shown for clarity. For a detailed line-item breakdown of any head, please write to saud@raptorrescue.org."
+
+### Thread 2 — 2025 Annual Report PDF replaced
+- `public/wr-annual-report.pdf` swapped from old 2.95 MB version to the new 13.2 MB file (`C:\Users\maxra\Documents\Wildlife Rescue\Annual Report\2025\2025 Annual Report.pdf`). Same URL — wired into `/blog/wr-annual-report-2025`, `/annual-reports` 2025 card, and homepage "From Our Blog".
+
+### Thread 3 — Page split: `/annual-reports` → `/annual-reports` + `/financials`
+- New `src/app/financials/page.tsx` — moved the 5-year financial table, `<ExpenditureBreakdown />`, PDF/Excel downloads, footnotes, and 4 financial-only KPIs out of `/annual-reports`. Hero icon: DollarSign. Cross-link back to `/annual-reports` at bottom.
+- `src/app/annual-reports/page.tsx` rewritten as "Annual Rescue Reports": hero (FileText), 3 rescue KPIs, intake chart since 2010, Five Growth Phases, AnnualReportCard archive, cross-link to `/financials` at bottom. Financial sections completely removed.
+- Header dropdown ("Our Work") shows BOTH entries now: "Annual Rescue Reports" + "Financial Transparency" (desktop + mobile lists).
+- `src/app/sitemap.ts` registers `/financials`.
+- `src/lib/wingman-prompt.ts` updated: `/annual-reports` description split into rescue-focused + financial-focused descriptions.
+
+### Thread 4 (parallel research, no website code) — Master Intake Database pilot
+
+This is the **foundation for the next big page** the user wants — `/annual-reports` species-wise / condition-wise / age-wise breakdowns with vintage public-domain bird plates as illustrations.
+
+**Plan agreed with user:**
+- Aggregate species, conditions (where available), age, and partner-org data from the raw intake spreadsheets into a single master file.
+- Public page will show **top 20 species + full list appendix** (for credibility), conditions, age breakdown (adult/juvenile/hatchling/fledgling), and a "Where they are transferred from" partner-org section.
+- Illustrations sourced from **public-domain ornithological plates** — John Gould (Birds of Asia 1850–1883), Audubon, Daniel Giraud Elliot, Edward Lear, Joseph Smit, Henrik Grönvold. Wikimedia + Biodiversity Heritage Library. NOT AI-generated.
+- IUCN status stored in master file for all species but **only displayed on the page for CR / EN / VU / NT** species (LC and Unknown get nothing visible — reduces clutter).
+
+**Files produced this session:**
+- `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\Master Intake Database.xlsx` (~930 KB) — 6 sheets:
+  1. **Intake** — one row per unique C.No., 19,939 rows; columns: C.No., Date, Year, Species (raw), Species (normalised), **Age**, Partner raw, Partner cleaned, Place, Condition, Final Status, IUCN Status, Source File(s)
+  2. **Sources** — every file processed (82 sources), type, rows imported, notes
+  3. **Species Map** — 246 distinct species → canonical name + IUCN status (editable). User to fill IUCN for blanks.
+  4. **Partners** — 1,660 distinct partner orgs → cleaned display name + raw variants
+  5. **Conflicts Log** — 44 cases where register-file Condition/Status changed across months (later-month wins per user instruction)
+  6. **Audit Log** — every gap, anomaly, decision-pending item — single sheet for user to triage
+- `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\build_master_intake.py` — fully reproducible Python script (openpyxl). Re-run after dropping new files into the source folders.
+
+**Years covered + reconciliation against `RESCUE_BY_YEAR` (audited):**
+
+| Year | Captured | Audited | Status |
+|---|---|---|---|
+| 2010 | 362 | 362 | ✓ exact |
+| 2011 | 1,011 | 1,011 | ✓ |
+| 2012 | 1,346 | 1,346 | ✓ |
+| 2013 | 1,324 | 1,324 | ✓ |
+| 2014 | 1,974 | 1,974 | ✓ |
+| 2015 | 2,306 | 2,306 | ✓ |
+| 2016 | 2,365 | 2,365 | ✓ |
+| 2017 | 2,112 | 2,469 | gap −357 (binder short, no monthly files for Jan-Nov) |
+| 2018 | 2,090 | 2,815 | gap −725 (binder short, missing monthly intake Jan + Dec) |
+| 2019 | 2,135 | 2,565 | gap −430 (consolidated `Case 2019.xlsx` short of audited) |
+| 2020 | 2,489 | 2,489 | ✓ exact |
+| **Total** | **19,939** | **21,026** | **−1,087** |
+
+**Data rules locked in this session (carry forward to all future master-file work):**
+- Binder file (`2010 to 2020.xlsx`, 11 sheets) used ONLY to fill gaps — processed after monthly folders, first-in-wins ensures monthly intake data takes precedence. Register Condition/Final Status data NEVER touched by binder.
+- WPA-register dedup: later-month entry wins per C.No. (because Final Status updates as treatment progresses).
+- IUCN status kept in master but on the page only show CR / EN / VU / NT (drop LC + Unknown).
+- Species capitalisation is case-insensitive in source data; canonical Title Case in output. Black Kite ≠ Black Eared Kite. "Crow" merged into "Common Crow". "Pigeon" (mix-breed racing pigeons) is NOT the same as "Blue Rock Pigeon" (wild) — keep separate.
+- Partner-org auto-merge: apostrophe + punctuation stripping, plus manual alias overrides for known orgs:
+  - **Sanjay Gandhi Animal Care Center** ← SGACC, S. G. Animal Care Center, …Centre variants
+  - **S.V.S.J. Sewa Trust** ← Shahdra Bird Hospital, Shahadra Bird Hospital, Bird Hospital Shahdra, Bird Hospital Shahadra
+  - **Charity Birds Hospital** ← Charity Bird Hospital (singular variant)
+- Age suffix extraction (parenthetical at end of species name):
+  - `(J)` → Age = **Juvenile** (517 cases)
+  - `(H)` → Age = **Hatchling** (113 cases)
+  - `(F)` → Age = **Fledgling** (5 cases)
+  - `(M)` → Age = **Mix** (mix-breed Kites — 2 cases — flagged in Audit Log; technically not an age, may move to separate Hybrid column later)
+- "Unknown" partner kept as literal "Unknown" (not "Not Recorded" — feels less unprofessional per user).
+
+**Pending pickup for next session (the big questions to ask the user):**
+1. **Source-data hunt for missing 2017/2018/2019 cases** — user may have additional spreadsheets we haven't found yet. Without them, the page footnote needs to acknowledge the gap (or use audited annual totals for headlines + master-file data only for species/condition/partner distribution).
+2. **Ingest 2021–2026** — folders likely at `C:\Users\maxra\Documents\Wildlife Rescue\Wildlife Department Records\Intake Records\2021\` through `2026\`. Same monthly Case/Other Birds structure expected. Re-run `build_master_intake.py` after adding to `YEARS` list.
+3. **User to scan Audit Log sheet** and fill blanks in Species Map (IUCN status for low-confidence species).
+4. **Then start the page build**: top 20 species with vintage plates, condition section, age section, "Where they are transferred from" partner section, full-species appendix. Cards/charts use WR brand teal + amber.
+
+**Top 10 species in master (2010-2020 combined):**
+
+| Cases | Species | IUCN |
+|---|---|---|
+| 16,621 | Black Kite | LC |
+| 534 | Barn Owl | LC |
+| 331 | Black Eared Kite | LC |
+| 262 | Common Crow | (TBD) |
+| 257 | Blue Rock Pigeon | LC |
+| 226 | Cattle Egret | LC |
+| 210 | Shikra | LC |
+| 89 | Spotted Owlet | LC |
+| 65 | Pigeon | (TBD — mix-breed racing pigeons) |
+| 47 | Crested Serpent Eagle | LC |
+
+**Top partners (after merges):**
+
+| Cases | Partner |
+|---|---|
+| 11,813 | Charity Birds Hospital |
+| 1,798 | Sanjay Gandhi Animal Care Center |
+| 1,743 | S.V.S.J. Sewa Trust |
+| 364 | Prem Bhawan |
+| 319 | "Unknown" |
+| 167 | Wildlife SOS |
+| 155 | Mr. Rajiv Jain |
+
+---
+
+**Previous status carried forward:**
 
 **Session 2026-05-20 (afternoon) — `/annual-reports` financial transparency overhaul, commit `58edf01` pushed to `main` (live):**
 - [x] **New interactive 5-year expenditure breakdown** on `/annual-reports`. Replaced the static FY 2024-25 stub with a year-tab picker (FY 2020-21 → 2024-25). Each year shows 6 top-level heads (Salaries & Honorarium · Wages · Food for Birds · Rescue & Release Logistics · Medicine + Service Charges + Direct Hospital · Other Operational Expenses) with %-of-total bars and named sub-line-items. Other Operational is broken into 5 transparency sub-buckets (Audit & Professional · Office & Utilities · Repair & Vehicle Maintenance · Staff Welfare & Travel · Depreciation & Misc). Capital Investment shown separately below the bars (off-I&E equipment).

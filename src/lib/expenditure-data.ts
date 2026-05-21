@@ -38,18 +38,14 @@ export const EXPENDITURE_BY_YEAR: YearExpenditure[] = [
     capex: 1270749, // Ambulance ₹10.15L, Anaesthesia Machine ₹1.41L, Oxygen Concentrator ₹57K, other clinic equipment
     heads: [
       {
-        name: "Salaries & Honorarium",
-        amount: 1933332,
+        name: "Wages, Salaries & Honorarium",
+        amount: 2288060,
         color: "bg-teal",
         subItems: [
           { name: "Salaries", amount: 1027332 },
           { name: "Honorarium", amount: 906000 },
+          { name: "Wages", amount: 354728 },
         ],
-      },
-      {
-        name: "Wages",
-        amount: 354728,
-        color: "bg-teal-dark",
       },
       {
         name: "Food for Birds",
@@ -96,14 +92,9 @@ export const EXPENDITURE_BY_YEAR: YearExpenditure[] = [
     capex: 217110, // Printer, Deep Freezer, Microphone, Camera, CCTV, Attendance Machine, Tea Dispenser, etc.
     heads: [
       {
-        name: "Salaries & Honorarium",
-        amount: 1804252,
+        name: "Wages, Salaries & Honorarium",
+        amount: 1833952,
         color: "bg-teal",
-      },
-      {
-        name: "Wages",
-        amount: 29700,
-        color: "bg-teal-dark",
       },
       {
         name: "Food for Birds",
@@ -149,14 +140,9 @@ export const EXPENDITURE_BY_YEAR: YearExpenditure[] = [
     capex: 80160, // Tools + Computer & Hardware capitalized on Balance Sheet
     heads: [
       {
-        name: "Salaries & Honorarium",
-        amount: 550000,
+        name: "Wages, Salaries & Honorarium",
+        amount: 1183688,
         color: "bg-teal",
-      },
-      {
-        name: "Wages (Rescue Staff Salaries)",
-        amount: 633688,
-        color: "bg-teal-dark",
       },
       {
         name: "Food for Birds",
@@ -203,14 +189,9 @@ export const EXPENDITURE_BY_YEAR: YearExpenditure[] = [
     capex: 33900,
     heads: [
       {
-        name: "Salaries & Honorarium",
-        amount: 967124,
+        name: "Wages, Salaries & Honorarium",
+        amount: 1026576,
         color: "bg-teal",
-      },
-      {
-        name: "Wages",
-        amount: 59452,
-        color: "bg-teal-dark",
       },
       {
         name: "Food for Birds",
@@ -254,14 +235,9 @@ export const EXPENDITURE_BY_YEAR: YearExpenditure[] = [
     capex: 280435,
     heads: [
       {
-        name: "Salaries & Honorarium",
-        amount: 693806,
+        name: "Wages, Salaries & Honorarium",
+        amount: 824896,
         color: "bg-teal",
-      },
-      {
-        name: "Wages",
-        amount: 131090,
-        color: "bg-teal-dark",
       },
       {
         name: "Food for Birds",

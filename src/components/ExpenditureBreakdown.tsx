@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import {
   EXPENDITURE_BY_YEAR,
   formatINR,
@@ -104,27 +104,6 @@ function BreakdownDetails({ year }: { year: YearExpenditure }) {
               />
             </div>
 
-            {head.subItems && head.subItems.length > 0 && (
-              <ul className="mt-3 ml-1 space-y-1.5">
-                {head.subItems.map((sub) => (
-                  <li
-                    key={sub.name}
-                    className="flex items-start gap-2 text-sm text-slate"
-                  >
-                    <ChevronRight
-                      size={14}
-                      className="text-teal mt-1 shrink-0"
-                    />
-                    <span className="flex-1">
-                      <span className="text-charcoal">{sub.name}</span>
-                      <span className="text-slate font-mono ml-2">
-                        — {formatINR(sub.amount)}
-                      </span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
         );
       })}
@@ -146,6 +125,21 @@ function BreakdownDetails({ year }: { year: YearExpenditure }) {
           </p>
         </div>
       )}
+
+      <p className="mt-4 text-xs text-slate flex items-start gap-2">
+        <Info size={14} className="text-teal mt-0.5 shrink-0" />
+        <span>
+          Top-level heads shown for clarity. For a detailed line-item
+          breakdown of any head, please write to{" "}
+          <a
+            href="mailto:saud@raptorrescue.org"
+            className="text-teal hover:text-teal-dark underline"
+          >
+            saud@raptorrescue.org
+          </a>
+          .
+        </span>
+      </p>
 
       <div className="mt-4 pt-5 border-t border-gray-100 grid sm:grid-cols-3 gap-4 text-sm">
         <Stat label="Total Income" value={formatINR(year.totalIncome)} />

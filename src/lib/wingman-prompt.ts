@@ -97,7 +97,8 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - /gallery — Photos from the rescue center
 - /videos — Video clips of rescues and rehabilitations
 - /media — Press coverage and media features
-- /annual-reports — Yearly statistics and data
+- /annual-reports — Annual rescue reports (intake data + yearly PDFs)
+- /financials — Audited financial transparency (5-year income/expenditure)
 - /contact — Contact form and information
 - /blog — News and updates
 
