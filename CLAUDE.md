@@ -222,7 +222,111 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-21 (evening) — Master Intake Database COMPLETE (39,681 cases, 2010-2026); `src/lib/intake-data.ts` exported from master file for upcoming page sections.
+**Last updated by:** Claude Code — 2026-05-21 (late evening) — `/annual-reports` now has TWO live new sections (Who We Rescue + Why They Come In). Species count down to 156 after aggressive typo cleanup. Pending: vintage Wikimedia plates for top species; revival of the dropped "Chicks & Juveniles" section.
+
+**Session 2026-05-21 (late evening — page-build phase) — built four sections on `/annual-reports`, then aggressively cleaned + curated based on user feedback. Final state has two surviving sections.**
+
+### What landed on `/annual-reports`
+
+Order on page: Hero → KPI (3 stats) → Annual Intake Chart → **Who We Rescue** → **Why They Come In** → Five Growth Phases → Report Archive → Cross-link to `/financials`.
+
+**Who We Rescue (`IntakeSpeciesSection.tsx`):**
+- Lead paragraph reframes the org as raptor-focused (Black Kites = 81.9% of intake).
+- "Featured Raptors" subsection: top 10 raptors only, with `PlatePlaceholder` cards for forthcoming vintage public-domain illustrations. Filters out egrets / crows / hornbills / kingfishers / pigeons / ibises via an explicit `RAPTORS` set.
+- Current featured order: Black Kite, Barn Owl, Black Eared Kite, Shikra, Spotted Owlet, Crested Serpent Eagle, Egyptian Vulture (EN), Indian Scops Owl, Oriental Honey Buzzard, Short-Toed Snake Eagle.
+- "Endangered & Threatened Species" subsection: shows only CR/EN/VU/NT species per project rule (LC + blank get no badge anywhere).
+- Collapsible "View all 156 species" appendix listing every species in rank order — pigeons, crows, etc. live here for transparency.
+- IUCN badges via shared `IucnBadge.tsx` (renders only for CR/EN/VU/NT).
+
+**Why They Come In (`IntakeConditionsSection.tsx`):**
+- Headline: "Manja injuries account for 39.1% of intake."
+- Bar chart of 18 condition categories (Manja Injuries in amber as the signature WR specialty; rest in teal gradient). Sorted descending; "External Examination Normal" + "Other / Various" parked at the bottom.
+- **Critical caveat banner**: data is based on 7,230 documented register cases (18.2% of total intake), not all 39,681 — patterns extend broadly but percentages reflect the documented subset.
+
+### Sections built & then removed during this session
+
+- **`IntakePartnersSection.tsx`** — built ("Where They Are Transferred From"), user removed. Component file preserved in repo, just unwired from the page.
+- **`IntakeAgeSection.tsx`** — built ("Chicks & Juveniles"), reframed twice, user removed because age data was too sparse to honestly extrapolate. The "Adult (implied) = 94.5%" stat was the trigger for removal — it created a false denominator since unmarked ≠ measured-as-adult. Component file preserved for future revival once age tagging improves or framing is sharper.
+
+### Species data — final state after 4 cleanup passes
+
+| Pass | Species count | IUCN coverage |
+|---|---|---|
+| Raw extract | 284 | seeded ~30 |
+| First merge | 261 | 98.9% |
+| Second merge (Black Kite (J), SVSJ family) | 246 | 98.9% |
+| Aggressive typo pass (~96 aliases) | 165 | 99.5% |
+| **Final cleanup (today)** | **156** | **99.70%** |
+
+The 17 remaining IUCN-blank species are intentional placeholders (mix-breed Pigeon, domestic Kitten/Cat/Hen/Budgie/Zebra Finch, ambiguous "Ibis"/"Munia"/"Dove" generics, illegible record-keeping entries like "Pound Horn"/"Purpal Horn"/"Dupkela"). All flagged in the master file's Audit Log.
+
+**Major typo merges this session** (logged for next-session reference — already baked into `build_master_intake.py`):
+- Black Kite cluster: "back kite", "blackkite", "black kiite", "(died Before Reaching)", "(unable To Capture)"
+- Hornbill cluster: "horn bill", "hornbill" (9 cases), "indian grey horn bill", "horn bill(indion grey)", "baby hornbill"
+- Crested Serpent Eagle: "creased serpent eagle", "serpent egale", "serpent eagle", "cs eagle"
+- Five-Striped Palm Squirrel: 8 variants ("fs palm squirrell", "5 strip palm squirell", "squierll e", etc.)
+- Owl variants: "indian scoops owl", "pallid scopes/scoopes owl", "spotted owl", "scopes owl"
+- Hyphen variants: "black-winged stilt/kite", "white-breasted waterhen", "black-headed gull/ibis", "yellow-footed green pigeon"
+- Other: "honey buzard"+"crested bazzard"+"oriental hunny buzzard" → Oriental Honey Buzzard; "egyptian valture/vultur"+"egyption vultur" → Egyptian Vulture; "mayna"/"maina" → Common Myna; "babler"+"jungle babler" → Jungle Babbler
+
+### Components built this session (all in `src/components/intake/`)
+
+- `IucnBadge.tsx` — renders CR/EN/VU/NT badge only, with hover tooltip. Hex colours: CR red-100/700, EN orange-100/700, VU amber-100/800, NT yellow-100/800.
+- `PlatePlaceholder.tsx` — aged-paper placeholder card with Feather icon. Aspect 3:4. Will swap to `next/image` once Wikimedia plates land at `/public/plates/{slug}.jpg`.
+- `IntakeSpeciesSection.tsx` — uses `"use client"` for expandable appendix state. Has hardcoded RAPTORS set for filtering. SpeciesCard + EndangeredCard sub-components inline.
+- `IntakeConditionsSection.tsx` — server component, data-only rendering.
+- `IntakeAgeSection.tsx` — server component (currently unwired).
+- `IntakePartnersSection.tsx` — server component (currently unwired).
+
+### Build scripts on disk at `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\`
+
+- `Master Intake Database.xlsx` — 6 sheets, 39,681 cases. Single source of truth.
+- `build_master_intake.py` — rebuilds the .xlsx from source spreadsheets. Supports 3 source locations (Wildlife Department Records, Data/Intake Records, D:/Case Rocord) + EXTRA_FILES for one-off paths.
+- `export_intake_data.py` — reads the .xlsx and emits `src/lib/intake-data.ts`. Condition keyword classification rules (18 categories) live here. Re-run after any master-file edit.
+
+### Pending pickup for next session
+
+1. **Source vintage public-domain plates from Wikimedia Commons** for the top 10 featured raptors. Recommended sources:
+   - John Gould — *Birds of Asia* (1850-1883): Black Kite, Egyptian Vulture, Shikra, owls
+   - Audubon — *Birds of America*: Barn Owl, Peregrine Falcon
+   - Daniel Giraud Elliot — eagles, vultures
+   - Joseph Smit / Henrik Grönvold — late-1800s Indian gallery plates
+   - Manual download → sharp-cli compress to ~1000px wide JPEG → save to `/public/plates/{slug}.jpg`.
+   - Update `PlatePlaceholder.tsx` to render `<Image>` when the file exists, fall back to placeholder otherwise.
+
+2. **Revive "Chicks & Juveniles" section** with better data or sharper framing. The fundamental issue is that age is only explicitly tagged for ~2,200 of 39,681 cases (5.5%). Options for next session: (a) only show chick counts as raw numbers, drop all percentages; (b) reframe as "Orphan Care" stat block alongside conditions; (c) wait for richer age data to be captured.
+
+3. **Source-data hunts that would improve the dataset** (logged in Audit Log sheet):
+   - 2017 Jan-Oct register files (currently have only Nov + Dec)
+   - 2018 Jan + Dec intake monthly files (binder fills the data, no monthly attribution)
+   - 2020 Feb register, 2022 Nov register, 2024 Jun register
+   - 2025/2026 registers (years in progress)
+
+4. **Section design refinements** based on real-page eyeballing — the user may want to tweak copy, visual hierarchy, or card layouts.
+
+### Top numbers to remember for next session
+
+- **39,681 cases · 156 species · 859 org partners · 99.70% IUCN coverage**
+- Black Kite = 32,510 cases = 81.9% of intake (raptor-rescue identity story)
+- Manja Injuries = 39.1% of 7,230 documented conditions (signature specialty story)
+- Top 4 partners = 89.0% of intake (Charity Birds Hospital, S.V.S.J. Sewa Trust, Sanjay Gandhi Animal Care Center, Prem Bhawan) — though partner section is currently unwired
+
+### Commits pushed today (newest first)
+
+- `4ad1f9c` — remove Chicks & Juveniles section pending correction
+- `bb95071` — drop misleading 'Adult (implied)' card, reframe section
+- `3959934` — final species cleanup pass (165 → 156)
+- `1c63a3e` — featured cards now show raptors only
+- `385a367` — remove 'Where They Are Transferred From' section
+- `3db5bcf` — exclude Pigeon + Blue Rock Pigeon from featured cards
+- `c4273bd` — consolidate 96 species typo variants (261 → 165)
+- `0388d9b` — species/conditions/age/partners sections (initial build)
+- `13116e0` — export Master Intake Database aggregations
+- `5099d7b` — split /annual-reports + /financials, Wages merge, 2025 PDF refresh
+
+---
+
+**Earlier session log (2026-05-21 evening — Master Intake Database expansion to 17 years, IUCN classifications filled, aggregated rollups exported):**
 
 **Session 2026-05-21 (evening continuation) — Master Intake Database expanded to full 17-year coverage, IUCN classifications filled, aggregated rollups exported to TypeScript for the website.**
 
