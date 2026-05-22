@@ -94,6 +94,11 @@ export default function IntakeSpeciesSection() {
             <SpeciesCard key={s.name} species={s} rank={idx + 1} />
           ))}
         </div>
+        <p className="text-center text-[11px] text-slate/80 mt-4 italic max-w-3xl mx-auto">
+          Illustrations: vintage public-domain ornithological plates by John Gould,
+          Thomas Hardwicke, Lady Elizabeth Gwillim, Nicolas Huet and others
+          (1790–1894), sourced from Wikimedia Commons.
+        </p>
 
         {/* ─── Endangered Highlights ─── */}
         {endangeredOnly.length > 0 && (
