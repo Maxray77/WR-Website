@@ -59,6 +59,56 @@ const PLATES: Record<string, PlateInfo> = {
     work: "The Birds of Europe",
     year: "1832–1837",
   },
+  "black-headed-ibis": {
+    artist: "Nicolas Huet / Jean-Gabriel Prêtre",
+    work: "Nouveau recueil de planches coloriées",
+    year: "1838",
+  },
+  "painted-stork": {
+    artist: "Thomas Pennant",
+    work: "Indian Zoology",
+    year: "1790",
+  },
+  "alexandrine-parakeet": {
+    artist: "François Levaillant",
+    work: "Histoire naturelle des perroquets",
+    year: "1801–1805",
+  },
+  "japanese-quail": {
+    artist: "Siebold & Temminck",
+    work: "Fauna Japonica",
+    year: "1844–1850",
+  },
+  "steppe-eagle": {
+    artist: "Thomas Hardwicke",
+    work: "Illustrations of Indian Zoology",
+    year: "1830–1832",
+  },
+  "pied-harrier": {
+    artist: "Lady Elizabeth Gwillim",
+    work: "Indian bird studies",
+    year: "1801–1807",
+  },
+  "woolly-necked-stork": {
+    artist: "Lady Elizabeth Gwillim",
+    work: "Indian bird studies",
+    year: "1801–1807",
+  },
+  "indian-darter": {
+    artist: "Lady Elizabeth Gwillim",
+    work: "Indian bird studies",
+    year: "1801–1807",
+  },
+  "laggar-falcon": {
+    artist: "John Gould",
+    work: "A Century of Birds from the Himalaya Mountains",
+    year: "1832",
+  },
+  "eastern-imperial-eagle": {
+    artist: "John Gould",
+    work: "The Birds of Asia",
+    year: "1850–1883",
+  },
 };
 
 export function plateSlug(name: string): string {
