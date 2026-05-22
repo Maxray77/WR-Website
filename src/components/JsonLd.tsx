@@ -76,9 +76,9 @@ export function OrganizationJsonLd() {
       },
     ],
     sameAs: [
-      "https://www.facebook.com/wildliferescue.in",
+      "https://www.facebook.com/wildliferescue.india/",
       "https://www.instagram.com/wildliferescueindia",
-      "https://www.youtube.com/@WildlifeRescueDelhi",
+      "https://www.youtube.com/@wildliferescue341",
       "https://en.wikipedia.org/wiki/All_That_Breathes",
     ],
     nonprofitStatus: "NonprofitANBI",

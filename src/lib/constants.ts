@@ -14,9 +14,9 @@ export const CONTACT = {
   email: "nadeem@raptorrescue.org",
   website: "www.raptorrescue.org",
   whatsapp: "https://wa.me/919810029698",
-  facebook: "https://facebook.com/wildliferescue.in",
+  facebook: "https://www.facebook.com/wildliferescue.india/",
   instagram: "https://www.instagram.com/wildliferescueindia",
-  youtube: "#",
+  youtube: "https://www.youtube.com/@wildliferescue341",
   mapEmbed: "https://maps.google.com/maps?q=Wildlife+Rescue,+C-6/1+Rehmani+Chowk,+Street+No+9,+Wazirabad+Village,+Delhi+110084,+India&z=17&output=embed",
   usFiscalSponsor: {
     name: "Raptor Rescue and Research Inc.",
