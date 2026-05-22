@@ -222,6 +222,80 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-05-22 — `/annual-reports` plates are DONE (24 vintage public-domain illustrations sourced, all cards now show real plates, zero placeholders left). Socials fixed (YouTube + Facebook were dead/wrong handles). OCR feasibility pilot on Jan 2022 case records succeeded — full extraction pass deferred to a future session.
+
+**Session 2026-05-22 — plates + socials + OCR pilot. All on `main`, all pushed and live.**
+
+### What landed today
+
+**1. 24 vintage public-domain plates wired into `/annual-reports`** (commits `69a9b1d`, `e6cc83f`, `9108b33`)
+- **Top-10 Featured Raptors** — Gould (Black Kite, Crested Serpent Eagle, Egyptian Vulture, Short-Toed Snake Eagle), Hardwicke (Black Eared Kite), Lady Gwillim (Oriental Honey Buzzard), Huet/Prêtre (Shikra, Spotted Owlet), Pennant (Indian Scops Owl), German raptor lithograph (Barn Owl)
+- **Endangered & Threatened (11 cards)** — Huet/Prêtre (Black Headed Ibis), Pennant (Painted Stork), Levaillant (Alexandrine Parakeet), Fauna Japonica (Japanese Quail), Hardwicke (Steppe Eagle), Gwillim (Pied Harrier, Woolly Necked Stork, Indian Darter), Gould (Laggar Falcon, Eastern Imperial Eagle, Egyptian Vulture)
+- **3 reptiles** — Iconographia Zoologica (Red Sand Boa), Sowerby & Lear 1872 (Soft Shelled Turtle), Albert Günther 1864 (Three-Striped Roofed Terrapin)
+- All plates downloaded at 1200px from Wikimedia via `Special:FilePath?width=1200`, normalised to 1000px JPEG via PIL (74–185 KB each, ~3 MB total across 23 files)
+- `PlatePlaceholder.tsx` rewritten — has a `PLATES` manifest of attribution metadata (artist, work, year); renders `next/image` when slug exists, falls back to aged-paper placeholder otherwise; `plateSlug()` helper does kebab-case derivation
+- Attribution surfaced via image `alt`+`title` plus a single italic credit line under the Featured Raptors grid (broadened from "ornithological plates" to "plates by ... Edward Lear, Albert Günther and others (1700–1894)" so it covers herpetology)
+
+**2. Social links fix** (commit `21071a9`)
+- YouTube: was hardcoded `"#"` (the icon reloaded the page); real channel is `https://www.youtube.com/@wildliferescue341` ("Wildlife Rescue"). JsonLd also had a fabricated `@WildlifeRescueDelhi` reference (404) — fixed.
+- Facebook: was `facebook.com/wildliferescue.in` (resolves but unofficial); real page is `facebook.com/wildliferescue.india/`.
+- Instagram unchanged (`instagram.com/wildliferescueindia` is correct).
+- Updated both `CONTACT` constants in `src/lib/constants.ts` and the `sameAs[]` array in `src/components/JsonLd.tsx`.
+
+**3. OCR feasibility pilot on Case Record PDFs** (research only — no website changes)
+- Source: `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Rocord\` — six populated folders (2016, 2017, 2019, 2020, 2022, Case Record Others Birds with 2017/2018/2019 subdirs)
+- **~6,553 detailed clinical case records** total (1 per page). Each page is a structured Case Record form: Date, RM No, Case No, Species (common+scientific), Sex, Age, Weight, Body Score, 24-point external exam, Condition (free-text diagnosis), Treatment (drug regimen), Remarks, Final Status + release date, vet signature.
+- **All key fields are TYPED, not handwritten.** Only the vet signature is handwritten. OCR is highly viable.
+- Installed `rapidocr_onnxruntime` (pip-only, no admin, no Tesseract binary needed) and ran a 113-page pilot on `Case Record 2022/January.pdf`:
+  - Time: 203 seconds (~1.8 s/page)
+  - Coverage: Date 100%, Case No 98%, Species 100%, **Condition 100%**, Treatment 100%, Final Status 96%
+  - Sample condition output: "Right Wing Cut Wound | Tensor Propatagialis Long Tendon Cut | Perpapagium Skin Cut | Old Dried Wound" — exact anatomical signature of manja injuries, far richer than the existing 18-category register data
+  - Minor post-processing fixes needed: insert missing spaces (`BlackKite` → `Black Kite`, `POMeloxicam` → `PO Meloxicam`), regex-cut vet signature out of Final Status
+- Pilot CSV saved at: `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Rocord\_pilot\jan2022_pilot.csv`
+- Full pass projection: **~3.3 hours of compute** to process all 6,553 pages → CSV with Case No · Date · Species · Condition · Final Status. User chose to defer to a future session.
+- Note: `Case Record 2023/` folder is empty (0 files); the rest of 2023 already lives in the Master Intake Database via Excel files in `Data/Intake Records/2023/`.
+
+### Pending pickup for next session
+
+1. **Full OCR extraction on all 6,553 case records** (Phase 1 of the patient-records database project):
+   - Re-run the pilot script across all PDF folders
+   - Post-process: space normalisation, signature stripping, species canonical mapping
+   - Output: master CSV + aggregated JSON (counts per condition keyword, classified into the existing 18 categories + extra clinical sub-types)
+   - Feed into `intake-data.ts` to refresh `/annual-reports` "Why They Come In" section with a much larger documented sample (potentially expanding from 7,230 → 13,000+ documented cases) and update the caveat banner accordingly
+2. **Phase 2 — Patient records research database** (separate, longer-term):
+   - Same OCR pass extracts ALL 30+ fields per case (not just Condition)
+   - Output to SQLite/Postgres + admin search/filter UI
+   - Foundation for clinical research, outcome analysis by Body Score, length-of-stay by species/condition, treatment regimen analytics
+3. **Revive "Chicks & Juveniles" section** — `IntakeAgeSection.tsx` is built but unwired (age data only tagged for 5.5% of cases — needs sharper framing)
+4. **Optionally revive "Where They Are Transferred From"** — `IntakePartnersSection.tsx` built but unwired (top 4 partners = 89% of intake)
+
+### Top numbers to remember (unchanged from 2026-05-21)
+
+- 39,681 cases · 156 species · 859 org partners · 99.70% IUCN coverage
+- Black Kite = 32,510 cases = 81.9% of intake
+- Manja Injuries = 39.1% of 7,230 documented register conditions
+- Plate manifest: 23 unique slugs (Egyptian Vulture appears in both Featured Raptors and Endangered cards = 24 rendered cards, 0 placeholders)
+
+### Files touched today
+
+- `public/plates/*.jpg` — **NEW** (23 files, ~3 MB total)
+- `src/components/intake/PlatePlaceholder.tsx` — rewritten with `PLATES` manifest, `plateSlug()`, `getPlateInfo()`, image+fallback rendering
+- `src/components/intake/IntakeSpeciesSection.tsx` — added italic attribution credit line under Featured Raptors grid
+- `src/lib/constants.ts` — YouTube + Facebook URLs corrected
+- `src/components/JsonLd.tsx` — `sameAs[]` URLs corrected
+- (research artifact, not in repo): `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Rocord\_pilot\jan2022_pilot.csv`
+
+### Commits pushed today (newest first)
+
+- `9108b33` — feat(annual-reports): add plates for 3 reptile species
+- `21071a9` — fix(socials): point YouTube + Facebook to real live pages
+- `e6cc83f` — feat(annual-reports): add plates for 10 more endangered species
+- `69a9b1d` — feat(annual-reports): wire in 10 vintage ornithological plates for featured raptors
+
+---
+
+**Previous session (2026-05-21 late evening) handoff retained below for context:**
+
 **Last updated by:** Claude Code — 2026-05-21 (late evening) — `/annual-reports` now has TWO live new sections (Who We Rescue + Why They Come In). Species count down to 156 after aggressive typo cleanup. Pending: vintage Wikimedia plates for top species; revival of the dropped "Chicks & Juveniles" section.
 
 **Session 2026-05-21 (late evening — page-build phase) — built four sections on `/annual-reports`, then aggressively cleaned + curated based on user feedback. Final state has two surviving sections.**
