@@ -109,6 +109,21 @@ const PLATES: Record<string, PlateInfo> = {
     work: "The Birds of Asia",
     year: "1850–1883",
   },
+  "red-sand-boa": {
+    artist: "Iconographia Zoologica",
+    work: "Special Collections, University of Amsterdam",
+    year: "1700–1880",
+  },
+  "soft-shelled-turtle": {
+    artist: "G. B. Sowerby & Edward Lear",
+    work: "Tortoises, Terrapins, and Turtles",
+    year: "1872",
+  },
+  "three-striped-roofed-terrapin": {
+    artist: "Albert Günther",
+    work: "Catalogue of Shield Reptiles in the British Museum",
+    year: "1864",
+  },
 };
 
 export function plateSlug(name: string): string {
