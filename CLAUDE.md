@@ -222,9 +222,47 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-23 (build) — **TIER 1+2 SHIPPED: 3 new orthogonal sections on `/annual-reports` built from the 14,092-case clinical database.** Three new components rendering in order (Who We Rescue → Who Arrives → Why They Come In → What Happens): refreshed `IntakeConditionsSection.tsx` (manja 42.4%, septicemia 16.7%, fractures 16.0%, dehydration 14.0%, etc.) with new overlap caveat; rebuilt `IntakeAgeSection.tsx` from structured `age` column (Adult 9,253, Nestling 1,896, Fledgling 1,849, Juvenile 911, Hatchling 118) with Delhi-food-shortage MBD callout (8% of juveniles arrive with MBD — calcium/nutrient-poor diet signal); NEW `IntakeOutcomesSection.tsx` with hero stat **"77.1% of Black Kites released back to the wild"**, species table, adults-vs-juveniles comparison (67.9% vs 74.8%), year-over-year chart (2019-2022 clean trend, 2023+ flagged provisional). Data layer: `src/lib/case-records-data.ts` auto-generated from `case_records.db` by new `export_case_records_to_website.py`. **Build passes clean (71 pages, 0 errors).** Not yet committed/pushed — next step is `git commit` and push to main.
+**Last updated by:** Claude Code — 2026-05-23 (end of session, all committed + pushed) — **Two new sections shipped on `/annual-reports` from the 14,092-case clinical database; release-rate Outcomes section paused pending Saud's review.** Final commit `00f9090` on `main` (live on Vercel after auto-deploy).
 
-**Earlier session 2026-05-23 — Excel case-records extraction + 3 classifier issues resolved with Saud.** 16,450 case-record `.xlsx` files at `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Records Excel\Case Records\` → `extract_case_records.py` → 14,092 unique cases (~35.5% of 39,681 intake). **3 resolved findings:** (1) Avian Pox 29.6% → true **1.3%** (false positive from `"ap"` matching "perpapagium"); (2) "Beyond Recovery" dropped (it's a prognosis, not a condition); (3) **Juvenile cohort was undercounted 3x** — condition-keyword classifier said 10.7%, but structured `age` field shows true **33.8% juvenile-stage** (Nestling 13.5% + Fledgling 13.0% + Juvenile 6.5% + Hatchling 0.8%). Saud also flagged that **67% of dehydration/emaciation cases are juveniles**, not adults — overlap is significant. **NEW finding:** 8% of juveniles arrive with Metabolic Bone Disease (signal of improper hand-rearing pre-transfer). **Outcome rates publish-ready:** Black Kite 77.1% released, juveniles 74.8% (better than adults' 67.9%). **Build plan revised** to 3 orthogonal sections (Who Arrives by Age + Why They Come In Conditions + What Happens Outcomes) with shared caveat about overlap — see `docs/PLAN-case-records-integration.md` Tier 2. **No website code changed this session.** Still pending Saud's review: 2023+ release-rate dip — recommendation is to publish 2019–2022 trend cleanly + footnote 2023+ as provisional.
+### What landed today
+
+**1. Excel case-records extraction (16,450 .xlsx files at `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Records Excel\Case Records\`)**
+- Built `extract_case_records.py` + `export_case_records_to_website.py` in `Master Data/`
+- 14,092 unique cases parsed (~35.5% of 39,681 intake, vs prior 7,230 register sample)
+- Outputs: `case_records.csv` + `case_records.db` (SQLite) at `Master Data/`
+- Auto-generated `src/lib/case-records-data.ts` consumed by website
+- Three classifier issues resolved with Saud: (a) Avian Pox false-positive (29.6% → true 1.3% — bare `"ap"` matched "perpapagium"), (b) "Beyond Recovery" dropped (prognosis not condition), (c) Juvenile cohort fixed (10.7% → true 33.8% via structured `age` field instead of condition keywords)
+
+**2. `/annual-reports` page refresh** (live after Vercel deploy)
+- **Why They Come In** (refreshed `IntakeConditionsSection.tsx`): Manja 42.4%, Septicemia 16.7%, Fractures 16.0%, Dehydration 14.0%, External-Normal 12.7%, Orphans 10.7%, Avian Pox 1.3%. New overlap caveat banner.
+- **Who Arrives at Our Door** (rebuilt `IntakeAgeSection.tsx`): age breakdown from structured field (Adult 9,253, Nestling 1,896, Fledgling 1,849, Juvenile 911, Hatchling 118). NEW 3-card seasonal grid (Summer heat + dehydration / April–May dust storms / Monsoon kite-flying festivals → manja injuries to inexperienced juveniles — Saud's framing). MBD callout with clinically accurate prognosis ("MBD cannot be reversed. Only early-stage cases can be stopped in their tracks — managed with corrective diet and supportive care to prevent further degradation, and released if the bird can still manage flight").
+
+**3. `IntakeOutcomesSection.tsx` — BUILT BUT UNWIRED** (in repo, commented marker in `annual-reports/page.tsx`)
+- Hero "77.1% of Black Kites released" + species table + adults vs juveniles (67.9% vs 74.8%) + year-over-year chart (2019-2022 clean trend; 2023+ flagged provisional)
+- Removed from live page at user's request pending Saud's review of release-rate data + year-over-year dip interpretation. 1-line revival when ready.
+
+### Pending pickup for next session
+
+1. **Saud's review of release rates** — once cleared, uncomment the import + `<IntakeOutcomesSection />` line in `src/app/annual-reports/page.tsx`. The 2023+ dip (84.2% → 54.5% → 65.5% → 62.2%) is already footnoted as provisional. Component is production-ready.
+2. **Tier 3** (species-page outcome stats) — per-species "X% released since 2019" mini-section on each `/species/[slug]` page. Data already in `case-records-data.ts` `SPECIES_OUTCOMES`. Plan in `docs/PLAN-case-records-integration.md`.
+3. **Tier 4** (treatment-usage stats on `/treatments`) — would require building a treatment-keyword classifier similar to conditions. Planning notes in same doc.
+4. **Raptor Lab App** — separate sibling repo at `C:\Users\maxra\Documents\Claude\Raptor Lab App\` — Phase 1 build kicks off once equipment data outputs are confirmed (SL120 USB export check, DR detector DICOM, microscope camera model).
+
+### Files of record
+
+| File | Purpose |
+|---|---|
+| `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\extract_case_records.py` | Re-runnable .xlsx → SQLite extractor |
+| `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\export_case_records_to_website.py` | SQLite → `case-records-data.ts` exporter |
+| `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\case_records.db` | SQLite with 14,092 indexed cases |
+| `src/lib/case-records-data.ts` | Auto-generated TS data consumed by website |
+| `docs/PLAN-case-records-integration.md` | Full plan + open questions for Saud |
+
+### Earlier sessions retained below for context
+
+**2026-05-23 (earlier) — Raptor Lab App scoped in sibling repo.**
+
+**2026-05-22 — plates + socials + OCR pilot. All on `main`, all pushed and live.** 16,450 case-record `.xlsx` files at `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Records Excel\Case Records\` → `extract_case_records.py` → 14,092 unique cases (~35.5% of 39,681 intake). **3 resolved findings:** (1) Avian Pox 29.6% → true **1.3%** (false positive from `"ap"` matching "perpapagium"); (2) "Beyond Recovery" dropped (it's a prognosis, not a condition); (3) **Juvenile cohort was undercounted 3x** — condition-keyword classifier said 10.7%, but structured `age` field shows true **33.8% juvenile-stage** (Nestling 13.5% + Fledgling 13.0% + Juvenile 6.5% + Hatchling 0.8%). Saud also flagged that **67% of dehydration/emaciation cases are juveniles**, not adults — overlap is significant. **NEW finding:** 8% of juveniles arrive with Metabolic Bone Disease (signal of improper hand-rearing pre-transfer). **Outcome rates publish-ready:** Black Kite 77.1% released, juveniles 74.8% (better than adults' 67.9%). **Build plan revised** to 3 orthogonal sections (Who Arrives by Age + Why They Come In Conditions + What Happens Outcomes) with shared caveat about overlap — see `docs/PLAN-case-records-integration.md` Tier 2. **No website code changed this session.** Still pending Saud's review: 2023+ release-rate dip — recommendation is to publish 2019–2022 trend cleanly + footnote 2023+ as provisional.
 
 **Earlier 2026-05-23:** Raptor Lab App project scoped in a separate sibling repo at `C:\Users\maxra\Documents\Claude\Raptor Lab App\` (planning doc + CLAUDE.md). No code yet for that either.
 
