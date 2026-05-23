@@ -222,9 +222,29 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-22 — `/annual-reports` plates are DONE (24 vintage public-domain illustrations sourced, all cards now show real plates, zero placeholders left). Socials fixed (YouTube + Facebook were dead/wrong handles). OCR feasibility pilot on Jan 2022 case records succeeded — full extraction pass deferred to a future session.
+**Last updated by:** Claude Code — 2026-05-23 (build) — **TIER 1+2 SHIPPED: 3 new orthogonal sections on `/annual-reports` built from the 14,092-case clinical database.** Three new components rendering in order (Who We Rescue → Who Arrives → Why They Come In → What Happens): refreshed `IntakeConditionsSection.tsx` (manja 42.4%, septicemia 16.7%, fractures 16.0%, dehydration 14.0%, etc.) with new overlap caveat; rebuilt `IntakeAgeSection.tsx` from structured `age` column (Adult 9,253, Nestling 1,896, Fledgling 1,849, Juvenile 911, Hatchling 118) with Delhi-food-shortage MBD callout (8% of juveniles arrive with MBD — calcium/nutrient-poor diet signal); NEW `IntakeOutcomesSection.tsx` with hero stat **"77.1% of Black Kites released back to the wild"**, species table, adults-vs-juveniles comparison (67.9% vs 74.8%), year-over-year chart (2019-2022 clean trend, 2023+ flagged provisional). Data layer: `src/lib/case-records-data.ts` auto-generated from `case_records.db` by new `export_case_records_to_website.py`. **Build passes clean (71 pages, 0 errors).** Not yet committed/pushed — next step is `git commit` and push to main.
 
-**Session 2026-05-22 — plates + socials + OCR pilot. All on `main`, all pushed and live.**
+**Earlier session 2026-05-23 — Excel case-records extraction + 3 classifier issues resolved with Saud.** 16,450 case-record `.xlsx` files at `C:\Users\maxra\Documents\Wildlife Rescue\Data\Case Records Excel\Case Records\` → `extract_case_records.py` → 14,092 unique cases (~35.5% of 39,681 intake). **3 resolved findings:** (1) Avian Pox 29.6% → true **1.3%** (false positive from `"ap"` matching "perpapagium"); (2) "Beyond Recovery" dropped (it's a prognosis, not a condition); (3) **Juvenile cohort was undercounted 3x** — condition-keyword classifier said 10.7%, but structured `age` field shows true **33.8% juvenile-stage** (Nestling 13.5% + Fledgling 13.0% + Juvenile 6.5% + Hatchling 0.8%). Saud also flagged that **67% of dehydration/emaciation cases are juveniles**, not adults — overlap is significant. **NEW finding:** 8% of juveniles arrive with Metabolic Bone Disease (signal of improper hand-rearing pre-transfer). **Outcome rates publish-ready:** Black Kite 77.1% released, juveniles 74.8% (better than adults' 67.9%). **Build plan revised** to 3 orthogonal sections (Who Arrives by Age + Why They Come In Conditions + What Happens Outcomes) with shared caveat about overlap — see `docs/PLAN-case-records-integration.md` Tier 2. **No website code changed this session.** Still pending Saud's review: 2023+ release-rate dip — recommendation is to publish 2019–2022 trend cleanly + footnote 2023+ as provisional.
+
+**Earlier 2026-05-23:** Raptor Lab App project scoped in a separate sibling repo at `C:\Users\maxra\Documents\Claude\Raptor Lab App\` (planning doc + CLAUDE.md). No code yet for that either.
+
+**Previous session 2026-05-22 — plates + socials + OCR pilot. All on `main`, all pushed and live.**
+
+### Pending pickup for next session (case-records integration)
+
+1. **Saud's vet review** on findings before publishing — open questions list in `docs/PLAN-case-records-integration.md` §"Open Questions" (Avian Pox 29.6%, "Beyond Recovery" classification, 2023+ release-rate dip, 2021 partial coverage)
+2. **Build Tier 1 + Tier 2 together** (~2 hours focused session):
+   - Refresh `intake-data.ts` `CONDITION_BREAKDOWN` from the 14k extraction
+   - Update caveat in `IntakeConditionsSection.tsx` ("7,230 cases / 18.2%" → "14,092 cases / 35.5%")
+   - NEW `IntakeOutcomesSection.tsx` — first publication of release rates (77.1% Black Kites = donor headline stat)
+   - Wire new section into `/annual-reports`
+3. **Tier 3+ later** — species-page outcome stats, treatment-usage stats, future admin UI for research DB
+
+### New files (not in repo — outside `src/`)
+
+- `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\extract_case_records.py` — re-runnable extractor
+- `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\case_records.csv` — flat CSV
+- `C:\Users\maxra\Documents\Wildlife Rescue\Data\Master Data\case_records.db` — SQLite with indexes
 
 ### What landed today
 

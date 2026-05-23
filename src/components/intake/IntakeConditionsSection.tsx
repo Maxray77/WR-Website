@@ -1,66 +1,84 @@
 import { Info } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import { CONDITION_BREAKDOWN, INTAKE_CASES_WITH_CONDITION, INTAKE_TOTAL } from "@/lib/intake-data";
+import {
+  CLINICAL_CONDITIONS,
+  CLINICAL_CASES_WITH_CONDITION,
+  CLINICAL_COVERAGE_PCT,
+  CLINICAL_TOTAL_CASES,
+} from "@/lib/case-records-data";
 
-// Bars are coloured by category — Manja gets amber (signature WR specialty),
-// orphan-care and burns get distinctive accents, the rest use teal gradient.
+// Colour assignments — Manja gets the signature amber (WR specialty),
+// External-Exam-Normal gets a muted accent (it's not a clinical condition),
+// the rest get a teal gradient by rank.
 const ACCENT: Record<string, string> = {
-  "Manja Injuries & Cut Wounds": "bg-amber",
-  "Orphans, Chicks & Juveniles": "bg-teal",
-  "Fractures": "bg-teal-dark",
-  "Burns": "bg-danger",
-  "Dead On Arrival": "bg-slate",
-  "External Examination Normal": "bg-success",
+  "Manja Injuries": "bg-amber",
+  "Septicemia / Infection": "bg-teal-dark",
+  "Fractures": "bg-teal",
+  "Dehydration / Emaciation": "bg-teal",
+  "External Examination Normal": "bg-slate",
+  "Orphan / Chick-related": "bg-amber-light",
+  "Metabolic Bone Disease": "bg-danger/70",
+  "Avian Pox": "bg-teal/60",
 };
-const DEFAULT_BAR = "bg-teal/70";
+const DEFAULT_BAR = "bg-teal/60";
+
+// Categories worth showing on the bar chart. Below ~50 cases the bar is
+// invisible at this scale; we keep the data exported but trim for display.
+const MIN_DISPLAY = 50;
 
 export default function IntakeConditionsSection() {
-  const totalCategorised = CONDITION_BREAKDOWN.reduce((sum, c) => sum + c.cases, 0);
-  // Sort descending by cases; "External Examination Normal" + "Other" stay at bottom.
-  const sorted = [...CONDITION_BREAKDOWN].sort((a, b) => {
-    const aPark =
-      a.name === "External Examination Normal" || a.name === "Other / Various";
-    const bPark =
-      b.name === "External Examination Normal" || b.name === "Other / Various";
+  // Filter out very rare conditions for visual clarity
+  const displayed = CLINICAL_CONDITIONS.filter((c) => c.cases >= MIN_DISPLAY);
+  // External-Exam-Normal sorts to the bottom — it's a triage state, not a condition
+  const sorted = [...displayed].sort((a, b) => {
+    const aPark = a.name === "External Examination Normal";
+    const bPark = b.name === "External Examination Normal";
     if (aPark !== bPark) return aPark ? 1 : -1;
     return b.cases - a.cases;
   });
+
   const top = sorted[0];
-  const topPct = ((top.cases / totalCategorised) * 100).toFixed(1);
-  const coveragePct = ((INTAKE_CASES_WITH_CONDITION / INTAKE_TOTAL) * 100).toFixed(1);
+  const topPct = ((top.cases / CLINICAL_CASES_WITH_CONDITION) * 100).toFixed(1);
 
   return (
     <section className="py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Why They Come In"
-          subtitle="The injuries and illnesses we treat — patterns across years of clinical records."
+          subtitle="The clinical patterns we see across 14,092 detailed case records."
         />
 
         {/* Headline */}
         <p className="max-w-3xl mx-auto text-center text-slate text-lg leading-relaxed -mt-4 mb-8">
-          Across {INTAKE_CASES_WITH_CONDITION.toLocaleString()} documented clinical
-          cases,{" "}
-          <strong className="text-amber">
-            {top.name.toLowerCase().includes("manja")
-              ? "manja injuries"
-              : top.name}
+          Across{" "}
+          <strong className="text-charcoal">
+            {CLINICAL_CASES_WITH_CONDITION.toLocaleString()}
           </strong>{" "}
-          account for nearly{" "}
+          clinical case records,{" "}
+          <strong className="text-amber">manja injuries</strong> account for{" "}
           <strong className="text-charcoal">{topPct}%</strong> of intake — the
-          single largest driver of birds arriving at our facility.
+          single largest driver of birds arriving at our facility, and the
+          signature pattern our surgical team has spent fifteen years
+          perfecting techniques for.
         </p>
 
-        {/* Data-source caveat */}
+        {/* Data-source caveat + overlap warning */}
         <div className="max-w-3xl mx-auto mb-12 bg-amber-light/30 border border-amber/30 rounded-lg p-4 flex gap-3">
           <Info size={20} className="text-amber-700 mt-0.5 shrink-0" />
-          <div className="text-xs text-charcoal leading-relaxed">
-            <strong>About this data:</strong> Clinical condition is formally
-            recorded for {INTAKE_CASES_WITH_CONDITION.toLocaleString()} cases
-            ({coveragePct}% of our total intake) — primarily for scheduled
-            species requiring documentation under Indian wildlife laws. The
-            patterns shown broadly extend to our wider intake, but the
-            percentages here reflect the documented subset.
+          <div className="text-xs text-charcoal leading-relaxed space-y-2">
+            <p>
+              <strong>About this data:</strong> Based on{" "}
+              {CLINICAL_TOTAL_CASES.toLocaleString()} detailed clinical case
+              records from 2019–2025 ({CLINICAL_COVERAGE_PCT}% of our total
+              intake). Each record is a per-case form with full exam findings,
+              condition diagnosis, treatment, and outcome.
+            </p>
+            <p>
+              <strong>These categories overlap.</strong> A dehydrated nestling
+              with a fractured wing appears in three buckets — we don&apos;t
+              aggregate them as mutually exclusive. For example, 67% of
+              Dehydration / Emaciation cases are juveniles, not adults.
+            </p>
           </div>
         </div>
 
@@ -68,7 +86,7 @@ export default function IntakeConditionsSection() {
         <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-100 p-6 lg:p-10 shadow-sm">
           <div className="space-y-4">
             {sorted.map((cond) => {
-              const p = (cond.cases / totalCategorised) * 100;
+              const p = (cond.cases / CLINICAL_CASES_WITH_CONDITION) * 100;
               const colour = ACCENT[cond.name] ?? DEFAULT_BAR;
               return (
                 <div key={cond.name}>
@@ -96,9 +114,9 @@ export default function IntakeConditionsSection() {
         </div>
 
         <p className="mt-6 text-center text-xs text-slate max-w-2xl mx-auto">
-          Conditions categorised from free-text clinical records; some cases
-          present multiple conditions and are assigned to their most clinically
-          significant category.
+          Conditions classified from free-text clinical notes. Categories below
+          50 cases (Maggot Wound, Eye Injury, Internal Toxicosis, Dislocation,
+          Methane Burn) are tracked but not shown for visual clarity.
         </p>
       </div>
     </section>

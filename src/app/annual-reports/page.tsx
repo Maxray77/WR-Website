@@ -4,7 +4,10 @@ import { FileText, TrendingUp, Users, DollarSign, ArrowRight } from "lucide-reac
 import SectionHeading from "@/components/SectionHeading";
 import AnnualReportCard from "@/components/AnnualReportCard";
 import IntakeSpeciesSection from "@/components/intake/IntakeSpeciesSection";
+import IntakeAgeSection from "@/components/intake/IntakeAgeSection";
 import IntakeConditionsSection from "@/components/intake/IntakeConditionsSection";
+// IntakeOutcomesSection is built but unwired pending Saud's review of release-rate data.
+// Re-enable when ready: import IntakeOutcomesSection from "@/components/intake/IntakeOutcomesSection";
 import { RESCUE_BY_YEAR } from "@/lib/constants";
 import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 
@@ -89,9 +92,18 @@ export default function AnnualReportsPage() {
         </div>
       </section>
 
-      {/* ─── Species / Conditions ─── */}
+      {/* ─── Who We Rescue ─── */}
       <IntakeSpeciesSection />
+
+      {/* ─── Who Arrives (Age) ─── */}
+      <IntakeAgeSection />
+
+      {/* ─── Why They Come In (Conditions) ─── */}
       <IntakeConditionsSection />
+
+      {/* "What Happens (Outcomes)" section temporarily removed pending Saud's
+          review of release-rate data. Component file retained at
+          src/components/intake/IntakeOutcomesSection.tsx for later revival. */}
 
       {/* ─── Five Growth Phases ─── */}
       <section className="bg-offwhite py-16 lg:py-24">
