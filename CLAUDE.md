@@ -222,7 +222,83 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-23 (end of session, all committed + pushed) — **Two new sections shipped on `/annual-reports` from the 14,092-case clinical database; release-rate Outcomes section paused pending Saud's review.** Final commit `00f9090` on `main` (live on Vercel after auto-deploy).
+**Last updated by:** Claude Code — 2026-05-25 (end of session, all committed + pushed) — **Homepage reorg + Annual Report promotion + 14 new compressed videos shipped across /videos and /species/barn-owl + /species/crested-serpent-eagle.** Final commit `e001fa9` on `main` (live on Vercel after auto-deploy).
+
+### What landed today (2026-05-25)
+
+**1. Homepage reorg + Annual Report promotion** (commits `d14c1b8`, `d552ab1`)
+- **OG/Twitter share image** swapped from `/founders-combined.jpg` → `/og-steppe-eagle.jpg` (822×1286 portrait from WhatsApp 2026-05-24 Steppe Eagle photo, compressed via PIL). Updated `src/lib/metadata.ts` width/height/alt to match. After deploy, social-media link cards will need a Facebook/Twitter cache refresh (Sharing Debugger + Card Validator).
+- **Annual Report** promoted from inside the "Our Work" dropdown to a **top-level nav item** between "Our Work" and "Media" (label: "Annual Report"). Mobile flat list keeps the existing "Annual Rescue Reports" entry. Edit at `src/components/Header.tsx`.
+- **Homepage section reorder** — "All That Breathes" moved up to sit directly under the About teaser (was previously below Rescue Stories). New homepage order: Hero → Impact stats → 3 hero bird images → About teaser → **All That Breathes** → Rescue Stories → **Our Annual Rescue Reports** (new teal section) → Donation Appeal → Blog → Instagram → Connect → Newsletter.
+- **New "Our Annual Rescue Reports" section** on homepage sits directly below Rescue Stories — teal gradient, latest 2025 cover thumbnail, amber "Transparency & Impact" badge, two CTAs ("Explore Annual Reports" + "Financial Transparency"). Links to the `/annual-reports` page (the archive), NOT a single PDF.
+- **Black Kite species card** image fixed — was pointing at `/species/black-eared-kite.jpg` (showing the wrong species on /species listing); now points at `/species/black-kite-01.jpg`. Gallery deduped to drop the two Black Eared Kite photos that belong on the `/species/black-eared-kite` page.
+
+**2. Big video push — 14 new compressed video files across the site** (commits `d49425a`, `f478a7b`, `6ce7724`, `325c162`, `248bfd8`, `3e009ef`, `27f17be`, `d81711e`, `01fe149`, `580e1cc`, `37207cd`, `dbafd27`, `e001fa9`)
+
+`/videos` page restructured into four content sections under the existing featured ATB trailer:
+- **Rescued & Released** (3 CSR compilations, Vol. 2/3/4) — teal badge, 26/41/37 MB each, 8 minutes combined
+- **Raptor Babies** (3 clips: 2-min compilation + Barn Owl chick + Young Scops Owl) — amber badge
+- **Field Rescues** (NEW section, 1 clip so far: Black Kite manja entanglement) — red badge
+- **Releases** (7 clips: 2 Kingfisher glue-trap rescues + 5 GoPro release clips) — teal badge
+
+Plus 3 species-specific videos:
+- `/species/barn-owl` got 3 new clips: adult portrait, manja-wound wing bandaging, second release clip (now has 6 videos total)
+- `/species/crested-serpent-eagle` got its first video — adult forest raptor footage
+
+**Video compression pipeline established:**
+- All source clips are 4K HEVC/H.264 GoPro or DSLR (54 MB to 1.2 GB each, total ~5 GB of raw source consumed today)
+- `imageio-ffmpeg` pip package bundles ffmpeg binary (no system install required): `python -c "import imageio_ffmpeg as iio; print(iio.get_ffmpeg_exe())"` → `C:\Users\maxra\AppData\Roaming\Python\Python314\site-packages\imageio_ffmpeg\binaries\ffmpeg-win-x86_64-v7.1.exe`
+- Standard recipe: `ffmpeg -i SRC -vf "scale=-2:720" -c:v libx264 -preset slow -crf 28 -maxrate 2500k -bufsize 5000k -c:a aac -b:a 96k -movflags +faststart OUT.mp4`
+- Result: 1080p/4K → 720p H.264 with ~2.5 Mbps cap → typically 1–25 MB per file
+- **Lesson learned mid-session:** the first pass without `-maxrate` produced 13–23 Mbps output for short clean GoPro footage because CRF treats it conservatively. The `-maxrate 2500k` cap is essential.
+
+### New public assets shipped today
+
+| Path | Size | Source |
+|---|---|---|
+| `public/og-steppe-eagle.jpg` | 428 KB | WhatsApp Steppe Eagle (822×1286) |
+| `public/videos/rescued-released/combined-02.mp4` | 26 MB | `Combined Videos/COMBINED VIDEO 2 REVISED.mp4` (480 MB) |
+| `public/videos/rescued-released/combined-03.mp4` | 41 MB | `Combined Videos/COMBINED VIDEO 3.mp4` (968 MB) |
+| `public/videos/rescued-released/combined-04.mp4` | 37 MB | `Combined Videos/Combined Video 4.mp4` (1.16 GB) |
+| `public/videos/babies/raptor-babies.mp4` | 7.4 MB | `CSR Videos/Babies.mov` (576 MB) |
+| `public/videos/babies/barn-owl-chick.mp4` | 533 KB | `New Report Project/barn Owl Chick.MP4` (124 MB) |
+| `public/videos/babies/scops-owl-young.mp4` | 375 KB | `New Report Project/Scopes Owl.MP4` (78 MB) |
+| `public/videos/rescues/black-kite-entangled.mp4` | 15 MB | `Kite entagled .mp4` (66 MB) |
+| `public/videos/releases/kingfisher-glue-trap.mp4` | 15 MB | `Kingfisher Release.mov` (206 MB) |
+| `public/videos/releases/kingfisher-glue-trap-02.mp4` | 23 MB | `Project_11-01(1)_Full HD 1080p_(2).mp4` (120 MB) |
+| `public/videos/releases/GX010685.mp4` | 3.4 MB | `Relaese Vids/GX010685.MP4` (61 MB) |
+| `public/videos/releases/GX010689.mp4` | 12.5 MB | `Relaese Vids/GX010689.MP4` (202 MB) |
+| `public/videos/releases/GX010691.mp4` | 3.9 MB | `Relaese Vids/GX010691.MP4` (68 MB) |
+| `public/videos/releases/GX010692.mp4` | 11.4 MB | `Relaese Vids/GX010692.MP4` (196 MB) |
+| `public/videos/releases/GX010693.mp4` | 4.1 MB | `Relaese Vids/GX010693.MP4` (70 MB) |
+| `public/species/barn-owl-adult.mp4` | 1.0 MB | `New Report Project/3W1A9970.MP4` (110 MB) |
+| `public/species/barn-owl-manja-bandage.mp4` | 3.2 MB | `3W1A1014.MP4` (524 MB) |
+| `public/species/barn-owl-release-02.mp4` | 1.4 MB | `GX010236.MP4` (54 MB) |
+| `public/species/crested-serpent-eagle.mp4` | 1.5 MB | `New Report Project/3W1A0813.MP4` (350 MB) |
+
+Total ~210 MB of compressed video added (from ~5 GB source). All clips: 720p H.264 @ ≤2.5 Mbps, faststart-flagged for streaming.
+
+### Pending pickup for next session
+
+1. **CSE clip relocation lesson** — when the user just says a species name without "young" or "chick", check whether it's adult or juvenile before defaulting to Raptor Babies. Today's CSE clip was first added to Raptor Babies then moved to `/species/crested-serpent-eagle` as a species video. Ask first.
+2. **The two existing offwhite-bg sections on `/videos` (Field Rescues + previously Releases)** were rebalanced — Releases lost its bg-offwhite to maintain alternation. Visual rhythm is fine but worth eyeballing after deploy.
+3. **More content in each new section** — Field Rescues currently has only 1 clip; would benefit from 2–3 more so the grid doesn't look sparse. Raptor Babies + Field Rescues sections are designed to grow.
+
+### Files touched today (this session)
+
+- `src/app/page.tsx` — homepage section reorder + new Annual Reports section
+- `src/components/Header.tsx` — Annual Report promoted to top-level nav
+- `src/lib/metadata.ts` — OG image swap + alt/dimensions
+- `src/lib/species-data.ts` — Black Kite hero fix; CSE video added; Barn Owl gained 3 video entries
+- `src/app/videos/page.tsx` — 4 new sections (Rescued & Released, Raptor Babies, Field Rescues, Releases) with `BABY_VIDEOS`/`RELEASE_VIDEOS`/`RESCUED_RELEASED_VIDEOS`/`FIELD_RESCUE_VIDEOS` arrays
+- `public/og-steppe-eagle.jpg` — **NEW**
+- `public/videos/babies/*` — **NEW directory** (3 files)
+- `public/videos/releases/*` — **NEW directory** (7 files)
+- `public/videos/rescues/*` — **NEW directory** (1 file)
+- `public/videos/rescued-released/*` — **NEW directory** (3 files)
+- `public/species/barn-owl-adult.mp4`, `barn-owl-manja-bandage.mp4`, `barn-owl-release-02.mp4`, `crested-serpent-eagle.mp4` — **NEW**
+
+### Earlier session retained below for context (2026-05-23)
 
 ### What landed today
 
