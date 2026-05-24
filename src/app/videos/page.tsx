@@ -90,6 +90,12 @@ const BABY_VIDEOS = [
     description:
       "An orphaned Barn Owl chick at Wildlife Rescue — hand-fed and kept warm until it grows the flight feathers needed for release.",
   },
+  {
+    src: "/videos/babies/scops-owl-young.mp4",
+    title: "Young Scops Owl",
+    description:
+      "A young Indian Scops Owl in care at Wildlife Rescue — small, cryptic, and bark-camouflaged. Often arrive as orphans after falling from cavity nests.",
+  },
 ];
 
 const RELEASE_VIDEOS = [
