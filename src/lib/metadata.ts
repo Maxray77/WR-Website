@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.raptorrescue.org";
-const OG_IMAGE = "/founders-combined.jpg";
+const OG_IMAGE = "/og-steppe-eagle.jpg";
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -62,9 +62,9 @@ export const siteMetadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 1600,
-        height: 1200,
-        alt: "Nadeem Shehzad and Mohammad Saud — founders of Wildlife Rescue, Delhi",
+        width: 822,
+        height: 1286,
+        alt: "Steppe Eagle — Wildlife Rescue, Delhi",
       },
     ],
   },

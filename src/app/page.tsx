@@ -15,7 +15,7 @@ import {
   CONTACT,
 } from "@/lib/constants";
 import { getBlogPosts } from "@/lib/blog";
-import { Facebook, Instagram, Youtube, Calendar, Clock, ArrowUpRight } from "lucide-react";
+import { Facebook, Instagram, Youtube, Calendar, Clock, ArrowUpRight, FileText, Download } from "lucide-react";
 
 export default async function Home() {
   const recentPosts = (await getBlogPosts()).slice(0, 3);
@@ -231,6 +231,62 @@ export default async function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Annual Reports Promo ─── */}
+      <section className="py-16 lg:py-20 bg-gradient-to-br from-teal-dark via-teal to-teal-dark text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[1fr_auto] items-center gap-10">
+            <div>
+              <span className="inline-block bg-amber text-charcoal px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                Transparency &amp; Impact
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-poppins)] leading-tight">
+                Our Annual Rescue Reports
+              </h2>
+              <p className="mt-4 text-lg text-white/85 leading-relaxed max-w-2xl">
+                Year by year, every bird counted. Browse the full archive of
+                our annual reports — infographics, intake data, growth phases,
+                and downloadable PDFs going back to 2020. See exactly what your
+                support has made possible.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-4">
+                <Link
+                  href="/annual-reports"
+                  className="inline-flex items-center gap-2 bg-amber hover:bg-amber-light text-charcoal font-bold px-7 py-3 rounded-full text-base transition-all hover:shadow-xl hover:scale-105"
+                >
+                  <FileText size={18} />
+                  Explore Annual Reports
+                  <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/financials"
+                  className="inline-flex items-center gap-2 border-2 border-white/40 hover:border-white text-white font-semibold px-7 py-3 rounded-full text-base transition-all hover:bg-white/10"
+                >
+                  Financial Transparency
+                </Link>
+              </div>
+            </div>
+
+            <Link
+              href="/annual-reports"
+              className="block w-40 sm:w-48 lg:w-56 mx-auto group shrink-0"
+            >
+              <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-2xl ring-2 ring-amber/40 group-hover:ring-amber transition-all">
+                <Image
+                  src="/annual-reports/cover-2025.jpg"
+                  alt="Wildlife Rescue Annual Reports — latest 2025 cover"
+                  width={500}
+                  height={667}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm text-white/70 italic">
+                Latest: 2025
+              </p>
+            </Link>
           </div>
         </div>
       </section>

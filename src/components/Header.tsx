@@ -26,10 +26,10 @@ const NAV_ITEMS: NavItem[] = [
       { href: "/vultures", label: "Vulture Conservation" },
       { href: "/species", label: "Species We Treat" },
       { href: "/special-cases", label: "Rescue Stories" },
-      { href: "/annual-reports", label: "Annual Rescue Reports" },
       { href: "/financials", label: "Financial Transparency" },
     ],
   },
+  { href: "/annual-reports", label: "Annual Report" },
   {
     label: "Media",
     children: [
