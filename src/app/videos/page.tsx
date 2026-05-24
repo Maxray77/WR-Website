@@ -85,6 +85,12 @@ const VIDEOS = [
 
 const BABY_VIDEOS = [
   {
+    src: "/videos/babies/raptor-babies.mp4",
+    title: "Raptor Babies — A Compilation",
+    description:
+      "A two-minute look inside Wildlife Rescue's chick nursery — orphaned and fallen babies receiving the round-the-clock care they need before being returned to the wild.",
+  },
+  {
     src: "/videos/babies/barn-owl-chick.mp4",
     title: "Barn Owl Chick",
     description:
