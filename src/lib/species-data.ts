@@ -179,6 +179,9 @@ export const SPECIES_LIST: Species[] = [
     images: [
       { src: "/species/crested-serpent-eagle.jpg", alt: "Crested Serpent Eagle at Wildlife Rescue — distinctive crest and bold barred plumage" },
     ],
+    videos: [
+      { src: "/species/crested-serpent-eagle.mp4", caption: "An adult Crested Serpent Eagle in care at Wildlife Rescue — one of Delhi's most striking forest raptors, distinguished by its yellow face and piercing eye." },
+    ],
   },
   {
     slug: "blue-rock-pigeon",
