@@ -127,6 +127,12 @@ const BABY_VIDEOS = [
 
 const RELEASE_VIDEOS = [
   {
+    src: "/videos/releases/kingfisher-glue-trap.mp4",
+    title: "Kingfisher — Glue Trap Rescue & Release",
+    description:
+      "A Kingfisher rescued from a glue trap, cleaned of adhesive, rehabilitated at Wildlife Rescue, and released back to the wild. Glue traps are an underappreciated urban threat to small birds.",
+  },
+  {
     src: "/videos/releases/GX010692.mp4",
     title: "Release into the Sky",
     description:
