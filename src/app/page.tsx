@@ -178,6 +178,77 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ─── Documentary Spotlight ─── */}
+      <section className="py-16 lg:py-24 bg-charcoal text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Poster — centered above the trailer */}
+          <div className="flex justify-center mb-10 lg:mb-14">
+            <Link href="/all-that-breathes" className="block group w-full max-w-xs sm:max-w-sm">
+              <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 transition-transform group-hover:scale-[1.02]">
+                <Image
+                  src="/atb-poster.jpg"
+                  alt="All That Breathes — HBO Original. Academy Award Nominee, Documentary Feature Film."
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 100vw, 384px"
+                  className="object-cover"
+                />
+              </div>
+            </Link>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/GoTlULspDyY"
+                title="All That Breathes | Official Trailer | HBO"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+
+            <div>
+              <span className="text-amber font-semibold text-sm uppercase tracking-wider">
+                Oscar-Nominated Documentary
+              </span>
+              <h2 className="mt-2 text-3xl sm:text-4xl font-bold font-[family-name:var(--font-poppins)]">
+                All That Breathes
+              </h2>
+              <p className="mt-4 text-white/70 leading-relaxed">
+                The first documentary in history to win both the Sundance and
+                Cannes top awards. This film follows Nadeem and Saud as they
+                rescue raptors against the backdrop of a rapidly changing Delhi.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {[
+                  "Sundance Winner",
+                  "Cannes Winner",
+                  "Oscar Nominated",
+                  "Peabody Winner",
+                  "Gotham Winner",
+                ].map((badge) => (
+                  <span
+                    key={badge}
+                    className="px-3 py-1.5 bg-white/10 text-white/90 rounded-full text-xs font-semibold border border-white/10"
+                  >
+                    {badge}
+                  </span>
+                ))}
+              </div>
+
+              <Link
+                href="/all-that-breathes"
+                className="inline-flex items-center gap-2 mt-6 text-amber font-semibold hover:gap-3 transition-all"
+              >
+                Explore the Film <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Featured Rescue Stories ─── */}
       <section className="bg-offwhite py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -287,77 +358,6 @@ export default async function Home() {
                 Latest: 2025
               </p>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Documentary Spotlight ─── */}
-      <section className="py-16 lg:py-24 bg-charcoal text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Poster — centered above the trailer */}
-          <div className="flex justify-center mb-10 lg:mb-14">
-            <Link href="/all-that-breathes" className="block group w-full max-w-xs sm:max-w-sm">
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 transition-transform group-hover:scale-[1.02]">
-                <Image
-                  src="/atb-poster.jpg"
-                  alt="All That Breathes — HBO Original. Academy Award Nominee, Documentary Feature Film."
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 100vw, 384px"
-                  className="object-cover"
-                />
-              </div>
-            </Link>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden">
-              <iframe
-                src="https://www.youtube.com/embed/GoTlULspDyY"
-                title="All That Breathes | Official Trailer | HBO"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </div>
-
-            <div>
-              <span className="text-amber font-semibold text-sm uppercase tracking-wider">
-                Oscar-Nominated Documentary
-              </span>
-              <h2 className="mt-2 text-3xl sm:text-4xl font-bold font-[family-name:var(--font-poppins)]">
-                All That Breathes
-              </h2>
-              <p className="mt-4 text-white/70 leading-relaxed">
-                The first documentary in history to win both the Sundance and
-                Cannes top awards. This film follows Nadeem and Saud as they
-                rescue raptors against the backdrop of a rapidly changing Delhi.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                {[
-                  "Sundance Winner",
-                  "Cannes Winner",
-                  "Oscar Nominated",
-                  "Peabody Winner",
-                  "Gotham Winner",
-                ].map((badge) => (
-                  <span
-                    key={badge}
-                    className="px-3 py-1.5 bg-white/10 text-white/90 rounded-full text-xs font-semibold border border-white/10"
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </div>
-
-              <Link
-                href="/all-that-breathes"
-                className="inline-flex items-center gap-2 mt-6 text-amber font-semibold hover:gap-3 transition-all"
-              >
-                Explore the Film <ArrowRight size={16} />
-              </Link>
-            </div>
           </div>
         </div>
       </section>
