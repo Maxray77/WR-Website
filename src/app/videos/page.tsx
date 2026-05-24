@@ -238,6 +238,7 @@ export default function VideosPage() {
                   <video
                     src={video.src}
                     controls
+                    muted
                     preload="metadata"
                     playsInline
                     className="w-full h-full object-cover"
@@ -280,6 +281,7 @@ export default function VideosPage() {
                   <video
                     src={video.src}
                     controls
+                    muted
                     preload="metadata"
                     playsInline
                     className="w-full h-full object-cover"
@@ -320,6 +322,7 @@ export default function VideosPage() {
                   <video
                     src={video.src}
                     controls
+                    muted
                     preload="metadata"
                     playsInline
                     className="w-full h-full object-cover"
@@ -360,6 +363,7 @@ export default function VideosPage() {
                   <video
                     src={video.src}
                     controls
+                    muted
                     preload="metadata"
                     playsInline
                     className="w-full h-full object-cover"
