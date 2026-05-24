@@ -83,6 +83,15 @@ const VIDEOS = [
   },
 ];
 
+const FIELD_RESCUE_VIDEOS = [
+  {
+    src: "/videos/rescues/black-kite-entangled.mp4",
+    title: "Black Kite Rescue — Entangled",
+    description:
+      "A Black Kite found entangled in kite-flying thread (manja) and rescued — the most common cause of intake at Wildlife Rescue, accounting for 42% of all our cases.",
+  },
+];
+
 const RESCUED_RELEASED_VIDEOS = [
   {
     src: "/videos/rescued-released/combined-02.mp4",
@@ -287,8 +296,48 @@ export default function VideosPage() {
         </div>
       </section>
 
-      {/* ─── Releases ─── */}
+      {/* ─── Field Rescues ─── */}
       <section className="py-16 lg:py-24 bg-offwhite">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Field Rescues"
+            subtitle="Emergency calls, entangled birds, glue traps, and the day-to-day work of getting injured raptors safely back to our clinic."
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {FIELD_RESCUE_VIDEOS.map((video) => (
+              <div
+                key={video.src}
+                className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="aspect-video bg-black">
+                  <video
+                    src={video.src}
+                    controls
+                    preload="metadata"
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <span className="text-xs font-semibold px-2 py-0.5 bg-danger/10 text-danger rounded-full">
+                    Field Rescue
+                  </span>
+                  <h3 className="mt-2 text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)]">
+                    {video.title}
+                  </h3>
+                  <p className="text-xs text-slate mt-1.5 leading-relaxed">
+                    {video.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Releases ─── */}
+      <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Releases"
