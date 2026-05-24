@@ -83,6 +83,39 @@ const VIDEOS = [
   },
 ];
 
+const RELEASE_VIDEOS = [
+  {
+    src: "/videos/releases/GX010692.mp4",
+    title: "Release into the Sky",
+    description:
+      "A rehabilitated raptor returns to the wild — the moment every rescue is working toward.",
+  },
+  {
+    src: "/videos/releases/GX010693.mp4",
+    title: "First Flight Back to Freedom",
+    description:
+      "After weeks of treatment and conditioning in our flight aviary, a bird takes off on its own again.",
+  },
+  {
+    src: "/videos/releases/GX010685.mp4",
+    title: "Slow Release — Black Kite",
+    description:
+      "Black Kites are slow-released from the flight cage so they can re-acclimate before fully departing.",
+  },
+  {
+    src: "/videos/releases/GX010689.mp4",
+    title: "Release Day at the Yamuna Floodplains",
+    description:
+      "Our team carries recovered raptors to release sites on Delhi's outskirts, away from urban hazards.",
+  },
+  {
+    src: "/videos/releases/GX010691.mp4",
+    title: "Successful Release",
+    description:
+      "Every successful release is the proof that the rescue, surgery, and rehab worked.",
+  },
+];
+
 const CATEGORIES = ["All", "Media Feature", "Documentary", "Field Rescue", "Medical", "Release", "Behind the Scenes", "Interview"];
 
 export default function VideosPage() {
@@ -120,6 +153,46 @@ export default function VideosPage() {
             <p className="text-white/60 text-sm mt-1">
               {FEATURED_VIDEO.description}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Releases ─── */}
+      <section className="py-16 lg:py-24 bg-offwhite">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Releases"
+            subtitle="The moment every rescue is working toward — recovered birds returning to the wild."
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {RELEASE_VIDEOS.map((video) => (
+              <div
+                key={video.src}
+                className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="aspect-video bg-black">
+                  <video
+                    src={video.src}
+                    controls
+                    preload="metadata"
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <span className="text-xs font-semibold px-2 py-0.5 bg-teal-light text-teal rounded-full">
+                    Release
+                  </span>
+                  <h3 className="mt-2 text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)]">
+                    {video.title}
+                  </h3>
+                  <p className="text-xs text-slate mt-1.5 leading-relaxed">
+                    {video.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
