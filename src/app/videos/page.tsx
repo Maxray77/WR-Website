@@ -96,6 +96,12 @@ const BABY_VIDEOS = [
     description:
       "A young Indian Scops Owl in care at Wildlife Rescue — small, cryptic, and bark-camouflaged. Often arrive as orphans after falling from cavity nests.",
   },
+  {
+    src: "/videos/babies/crested-serpent-eagle.mp4",
+    title: "Young Crested Serpent Eagle",
+    description:
+      "A young Crested Serpent Eagle at Wildlife Rescue — distinguished by its yellow face and piercing eye. Forest specialists that occasionally arrive at our clinic for care.",
+  },
 ];
 
 const RELEASE_VIDEOS = [
