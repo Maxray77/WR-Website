@@ -80,6 +80,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/barn-owl-treatment.jpg", alt: "Barn Owl lying on examination table during treatment at Wildlife Rescue" },
     ],
     videos: [
+      { src: "/species/barn-owl-adult.mp4", caption: "An adult Barn Owl at Wildlife Rescue — heart-shaped facial disc, one of the most effective natural pest controllers on the planet" },
       { src: "/species/barn-owl-release.mp4", caption: "A Barn Owl at Wildlife Rescue — footage from our rehabilitation work with these silent nocturnal hunters" },
       { src: "/species/barn-owl-video.mp4", caption: "A Barn Owl in care at Wildlife Rescue — these silent nocturnal hunters are one of the most effective natural pest controllers on the planet" },
       { src: "/species/barn-owl-chick.mp4", caption: "A Barn Owl chick at Wildlife Rescue — orphaned owlets receive round-the-clock hand-feeding and thermoregulation until they develop flight feathers and can be released" },
