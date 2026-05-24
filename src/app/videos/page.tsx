@@ -142,6 +142,12 @@ const RELEASE_VIDEOS = [
       "A Kingfisher rescued from a glue trap, cleaned of adhesive, rehabilitated at Wildlife Rescue, and released back to the wild. Glue traps are an underappreciated urban threat to small birds.",
   },
   {
+    src: "/videos/releases/kingfisher-glue-trap-02.mp4",
+    title: "Kingfisher — Glue Trap Rescue & Release (Vol. 2)",
+    description:
+      "Another Kingfisher recovered from a glue trap and returned to the wild. Each one takes hours of careful cleaning and rehabilitation before release.",
+  },
+  {
     src: "/videos/releases/GX010692.mp4",
     title: "Release into the Sky",
     description:
