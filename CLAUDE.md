@@ -278,24 +278,65 @@ Plus 3 species-specific videos:
 
 Total ~210 MB of compressed video added (from ~5 GB source). All clips: 720p H.264 @ ≤2.5 Mbps, faststart-flagged for streaming.
 
+### Post-save fixes (same session, commits `ddf293d` → `5fb0ca5`)
+
+After the initial save, user reported "i cant see the videos" on production. Four fixes landed back-to-back to make the new content actually serve:
+
+**1. Route conflict — `public/videos/` renamed to `public/clips/`** (commit `ddf293d`)
+- Next.js's `/videos` app route was intercepting **all** `/videos/*` requests including `/videos/babies/foo.mp4`, returning 404 instead of falling through to the static file in `public/videos/`.
+- Species-page clips at `/species/*.mp4` worked because they don't collide with the `/species` route (it has `/[slug]` for child paths, not catchall).
+- **Lesson:** never put a static asset directory under a path that matches a Next.js app route. Always use a non-conflicting prefix (`/clips`, `/media`, `/assets`).
+
+**2. Video recompression to fit Vercel limits** (commit `0be8ede`)
+- First-pass compression at 720p / 2.5 Mbps left the 6 largest clips at 15–41 MB each (194 MB total in `public/clips/`). Deploys failed.
+- Re-encoded the 6 biggest at **480p / 900 kbps / CRF 30** — long compilations don't need 720p:
+  - 3 Rescued & Released compilations: 26+41+37 MB → 11+16+15 MB
+  - 2 Kingfisher rescue+release: 15+23 MB → 6+9 MB
+  - Black Kite entanglement: 15 MB → 6 MB
+- `public/clips/` dropped from 194 MB → 104 MB; `public/` total 417 MB → 224 MB.
+- **Recipe for future compilation-length clips:** `ffmpeg -i SRC -vf "scale=-2:480" -c:v libx264 -preset slow -crf 30 -maxrate 900k -bufsize 1800k -c:a aac -b:a 80k -movflags +faststart OUT.mp4`. Use 720p / 2.5 Mbps only for short hero-style clips where every detail counts.
+
+**3. ⚠️ CRITICAL — `outputFileTracingExcludes` in `next.config.ts`** (commit `7801daf`) — **the real fix**
+- Even after recompression, deploys still failed. Real Vercel error (obtained via `vercel inspect <id> --logs`): **"The Vercel Function api/admin/test-receipt-email is 324.08mb which exceeds the maximum size limit of 300mb."**
+- Root cause: `src/lib/email.ts` reads PDF attachments from `public/` at runtime using `fs.readFile(path.join(process.cwd(), "public", ...))`. Next.js's file tracer detects that pattern and bundles **the entire `public/` directory** into every function that imports `email.ts` (so attachments are available at runtime). With 194 MB of videos newly added to `public/`, the function bundle blew past Vercel's 300 MB cap.
+- Fix: `outputFileTracingExcludes` config tells Next.js to skip `*.mp4` / `*.mov` glob patterns from function traces. Videos are static assets served by Vercel's CDN — no function ever needs to read them.
+- **Future-proofing:** if anyone adds another large binary type to `public/` (e.g. high-res PDFs, raw images), extend the excludes list. The patterns currently cover `public/clips/**/*`, `public/species/*.mp4|*.mov`, `public/treatments/*.mp4|*.mov`, `public/facility/*.mp4|*.mov`. The PDF in `public/wr-annual-report.pdf` (2.95 MB) is deliberately NOT excluded because it's small enough.
+- **How to debug similar failures:** install `npm i -g vercel`, then `vercel inspect <deployment-id> --logs` shows the real error. Without CLI, the GitHub commit status only says "Deployment has failed" with the CLI command. The Vercel dashboard URL is also in the GitHub status `target_url` field.
+
+**4. All /videos clips muted by default** (commit `5fb0ca5`)
+- Added `muted` attribute to the 4 `<video>` tags in `src/app/videos/page.tsx` (Rescued & Released, Raptor Babies, Field Rescues, Releases sections). Viewers can unmute via player controls.
+- Species/treatments/enclosures/conditions pages were already muted (they use autoplay+loop+muted for ambient inline playback).
+
+### Final state at end of session (verified live on www.raptorrescue.org)
+
+| URL | Status |
+|---|---|
+| `/clips/babies/barn-owl-chick.mp4` | 200 OK |
+| `/clips/rescued-released/combined-02.mp4` | 200 OK |
+| `/species/crested-serpent-eagle.mp4` | 200 OK |
+| `/videos` (page) | All 4 new sections rendering, muted by default |
+
+`public/` total: **224 MB** (`public/clips/` is 104 MB).
+
 ### Pending pickup for next session
 
-1. **CSE clip relocation lesson** — when the user just says a species name without "young" or "chick", check whether it's adult or juvenile before defaulting to Raptor Babies. Today's CSE clip was first added to Raptor Babies then moved to `/species/crested-serpent-eagle` as a species video. Ask first.
-2. **The two existing offwhite-bg sections on `/videos` (Field Rescues + previously Releases)** were rebalanced — Releases lost its bg-offwhite to maintain alternation. Visual rhythm is fine but worth eyeballing after deploy.
-3. **More content in each new section** — Field Rescues currently has only 1 clip; would benefit from 2–3 more so the grid doesn't look sparse. Raptor Babies + Field Rescues sections are designed to grow.
+1. **CSE clip relocation lesson** — when the user just says a species name without "young" or "chick", check whether it's adult or juvenile before defaulting to Raptor Babies. Today's CSE clip was first added to Raptor Babies then moved to `/species/crested-serpent-eagle`. Ask first.
+2. **More content in each new section** — Field Rescues currently has only 1 clip; would benefit from 2–3 more so the grid doesn't look sparse. Raptor Babies + Field Rescues sections are designed to grow.
+3. **If anyone deletes or rewrites `next.config.ts`** they MUST preserve the `outputFileTracingExcludes` block, otherwise deploys will break the moment any function imports `@/lib/email`. Add a comment in the file (already done) explaining why.
 
 ### Files touched today (this session)
 
+- `next.config.ts` — **CRITICAL** `outputFileTracingExcludes` added (commit `7801daf`)
 - `src/app/page.tsx` — homepage section reorder + new Annual Reports section
 - `src/components/Header.tsx` — Annual Report promoted to top-level nav
 - `src/lib/metadata.ts` — OG image swap + alt/dimensions
 - `src/lib/species-data.ts` — Black Kite hero fix; CSE video added; Barn Owl gained 3 video entries
-- `src/app/videos/page.tsx` — 4 new sections (Rescued & Released, Raptor Babies, Field Rescues, Releases) with `BABY_VIDEOS`/`RELEASE_VIDEOS`/`RESCUED_RELEASED_VIDEOS`/`FIELD_RESCUE_VIDEOS` arrays
+- `src/app/videos/page.tsx` — 4 new sections (Rescued & Released, Raptor Babies, Field Rescues, Releases) with `BABY_VIDEOS`/`RELEASE_VIDEOS`/`RESCUED_RELEASED_VIDEOS`/`FIELD_RESCUE_VIDEOS` arrays; all `<video>` tags muted
 - `public/og-steppe-eagle.jpg` — **NEW**
-- `public/videos/babies/*` — **NEW directory** (3 files)
-- `public/videos/releases/*` — **NEW directory** (7 files)
-- `public/videos/rescues/*` — **NEW directory** (1 file)
-- `public/videos/rescued-released/*` — **NEW directory** (3 files)
+- `public/clips/babies/*` — **NEW directory** (3 files; was originally `public/videos/babies/` — renamed)
+- `public/clips/releases/*` — **NEW directory** (7 files)
+- `public/clips/rescues/*` — **NEW directory** (1 file)
+- `public/clips/rescued-released/*` — **NEW directory** (3 files)
 - `public/species/barn-owl-adult.mp4`, `barn-owl-manja-bandage.mp4`, `barn-owl-release-02.mp4`, `crested-serpent-eagle.mp4` — **NEW**
 
 ### Earlier session retained below for context (2026-05-23)
