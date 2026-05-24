@@ -83,6 +83,15 @@ const VIDEOS = [
   },
 ];
 
+const BABY_VIDEOS = [
+  {
+    src: "/videos/babies/barn-owl-chick.mp4",
+    title: "Barn Owl Chick",
+    description:
+      "An orphaned Barn Owl chick at Wildlife Rescue — hand-fed and kept warm until it grows the flight feathers needed for release.",
+  },
+];
+
 const RELEASE_VIDEOS = [
   {
     src: "/videos/releases/GX010692.mp4",
@@ -153,6 +162,46 @@ export default function VideosPage() {
             <p className="text-white/60 text-sm mt-1">
               {FEATURED_VIDEO.description}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Raptor Babies ─── */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Raptor Babies"
+            subtitle="Orphaned chicks, fledglings, and hatchlings in care — hand-fed and raised until they're ready for the wild."
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {BABY_VIDEOS.map((video) => (
+              <div
+                key={video.src}
+                className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="aspect-video bg-black">
+                  <video
+                    src={video.src}
+                    controls
+                    preload="metadata"
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <span className="text-xs font-semibold px-2 py-0.5 bg-amber-bg text-amber rounded-full">
+                    Baby
+                  </span>
+                  <h3 className="mt-2 text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)]">
+                    {video.title}
+                  </h3>
+                  <p className="text-xs text-slate mt-1.5 leading-relaxed">
+                    {video.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
