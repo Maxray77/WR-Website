@@ -85,7 +85,7 @@ const VIDEOS = [
 
 const FIELD_RESCUE_VIDEOS = [
   {
-    src: "/videos/rescues/black-kite-entangled.mp4",
+    src: "/clips/rescues/black-kite-entangled.mp4",
     title: "Black Kite Rescue — Entangled",
     description:
       "A Black Kite found entangled in kite-flying thread (manja) and rescued — the most common cause of intake at Wildlife Rescue, accounting for 42% of all our cases.",
@@ -94,19 +94,19 @@ const FIELD_RESCUE_VIDEOS = [
 
 const RESCUED_RELEASED_VIDEOS = [
   {
-    src: "/videos/rescued-released/combined-02.mp4",
+    src: "/clips/rescued-released/combined-02.mp4",
     title: "Rescued &amp; Released — Vol. 2",
     description:
       "A compilation of rescues, treatment, rehabilitation, and successful releases — the full arc of what Wildlife Rescue does, every day.",
   },
   {
-    src: "/videos/rescued-released/combined-03.mp4",
+    src: "/clips/rescued-released/combined-03.mp4",
     title: "Rescued &amp; Released — Vol. 3",
     description:
       "More stories from the clinic and the field — birds arriving in critical condition and flying home to Delhi's skies again.",
   },
   {
-    src: "/videos/rescued-released/combined-04.mp4",
+    src: "/clips/rescued-released/combined-04.mp4",
     title: "Rescued &amp; Released — Vol. 4",
     description:
       "Inside the world&apos;s largest raptor rescue facility — surgery, recovery, slow release, and freedom regained.",
@@ -115,19 +115,19 @@ const RESCUED_RELEASED_VIDEOS = [
 
 const BABY_VIDEOS = [
   {
-    src: "/videos/babies/raptor-babies.mp4",
+    src: "/clips/babies/raptor-babies.mp4",
     title: "Raptor Babies — A Compilation",
     description:
       "A two-minute look inside Wildlife Rescue's chick nursery — orphaned and fallen babies receiving the round-the-clock care they need before being returned to the wild.",
   },
   {
-    src: "/videos/babies/barn-owl-chick.mp4",
+    src: "/clips/babies/barn-owl-chick.mp4",
     title: "Barn Owl Chick",
     description:
       "An orphaned Barn Owl chick at Wildlife Rescue — hand-fed and kept warm until it grows the flight feathers needed for release.",
   },
   {
-    src: "/videos/babies/scops-owl-young.mp4",
+    src: "/clips/babies/scops-owl-young.mp4",
     title: "Young Scops Owl",
     description:
       "A young Indian Scops Owl in care at Wildlife Rescue — small, cryptic, and bark-camouflaged. Often arrive as orphans after falling from cavity nests.",
@@ -136,43 +136,43 @@ const BABY_VIDEOS = [
 
 const RELEASE_VIDEOS = [
   {
-    src: "/videos/releases/kingfisher-glue-trap.mp4",
+    src: "/clips/releases/kingfisher-glue-trap.mp4",
     title: "Kingfisher — Glue Trap Rescue & Release",
     description:
       "A Kingfisher rescued from a glue trap, cleaned of adhesive, rehabilitated at Wildlife Rescue, and released back to the wild. Glue traps are an underappreciated urban threat to small birds.",
   },
   {
-    src: "/videos/releases/kingfisher-glue-trap-02.mp4",
+    src: "/clips/releases/kingfisher-glue-trap-02.mp4",
     title: "Kingfisher — Glue Trap Rescue & Release (Vol. 2)",
     description:
       "Another Kingfisher recovered from a glue trap and returned to the wild. Each one takes hours of careful cleaning and rehabilitation before release.",
   },
   {
-    src: "/videos/releases/GX010692.mp4",
+    src: "/clips/releases/GX010692.mp4",
     title: "Release into the Sky",
     description:
       "A rehabilitated raptor returns to the wild — the moment every rescue is working toward.",
   },
   {
-    src: "/videos/releases/GX010693.mp4",
+    src: "/clips/releases/GX010693.mp4",
     title: "First Flight Back to Freedom",
     description:
       "After weeks of treatment and conditioning in our flight aviary, a bird takes off on its own again.",
   },
   {
-    src: "/videos/releases/GX010685.mp4",
+    src: "/clips/releases/GX010685.mp4",
     title: "Slow Release — Black Kite",
     description:
       "Black Kites are slow-released from the flight cage so they can re-acclimate before fully departing.",
   },
   {
-    src: "/videos/releases/GX010689.mp4",
+    src: "/clips/releases/GX010689.mp4",
     title: "Release Day at the Yamuna Floodplains",
     description:
       "Our team carries recovered raptors to release sites on Delhi's outskirts, away from urban hazards.",
   },
   {
-    src: "/videos/releases/GX010691.mp4",
+    src: "/clips/releases/GX010691.mp4",
     title: "Successful Release",
     description:
       "Every successful release is the proof that the rescue, surgery, and rehab worked.",
