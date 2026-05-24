@@ -83,6 +83,27 @@ const VIDEOS = [
   },
 ];
 
+const RESCUED_RELEASED_VIDEOS = [
+  {
+    src: "/videos/rescued-released/combined-02.mp4",
+    title: "Rescued &amp; Released — Vol. 2",
+    description:
+      "A compilation of rescues, treatment, rehabilitation, and successful releases — the full arc of what Wildlife Rescue does, every day.",
+  },
+  {
+    src: "/videos/rescued-released/combined-03.mp4",
+    title: "Rescued &amp; Released — Vol. 3",
+    description:
+      "More stories from the clinic and the field — birds arriving in critical condition and flying home to Delhi's skies again.",
+  },
+  {
+    src: "/videos/rescued-released/combined-04.mp4",
+    title: "Rescued &amp; Released — Vol. 4",
+    description:
+      "Inside the world&apos;s largest raptor rescue facility — surgery, recovery, slow release, and freedom regained.",
+  },
+];
+
 const BABY_VIDEOS = [
   {
     src: "/videos/babies/raptor-babies.mp4",
@@ -174,6 +195,48 @@ export default function VideosPage() {
             <p className="text-white/60 text-sm mt-1">
               {FEATURED_VIDEO.description}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Rescued & Released ─── */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Rescued &amp; Released"
+            subtitle="Compilation films covering the full arc — from emergency intake through treatment, rehab, and release back to the wild."
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {RESCUED_RELEASED_VIDEOS.map((video) => (
+              <div
+                key={video.src}
+                className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="aspect-video bg-black">
+                  <video
+                    src={video.src}
+                    controls
+                    preload="metadata"
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <span className="text-xs font-semibold px-2 py-0.5 bg-teal text-white rounded-full">
+                    Rescued &amp; Released
+                  </span>
+                  <h3
+                    className="mt-2 text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)]"
+                    dangerouslySetInnerHTML={{ __html: video.title }}
+                  />
+                  <p
+                    className="text-xs text-slate mt-1.5 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: video.description }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
