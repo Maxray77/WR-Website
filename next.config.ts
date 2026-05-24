@@ -11,6 +11,25 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  // Exclude bulky static assets from serverless function bundles.
+  // src/lib/email.ts reads attachments from public/ via process.cwd(), which
+  // makes Next.js trace + bundle the entire public/ directory into every
+  // function that imports email.ts. With ~200 MB of videos in public/,
+  // function size exceeded Vercel's 300 MB cap.
+  // Videos are NEVER read by any server function — only served as static
+  // assets — so it's safe to exclude them from function traces entirely.
+  outputFileTracingExcludes: {
+    "*": [
+      "public/clips/**/*",
+      "public/species/*.mp4",
+      "public/species/*.mov",
+      "public/treatments/*.mp4",
+      "public/treatments/*.mov",
+      "public/facility/*.mp4",
+      "public/facility/*.mov",
+    ],
+  },
+
   async redirects() {
     return [
       // Old facility page split into /clinic + /enclosures (2026-04-29).
