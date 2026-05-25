@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.raptorrescue.org";
-const OG_IMAGE = "/og-steppe-eagle.jpg";
+const OG_IMAGE = "/og-steppe-eagle-landscape.jpg";
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -62,8 +62,8 @@ export const siteMetadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 822,
-        height: 1286,
+        width: 1200,
+        height: 630,
         alt: "Steppe Eagle — Wildlife Rescue, Delhi",
       },
     ],
