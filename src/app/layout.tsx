@@ -8,6 +8,7 @@ import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import SkipNav from "@/components/SkipNav";
 import Wingman from "@/components/Wingman";
 import CookieConsent from "@/components/CookieConsent";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { siteMetadata } from "@/lib/metadata";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -78,6 +79,7 @@ export default function RootLayout({
         <Footer />
         <Wingman />
         <CookieConsent />
+        <SpeedInsights />
       </body>
     </html>
   );
