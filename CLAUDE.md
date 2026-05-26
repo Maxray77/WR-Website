@@ -222,6 +222,44 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-05-26 (end of session, all committed + pushed) — **Domain canonicalisation + GSC verification token shipped + Maria volunteer-spotlight blog post removed end-to-end (Sanity + static fallback) + two China outreach email drafts saved.** Final commits `3b8f0cc` (GSC token) and `4dedfd1` (Maria fallback removal) on `main`. **Critical SEO finding:** Vercel DDoS Mitigation System Rule is auto-challenging 14.2k requests/hr including Googlebot — switch GSC to DNS TXT verification (URL-prefix HTML-tag won't pass while challenge is active).
+
+### What landed today (2026-05-26)
+
+**1. Domain canonicalisation (apex → www)** — user set non-www → www 308 redirect in Vercel UI. Verified: `curl -I https://raptorrescue.org` returns `HTTP/2 308` with `location: https://www.raptorrescue.org/`. Both raptorrescue.org and wildliferescue.org.in now funnel cleanly to the www.raptorrescue.org canonical. Unblocks HSTS preload submission and removes duplicate-content SEO penalty.
+
+**2. Google Search Console verification token** (commit `3b8f0cc`) — `verification: { google: "yQ44vNizfUcYDK9HBb45hiZYgBlpefC0wu8QAYuA710" }` added to `src/lib/metadata.ts` (was previously a commented-out stub). Code-side is done. **HOWEVER — HTML-tag verification failed because Vercel's DDoS Mitigation System Rule is currently challenging all unverified clients including Googlebot** (Firewall dashboard showed 14.2k Challenged / 414 Allowed / 1 Denied in the past hour, all from the "DDoS Mitigation" auto-rule, with the Azure-hosted scanner IP `20.172.38.178` denied). Workaround handed to user: switch to **DNS TXT verification** via GoDaddy (TXT record at `@`, value `google-site-verification=...`), uses Domain property type which covers both apex + www. DNS reads bypass Vercel entirely. **User dropped off before pasting the new DNS-method token, so this task is still pending.**
+
+**3. Maria volunteer-spotlight blog post removed end-to-end** (commit `4dedfd1` + Sanity API delete). User flagged the test/seeded post still showing on /blog. Two-part fix:
+- **Sanity delete** via API (the live blog reads from Sanity, so this is what actually removed it from production): `POST https://${PROJECT}.api.sanity.io/v2024-10-01/data/mutate/${DATASET}` with `{"mutations":[{"delete":{"id":"post.volunteer-spotlight-maria"}},{"delete":{"id":"drafts.post.volunteer-spotlight-maria"}}]}`. Transaction `cUE7lVEkhbisdWhNldjxHc` confirmed one delete operation. **Note for future:** Sanity Studio's Delete option is hidden until you Unpublish first (chevron next to bottom Publish button). User couldn't find Unpublish so API direct-delete via the existing write token in `.env.local` was the faster path. The write token has Editor permissions and works against the project-default-private dataset.
+- **Static-fallback cleanup** in `src/lib/blog-data.ts` removed the same entry so the post does not reappear if Sanity is ever disabled and the static fallback kicks in. Verified live: `curl https://www.raptorrescue.org/blog | findstr "Maria"` returns no match.
+
+**4. Vercel Speed Insights toggle direction** (no code; dashboard explanation) — user saw the Hobby-tier warning "Speed Insights on a single project at a time" while trying to enable on WR. Confirmed via screenshot that Speed Insights was enabled on the sibling `challenger-industries` Vercel project. Recommendation: disable on challenger-industries (lower-traffic), enable on WR (public-facing, higher-traffic, better RES data). User said "yes" to switch — leaves the actual toggle action for them; code-side `<SpeedInsights />` is already present from earlier commit `530c76f`.
+
+### Off-website work this session (in `C:\Users\maxra\Documents\Wildlife Rescue\China Outreach 2026\`)
+
+User is planning a China trip and asked for help drafting outreach emails. Two .docx documents saved to the China Outreach folder:
+
+| File | Contents |
+|---|---|
+| `Email to Amity Foundation - Dali Raptor Centre Visit Request.docx` (10 KB) | Single email to Amity Foundation Nanjing HQ (`amitynj@amity.org.cn`) cc Hong Kong (`amityhk@amityfoundation.org`) asking about a visit to the Dali Falconer Education and Raptor Conservation Centre. Includes reference contacts block. |
+| `Emails - Dali Yingjiang Raptor Centre (Lu Wen + Amity intro).docx` (13 KB) | Two emails on separate pages: (1) peer-to-peer to **Lu Wen (鹿纹)**, founder of Dali Yingjiang Raptor Protection Centre (`大理市鹰匠猛禽保护中心`) — placeholder `[Lu Wen — his email]` for user to fill in; (2) Amity Foundation intro request specifically asking Amity to broker the introduction to Lu Wen rather than just generic visit. Reference contacts block at bottom with all three centres' details. |
+
+**Key finding on the org identity:** User originally referred to it as "Dali Yingjiang Raptor Protection Center" — research revealed this is a partial mistranslation. The Chinese name 鹰匠 (yīngjiàng) means "**falconer / eagle-master**", NOT the Yunnan place Yingjiang County. So the centre is the **Dali Falconer Raptor Protection Centre** (same one Amity's video calls "Dali Falconer Education and Raptor Conservation Centre"). Address: Group 3 of Shitou Village, Shangdeng Village, Haidong Town, Dali Bai Autonomous Prefecture, Yunnan. Founder Lu Wen is from Taiwan, started rescue work in Dali in 2008, formally registered NGO in 2017. Profiled at UN COP15 in Kunming 2021 as "the only professional raptor rescue NGO in Southwest China". Three guiding principles `伤有所医，残有所留，良有所归` — mirror WR's own model almost exactly (heal what can be healed, shelter for life what cannot, return to the wild what can fly again).
+
+User's plan: send Lu Wen email FIRST (peer-to-peer, highest-trust path); if no reply in ~10 days, send Amity intro as backup. Document drafts use Calibri 11pt, WR teal/amber/charcoal palette in section headers; ready to copy-paste into Gmail/Outlook.
+
+### Carry-forward for next session
+
+- **GSC verification still pending** — user needs to grab a fresh **DNS TXT** verification value from Search Console (Domain property type, `raptorrescue.org`) and add it to GoDaddy DNS as a TXT record at host `@`. Once added run `nslookup -type=TXT raptorrescue.org` to verify propagation, then click Verify in GSC.
+- **Vercel DDoS challenge is also blocking ALL search engines, not just GSC** — while the System Rule is active, neither Googlebot nor Bingbot can crawl the site, so indexing will degrade. Hobby tier can't directly disable the System Rule. Two longer-term mitigations: (a) wait for the spike to subside on its own (System Rules de-escalate when traffic normalizes), or (b) add a Custom Allow rule for verified search-engine user-agents — see Firewall → Rules → Add Rule. Should be a separate planned session.
+- **Speed Insights toggle** — user agreed to switch from challenger-industries to wildlife-rescue-website; needs them to click Disable in challenger-industries → Enable in WR (Vercel UI).
+- **Sanity Studio Delete UX** — Mohammad Afeef + Samia will hit the same "where's the delete button?" wall. Adding to the staff blog publishing guide (`WR_Blog_Publishing_Guide_for_Staff_2026-05-09.docx`) the note: **"To delete a post: open it → click the chevron ▾ next to the green Publish button at the bottom → Unpublish → confirm. After unpublishing, the top-right ⋮ menu shows Delete document."** Or simpler workflow: tell them to message Saud to delete via API.
+- **Sanity → Vercel webhook** — user did not confirm whether they set this up in sanity.io/manage. Endpoint at `/api/revalidate` is correctly wired. Secret already in Vercel env vars (`SANITY_REVALIDATE_SECRET=68a320fe6a1b84a750ac12f72fee905b0f6e52eff4aa8476788d92607e901462`). Setup: sanity.io/manage → project ivyjyqwz → API → Webhooks → Create → URL `https://www.raptorrescue.org/api/revalidate`, filter `_type in ["post", "author", "category"]`, projection `{ _type, slug }`, secret as above.
+- **Resend deliverability testing (task #3)** — deferred. Endpoint at `/api/admin/test-receipt-email` is built and ready; user just needs to give 3-5 test inbox addresses across providers (Gmail/Outlook/Yahoo/ProtonMail/Indian provider) and a PowerShell loop will fire test receipts to each.
+
+### Earlier session retained below for context (2026-05-25)
+
 **Last updated by:** Claude Code — 2026-05-25 (end of session, all committed + pushed) — **Homepage reorg + Annual Report promotion + 14 new compressed videos shipped across /videos and /species/barn-owl + /species/crested-serpent-eagle.** Final commit `e001fa9` on `main` (live on Vercel after auto-deploy).
 
 ### What landed today (2026-05-25)
