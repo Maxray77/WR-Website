@@ -183,27 +183,6 @@ This trip was made possible by **Raptor Rescue and Research Inc.** — Wildlife 
 
 **The goal:** To be Delhi's comprehensive avian rescue center, capable of treating any bird species that needs help.`,
   },
-  {
-    slug: "volunteer-spotlight-maria",
-    title: "Volunteer Spotlight: Maria's Month at Wildlife Rescue",
-    excerpt:
-      "Maria traveled from Portugal to spend a month volunteering. She shares her experience of early mornings, emergency calls, and life-changing moments.",
-    date: "2025-03-05",
-    author: "Maria Silva",
-    category: "Volunteer Stories",
-    readTime: "5 min",
-    content: `When I saw "All That Breathes" in a cinema in Lisbon, I knew I had to visit Wildlife Rescue. Six months later, I was on a flight to Delhi.
-
-**Week 1: Culture shock and early mornings.** The alarm goes off at 5:30 AM. By 6, I'm helping prepare food for 40+ birds. The first thing that strikes you is the scale — this isn't a small operation. It's an entire ecosystem of care.
-
-**Week 2: My first emergency call.** A Black Kite tangled in manja string near India Gate. We drove across Delhi in rush hour, gently freed the bird, and brought it back. The wing was badly cut. Watching Nadeem assess the injury and decide on treatment — in seconds — was remarkable.
-
-**Week 3: Surgery day.** I assisted during a wing repair surgery. Nadeem's hands are incredibly steady. The bird was under anesthesia for 45 minutes. When it woke up, we all held our breath. It moved its wing. We exhaled.
-
-**Week 4: Release day.** The best day. We released 8 birds at the Yamuna. Watching them fly — really fly, strongly — after weeks of recovery... there's nothing like it.
-
-**What I learned:** That expertise doesn't always come from universities. That dedication is the most powerful medicine. And that two brothers from Old Delhi can change the world, one bird at a time.`,
-  },
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
