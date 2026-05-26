@@ -89,8 +89,9 @@ export const siteMetadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  // Add Search Console / Bing verification tokens here once issued
-  // verification: { google: "...", other: { "msvalidate.01": "..." } },
+  verification: {
+    google: "yQ44vNizfUcYDK9HBb45hiZYgBlpefC0wu8QAYuA710",
+  },
 };
 
 export const pageMetadata = {
