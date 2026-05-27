@@ -563,6 +563,16 @@ export default async function Home() {
               <span>YouTube</span>
               <ArrowUpRight size={14} className="opacity-60" />
             </a>
+            <a
+              href={CONTACT.patreon}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-6 py-3.5 bg-[#FF424D] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+            >
+              <Heart size={20} />
+              <span>Patreon</span>
+              <ArrowUpRight size={14} className="opacity-60" />
+            </a>
           </div>
         </div>
       </section>

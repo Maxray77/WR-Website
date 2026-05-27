@@ -20,6 +20,7 @@ const TABS = [
   { id: "bank", label: "Bank Transfer", icon: <Building2 size={16} /> },
   { id: "us", label: "US Donors", icon: <Globe size={16} /> },
   { id: "gofundme", label: "GoFundMe", icon: <Send size={16} /> },
+  { id: "patreon", label: "Patreon", icon: <Heart size={16} /> },
   { id: "cheque", label: "Mail Cheque", icon: <Mail size={16} /> },
   { id: "80g", label: "80(G) Certificate", icon: <FileCheck size={16} /> },
   { id: "501c3", label: "501(c)(3) Certificate", icon: <FileText size={16} /> },
@@ -571,6 +572,31 @@ export default function DonatePage() {
                     If the widget above doesn&apos;t load, click the button to
                     visit our GoFundMe page directly.
                   </p>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "patreon" && (
+              <div>
+                <h2 className="text-2xl font-bold text-charcoal mb-4 font-[family-name:var(--font-poppins)]">
+                  Become a Patron
+                </h2>
+                <p className="text-slate mb-6 max-w-lg">
+                  Support our rescue work with a recurring monthly contribution
+                  on Patreon. Ongoing support helps us plan ahead and care for
+                  birds year-round.
+                </p>
+                <div className="text-center mt-4">
+                  <a
+                    href={CONTACT.patreon}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#FF424D] hover:opacity-90 text-white font-semibold px-8 py-3 rounded-full transition-opacity"
+                    onClick={() => trackEvent("donation_method_click", { method: "Patreon" })}
+                  >
+                    <Heart size={18} />
+                    Join Us on Patreon
+                  </a>
                 </div>
               </div>
             )}
