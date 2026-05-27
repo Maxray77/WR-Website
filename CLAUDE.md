@@ -222,7 +222,23 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-26 (end of session, all committed + pushed) — **Domain canonicalisation + GSC verification token shipped + Maria volunteer-spotlight blog post removed end-to-end (Sanity + static fallback) + two China outreach email drafts saved.** Final commits `3b8f0cc` (GSC token) and `4dedfd1` (Maria fallback removal) on `main`. **Critical SEO finding:** Vercel DDoS Mitigation System Rule is auto-challenging 14.2k requests/hr including Googlebot — switch GSC to DNS TXT verification (URL-prefix HTML-tag won't pass while challenge is active).
+**Last updated by:** Claude Code — 2026-05-27 — **Patreon link added across the site.** Commit `0d607ad` on `main` (pushed, Vercel auto-deploys).
+
+### What landed today (2026-05-27)
+
+**Patreon link added** (commit `0d607ad`) — new Patreon page `https://www.patreon.com/c/wildliferescuedelhi` surfaced in three places:
+- `src/lib/constants.ts` — added `patreon` field to the `CONTACT` block (single source of truth for the URL).
+- `src/app/page.tsx` — Patreon button in the homepage "Connect With Us" social row (coral `#FF424D`, Heart icon, alongside Instagram/Facebook/YouTube).
+- `src/app/donate/page.tsx` — new **Patreon** tab (between GoFundMe and Mail Cheque) framed as recurring monthly support, with a "Join Us on Patreon" CTA and `donation_method_click` GA4 event (`{ method: "Patreon" }`).
+- Verified both `/` and `/donate?tab=patreon` return 200 and contain the URL via curl (preview screenshot tool was flaky as usual — fell back to curl).
+
+### Carry-forward from 2026-05-26 (still pending)
+
+- **GSC verification still pending** — user needs a fresh **DNS TXT** value from Search Console (Domain property, `raptorrescue.org`) added to GoDaddy DNS as a TXT record at host `@`. The Vercel DDoS Mitigation System Rule was blocking the HTML-tag method (and all search-engine crawlers). See full 2026-05-26 notes below.
+
+### Earlier session retained below for context (2026-05-26)
+
+**Domain canonicalisation + GSC verification token shipped + Maria volunteer-spotlight blog post removed end-to-end (Sanity + static fallback) + two China outreach email drafts saved.** Final commits `3b8f0cc` (GSC token) and `4dedfd1` (Maria fallback removal) on `main`. **Critical SEO finding:** Vercel DDoS Mitigation System Rule is auto-challenging 14.2k requests/hr including Googlebot — switch GSC to DNS TXT verification (URL-prefix HTML-tag won't pass while challenge is active).
 
 ### What landed today (2026-05-26)
 
