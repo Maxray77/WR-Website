@@ -248,7 +248,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ### Carry-forward for next session
 - ~~**GA env var**~~ — DONE 2026-05-30 (was empty `""`, now `G-FQLSMRBG87` in Production, verified live). Preview GA intentionally left unset.
-- **Google Search Console** — token live + crawlers unblocked; user should verify the property (if not already) and submit the sitemap.
+- ~~**Google Search Console**~~ — VERIFIED 2026-05-30 via URL-prefix property `https://www.raptorrescue.org` (HTML-tag method, token `yQ44...710` in `metadata.ts`). The multi-session DDoS-challenge blocker has cleared. Remaining nicety: confirm `sitemap.xml` is submitted under Sitemaps and watch indexing accrue over the following weeks.
 - **Gotcha for future donate-page edits:** the dev server's accumulated console-error log replays STALE parse errors from intermediate mid-edit save states (referencing old `</>`/`) : (` line numbers that no longer exist). Don't trust them — confirm with `npx tsc --noEmit` (it was clean) and a live render check.
 
 ---
