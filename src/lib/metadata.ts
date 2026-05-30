@@ -110,7 +110,7 @@ export const pageMetadata = {
   contact: {
     title: "Contact Us — Report an Injured Bird in Delhi",
     description:
-      "Found an injured bird in Delhi? Call our 24/7 hotline +91 98100 29698 or WhatsApp us. Wildlife Rescue clinic — Wazirabad Village, North Delhi. Email: nadeem@raptorrescue.org.",
+      "Found an injured bird in Delhi? Call our rescue hotline +91 98100 29698 or WhatsApp us. Wildlife Rescue clinic — Wazirabad Village, North Delhi. Email: nadeem@raptorrescue.org.",
     alternates: { canonical: "/contact" },
   },
   allThatBreathes: {
@@ -119,5 +119,29 @@ export const pageMetadata = {
     description:
       "All That Breathes (dir. Shaunak Sen) follows Nadeem Shehzad and Mohammad Saud as they treat Delhi's falling black kites. Winner of the Sundance Grand Jury Prize, Cannes L'Œil d'Or (Golden Eye), Peabody Award, Gotham, Jackson Wild — 26 international awards. Academy Award and BAFTA nominee for Best Documentary Feature.",
     alternates: { canonical: "/all-that-breathes" },
+  },
+  gallery: {
+    title: "Photo Gallery — Rescued Birds of Delhi",
+    description:
+      "Photographs from the world's largest raptor rescue: black kites, owls, vultures and other birds of prey in treatment, surgery, recovery, and release at our Delhi clinic.",
+    alternates: { canonical: "/gallery" },
+  },
+  media: {
+    title: "Media & Press — Wildlife Rescue in the News",
+    description:
+      "Wildlife Rescue and founders Nadeem Shehzad & Mohammad Saud in the press — 50+ articles and broadcasts, the Oscar-nominated 'All That Breathes', and international awards coverage. Press kit and media enquiries.",
+    alternates: { canonical: "/media" },
+  },
+  birdBrothers: {
+    title: "Bird Brothers, A Delhi Story — Children's Picture Book",
+    description:
+      "'Bird Brothers, A Delhi Story' by Rina Singh, illustrated by Barkha Lohia — an award-winning children's picture book inspired by Wildlife Rescue's Nadeem Shehzad and Mohammad Saud and their work saving Delhi's black kites.",
+    alternates: { canonical: "/bird-brothers" },
+  },
+  reportTaggedBird: {
+    title: "Report a Tagged Bird",
+    description:
+      "Spotted a Wildlife Rescue tagged or ringed bird in Delhi? Report the tag number, location, and photos to help us track the survival and movement of birds released back into the wild.",
+    alternates: { canonical: "/report-tagged-bird" },
   },
 };
