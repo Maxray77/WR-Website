@@ -222,7 +222,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-05-30 — **Donate-page Patreon/INR-USD layout pass + sitewide SEO metadata fix + GA-not-firing diagnosis.** Final commit `9eb58db` on `main` (all pushed, Vercel auto-deploys).
+**Last updated by:** Claude Code — 2026-05-30 — **Donate-page Patreon/INR-USD layout pass + sitewide SEO metadata fix + Google Analytics FIXED (was empty env var) and verified live.** Final commit `386b21d` on `main` (all pushed, Vercel auto-deploys).
 
 ### What landed today (2026-05-30)
 
@@ -230,10 +230,12 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 - **Patreon surfaced as a prominent always-visible card** on `/donate` (coral `#FF424D`, Heart icon, "Join Us on Patreon" CTA) — it was previously only reachable as the 5th of 8 payment-method tabs and easy to miss. The card sits **below the donation tab content** (preset amount boxes), just above the "Your Trust Matters" section. The Patreon tab still exists too. User originally reported "no Patreon option" — it WAS live (verified in the deployed JS bundle); the complaint was discoverability + likely a stale cached bundle on their browser.
 - **INR/USD split** — the Online tab's `₹ INR / 🇺🇸 USD` currency toggle was removed. Both are now **always-visible stacked sections**: 🇮🇳 Donate in ₹ (India) first (Razorpay preset grid + custom amount), then 🌍 Donate in US$ (International) below a divider (UsdAmountGrid + R3/GoFundMe). Removed the now-unused `onlineCurrency` state.
 
-**2. ⚠️ Google Analytics is NOT firing in production — needs a Vercel env var (USER ACTION)**
-- Confirmed by diffing dev vs prod SSR HTML: GA scripts (`googletagmanager`, `anonymize_ip`, `G-FQLSMRBG87`) render on local dev (where `NEXT_PUBLIC_GA_ID` is set in `.env.local`) but are **completely absent from the live site** — only the consent-default script loads. The code in `src/app/layout.tsx` is correct and gated on `GA_ENABLED` (`NEXT_PUBLIC_GA_ID` present + starts with `G-` + not the placeholder).
-- **Root cause:** `NEXT_PUBLIC_GA_ID` is missing from the current **Vercel production build**. `NEXT_PUBLIC_*` vars are inlined at build time, so it must be set in Vercel **and a redeploy triggered**. (CLAUDE.md history says it was added 2026-05-08, but it's not in the deployed build now.)
-- **Fix the user must do:** Vercel → project → Settings → Environment Variables → add `NEXT_PUBLIC_GA_ID = G-FQLSMRBG87` (Production + Preview) → redeploy. Code pushes alone will NOT enable GA.
+**2. ✅ Google Analytics FIXED — was an EMPTY env var, not a missing one (commit `386b21d`)**
+- Symptom: GA scripts (`googletagmanager`, `anonymize_ip`, `G-FQLSMRBG87`) rendered on local dev but were **completely absent from the live site** — only the consent-default script loaded. The code in `src/app/layout.tsx` is correct and gated on `GA_ENABLED` (`NEXT_PUBLIC_GA_ID` present + starts with `G-` + not the placeholder).
+- **Actual root cause:** `NEXT_PUBLIC_GA_ID` existed in Vercel (Production + Preview, 22d old) **but its value was an empty string `""`** → `GA_ENABLED` false → GA never loaded. (Initial diagnosis said "missing"; it was present-but-empty.)
+- **Fix applied via Vercel CLI (authenticated as maxray77, project linked):** removed the empty scopes and re-added Production with the real value: `vercel env add NEXT_PUBLIC_GA_ID production --value "G-FQLSMRBG87" --no-sensitive --force --yes`. **Gotchas:** (a) piping the value (`echo |`) silently produced an empty value — must use `--value`; (b) the var was created **sensitive** by default, which makes `vercel env pull` show `""` (can't read sensitive values back) — used `--no-sensitive` since NEXT_PUBLIC vars are public in the client bundle anyway; (c) Preview kept returning the CLI's non-interactive "hint" response and was **intentionally left unset** (don't pollute GA with preview/test traffic).
+- Because NEXT_PUBLIC vars are inlined at build time, a fresh build was needed. Touched `layout.tsx` (comment) and pushed `386b21d` to force a clean git build (avoids stale build-cache inlining the old empty value).
+- **Verified live:** `https://www.raptorrescue.org/` now serves `gtag/js?id=G-FQLSMRBG87` + `anonymize_ip` config; Consent Mode v2 still gates it (fires only after "Accept all"). GA is recording again.
 
 **3. SEO metadata fix — every route now has its own metadata (commits `9987987`, `9eb58db`)**
 - **Problem:** `/donate`, `/gallery`, `/media`, `/bird-brothers`, `/report-tagged-bird` were all full `"use client"` components, so they **could not export `metadata`** and were inheriting the generic homepage `<title>`/description/canonical. `pageMetadata.donate` existed in `metadata.ts` but was never applied.
@@ -245,7 +247,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 **SEO state verified live (as Googlebot, this session):** crawlable (HTTP 200, the Vercel DDoS challenge that was blocking bots has cleared), GSC verification token present, robots.txt + sitemap (55 URLs) + canonical + OG + JSON-LD all good.
 
 ### Carry-forward for next session
-- **GA env var** (above) — the one outstanding analytics blocker. User action in Vercel UI.
+- ~~**GA env var**~~ — DONE 2026-05-30 (was empty `""`, now `G-FQLSMRBG87` in Production, verified live). Preview GA intentionally left unset.
 - **Google Search Console** — token live + crawlers unblocked; user should verify the property (if not already) and submit the sitemap.
 - **Gotcha for future donate-page edits:** the dev server's accumulated console-error log replays STALE parse errors from intermediate mid-edit save states (referencing old `</>`/`) : (` line numbers that no longer exist). Don't trust them — confirm with `npx tsc --noEmit` (it was clean) and a live render check.
 
