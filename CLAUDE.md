@@ -222,6 +222,37 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-05-30 — **Donate-page Patreon/INR-USD layout pass + sitewide SEO metadata fix + GA-not-firing diagnosis.** Final commit `9eb58db` on `main` (all pushed, Vercel auto-deploys).
+
+### What landed today (2026-05-30)
+
+**1. Donate page layout (commits `86d1079`, `0a750ca`, `40d0e89`)**
+- **Patreon surfaced as a prominent always-visible card** on `/donate` (coral `#FF424D`, Heart icon, "Join Us on Patreon" CTA) — it was previously only reachable as the 5th of 8 payment-method tabs and easy to miss. The card sits **below the donation tab content** (preset amount boxes), just above the "Your Trust Matters" section. The Patreon tab still exists too. User originally reported "no Patreon option" — it WAS live (verified in the deployed JS bundle); the complaint was discoverability + likely a stale cached bundle on their browser.
+- **INR/USD split** — the Online tab's `₹ INR / 🇺🇸 USD` currency toggle was removed. Both are now **always-visible stacked sections**: 🇮🇳 Donate in ₹ (India) first (Razorpay preset grid + custom amount), then 🌍 Donate in US$ (International) below a divider (UsdAmountGrid + R3/GoFundMe). Removed the now-unused `onlineCurrency` state.
+
+**2. ⚠️ Google Analytics is NOT firing in production — needs a Vercel env var (USER ACTION)**
+- Confirmed by diffing dev vs prod SSR HTML: GA scripts (`googletagmanager`, `anonymize_ip`, `G-FQLSMRBG87`) render on local dev (where `NEXT_PUBLIC_GA_ID` is set in `.env.local`) but are **completely absent from the live site** — only the consent-default script loads. The code in `src/app/layout.tsx` is correct and gated on `GA_ENABLED` (`NEXT_PUBLIC_GA_ID` present + starts with `G-` + not the placeholder).
+- **Root cause:** `NEXT_PUBLIC_GA_ID` is missing from the current **Vercel production build**. `NEXT_PUBLIC_*` vars are inlined at build time, so it must be set in Vercel **and a redeploy triggered**. (CLAUDE.md history says it was added 2026-05-08, but it's not in the deployed build now.)
+- **Fix the user must do:** Vercel → project → Settings → Environment Variables → add `NEXT_PUBLIC_GA_ID = G-FQLSMRBG87` (Production + Preview) → redeploy. Code pushes alone will NOT enable GA.
+
+**3. SEO metadata fix — every route now has its own metadata (commits `9987987`, `9eb58db`)**
+- **Problem:** `/donate`, `/gallery`, `/media`, `/bird-brothers`, `/report-tagged-bird` were all full `"use client"` components, so they **could not export `metadata`** and were inheriting the generic homepage `<title>`/description/canonical. `pageMetadata.donate` existed in `metadata.ts` but was never applied.
+- **Fix (pattern):** split each into a server `page.tsx` (exports its own `pageMetadata.*` and, for `/donate` only, wraps the client UI in `<Suspense>` because it uses `useSearchParams`) + a `*Client.tsx` holding the interactive UI. Files: `DonateClient.tsx`, `GalleryClient.tsx`, `MediaClient.tsx`, `BirdBrothersClient.tsx`, `ReportTaggedBirdClient.tsx`.
+- Added `gallery`, `media`, `birdBrothers`, `reportTaggedBird` entries to `pageMetadata` in `src/lib/metadata.ts`; dropped the stale "24/7" claim from the `contact` description.
+- `/donate` previously also CSR-deopted (useSearchParams with no Suspense) → now server-renders its content. Deep links (`?tab=patreon`) verified still working.
+- `npx tsc --noEmit` clean after all refactors.
+
+**SEO state verified live (as Googlebot, this session):** crawlable (HTTP 200, the Vercel DDoS challenge that was blocking bots has cleared), GSC verification token present, robots.txt + sitemap (55 URLs) + canonical + OG + JSON-LD all good.
+
+### Carry-forward for next session
+- **GA env var** (above) — the one outstanding analytics blocker. User action in Vercel UI.
+- **Google Search Console** — token live + crawlers unblocked; user should verify the property (if not already) and submit the sitemap.
+- **Gotcha for future donate-page edits:** the dev server's accumulated console-error log replays STALE parse errors from intermediate mid-edit save states (referencing old `</>`/`) : (` line numbers that no longer exist). Don't trust them — confirm with `npx tsc --noEmit` (it was clean) and a live render check.
+
+---
+
+**Previous session (2026-05-27) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-05-27 — **Patreon link added across the site.** Commit `0d607ad` on `main` (pushed, Vercel auto-deploys).
 
 ### What landed today (2026-05-27)
