@@ -253,40 +253,6 @@ export default function DonatePage() {
             </div>
           </div>
 
-          {/* Always-visible Patreon card */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 lg:p-10 mb-8">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded-full bg-[#FF424D] flex items-center justify-center shrink-0">
-                    <Heart size={18} className="text-white" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-                    Support Us Monthly on Patreon
-                  </h2>
-                </div>
-                <p className="text-slate">
-                  Become a patron with a recurring monthly contribution. Ongoing
-                  support is the most powerful way to help us — it lets us plan
-                  ahead and care for injured birds year-round.
-                </p>
-              </div>
-              <div className="text-center">
-                <a
-                  href={CONTACT.patreon}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#FF424D] hover:opacity-90 text-white font-semibold px-8 py-4 rounded-full transition-opacity text-lg shadow-lg"
-                  onClick={() => trackEvent("donation_method_click", { method: "Patreon" })}
-                >
-                  <Heart size={20} />
-                  Join Us on Patreon
-                </a>
-                <p className="text-xs text-slate mt-3">Opens patreon.com in a new tab</p>
-              </div>
-            </div>
-          </div>
-
           {/* Tabs — all other payment methods */}
           <div id="donation-tabs" className="flex flex-wrap gap-2 mb-8 justify-center">
             {TABS.map((tab) => (
@@ -758,6 +724,40 @@ export default function DonatePage() {
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Always-visible Patreon card */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 lg:p-10 mt-8">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-9 h-9 rounded-full bg-[#FF424D] flex items-center justify-center shrink-0">
+                    <Heart size={18} className="text-white" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    Support Us Monthly on Patreon
+                  </h2>
+                </div>
+                <p className="text-slate">
+                  Become a patron with a recurring monthly contribution. Ongoing
+                  support is the most powerful way to help us — it lets us plan
+                  ahead and care for injured birds year-round.
+                </p>
+              </div>
+              <div className="text-center">
+                <a
+                  href={CONTACT.patreon}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#FF424D] hover:opacity-90 text-white font-semibold px-8 py-4 rounded-full transition-opacity text-lg shadow-lg"
+                  onClick={() => trackEvent("donation_method_click", { method: "Patreon" })}
+                >
+                  <Heart size={20} />
+                  Join Us on Patreon
+                </a>
+                <p className="text-xs text-slate mt-3">Opens patreon.com in a new tab</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
