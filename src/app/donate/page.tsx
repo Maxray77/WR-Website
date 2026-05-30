@@ -37,7 +37,6 @@ export default function DonatePage() {
   const tabParam = searchParams.get("tab");
   const validTab = TABS.find((t) => t.id === tabParam)?.id ?? "online";
   const [activeTab, setActiveTab] = useState(validTab);
-  const [onlineCurrency, setOnlineCurrency] = useState<"inr" | "usd">("inr");
   const [checkoutLoading, setCheckoutLoading] = useState<number | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [donorModalOpen, setDonorModalOpen] = useState(false);
@@ -275,37 +274,18 @@ export default function DonatePage() {
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 lg:p-10">
             {activeTab === "online" && (
               <div>
-                <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-                  <h2 className="text-2xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-                    Donate Online
-                  </h2>
-                  {/* Currency toggle */}
-                  <div className="inline-flex rounded-full border border-gray-200 bg-offwhite p-1">
-                    <button
-                      onClick={() => setOnlineCurrency("inr")}
-                      className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                        onlineCurrency === "inr"
-                          ? "bg-teal text-white shadow-sm"
-                          : "text-slate hover:text-teal"
-                      }`}
-                    >
-                      ₹ INR
-                    </button>
-                    <button
-                      onClick={() => setOnlineCurrency("usd")}
-                      className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                        onlineCurrency === "usd"
-                          ? "bg-teal text-white shadow-sm"
-                          : "text-slate hover:text-teal"
-                      }`}
-                    >
-                      🇺🇸 USD
-                    </button>
-                  </div>
-                </div>
+                <h2 className="text-2xl font-bold text-charcoal mb-6 font-[family-name:var(--font-poppins)]">
+                  Donate Online
+                </h2>
 
-                {onlineCurrency === "inr" ? (
-                  <>
+                {/* ── Donate in INR (India) ── */}
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-xl" aria-hidden>🇮🇳</span>
+                  <h3 className="text-lg font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    Donate in ₹ (India)
+                  </h3>
+                </div>
+                <div>
                     {/* INR Amount Grid — click any amount to open Razorpay */}
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
                       {DONATION_AMOUNTS_INR.map((item) => (
@@ -378,9 +358,16 @@ export default function DonatePage() {
                         {" "}before proceeding.
                       </p>
                     </div>
-                  </>
-                ) : (
-                  <>
+                </div>
+
+                {/* ── Donate in USD (International) ── */}
+                <div className="mt-10 pt-8 border-t border-gray-200 flex items-center gap-2 mb-4">
+                  <span className="text-xl" aria-hidden>🌍</span>
+                  <h3 className="text-lg font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    Donate in US$ (International)
+                  </h3>
+                </div>
+                <div>
                     {/* USD Amount Grid — click any amount to choose R3 or GoFundMe */}
                     <div className="mb-6">
                       <UsdAmountGrid variant="full" />
@@ -434,8 +421,7 @@ export default function DonatePage() {
                         <ArrowRight size={16} className="text-amber shrink-0 mt-1" />
                       </a>
                     </div>
-                  </>
-                )}
+                </div>
               </div>
             )}
 
