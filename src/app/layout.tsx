@@ -12,6 +12,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { siteMetadata } from "@/lib/metadata";
 
+// NEXT_PUBLIC_GA_ID is inlined at build time. It must be set to the real
+// measurement ID (G-FQLSMRBG87) in Vercel → Settings → Environment Variables
+// for Production; an empty value disables GA (GA_ENABLED becomes false).
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 const GA_ENABLED = !!GA_MEASUREMENT_ID && GA_MEASUREMENT_ID.startsWith("G-") && GA_MEASUREMENT_ID !== "G-XXXXXXXXXX";
 
