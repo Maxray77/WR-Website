@@ -222,6 +222,25 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-01 — **Security pass: redacted two live secrets that were committed to this PUBLIC repo, hardened the Razorpay webhook + all `/api/admin/*` auth to constant-time, rate-limited the admin endpoints, and cleaned up 30 stale worktrees.** Commits `c3600cf`, `a40886b`, `936f02a` on `main` (all pushed).
+
+### What landed today (2026-06-01) — security
+
+1. **🔴 Leaked secrets redacted (`c3600cf`)** — `CLAUDE.md` (this repo is **PUBLIC** on GitHub: `Maxray77/WR-Website`) had live `RAZORPAY_WEBHOOK_SECRET` and `SANITY_REVALIDATE_SECRET` in plaintext. Both redacted in the working tree. **⚠️ They remain in git history, so they MUST be ROTATED** — regenerate in the Razorpay dashboard / Sanity manage → update the value in Vercel → redeploy. A truncated `PAN_ENCRYPTION_KEY` prefix was also scrubbed (non-exploitable; do **NOT** rotate that key — it would orphan stored encrypted PANs). The Razorpay live **Key ID** + Sanity **project ID** were left as-is (they're `NEXT_PUBLIC_`, public by design).
+2. **Constant-time auth (`c3600cf` + `a40886b`)** — Razorpay webhook HMAC comparison switched to `crypto.timingSafeEqual`. New `src/lib/admin-auth.ts` (`timingSafeStrEqual`, HMAC-based + length-independent) now backs the HTTP Basic check in all three `/api/admin/*` routes (donations, receipt-preview, test-receipt-email), replacing plain `!==` which leaked credential bytes via response timing.
+3. **Admin rate-limiting (`936f02a`)** — added an `admin` Upstash limiter (20/hr per IP) in `src/lib/redis.ts` + `enforceAdminRateLimit()` in `admin-auth.ts`, called before the credential check in all three admin routes. Throttles brute-force and caps abuse of the receipt-email sender. No-ops gracefully when Redis is unconfigured (it IS configured in prod). `npx tsc --noEmit` clean.
+4. **Worktree cleanup** — deregistered all 30 stale `claude/*` worktrees and deleted their on-disk dirs (also wiped ~19 stale local copies of the old un-redacted `CLAUDE.md`). `git worktree list` now shows only `main`; ripgrep/glob are fast again.
+
+### Carry-forward (security — needs action)
+
+- **🔴 ROTATE the two leaked secrets** (user action, dashboards) — redaction alone does **not** fix a public-history leak. This is the #1 outstanding item.
+- **Next.js CVEs** — `npm audit` flags high-severity advisories (incl. a Middleware/Proxy bypass that could undercut `src/middleware.ts`) on 16.2.4. The latest stable (16.2.6) is **still inside the vulnerable range**, and `npm audit fix` would force breaking `react-i18next` (15→17) + `i18next` (25→26) majors for zero CVE benefit. No safe fix yet — wait for the patched stable, then upgrade + build-verify.
+- **Admin rate-limiting reference design** — a more complete (but never-compiled) version of items 2–3 had been left uncommitted in a worktree; that work is now superseded by the shipped commits above. Nothing to recover.
+
+---
+
+**Previous session (2026-05-30) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-05-30 — **Donate-page Patreon/INR-USD layout pass + sitewide SEO metadata fix + Google Analytics FIXED (was empty env var) and verified live.** Final commit `386b21d` on `main` (all pushed, Vercel auto-deploys).
 
 ### What landed today (2026-05-30)
