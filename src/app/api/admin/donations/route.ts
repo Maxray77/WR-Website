@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { getFinancialYear, listDonationsForFy, decryptPan, type DonationRecord } from "@/lib/donations";
+import { timingSafeStrEqual } from "@/lib/admin-auth";
 
 /**
  * Admin endpoint to export donations for an FY in Form 10BD-compatible CSV.
@@ -37,7 +38,7 @@ function requireAuth(request: NextRequest): { ok: true } | { ok: false; res: Res
   const sepIdx = decoded.indexOf(":");
   const u = sepIdx >= 0 ? decoded.slice(0, sepIdx) : decoded;
   const p = sepIdx >= 0 ? decoded.slice(sepIdx + 1) : "";
-  if (u !== adminUser || p !== adminPass) {
+  if (!timingSafeStrEqual(u, adminUser) || !timingSafeStrEqual(p, adminPass)) {
     return {
       ok: false,
       res: new Response("Invalid credentials", {

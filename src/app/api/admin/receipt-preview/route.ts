@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { renderReceiptPdf } from "@/lib/receipt-pdf";
 import type { DonationRecord } from "@/lib/donations";
+import { timingSafeStrEqual } from "@/lib/admin-auth";
 
 /**
  * Admin endpoint — generate a sample provisional 80(G) receipt PDF for layout
@@ -38,7 +39,7 @@ function checkAuth(request: NextRequest): { ok: true } | { ok: false; status: nu
   if (idx === -1) return { ok: false, status: 401, message: "Unauthorized" };
   const u = decoded.slice(0, idx);
   const p = decoded.slice(idx + 1);
-  if (u !== adminUsername || p !== adminPassword) {
+  if (!timingSafeStrEqual(u, adminUsername) || !timingSafeStrEqual(p, adminPassword)) {
     return { ok: false, status: 401, message: "Unauthorized" };
   }
   return { ok: true };
