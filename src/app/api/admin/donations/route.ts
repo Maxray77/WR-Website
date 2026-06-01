@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { getFinancialYear, listDonationsForFy, decryptPan, type DonationRecord } from "@/lib/donations";
-import { timingSafeStrEqual } from "@/lib/admin-auth";
+import { timingSafeStrEqual, enforceAdminRateLimit } from "@/lib/admin-auth";
 
 /**
  * Admin endpoint to export donations for an FY in Form 10BD-compatible CSV.
@@ -96,6 +96,9 @@ function toFormBdRow(d: DonationRecord, idx: number): string[] {
 }
 
 export async function GET(request: NextRequest) {
+  const limited = await enforceAdminRateLimit(request);
+  if (limited) return limited;
+
   const auth = requireAuth(request);
   if (!auth.ok) return auth.res;
 

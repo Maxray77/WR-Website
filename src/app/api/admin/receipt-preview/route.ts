@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { renderReceiptPdf } from "@/lib/receipt-pdf";
 import type { DonationRecord } from "@/lib/donations";
-import { timingSafeStrEqual } from "@/lib/admin-auth";
+import { timingSafeStrEqual, enforceAdminRateLimit } from "@/lib/admin-auth";
 
 /**
  * Admin endpoint — generate a sample provisional 80(G) receipt PDF for layout
@@ -46,6 +46,9 @@ function checkAuth(request: NextRequest): { ok: true } | { ok: false; status: nu
 }
 
 export async function GET(request: NextRequest) {
+  const limited = await enforceAdminRateLimit(request);
+  if (limited) return limited;
+
   const auth = checkAuth(request);
   if (!auth.ok) {
     return new Response(auth.message, {

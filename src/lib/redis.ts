@@ -45,6 +45,13 @@ export const rateLimiters = redis
         limiter: Ratelimit.slidingWindow(30, "1 h"),
         prefix: "rl:chat",
       }),
+      // Admin endpoints: 20 requests per hour per IP — bounds credential
+      // brute-force without throttling the small admin team's legitimate use.
+      admin: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(20, "1 h"),
+        prefix: "rl:admin",
+      }),
     }
   : null;
 
@@ -53,7 +60,7 @@ export const rateLimiters = redis
  * is not configured (graceful degradation).
  */
 export async function checkRateLimit(
-  limiter: "contact" | "newsletter" | "chat",
+  limiter: "contact" | "newsletter" | "chat" | "admin",
   ip: string
 ): Promise<{ allowed: boolean; remaining?: number }> {
   if (!rateLimiters) return { allowed: true };

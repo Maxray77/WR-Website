@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendDonationReceipt } from "@/lib/email";
 import type { DonationRecord } from "@/lib/donations";
-import { timingSafeStrEqual } from "@/lib/admin-auth";
+import { timingSafeStrEqual, enforceAdminRateLimit } from "@/lib/admin-auth";
 
 /**
  * Admin endpoint — fire a real Resend test email to an arbitrary inbox.
@@ -58,6 +58,9 @@ function currentFy(): string {
 }
 
 export async function GET(request: NextRequest) {
+  const limited = await enforceAdminRateLimit(request);
+  if (limited) return limited;
+
   const auth = checkAuth(request);
   if (!auth.ok) {
     return new Response(auth.message, {
