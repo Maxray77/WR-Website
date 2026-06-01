@@ -22,7 +22,15 @@ export async function POST(request: NextRequest) {
     .update(body)
     .digest("hex");
 
-  if (signature !== expectedSignature) {
+  // Constant-time comparison so a wrong signature can't be brute-forced byte
+  // by byte via response-timing. timingSafeEqual requires equal-length buffers,
+  // so guard on length first (a correct sig is always 64 hex chars).
+  const sigBuf = Buffer.from(signature);
+  const expectedBuf = Buffer.from(expectedSignature);
+  if (
+    sigBuf.length !== expectedBuf.length ||
+    !crypto.timingSafeEqual(sigBuf, expectedBuf)
+  ) {
     return Response.json({ error: "Invalid signature" }, { status: 400 });
   }
 

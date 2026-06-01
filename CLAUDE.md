@@ -305,7 +305,7 @@ User's plan: send Lu Wen email FIRST (peer-to-peer, highest-trust path); if no r
 - **Vercel DDoS challenge is also blocking ALL search engines, not just GSC** — while the System Rule is active, neither Googlebot nor Bingbot can crawl the site, so indexing will degrade. Hobby tier can't directly disable the System Rule. Two longer-term mitigations: (a) wait for the spike to subside on its own (System Rules de-escalate when traffic normalizes), or (b) add a Custom Allow rule for verified search-engine user-agents — see Firewall → Rules → Add Rule. Should be a separate planned session.
 - **Speed Insights toggle** — user agreed to switch from challenger-industries to wildlife-rescue-website; needs them to click Disable in challenger-industries → Enable in WR (Vercel UI).
 - **Sanity Studio Delete UX** — Mohammad Afeef + Samia will hit the same "where's the delete button?" wall. Adding to the staff blog publishing guide (`WR_Blog_Publishing_Guide_for_Staff_2026-05-09.docx`) the note: **"To delete a post: open it → click the chevron ▾ next to the green Publish button at the bottom → Unpublish → confirm. After unpublishing, the top-right ⋮ menu shows Delete document."** Or simpler workflow: tell them to message Saud to delete via API.
-- **Sanity → Vercel webhook** — user did not confirm whether they set this up in sanity.io/manage. Endpoint at `/api/revalidate` is correctly wired. Secret already in Vercel env vars (`SANITY_REVALIDATE_SECRET=68a320fe6a1b84a750ac12f72fee905b0f6e52eff4aa8476788d92607e901462`). Setup: sanity.io/manage → project ivyjyqwz → API → Webhooks → Create → URL `https://www.raptorrescue.org/api/revalidate`, filter `_type in ["post", "author", "category"]`, projection `{ _type, slug }`, secret as above.
+- **Sanity → Vercel webhook** — user did not confirm whether they set this up in sanity.io/manage. Endpoint at `/api/revalidate` is correctly wired. Secret already in Vercel env vars (`SANITY_REVALIDATE_SECRET=[REDACTED — leaked in this PUBLIC repo; ROTATE in Sanity manage + Vercel]`). Setup: sanity.io/manage → project ivyjyqwz → API → Webhooks → Create → URL `https://www.raptorrescue.org/api/revalidate`, filter `_type in ["post", "author", "category"]`, projection `{ _type, slug }`, secret as above.
 - **Resend deliverability testing (task #3)** — deferred. Endpoint at `/api/admin/test-receipt-email` is built and ready; user just needs to give 3-5 test inbox addresses across providers (Gmail/Outlook/Yahoo/ProtonMail/Indian provider) and a PowerShell loop will fire test receipts to each.
 
 ### Earlier session retained below for context (2026-05-25)
@@ -945,7 +945,7 @@ This session implemented the second half of the 80(G) receipt system (PDF genera
 | 4 | `RECEIPT_FROM_EMAIL` set in Vercel: `Wildlife Rescue <receipts@raptorrescue.org>` | ✅ Done |
 | 5 | `RECEIPT_REPLY_TO` set in Vercel: `saud@raptorrescue.org` | ✅ Done |
 | 6 | `ADMIN_USERNAME` + `ADMIN_PASSWORD` set in Vercel (user chose own credentials, stored in user's password manager) | ✅ Done |
-| 7 | `PAN_ENCRYPTION_KEY` set in Vercel (fresh 32-byte hex, generated this session: `d1ace17d65...`; saved in user's password manager — DO NOT ROTATE) | ✅ Done |
+| 7 | `PAN_ENCRYPTION_KEY` set in Vercel (fresh 32-byte hex, generated this session: `[REDACTED]`; saved in user's password manager — DO NOT ROTATE, doing so makes existing encrypted PANs undecryptable) | ✅ Done |
 | 8 | Upstash for Redis database created via Vercel → Storage → Marketplace (database name `upstash-kv-canary-elephant`, Mumbai region, free tier, connected to all envs) | ✅ Done |
 | 9 | Live preview of receipt verified at `/api/admin/receipt-preview` — signature renders, layout fits one page, branding correct | ✅ Done |
 | 10 | Live end-to-end test: real ₹100 donation through `/donate` → thank-you screen + 80G cert download → receipt email arrived within 30s with two PDFs attached | ✅ Verified |
@@ -1458,7 +1458,7 @@ Without these the system still works:
 **Production state — Razorpay fully live and verified (2026-05-09):**
 - ✅ `NEXT_PUBLIC_RAZORPAY_KEY_ID` = `rzp_live_SnIx4rCXJyioqk` (rotated after exposure earlier in session) — set and verified
 - ✅ `RAZORPAY_KEY_SECRET` = rotated and verified (`/api/create-order` returns live `order_id`)
-- ✅ `RAZORPAY_WEBHOOK_SECRET` = `c4d43c35ee24f0021032772ba4b3732fcc079085de5d31e87198522c1c4e6796` — set in Vercel
+- ✅ `RAZORPAY_WEBHOOK_SECRET` = `[REDACTED — leaked in this PUBLIC repo; ROTATE in Razorpay dashboard + Vercel]` — set in Vercel
 - ✅ **Razorpay webhook registered** in dashboard at `https://www.raptorrescue.org/api/razorpay-webhook` for `payment.captured` event
 - Verified webhook endpoint responds correctly: 400 "Missing signature" without sig, 400 "Invalid signature" with bogus sig (NOT 500 "Webhook not configured" — confirms env var is read)
 
@@ -1600,7 +1600,7 @@ The current setup (embedded Razorpay button widget below the suggested-amount ti
 - Dataset: `production`
 - API version: `2024-10-01`
 - Write token: stored in `.env.local` (label: "Migration token", Editor permissions)
-- Revalidate secret: `68a320fe6a1b84a750ac12f72fee905b0f6e52eff4aa8476788d92607e901462`
+- Revalidate secret: `[REDACTED — leaked in this PUBLIC repo; ROTATE in Sanity manage + Vercel]`
 
 **Still pending — user must do these in Vercel UI:**
 - [ ] **Add the 5 Sanity env vars to Vercel** (Settings → Environment Variables → apply to Production + Preview + Development): `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`, `SANITY_API_WRITE_TOKEN`, `SANITY_REVALIDATE_SECRET`. Then **redeploy** (Deployments → ⋯ → Redeploy). Until this is done, the **live site uses the static fallback** — Sanity only works locally.
