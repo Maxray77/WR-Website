@@ -222,7 +222,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-06-01 — **Security pass: redacted two live secrets that were committed to this PUBLIC repo, hardened the Razorpay webhook + all `/api/admin/*` auth to constant-time, rate-limited the admin endpoints, and cleaned up 30 stale worktrees.** Commits `c3600cf`, `a40886b`, `936f02a` on `main` (all pushed).
+**Last updated by:** Claude Code — 2026-06-01 — **Security pass: redacted two live secrets that were committed to this PUBLIC repo, hardened the Razorpay webhook + all `/api/admin/*` auth to constant-time, rate-limited the admin endpoints, and cleaned up 30 stale worktrees — then ROTATED both leaked secrets in their dashboards + Vercel Production and redeployed (leak now closed).** Commits `c3600cf`, `a40886b`, `936f02a`, `2ae9166`, `3b4e9a0` on `main` (all pushed).
 
 ### What landed today (2026-06-01) — security
 
@@ -233,7 +233,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ### Carry-forward (security — needs action)
 
-- **🔴 ROTATE the two leaked secrets** (user action, dashboards) — redaction alone does **not** fix a public-history leak. This is the #1 outstanding item.
+- ✅ **Leaked secrets ROTATED (2026-06-01)** — generated fresh values; set the new `RAZORPAY_WEBHOOK_SECRET` on the Razorpay webhook (**edited the existing** `…/api/razorpay-webhook` entry — confirmed single *enabled* webhook, the other `express.razorpay.com/wix` one is a disabled 2021 leftover) + created a Sanity revalidate webhook (`https://www.raptorrescue.org/api/revalidate`, projection `{_type, slug}`) with the new `SANITY_REVALIDATE_SECRET`; updated both in Vercel **Production** via `vercel env add … --value … --force --yes` and redeployed (empty commit `3b4e9a0`). Live endpoint verified — no-sig / forged-sig now return `400 Invalid signature` (not `500`), so the leaked values are dead. **Gotchas for next time:** (a) `vercel env add` needs `--value` (stdin/echo gives empty); (b) **Preview** scope returns `git_branch_required` and won't target "all preview branches" non-interactively — I *removed* the leaked Preview values (safe) but did NOT re-add the new ones there (do it in the Vercel UI if preview ever needs to mirror prod; not security-relevant — no real webhook hits preview URLs). **No synthetic end-to-end test** — Razorpay's dashboard has no test-send; relying on the webhook **Alert Email** (`nadeemshehzad.wr@gmail.com`) failure-notification as the passive signal (+ optional ₹100 live test). `PAN_ENCRYPTION_KEY` deliberately NOT rotated (only a non-exploitable prefix leaked; rotating orphans stored encrypted PANs).
 - **Next.js CVEs** — `npm audit` flags high-severity advisories (incl. a Middleware/Proxy bypass that could undercut `src/middleware.ts`) on 16.2.4. The latest stable (16.2.6) is **still inside the vulnerable range**, and `npm audit fix` would force breaking `react-i18next` (15→17) + `i18next` (25→26) majors for zero CVE benefit. No safe fix yet — wait for the patched stable, then upgrade + build-verify.
 - **Admin rate-limiting reference design** — a more complete (but never-compiled) version of items 2–3 had been left uncommitted in a worktree; that work is now superseded by the shipped commits above. Nothing to recover.
 
