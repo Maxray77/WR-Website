@@ -109,6 +109,17 @@ export const SPECIES_LIST: Species[] = [
     image: "/species/egyptian-vulture-01.jpg",
     images: [
       { src: "/species/egyptian-vulture-01.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue — Sultan, an endangered bird receiving treatment for septicemia" },
+      { src: "/species/egyptian-vulture-02.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-03.jpg", alt: "Egyptian Vulture recovering at the Wildlife Rescue clinic" },
+      { src: "/species/egyptian-vulture-04.jpg", alt: "Egyptian Vulture in rehabilitation at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-05.jpg", alt: "Egyptian Vulture being cared for at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-06.jpg", alt: "Egyptian Vulture in the care of Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-07.jpg", alt: "Endangered Egyptian Vulture under treatment at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-08.jpg", alt: "Egyptian Vulture recovering at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-09.jpg", alt: "Egyptian Vulture in rehabilitation at the Wildlife Rescue facility" },
+      { src: "/species/egyptian-vulture-10.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-11.jpg", alt: "Egyptian Vulture being rehabilitated at Wildlife Rescue" },
+      { src: "/species/egyptian-vulture-12.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue" },
     ],
   },
   {

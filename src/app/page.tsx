@@ -92,6 +92,23 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ─── Egyptian Vulture Hero Image ─── */}
+      <section className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
+        <Image
+          src="/hero-egyptian-vulture.jpg"
+          alt="Egyptian Vulture, an Endangered species treated at Wildlife Rescue, showing its distinctive pale plumage and yellow facial skin"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute bottom-8 left-0 right-0 text-center">
+          <p className="text-white/90 text-sm sm:text-base font-semibold tracking-wide uppercase">
+            Egyptian Vulture — An Endangered Species We Fight to Save
+          </p>
+        </div>
+      </section>
+
       {/* ─── Barn Owl Hero Image ─── */}
       <section className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
         <Image

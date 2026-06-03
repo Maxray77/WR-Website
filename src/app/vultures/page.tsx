@@ -130,7 +130,7 @@ const WR_INTAKE_DATA = [
   { year: "2022", vultures: 4, total: 3385 },
   { year: "2023", vultures: 5, total: 3383 },
   { year: "2024", vultures: 7, total: 3685 },
-  { year: "2025*", vultures: 4, total: 1727 },
+  { year: "2025", vultures: 8, total: 4184 },
 ];
 
 const CRISIS_TIMELINE = [
@@ -488,15 +488,19 @@ export default function VulturesPage() {
                     ))}
                     <tr className="bg-charcoal text-white font-bold">
                       <td className="py-3 px-4">Total</td>
-                      <td className="py-3 px-4 text-right text-amber">31</td>
-                      <td className="py-3 px-4 text-right">17,436</td>
+                      <td className="py-3 px-4 text-right text-amber">
+                        {WR_INTAKE_DATA.reduce((s, r) => s + r.vultures, 0)}
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        {WR_INTAKE_DATA.reduce((s, r) => s + r.total, 0).toLocaleString()}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <p className="text-xs text-slate mt-2 italic">
-                * 2025 data is year-to-date. Source: WR intake records
-                (5&nbsp;Year.xlsx).
+                Source: WR intake records (E.&nbsp;Vulture Data 20-25.xlsx;
+                annual totals from 5&nbsp;Year.xlsx).
               </p>
             </div>
 
