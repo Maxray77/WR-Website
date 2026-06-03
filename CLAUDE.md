@@ -222,6 +222,20 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-03 — **Egyptian Vulture content pass: validated the `/vultures` intake table against the source spreadsheet, updated 2025 to a complete year, added a new homepage hero + a 12-photo "Egyptian Vultures in Our Care" gallery on `/vultures`.** Commits `816bbe9`, `8b8f2b6` on `main` (all pushed, Vercel auto-deploys).
+
+### What landed (2026-06-03) — Egyptian Vulture content
+
+1. **`/vultures` intake table verified + corrected (`816bbe9`)** — checked the `WR_INTAKE_DATA` table (`src/app/vultures/page.tsx`) against `C:\Users\maxra\Documents\Wildlife Rescue\Egyptian Vultures\E.Vulture Data 20-25.xlsx`. 2020–2024 vulture counts already matched exactly (6/5/4/5/7). **2025 was stale** — the dedicated vulture file is complete through Dec 2025 (8 EVs), but the table showed the old mid-May year-to-date snapshot (4 EVs / 1,727 total). Updated 2025 → **8 vultures / 4,184 birds** (4,184 = the documented complete-year all-species total; the partial 1,727 came from `5 Year.xlsx` whose 2025 sheet only runs to 2025-05-15). Dropped the `*` year-to-date marker, made the **Total row computed** (now 35 / 19,893 instead of hardcoded 31 / 17,436), and updated the footnote to cite the dedicated vulture file. **Gotcha:** the two source files are at different completeness stages for 2025 — `E.Vulture Data 20-25.xlsx` is the up-to-date authority for vulture counts; `5 Year.xlsx` (the "Total Birds" source) lags. Also fixed the stale hero stat "Vultures treated by WR (2020-25)" **31 → 35** in the same file.
+2. **Homepage Egyptian Vulture hero (`816bbe9`)** — new full-bleed hero section in `src/app/page.tsx` directly below the Steppe Eagle hero (order is now Steppe Eagle → Egyptian Vulture → Barn Owl → Avian Pox). Image `public/hero-egyptian-vulture.jpg` (compressed from `EV11.png`, 6000×4000 → 1920×1280, 239 KB). Caption: "Egyptian Vulture — An Endangered Species We Fight to Save".
+3. **12-photo gallery (`816bbe9` added files, `8b8f2b6` placed them)** — compressed EV01–EV10 + EV11-2 from `C:\Users\maxra\Pictures\Egyptian Vultures Pictures\Uploads For Website\` (~100 MB PNGs each) → `public/species/egyptian-vulture-02.jpg … -12.jpg` (135–260 KB, 1600px). First added to the `/species/egyptian-vulture` gallery, then **moved** (per user) to a new "Egyptian Vultures in Our Care" grid section on `/vultures` directly below the intake table (`EGYPTIAN_VULTURE_PHOTOS` const + responsive 2/3/4-col grid w/ hover zoom). The species page gallery was reverted to its original single Sultan photo (`egyptian-vulture-01.jpg`). EV11 (non-`-2`) was skipped as a gallery image since it's the homepage hero.
+
+`npx tsc --noEmit` clean. All verified live in the preview (table values, hero order, gallery 12 imgs / 0 broken). **Source note:** EV11.png and EV11-2.png are near-identical siblings; EV11 → hero, EV11-2 → gallery photo 12.
+
+---
+
+**Previous session (2026-06-01) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-01 — **Security pass: redacted two live secrets that were committed to this PUBLIC repo, hardened the Razorpay webhook + all `/api/admin/*` auth to constant-time, rate-limited the admin endpoints, and cleaned up 30 stale worktrees — then ROTATED both leaked secrets in their dashboards + Vercel Production and redeployed (leak now closed).** Commits `c3600cf`, `a40886b`, `936f02a`, `2ae9166`, `3b4e9a0` on `main` (all pushed).
 
 ### What landed today (2026-06-01) — security
