@@ -133,6 +133,21 @@ const WR_INTAKE_DATA = [
   { year: "2025", vultures: 8, total: 4184 },
 ];
 
+const EGYPTIAN_VULTURE_PHOTOS = [
+  { src: "/species/egyptian-vulture-01.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue — Sultan, an endangered bird receiving treatment for septicemia" },
+  { src: "/species/egyptian-vulture-02.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-03.jpg", alt: "Egyptian Vulture recovering at the Wildlife Rescue clinic" },
+  { src: "/species/egyptian-vulture-04.jpg", alt: "Egyptian Vulture in rehabilitation at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-05.jpg", alt: "Egyptian Vulture being cared for at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-06.jpg", alt: "Egyptian Vulture in the care of Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-07.jpg", alt: "Endangered Egyptian Vulture under treatment at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-08.jpg", alt: "Egyptian Vulture recovering at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-09.jpg", alt: "Egyptian Vulture in rehabilitation at the Wildlife Rescue facility" },
+  { src: "/species/egyptian-vulture-10.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-11.jpg", alt: "Egyptian Vulture being rehabilitated at Wildlife Rescue" },
+  { src: "/species/egyptian-vulture-12.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue" },
+];
+
 const CRISIS_TIMELINE = [
   {
     year: "1990s",
@@ -200,7 +215,7 @@ export default function VulturesPage() {
               { value: "99.7%", label: "Population decline since 1990s" },
               { value: "9", label: "Vulture species in India" },
               { value: "4", label: "Critically Endangered" },
-              { value: "31", label: "Vultures treated by WR (2020-25)" },
+              { value: "35", label: "Vultures treated by WR (2020-25)" },
             ].map((stat) => (
               <div
                 key={stat.label}
@@ -567,6 +582,30 @@ export default function VulturesPage() {
                   <ArrowRight size={14} />
                 </Link>
               </div>
+            </div>
+          </div>
+
+          {/* Egyptian Vultures in our care — photo gallery */}
+          <div className="mt-12">
+            <h3 className="text-lg font-bold text-charcoal mb-5 font-[family-name:var(--font-poppins)]">
+              <Bird size={20} className="inline text-teal mr-2 -mt-0.5" />
+              Egyptian Vultures in Our Care
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {EGYPTIAN_VULTURE_PHOTOS.map((photo, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-square rounded-xl overflow-hidden border border-gray-200 group"
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
