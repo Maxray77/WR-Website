@@ -222,6 +222,28 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-04 — **Egyptian Vulture outcomes story on `/vultures` (conditions + 73% release rate) + propatagium-repair highlight + NWRA 2025 surfaced in nav + "Where to Watch" (5 regions) on `/all-that-breathes`.** Commits `f113df4` → `b38b256` on `main` (all pushed, Vercel auto-deploys).
+
+### What landed (2026-06-04)
+
+1. **EV gallery crop fix (`f113df4`, `c5875e5`)** — removed the held-bird photo (`egyptian-vulture-01.jpg`) from the "Egyptian Vultures in Our Care" grid (now 11 photos, 02–12). **Key lesson:** the gallery photos are **landscape**, so the `aspect-square` crop trims **left/right, not top/bottom** — vertical `objectPosition` did nothing. Fixed with horizontal positioning: `left center` for birds facing left (02–09), `right center` for 10 & 11 (face right), `center` for 12 (frontal). Each photo carries a `position` field applied via `style={{ objectPosition }}`.
+2. **Removed Electrocution + Sultan's Story (`188fa2c`)** — dropped the "Electrocution" line from "Common Injuries We Treat" and the whole "Sultan's Story" card on `/vultures` (user will replace with combined stories later).
+3. **EV outcomes section (`4b022d3`)** — analyzed all 35 EV cases in `E.Vulture Data 20-25.xlsx`. Added a "Egyptian Vulture Outcomes (2020–2025)" section below the intake table: a "Why They Come In" bar chart (**manja/wing cut wound 77%**, then emaciated 3, feather damage 2, fracture 1, eye 1, none 1) + a teal "What Happens Next" card with the headline **73% release rate** (19 freed of 26 resolved). **Counting rule (per user): escapes = releases** (17 released + 2 escaped = 19 freed). Rate is on **resolved cases only** — the 9 still in care are excluded; **7 deaths shown openly**. Data lives in `EV_CONDITIONS` + `EV_OUTCOMES` consts in `src/app/vultures/page.tsx`.
+4. **Propatagium-repair highlight (`685b4af`, `49cc162`)** — charcoal feature banner "Why Cut-Wing Vultures Fly Free Again" tying the 77% manja stat to WR's layered propatagium repair as the driver of the 73% release rate, framed for an Endangered species. Copy: manja **severs muscles, tendons, nerves, skin and even bones** — all must be rebuilt to restore flight. Links to `/our-specialty` + `/nwra-2025`. 77%/73%/Endangered stat tiles.
+5. **NWRA discoverability (`d1da031`, `3f704ac`)** — `/nwra-2025` was **not in the main nav** (only reachable from `/vultures`, `/media`, a blog post). Added **"NWRA Symposium 2025"** to the "Our Work" dropdown (desktop + mobile, in `src/components/Header.tsx`) right after "Our Specialty". Also updated the `/nwra-2025` "Why This Matters" copy to the full muscles/tendons/nerves/skin/bones wording, and added a "See our NWRA Symposium 2025 presentation →" link below the "Self-Taught to World-Class" block on `/our-specialty`.
+6. **"Where to Watch" on `/all-that-breathes` (`46080fe`, `8107d0a`, `b38b256`)** — researched current availability (June 2026 via JustWatch) and added a region-grouped section, now placed **directly below "18+ Film Festival Selections"**. Five region cards: **India** (JioHotstar), **United States** (HBO Max, Kanopy free-w/-library, Prime/Apple/Fandango rent-buy), **United Kingdom** (Now TV + Amazon/Apple/Sky/Rakuten/BFI rent-buy), **Australia** (BINGE), **Europe** (HBO Max in supported countries — *not* Germany). Each card has a "See all [region] options" link to that country's JustWatch page. Data = `WATCH_REGIONS` + `WATCH_AGGREGATOR_URL` in `constants.ts`. **Link policy:** verified deep links only for JioHotstar/HBO Max US/Kanopy/BINGE; platforms without a confidently-verifiable deep URL (Now TV, UK rent/buy stores, Fandango) are listed by name and routed through the regional JustWatch page to avoid 404s. The old lone "Watch on JioHotstar" button became a "Where to Watch" in-page anchor. `FILM_DETAILS.streaming` label also updated.
+
+`npx tsc --noEmit` clean throughout. EV outcomes + WATCH section + nav order all verified live in preview (preview navigation remains flaky — `location.assign` often needs a 2nd call; screenshots occasionally time out on the ATB page's external embeds, so DOM `preview_eval` was used to confirm).
+
+### Carry-forward (next session)
+- **Combined rescue stories** to replace the removed Sultan's Story card on `/vultures` — user is preparing these.
+- **EV outcomes data is static** (hardcoded 35-case analysis in `vultures/page.tsx`). When the spreadsheet updates, re-run the per-condition/outcome counts and update `EV_CONDITIONS`/`EV_OUTCOMES`.
+- **Watch availability drifts** — the JustWatch links on `/all-that-breathes` stay current automatically, but the named platforms (esp. Europe/UK) should be re-checked periodically.
+
+---
+
+**Previous session (2026-06-03) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-03 — **Egyptian Vulture content pass: validated the `/vultures` intake table against the source spreadsheet, updated 2025 to a complete year, added a new homepage hero + a 12-photo "Egyptian Vultures in Our Care" gallery on `/vultures`.** Commits `816bbe9`, `8b8f2b6` on `main` (all pushed, Vercel auto-deploys).
 
 ### What landed (2026-06-03) — Egyptian Vulture content
