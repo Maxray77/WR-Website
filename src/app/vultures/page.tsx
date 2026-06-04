@@ -133,6 +133,27 @@ const WR_INTAKE_DATA = [
   { year: "2025", vultures: 8, total: 4184 },
 ];
 
+// Egyptian Vulture case analysis, 2020–2025 (35 documented cases).
+// Source: E. Vulture Data 20-25.xlsx. "Escaped" outcomes are counted as
+// successful returns to the wild. The release rate is calculated on
+// resolved cases only — birds still under care are excluded.
+const EV_CONDITIONS = [
+  { label: "Wing cut wound (manja / kite string)", count: 27 },
+  { label: "Emaciated / dehydrated", count: 3 },
+  { label: "Feather damage (broken or plucked)", count: 2 },
+  { label: "Wing fracture", count: 1 },
+  { label: "Eye infection", count: 1 },
+  { label: "No external injury on arrival", count: 1 },
+];
+
+const EV_OUTCOMES = {
+  freed: 19, // 17 released + 2 escaped (escapes count as returns to the wild)
+  inCare: 9,
+  lost: 7,
+  resolved: 26, // freed + lost (excludes birds still in care)
+  releaseRate: 73, // 19 / 26
+};
+
 const EGYPTIAN_VULTURE_PHOTOS = [
   { src: "/species/egyptian-vulture-02.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue", position: "left center" },
   { src: "/species/egyptian-vulture-03.jpg", alt: "Egyptian Vulture recovering at the Wildlife Rescue clinic", position: "left center" },
@@ -557,6 +578,110 @@ export default function VulturesPage() {
                     — manja entanglement during festival seasons
                   </li>
                 </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Outcomes — what happens to the EVs in our care */}
+          <div className="mt-14">
+            <h3 className="text-lg font-bold text-charcoal mb-1 font-[family-name:var(--font-poppins)]">
+              <Bird size={20} className="inline text-teal mr-2 -mt-0.5" />
+              Egyptian Vulture Outcomes (2020–2025)
+            </h3>
+            <p className="text-sm text-slate mb-6 max-w-3xl">
+              A look at every Egyptian Vulture documented in our care since 2020
+              — the injuries they arrive with, and how their stories end.
+            </p>
+
+            <div className="grid lg:grid-cols-2 gap-6 items-stretch">
+              {/* Why they come in */}
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h4 className="font-bold text-charcoal mb-4">
+                  Why They Come In
+                </h4>
+                <ul className="space-y-3">
+                  {EV_CONDITIONS.map((c) => {
+                    const pct = Math.round((c.count / 35) * 100);
+                    const isManja = c.label.startsWith("Wing cut wound");
+                    return (
+                      <li key={c.label}>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span className="text-charcoal">{c.label}</span>
+                          <span className="text-slate font-medium whitespace-nowrap ml-3">
+                            {c.count} ({pct}%)
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                          <div
+                            className={`h-full rounded-full ${
+                              isManja ? "bg-amber" : "bg-teal"
+                            }`}
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p className="text-xs text-slate mt-4 italic">
+                  More than three in four Egyptian Vultures arrive with manja
+                  (kite-string) wounds — the same threat facing Delhi&apos;s
+                  raptors year-round.
+                </p>
+              </div>
+
+              {/* Outcomes */}
+              <div className="bg-teal text-white rounded-xl p-6 flex flex-col">
+                <h4 className="font-bold mb-4">What Happens Next</h4>
+                <div className="text-center py-2">
+                  <div className="text-5xl font-bold font-[family-name:var(--font-poppins)]">
+                    {EV_OUTCOMES.releaseRate}%
+                  </div>
+                  <p className="text-teal-light text-sm mt-1">
+                    of resolved Egyptian Vulture cases were returned to the wild
+                  </p>
+                  <p className="text-white/60 text-xs mt-1">
+                    {EV_OUTCOMES.freed} of {EV_OUTCOMES.resolved} resolved cases
+                    (released or escaped back to the wild)
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mt-6">
+                  <div className="bg-white/10 rounded-lg p-3 text-center">
+                    <Leaf size={18} className="inline mb-1 text-amber-light" />
+                    <div className="text-2xl font-bold">
+                      {EV_OUTCOMES.freed}
+                    </div>
+                    <div className="text-[11px] text-teal-light leading-tight">
+                      Returned to the wild
+                    </div>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-3 text-center">
+                    <Heart size={18} className="inline mb-1 text-amber-light" />
+                    <div className="text-2xl font-bold">
+                      {EV_OUTCOMES.inCare}
+                    </div>
+                    <div className="text-[11px] text-teal-light leading-tight">
+                      Still in our care
+                    </div>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-3 text-center">
+                    <Skull size={18} className="inline mb-1 text-white/50" />
+                    <div className="text-2xl font-bold">
+                      {EV_OUTCOMES.lost}
+                    </div>
+                    <div className="text-[11px] text-teal-light leading-tight">
+                      Too injured to save
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-xs text-white/70 mt-5 leading-relaxed">
+                  Egyptian Vultures often arrive critically injured, and some
+                  cannot be saved despite our best efforts. The release rate is
+                  calculated on resolved cases — the {EV_OUTCOMES.inCare} birds
+                  still recovering are not yet counted either way.
+                </p>
               </div>
             </div>
           </div>
