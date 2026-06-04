@@ -134,17 +134,17 @@ const WR_INTAKE_DATA = [
 ];
 
 const EGYPTIAN_VULTURE_PHOTOS = [
-  { src: "/species/egyptian-vulture-02.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue", position: "center 30%" },
-  { src: "/species/egyptian-vulture-03.jpg", alt: "Egyptian Vulture recovering at the Wildlife Rescue clinic", position: "center 30%" },
-  { src: "/species/egyptian-vulture-04.jpg", alt: "Egyptian Vulture in rehabilitation at Wildlife Rescue", position: "center top" },
-  { src: "/species/egyptian-vulture-05.jpg", alt: "Egyptian Vulture being cared for at Wildlife Rescue", position: "center 30%" },
-  { src: "/species/egyptian-vulture-06.jpg", alt: "Egyptian Vulture in the care of Wildlife Rescue", position: "center 30%" },
-  { src: "/species/egyptian-vulture-07.jpg", alt: "Endangered Egyptian Vulture under treatment at Wildlife Rescue", position: "center 30%" },
-  { src: "/species/egyptian-vulture-08.jpg", alt: "Egyptian Vulture recovering at Wildlife Rescue", position: "center top" },
-  { src: "/species/egyptian-vulture-09.jpg", alt: "Egyptian Vulture in rehabilitation at the Wildlife Rescue facility", position: "center top" },
-  { src: "/species/egyptian-vulture-10.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue", position: "center top" },
-  { src: "/species/egyptian-vulture-11.jpg", alt: "Egyptian Vulture being rehabilitated at Wildlife Rescue", position: "center top" },
-  { src: "/species/egyptian-vulture-12.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue", position: "center top" },
+  { src: "/species/egyptian-vulture-02.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue", position: "left center" },
+  { src: "/species/egyptian-vulture-03.jpg", alt: "Egyptian Vulture recovering at the Wildlife Rescue clinic", position: "left center" },
+  { src: "/species/egyptian-vulture-04.jpg", alt: "Egyptian Vulture in rehabilitation at Wildlife Rescue", position: "left center" },
+  { src: "/species/egyptian-vulture-05.jpg", alt: "Egyptian Vulture being cared for at Wildlife Rescue", position: "left center" },
+  { src: "/species/egyptian-vulture-06.jpg", alt: "Egyptian Vulture in the care of Wildlife Rescue", position: "left center" },
+  { src: "/species/egyptian-vulture-07.jpg", alt: "Endangered Egyptian Vulture under treatment at Wildlife Rescue", position: "left center" },
+  { src: "/species/egyptian-vulture-08.jpg", alt: "Egyptian Vulture recovering at Wildlife Rescue", position: "left center" },
+  { src: "/species/egyptian-vulture-09.jpg", alt: "Egyptian Vulture in rehabilitation at the Wildlife Rescue facility", position: "left center" },
+  { src: "/species/egyptian-vulture-10.jpg", alt: "Egyptian Vulture under care at Wildlife Rescue", position: "right center" },
+  { src: "/species/egyptian-vulture-11.jpg", alt: "Egyptian Vulture being rehabilitated at Wildlife Rescue", position: "right center" },
+  { src: "/species/egyptian-vulture-12.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue", position: "center center" },
 ];
 
 const CRISIS_TIMELINE = [
