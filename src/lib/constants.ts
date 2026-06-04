@@ -162,10 +162,63 @@ export const FILM_DETAILS = {
   runtime: "91 minutes",
   countries: "India, USA, UK",
   premiere: "Sundance Film Festival, January 22, 2022",
-  streaming: "JioHotstar (India) / Max (US)",
+  streaming: "JioHotstar (India) · HBO Max, Prime Video, Apple TV, Kanopy (US)",
   officialSite: "https://allthatbreathes.com",
   trailerUrl: "https://www.youtube.com/embed/GoTlULspDyY",
 };
+
+// Where to watch "All That Breathes" — verified June 2026.
+// type: "stream" (with subscription), "rent-buy" (rent or purchase),
+// "free" (free with library access). region helps group the buttons.
+export interface WatchOption {
+  name: string;
+  url: string;
+  type: "stream" | "rent-buy" | "free";
+  region: "India" | "US & International";
+  note?: string;
+}
+
+export const WATCH_OPTIONS: WatchOption[] = [
+  {
+    name: "JioHotstar",
+    url: "https://www.hotstar.com/in/1971000720",
+    type: "stream",
+    region: "India",
+    note: "Stream with subscription",
+  },
+  {
+    name: "HBO Max",
+    url: "https://www.hbomax.com/movies/all-that-breathes/7f246a77-07d8-42f4-82bf-dbe87b470bc2",
+    type: "stream",
+    region: "US & International",
+    note: "Stream with subscription",
+  },
+  {
+    name: "Kanopy",
+    url: "https://www.kanopy.com/en/product/14360128",
+    type: "free",
+    region: "US & International",
+    note: "Free with a participating library card",
+  },
+  {
+    name: "Prime Video",
+    url: "https://www.primevideo.com/detail/All-That-Breathes/0L8T3ESZW7JAZY2RU3GVHRX28C",
+    type: "rent-buy",
+    region: "US & International",
+    note: "Rent or buy",
+  },
+  {
+    name: "Apple TV",
+    url: "https://tv.apple.com/us/movie/all-that-breathes/umc.cmc.5husjdw4x3qo59j21b929en9v",
+    type: "rent-buy",
+    region: "US & International",
+    note: "Rent or buy",
+  },
+];
+
+// Catch-all aggregator that always reflects current availability by region.
+export const WATCH_AGGREGATOR_URL =
+  "https://www.justwatch.com/us/movie/all-that-breathes";
 
 // ─── Featured In Media ───
 export const MEDIA_LOGOS: { name: string; url?: string }[] = [

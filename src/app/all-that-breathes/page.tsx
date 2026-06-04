@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Award, Film, Calendar, Globe, Play, ExternalLink, Trophy, Instagram, BookOpen } from "lucide-react";
+import { Award, Film, Calendar, Globe, Play, ExternalLink, Trophy, Instagram, BookOpen, Ticket, Tv } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
 import {
@@ -9,6 +9,8 @@ import {
   NOMINATIONS,
   FILM_DETAILS,
   FESTIVAL_SELECTIONS,
+  WATCH_OPTIONS,
+  WATCH_AGGREGATOR_URL,
 } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -317,15 +319,97 @@ export default function AllThatBreathesPage() {
               Official Website
             </a>
             <a
-              href="https://www.hotstar.com/in/1971000720"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#where-to-watch"
               className="flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
             >
               <Play size={16} />
-              Watch on JioHotstar
+              Where to Watch
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Where to Watch ─── */}
+      <section id="where-to-watch" className="py-16 lg:py-20 bg-offwhite scroll-mt-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Where to Watch"
+            subtitle="Stream, rent, or buy &ldquo;All That Breathes&rdquo; — availability varies by region."
+          />
+
+          <div className="mt-10 grid md:grid-cols-2 gap-8">
+            {(["India", "US & International"] as const).map((region) => {
+              const options = WATCH_OPTIONS.filter((o) => o.region === region);
+              return (
+                <div
+                  key={region}
+                  className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-7"
+                >
+                  <div className="flex items-center gap-2 mb-5">
+                    <Globe size={18} className="text-teal" />
+                    <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                      {region}
+                    </h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {options.map((o) => {
+                      const Icon =
+                        o.type === "rent-buy"
+                          ? Ticket
+                          : o.type === "free"
+                            ? Film
+                            : Tv;
+                      return (
+                        <li key={o.name}>
+                          <a
+                            href={o.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 px-4 py-3 hover:border-teal hover:bg-teal-light/40 transition-colors group"
+                          >
+                            <span className="flex items-center gap-3">
+                              <Icon
+                                size={18}
+                                className="text-teal shrink-0"
+                              />
+                              <span>
+                                <span className="block font-semibold text-charcoal text-sm">
+                                  {o.name}
+                                </span>
+                                {o.note && (
+                                  <span className="block text-xs text-slate">
+                                    {o.note}
+                                  </span>
+                                )}
+                              </span>
+                            </span>
+                            <ExternalLink
+                              size={15}
+                              className="text-slate group-hover:text-teal shrink-0"
+                            />
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-center text-sm text-slate mt-8">
+            Availability changes over time. For the most up-to-date list of
+            streaming, rental, and purchase options in your country, see{" "}
+            <a
+              href={WATCH_AGGREGATOR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-teal font-semibold hover:text-teal-dark underline"
+            >
+              the full listing on JustWatch
+            </a>
+            .
+          </p>
         </div>
       </section>
 
