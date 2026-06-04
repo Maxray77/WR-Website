@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Scissors, Microscope, Syringe, Award, ArrowRight, Camera } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -113,6 +114,13 @@ export default function OurSpecialtyPage() {
                   Los Angeles (2018) and then a refined technique in Seattle
                   (2025).
                 </p>
+                <Link
+                  href="/nwra-2025"
+                  className="inline-flex items-center gap-1.5 mt-5 text-teal font-semibold hover:text-teal-dark transition-colors"
+                >
+                  See our NWRA Symposium 2025 presentation
+                  <ArrowRight size={16} />
+                </Link>
               </div>
               <div className="aspect-[4/3] rounded-xl overflow-hidden border border-amber/20 shadow-md">
                 <iframe
