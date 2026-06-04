@@ -9,7 +9,7 @@ import {
   NOMINATIONS,
   FILM_DETAILS,
   FESTIVAL_SELECTIONS,
-  WATCH_OPTIONS,
+  WATCH_REGIONS,
   WATCH_AGGREGATOR_URL,
 } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
@@ -337,64 +337,78 @@ export default function AllThatBreathesPage() {
             subtitle="Stream, rent, or buy &ldquo;All That Breathes&rdquo; — availability varies by region."
           />
 
-          <div className="mt-10 grid md:grid-cols-2 gap-8">
-            {(["India", "US & International"] as const).map((region) => {
-              const options = WATCH_OPTIONS.filter((o) => o.region === region);
-              return (
-                <div
-                  key={region}
-                  className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-7"
-                >
-                  <div className="flex items-center gap-2 mb-5">
-                    <Globe size={18} className="text-teal" />
-                    <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-                      {region}
-                    </h3>
-                  </div>
-                  <ul className="space-y-3">
-                    {options.map((o) => {
-                      const Icon =
-                        o.type === "rent-buy"
-                          ? Ticket
-                          : o.type === "free"
-                            ? Film
-                            : Tv;
-                      return (
-                        <li key={o.name}>
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {WATCH_REGIONS.map((r) => (
+              <div
+                key={r.region}
+                className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Globe size={18} className="text-teal" />
+                  <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    {r.region}
+                  </h3>
+                </div>
+                <ul className="space-y-2.5 flex-1">
+                  {r.platforms.map((p) => {
+                    const Icon =
+                      p.type === "rent-buy"
+                        ? Ticket
+                        : p.type === "free"
+                          ? Film
+                          : Tv;
+                    const inner = (
+                      <span className="flex items-start gap-3">
+                        <Icon size={18} className="text-teal shrink-0 mt-0.5" />
+                        <span>
+                          <span className="block font-semibold text-charcoal text-sm">
+                            {p.name}
+                          </span>
+                          {p.note && (
+                            <span className="block text-xs text-slate">
+                              {p.note}
+                            </span>
+                          )}
+                        </span>
+                      </span>
+                    );
+                    return (
+                      <li key={p.name}>
+                        {p.url ? (
                           <a
-                            href={o.url}
+                            href={p.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 px-4 py-3 hover:border-teal hover:bg-teal-light/40 transition-colors group"
                           >
-                            <span className="flex items-center gap-3">
-                              <Icon
-                                size={18}
-                                className="text-teal shrink-0"
-                              />
-                              <span>
-                                <span className="block font-semibold text-charcoal text-sm">
-                                  {o.name}
-                                </span>
-                                {o.note && (
-                                  <span className="block text-xs text-slate">
-                                    {o.note}
-                                  </span>
-                                )}
-                              </span>
-                            </span>
+                            {inner}
                             <ExternalLink
                               size={15}
                               className="text-slate group-hover:text-teal shrink-0"
                             />
                           </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
+                        ) : (
+                          <div className="rounded-xl border border-gray-200 px-4 py-3">
+                            {inner}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+                {r.moreUrl && (
+                  <a
+                    href={r.moreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-teal font-semibold mt-4 hover:text-teal-dark transition-colors"
+                  >
+                    See all {r.region} options
+                    <ExternalLink size={13} />
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
 
           <p className="text-center text-sm text-slate mt-8">
