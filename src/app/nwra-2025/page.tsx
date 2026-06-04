@@ -186,14 +186,14 @@ export default function NWRA2025Page() {
               flight.
             </p>
             <p>
-              Cut the propatagium and you cut both skin <em>and</em> the
-              underlying tendons — the{" "}
-              <strong>tensor propatagialis longus</strong> and the{" "}
-              <strong>extensor metacarpi radialis</strong>. Standard skin
-              closure is not enough. Without a precise, layered repair of the
-              tendons, the wing heals closed but the bird will never fly
-              properly again — and in the wild, a bird that cannot fly is
-              already dead.
+              The glass-coated thread severs everything in its path —{" "}
+              <strong>muscles, tendons, nerves, skin and even bones</strong>,
+              including the <strong>tensor propatagialis longus</strong> and
+              the <strong>extensor metacarpi radialis</strong> that hold the
+              wing rigid. Standard skin closure is not enough. Every one of
+              these structures has to be rebuilt in a precise, layered repair —
+              otherwise the wing heals closed and the bird never flies properly
+              again, and in the wild, a bird that cannot fly is already dead.
             </p>
             <p>
               Over 15 years of operating on manja-injured raptors, Wildlife
