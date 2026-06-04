@@ -705,10 +705,12 @@ export default function VulturesPage() {
                       manja (kite-string) cut across the propatagium
                     </strong>{" "}
                     — the triangular membrane on the leading edge of the wing
-                    that holds it rigid in flight. The string severs not just
-                    skin but the tendons beneath it. For decades, this was a
-                    death sentence: the wing would heal closed, and a vulture
-                    that cannot fly cannot survive in the wild.
+                    that holds it rigid in flight. This sharp thread severs
+                    everything in its path — muscles, tendons, nerves, skin and
+                    even bones. For decades, this was a death sentence: every
+                    one of these structures has to be repaired for the bird to
+                    fly again, or the wing heals closed and a vulture that
+                    cannot fly cannot survive in the wild.
                   </p>
                   <p>
                     Over years of operating on manja-injured raptors, Wildlife
@@ -716,8 +718,8 @@ export default function VulturesPage() {
                     <strong className="text-white">
                       layered propatagium repair
                     </strong>{" "}
-                    that reconnects the tendons and restores true flight — not
-                    just survival. It is the single reason so many cut-wing
+                    that rebuilds each severed layer — muscle, tendon, nerve,
+                    skin and bone — and restores true flight, not just survival. It is the single reason so many cut-wing
                     birds make it back to the sky, and the technique behind our{" "}
                     <strong className="text-amber-light">
                       73% release rate
