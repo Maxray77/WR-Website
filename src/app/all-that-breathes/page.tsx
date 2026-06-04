@@ -195,6 +195,104 @@ export default function AllThatBreathesPage() {
         </div>
       </section>
 
+      {/* ─── Where to Watch ─── */}
+      <section id="where-to-watch" className="py-16 lg:py-20 bg-offwhite scroll-mt-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Where to Watch"
+            subtitle="Stream, rent, or buy &ldquo;All That Breathes&rdquo; — availability varies by region."
+          />
+
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {WATCH_REGIONS.map((r) => (
+              <div
+                key={r.region}
+                className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Globe size={18} className="text-teal" />
+                  <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    {r.region}
+                  </h3>
+                </div>
+                <ul className="space-y-2.5 flex-1">
+                  {r.platforms.map((p) => {
+                    const Icon =
+                      p.type === "rent-buy"
+                        ? Ticket
+                        : p.type === "free"
+                          ? Film
+                          : Tv;
+                    const inner = (
+                      <span className="flex items-start gap-3">
+                        <Icon size={18} className="text-teal shrink-0 mt-0.5" />
+                        <span>
+                          <span className="block font-semibold text-charcoal text-sm">
+                            {p.name}
+                          </span>
+                          {p.note && (
+                            <span className="block text-xs text-slate">
+                              {p.note}
+                            </span>
+                          )}
+                        </span>
+                      </span>
+                    );
+                    return (
+                      <li key={p.name}>
+                        {p.url ? (
+                          <a
+                            href={p.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 px-4 py-3 hover:border-teal hover:bg-teal-light/40 transition-colors group"
+                          >
+                            {inner}
+                            <ExternalLink
+                              size={15}
+                              className="text-slate group-hover:text-teal shrink-0"
+                            />
+                          </a>
+                        ) : (
+                          <div className="rounded-xl border border-gray-200 px-4 py-3">
+                            {inner}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+                {r.moreUrl && (
+                  <a
+                    href={r.moreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-teal font-semibold mt-4 hover:text-teal-dark transition-colors"
+                  >
+                    See all {r.region} options
+                    <ExternalLink size={13} />
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-sm text-slate mt-8">
+            Availability changes over time. For the most up-to-date list of
+            streaming, rental, and purchase options in your country, see{" "}
+            <a
+              href={WATCH_AGGREGATOR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-teal font-semibold hover:text-teal-dark underline"
+            >
+              the full listing on JustWatch
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       {/* ─── Bird Brothers Book ─── */}
       <section className="py-12 bg-amber/10 border-y border-amber/20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -326,104 +424,6 @@ export default function AllThatBreathesPage() {
               Where to Watch
             </a>
           </div>
-        </div>
-      </section>
-
-      {/* ─── Where to Watch ─── */}
-      <section id="where-to-watch" className="py-16 lg:py-20 bg-offwhite scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            title="Where to Watch"
-            subtitle="Stream, rent, or buy &ldquo;All That Breathes&rdquo; — availability varies by region."
-          />
-
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {WATCH_REGIONS.map((r) => (
-              <div
-                key={r.region}
-                className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <Globe size={18} className="text-teal" />
-                  <h3 className="font-bold text-charcoal font-[family-name:var(--font-poppins)]">
-                    {r.region}
-                  </h3>
-                </div>
-                <ul className="space-y-2.5 flex-1">
-                  {r.platforms.map((p) => {
-                    const Icon =
-                      p.type === "rent-buy"
-                        ? Ticket
-                        : p.type === "free"
-                          ? Film
-                          : Tv;
-                    const inner = (
-                      <span className="flex items-start gap-3">
-                        <Icon size={18} className="text-teal shrink-0 mt-0.5" />
-                        <span>
-                          <span className="block font-semibold text-charcoal text-sm">
-                            {p.name}
-                          </span>
-                          {p.note && (
-                            <span className="block text-xs text-slate">
-                              {p.note}
-                            </span>
-                          )}
-                        </span>
-                      </span>
-                    );
-                    return (
-                      <li key={p.name}>
-                        {p.url ? (
-                          <a
-                            href={p.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 px-4 py-3 hover:border-teal hover:bg-teal-light/40 transition-colors group"
-                          >
-                            {inner}
-                            <ExternalLink
-                              size={15}
-                              className="text-slate group-hover:text-teal shrink-0"
-                            />
-                          </a>
-                        ) : (
-                          <div className="rounded-xl border border-gray-200 px-4 py-3">
-                            {inner}
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-                {r.moreUrl && (
-                  <a
-                    href={r.moreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-teal font-semibold mt-4 hover:text-teal-dark transition-colors"
-                  >
-                    See all {r.region} options
-                    <ExternalLink size={13} />
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-sm text-slate mt-8">
-            Availability changes over time. For the most up-to-date list of
-            streaming, rental, and purchase options in your country, see{" "}
-            <a
-              href={WATCH_AGGREGATOR_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-teal font-semibold hover:text-teal-dark underline"
-            >
-              the full listing on JustWatch
-            </a>
-            .
-          </p>
         </div>
       </section>
 
