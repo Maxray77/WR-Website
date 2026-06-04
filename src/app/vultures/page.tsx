@@ -11,6 +11,7 @@ import {
   Skull,
   Leaf,
   Activity,
+  Scissors,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import DonateButton from "@/components/DonateButton";
@@ -682,6 +683,107 @@ export default function VulturesPage() {
                   calculated on resolved cases — the {EV_OUTCOMES.inCare} birds
                   still recovering are not yet counted either way.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Propatagium repair — the technique behind the release rate */}
+          <div className="mt-14 rounded-2xl bg-charcoal text-white overflow-hidden">
+            <div className="p-7 sm:p-10">
+              <div className="inline-flex items-center gap-2 bg-amber/20 text-amber-light rounded-full px-3 py-1 text-xs font-semibold mb-4">
+                <Scissors size={14} />
+                THE SURGERY BEHIND THE RELEASE RATE
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-poppins)] mb-4">
+                Why Cut-Wing Vultures Fly Free Again
+              </h3>
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
+                <div className="space-y-4 text-white/80 leading-relaxed text-sm sm:text-base">
+                  <p>
+                    More than three in four Egyptian Vultures reach us with a{" "}
+                    <strong className="text-white">
+                      manja (kite-string) cut across the propatagium
+                    </strong>{" "}
+                    — the triangular membrane on the leading edge of the wing
+                    that holds it rigid in flight. The string severs not just
+                    skin but the tendons beneath it. For decades, this was a
+                    death sentence: the wing would heal closed, and a vulture
+                    that cannot fly cannot survive in the wild.
+                  </p>
+                  <p>
+                    Over years of operating on manja-injured raptors, Wildlife
+                    Rescue developed a precise,{" "}
+                    <strong className="text-white">
+                      layered propatagium repair
+                    </strong>{" "}
+                    that reconnects the tendons and restores true flight — not
+                    just survival. It is the single reason so many cut-wing
+                    birds make it back to the sky, and the technique behind our{" "}
+                    <strong className="text-amber-light">
+                      73% release rate
+                    </strong>{" "}
+                    for Egyptian Vultures.
+                  </p>
+                  <p>
+                    For an{" "}
+                    <strong className="text-white">Endangered species</strong>{" "}
+                    with as few as 12,400 left in the wild, every bird returned
+                    to flight is a meaningful gain for the population — which is
+                    why we shared this technique with veterinarians and
+                    rehabilitators worldwide at the NWRA Symposium 2025.
+                  </p>
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    <Link
+                      href="/our-specialty"
+                      className="inline-flex items-center gap-1.5 bg-amber text-charcoal font-semibold rounded-lg px-4 py-2.5 text-sm hover:bg-amber-light transition-colors"
+                    >
+                      See the surgical technique
+                      <ArrowRight size={15} />
+                    </Link>
+                    <Link
+                      href="/nwra-2025"
+                      className="inline-flex items-center gap-1.5 border border-white/30 text-white font-semibold rounded-lg px-4 py-2.5 text-sm hover:bg-white/10 transition-colors"
+                    >
+                      Our NWRA 2025 presentation
+                      <ArrowRight size={15} />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-3 gap-3">
+                  <div className="bg-white/5 rounded-xl p-4 text-center">
+                    <div className="text-3xl font-bold text-amber-light font-[family-name:var(--font-poppins)]">
+                      77%
+                    </div>
+                    <p className="text-xs text-white/70 mt-1 leading-tight">
+                      arrive with manja propatagium wounds
+                    </p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-4 text-center">
+                    <Leaf
+                      size={22}
+                      className="inline text-amber-light mb-1"
+                    />
+                    <div className="text-3xl font-bold font-[family-name:var(--font-poppins)]">
+                      73%
+                    </div>
+                    <p className="text-xs text-white/70 mt-1 leading-tight">
+                      of resolved cases fly free again
+                    </p>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-4 text-center">
+                    <Shield
+                      size={22}
+                      className="inline text-amber-light mb-1"
+                    />
+                    <div className="text-base font-bold leading-tight mt-1">
+                      Endangered
+                    </div>
+                    <p className="text-xs text-white/70 mt-1 leading-tight">
+                      every flighted bird counts for the species
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
