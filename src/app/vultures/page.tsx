@@ -551,35 +551,12 @@ export default function VulturesPage() {
                     fractured wings and legs from road impacts
                   </li>
                   <li>
-                    <span className="font-semibold">Electrocution</span> — burns
-                    and injuries from power lines (a leading cause globally)
-                  </li>
-                  <li>
                     <span className="font-semibold">
                       Kite string injuries
                     </span>{" "}
                     — manja entanglement during festival seasons
                   </li>
                 </ul>
-              </div>
-
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <h3 className="font-bold text-charcoal mb-2">
-                  Sultan&apos;s Story
-                </h3>
-                <p className="text-sm text-slate leading-relaxed">
-                  Sultan, an Egyptian Vulture (Case #34,207), arrived at
-                  Wildlife Rescue with a fractured wing from a vehicle
-                  collision. As an Endangered species, his case was immediately
-                  escalated to critical priority.
-                </p>
-                <Link
-                  href="/special-cases"
-                  className="inline-flex items-center gap-1 text-sm text-teal font-semibold mt-3 hover:text-teal-dark transition-colors"
-                >
-                  Read more rescue stories
-                  <ArrowRight size={14} />
-                </Link>
               </div>
             </div>
           </div>
