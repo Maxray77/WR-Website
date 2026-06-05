@@ -113,7 +113,7 @@ export default function SpeciesPage() {
             We also treat Red Naped Ibis, Red Wattled Lapwing, Rose Ringed
             Parakeet, White Breasted Kingfisher, Pond Heron, Asian Koel, Common
             Myna, Yellow Footed Green Pigeon, Painted Stork, Peafowl, Brown Fish
-            Owl, Steppe Eagle, and many others. Detailed profiles coming soon.
+            Owl, and many others. Detailed profiles coming soon.
           </p>
         </div>
       </section>
