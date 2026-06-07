@@ -222,6 +222,24 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-07 — **Species dedup pass: removed the duplicate "Eagles" card from `/species`, new Egyptian Vulture card photo, and applied `Species Edits.xlsx` merges to the Master Intake species list (156 → 138 distinct species on `/annual-reports`).** Commits `f685b4a` → `a1c60f9` on `main` (all pushed, Vercel auto-deploys).
+
+### What landed (2026-06-07)
+
+1. **Removed duplicate "Eagles" umbrella card (`f685b4a`)** — the generic "Eagles" group entry in `src/lib/species-data.ts` overlapped the standalone Crested Serpent Eagle + Steppe Eagle cards: its text described Steppe/Greater Spotted Eagles but **every photo + the video on it were Crested Serpent Eagle**, so the `/species` grid showed a CSE on two cards. Deleted the entry (both species already have accurate standalone profiles). Also dropped the now-redundant "Steppe Eagle" from the `/species` "And 98+ More Species" coming-soon footer (`src/app/species/page.tsx`). **Grid is now 15 unique species cards** (matches the "15 species" figure in this guide).
+2. **New Egyptian Vulture card photo (`a8fe1e8`)** — `EV11-2.png` compressed → `public/species/egyptian-vulture-hero.jpg` (1600px, 154 KB), now the `/species` Egyptian Vulture listing image. Sultan's original septicemia photo (`egyptian-vulture-01.jpg`) retained as the 2nd detail-page gallery image.
+3. **Folded orphaned CSE assets into the standalone CSE card (`1a1dcec`)** — after removing the Eagles card, `cse-face.jpg` / `cse-treatment.jpg` / `cse-video.mp4` were unused; added them to the Crested Serpent Eagle gallery (now 3 photos) + videos (now 2). No orphaned files left.
+4. **Master Intake species dedup — 156 → 138 (`a1c60f9`)** — applied the curated decisions in `C:\Users\maxra\Documents\Wildlife Rescue\Data\Species Edits.xlsx` to `SPECIES_BREAKDOWN` in `src/lib/intake-data.ts` (drives the `/annual-reports` "Endangered & Threatened Species" section + "View all N species" count). **Revision-column rule (confirmed with user):** a *number* on a kept species = cases to ADD to it; *"Delete"* rows are incomplete/duplicate names that get folded in or dropped as non-species junk. **Merges:** Black Headed Ibis 38→**47** (Ibis), Black Headed Gull 54→57 (Gull), Brown Headed Barbet 39→51 (Green Barbet+Barbet), Eurasian Collared Dove 15→21 (Dove), Bulldog Faced Bat 1→2 (Dog Faced Bat), House Swift 4→10 (Swift+Common Swift), Pond Heron 41→46 (Heron+Black Crowned Night Heron), Night Heron 21→26, Peregrine Falcon 5→6 (Shaheen Falcon), Indian Spot Billed Duck →2 (Spot Billed Duck). **Junk removed:** Bird Not Found, Purpal Horn, Pound Horn, Unknown Chick Of Raptor, Dupkela, Vulture. **Left at 1 per user:** Purple Heron, Greylag Goose, Little Grebe. 18 rows removed; array re-sorted descending by cases (component relies on `[0]`=Black Kite + top-10 raptors). **`INTAKE_TOTAL` (39,681) left untouched** per user. Verified live: "138 distinct species" + "Black Headed Ibis NT 47 cases".
+
+### Carry-forward (next session)
+- **`intake-data.ts` is auto-generated** (header: "DO NOT EDIT BY HAND — re-run the script"). The dedup above was applied **directly to the generated TS**, so re-running `export_intake_data.py` from the Master Intake DB will overwrite it. The durable fix is to add these merges to the species alias map in `build_master_intake.py` — do this if/when the DB is next re-exported.
+- **Bats left as-is** — website still has "Fruit Bat" (10) + "Bat" (2); `Species Edits.xlsx` names them "Fruit Bat (Flying Fox)" + "Greater Fruit BatBat" (typo) but had no merge decision, so untouched. Consolidate/rename if the user wants.
+- Original carry-forward items from 2026-06-04 (combined rescue stories on `/vultures`, static EV outcomes data, JustWatch drift) still stand — see below.
+
+---
+
+**Previous session (2026-06-04) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-04 — **Egyptian Vulture outcomes story on `/vultures` (conditions + 73% release rate) + propatagium-repair highlight + NWRA 2025 surfaced in nav + "Where to Watch" (5 regions) on `/all-that-breathes`.** Commits `f113df4` → `b38b256` on `main` (all pushed, Vercel auto-deploys).
 
 ### What landed (2026-06-04)
