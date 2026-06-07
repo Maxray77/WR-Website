@@ -182,9 +182,12 @@ export const SPECIES_LIST: Species[] = [
     image: "/species/crested-serpent-eagle.jpg",
     images: [
       { src: "/species/crested-serpent-eagle.jpg", alt: "Crested Serpent Eagle at Wildlife Rescue — distinctive crest and bold barred plumage" },
+      { src: "/species/cse-face.jpg", alt: "Crested Serpent Eagle close-up showing distinctive yellow face and piercing eye" },
+      { src: "/species/cse-treatment.jpg", alt: "Crested Serpent Eagle on examination table during treatment at Wildlife Rescue" },
     ],
     videos: [
       { src: "/species/crested-serpent-eagle.mp4", caption: "An adult Crested Serpent Eagle in care at Wildlife Rescue — one of Delhi's most striking forest raptors, distinguished by its yellow face and piercing eye." },
+      { src: "/species/cse-video.mp4", caption: "A Crested Serpent Eagle at Wildlife Rescue — these magnificent forest raptors are apex predators of Delhi's Ridge forests, specializing in hunting snakes and reptiles" },
     ],
   },
   {
