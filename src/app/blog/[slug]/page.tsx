@@ -6,6 +6,7 @@ import { ArrowLeft, Calendar, Clock, User, FileText, Download } from "lucide-rea
 import DonateButton from "@/components/DonateButton";
 import AnnualReportCard from "@/components/AnnualReportCard";
 import BlogBody from "@/components/BlogBody";
+import ShareButtons from "@/components/ShareButtons";
 import {
   getBlogPosts,
   getBlogPostBySlug,
@@ -26,9 +27,29 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
   if (!post) return { title: "Post Not Found" };
+
+  const canonical = `/blog/${post.slug}`;
+  const images = post.imageUrl ? [{ url: post.imageUrl, alt: post.imageAlt ?? post.title }] : undefined;
+
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      url: canonical,
+      publishedTime: post.date,
+      authors: post.author ? [post.author] : undefined,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: post.imageUrl ? [post.imageUrl] : undefined,
+    },
   };
 }
 
@@ -160,8 +181,24 @@ export default async function BlogPostPage({
       {/* ─── Content ─── */}
       <article className="py-12 lg:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="pb-8 mb-8 border-b border-gray-200">
+            <ShareButtons
+              path={`/blog/${post.slug}`}
+              title={post.title}
+              excerpt={post.excerpt}
+            />
+          </div>
+
           <div className="prose prose-lg max-w-none">
             <BlogBody body={post.body} />
+          </div>
+
+          <div className="pt-8 mt-8 border-t border-gray-200">
+            <ShareButtons
+              path={`/blog/${post.slug}`}
+              title={post.title}
+              excerpt={post.excerpt}
+            />
           </div>
         </div>
       </article>
