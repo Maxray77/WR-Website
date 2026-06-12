@@ -222,6 +222,27 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-12 — **Security audit + remediation.** Ran a full audit (7-dimension multi-agent sweep + manual verification). Shipped 5 fixes in two commits `6128372` (Next.js bump) + `e2ef3e5` (hardening) on `main` (pushed, Vercel auto-deploys).
+
+### What landed (2026-06-12) — security
+
+1. **🔴 Next.js 16.2.4 → 16.2.9 (`6128372`)** — closes 7 HIGH CVEs incl. multiple Middleware/Proxy bypasses (which would strip the CSRF origin check + CSP + headers that live ONLY in `src/middleware.ts`), Server/Cache-Component DoS, Image-Optimization DoS, SSRF via WebSocket upgrades. Non-major; `npm audit --omit=dev` → 0 high/critical. **This was the prior "no safe fix yet" carry-forward — now resolved.**
+2. **Rate-limit IP hardening (`e2ef3e5`)** — new `clientIp()` in `src/lib/redis.ts` prefers Vercel's `x-real-ip` (not client-spoofable) over the attacker-controllable leftmost `x-forwarded-for`. Applied to chat/contact/newsletter/report-tagged-bird routes + `admin-auth.ts`. Previously all keyed on `xff.split(",")[0]`, so per-IP caps were bypassable by rotating XFF.
+3. **Studio security headers (`e2ef3e5`)** — `src/middleware.ts` now sends X-Frame-Options/X-Content-Type-Options/Referrer-Policy/Permissions-Policy/HSTS on `/studio/*` too (only the restrictive CSP is skipped). Previously `/studio` early-returned with ZERO headers → clickjackable admin panel.
+4. **Blog link scheme allowlist (`e2ef3e5`)** — `src/components/BlogBody.tsx` `safeHref()` blocks `javascript:`/`data:`/`vbscript:` etc. in rendered markdown + Portable Text links (defense vs. a compromised Sanity author).
+5. **PAN fail-closed (`e2ef3e5`)** — `persistDonation` in `src/lib/donations.ts` now NEVER writes a plaintext PAN; if `PAN_ENCRYPTION_KEY` is missing/invalid it logs loudly and stores the donation without the PAN instead of in cleartext.
+
+### Audit — verified solid (no change needed)
+Prior 2026-06-01 hardening holds under scrutiny: admin Basic-auth is genuinely constant-time + fail-closed 503; the "empty-password / no-colon bypass" and "base64 decode crash" are false alarms; Razorpay webhook HMAC is constant-time; admin endpoints are auth-gated + rate-limited; the admin donor CSV is the legally-required Form 10BD export; `next/image` remotePatterns scoped to cdn.sanity.io; robots disallows /api + /studio; Sanity write token stays server-only.
+
+### Carry-forward (security — lower priority)
+- **Donor draft holds plaintext PAN for 24h** — `storeDonorDraft` (`donations.ts`) stashes the PAN in cleartext in the `donation:order:{id}` Redis key (24h TTL) as the create-order→webhook handoff buffer. Bounded + private, but encrypting the draft would be a further hardening (touches the donation flow — do carefully).
+- **CSP keeps `'unsafe-inline'/'unsafe-eval'`** — documented Next.js-runtime tradeoff; not independently exploitable (app is mostly server components). Post-16.2.x, a nonce-based CSP is now feasible if desired (bigger lift).
+
+---
+
+**Previous session (2026-06-07) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-07 — **Species dedup pass: removed the duplicate "Eagles" card from `/species`, new Egyptian Vulture card photo, and applied `Species Edits.xlsx` merges to the Master Intake species list (156 → 138 distinct species on `/annual-reports`).** Commits `f685b4a` → `a1c60f9` on `main` (all pushed, Vercel auto-deploys).
 
 ### What landed (2026-06-07)
@@ -288,7 +309,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 ### Carry-forward (security — needs action)
 
 - ✅ **Leaked secrets ROTATED (2026-06-01)** — generated fresh values; set the new `RAZORPAY_WEBHOOK_SECRET` on the Razorpay webhook (**edited the existing** `…/api/razorpay-webhook` entry — confirmed single *enabled* webhook, the other `express.razorpay.com/wix` one is a disabled 2021 leftover) + created a Sanity revalidate webhook (`https://www.raptorrescue.org/api/revalidate`, projection `{_type, slug}`) with the new `SANITY_REVALIDATE_SECRET`; updated both in Vercel **Production** via `vercel env add … --value … --force --yes` and redeployed (empty commit `3b4e9a0`). Live endpoint verified — no-sig / forged-sig now return `400 Invalid signature` (not `500`), so the leaked values are dead. **Gotchas for next time:** (a) `vercel env add` needs `--value` (stdin/echo gives empty); (b) **Preview** scope returns `git_branch_required` and won't target "all preview branches" non-interactively — I *removed* the leaked Preview values (safe) but did NOT re-add the new ones there (do it in the Vercel UI if preview ever needs to mirror prod; not security-relevant — no real webhook hits preview URLs). **No synthetic end-to-end test** — Razorpay's dashboard has no test-send; relying on the webhook **Alert Email** (`nadeemshehzad.wr@gmail.com`) failure-notification as the passive signal (+ optional ₹100 live test). `PAN_ENCRYPTION_KEY` deliberately NOT rotated (only a non-exploitable prefix leaked; rotating orphans stored encrypted PANs).
-- **Next.js CVEs** — `npm audit` flags high-severity advisories (incl. a Middleware/Proxy bypass that could undercut `src/middleware.ts`) on 16.2.4. The latest stable (16.2.6) is **still inside the vulnerable range**, and `npm audit fix` would force breaking `react-i18next` (15→17) + `i18next` (25→26) majors for zero CVE benefit. No safe fix yet — wait for the patched stable, then upgrade + build-verify.
+- ✅ **Next.js CVEs RESOLVED (2026-06-12)** — upgraded `next` 16.2.4 → **16.2.9** (commit `6128372`), a non-major bump that closes all 7 HIGH advisories (the Middleware/Proxy bypasses that could undercut `src/middleware.ts`, plus Server/Cache-Component DoS, Image-Optimization DoS, SSRF via WebSocket upgrades). `npm audit --omit=dev` now reports **0 high/critical** (remaining ~21 are moderate Sanity-toolchain / postcss / ws / brace-expansion advisories that are build-time or authenticated-Studio-only). The old worry about `npm audit fix` forcing `react-i18next`/`i18next` majors did NOT apply to the `next` bump itself. Build + `tsc` clean.
 - **Admin rate-limiting reference design** — a more complete (but never-compiled) version of items 2–3 had been left uncommitted in a worktree; that work is now superseded by the shipped commits above. Nothing to recover.
 
 ---
