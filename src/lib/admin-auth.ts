@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { checkRateLimit } from "@/lib/redis";
+import { checkRateLimit, clientIp } from "@/lib/redis";
 
 /**
  * Constant-time string comparison for secrets (admin credentials, etc.).
@@ -26,8 +26,7 @@ export function timingSafeStrEqual(a: string, b: string): boolean {
 export async function enforceAdminRateLimit(
   request: Request
 ): Promise<Response | null> {
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const ip = clientIp(request.headers);
   const { allowed } = await checkRateLimit("admin", ip);
   if (!allowed) {
     return new Response("Too many requests", {

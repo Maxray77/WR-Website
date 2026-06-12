@@ -56,6 +56,24 @@ export const rateLimiters = redis
   : null;
 
 /**
+ * Best-effort client IP for rate limiting.
+ *
+ * On Vercel, `x-real-ip` is set by the platform to the actual connecting IP and
+ * cannot be spoofed by the client. The leftmost `x-forwarded-for` entry, by
+ * contrast, is attacker-supplied — a client can prepend its own XFF value, which
+ * Vercel preserves, so keying limits on `xff.split(",")[0]` lets an attacker
+ * rotate the value to defeat per-IP caps. Prefer x-real-ip; fall back to the
+ * first XFF hop only when x-real-ip is absent (e.g. local dev), then "unknown".
+ */
+export function clientIp(headers: Headers): string {
+  const real = headers.get("x-real-ip");
+  if (real) return real.trim();
+  const xff = headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0]?.trim() || "unknown";
+  return "unknown";
+}
+
+/**
  * Check rate limit for an endpoint. Returns { allowed: true } if Redis
  * is not configured (graceful degradation).
  */

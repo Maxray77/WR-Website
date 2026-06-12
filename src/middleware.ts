@@ -51,14 +51,8 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // --- Security headers on all responses ---
+  // --- Security headers on all responses (Studio included) ---
   const response = NextResponse.next();
-
-  // Sanity Studio (/studio/*) is a third-party SPA that makes many connections
-  // to *.sanity.io (API, CDN, WebSocket). Skip the restrictive CSP for those
-  // routes so the Studio can operate normally.
-  const isStudio = request.nextUrl.pathname.startsWith("/studio");
-  if (isStudio) return response;
 
   // Prevent MIME-type sniffing
   response.headers.set("X-Content-Type-Options", "nosniff");
@@ -84,6 +78,12 @@ export function middleware(request: NextRequest) {
     "Strict-Transport-Security",
     "max-age=31536000; includeSubDomains"
   );
+
+  // Sanity Studio (/studio/*) is a third-party SPA that needs to talk to
+  // *.sanity.io (API, CDN, WebSocket) freely, so skip ONLY the restrictive CSP
+  // for it. It still receives the clickjacking / sniffing / HSTS headers above
+  // (X-Frame-Options: SAMEORIGIN keeps the admin panel un-frameable).
+  if (request.nextUrl.pathname.startsWith("/studio")) return response;
 
   // Content Security Policy.
   // Pragmatic allowlist: 'unsafe-inline' is still needed for Next.js inline

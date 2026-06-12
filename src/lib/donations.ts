@@ -230,6 +230,17 @@ export async function persistDonation(params: {
   const receiptNumber = await nextReceiptNumber(fy);
 
   const panEncrypted = params.donor.pan ? encryptPan(params.donor.pan) : null;
+  if (params.donor.pan && !panEncrypted) {
+    // Fail closed: a PAN was supplied but PAN_ENCRYPTION_KEY is missing/invalid.
+    // Never write plaintext PII to Redis — persist the donation WITHOUT the PAN
+    // and surface the misconfiguration loudly. (Recoverable: the donation is
+    // still recorded; an admin can re-collect the PAN for the 80(G) receipt once
+    // the key is fixed.)
+    console.error(
+      "[donations] PAN_ENCRYPTION_KEY missing/invalid — persisting donation " +
+        `WITHOUT PAN (payment ${params.paymentId}). Set a valid 32-byte hex key.`
+    );
+  }
 
   const record: DonationRecord = {
     paymentId: params.paymentId,
@@ -239,9 +250,8 @@ export async function persistDonation(params: {
     capturedAt: params.capturedAt.toISOString(),
     receiptNumber,
     fy,
-    donor: panEncrypted
-      ? { ...params.donor, pan: undefined } // drop plaintext PAN from main record
-      : params.donor,
+    // Never persist the plaintext PAN — only its AES-256-GCM ciphertext (or null).
+    donor: { ...params.donor, pan: undefined },
     panEncrypted,
     status: "provisional_issued",
   };

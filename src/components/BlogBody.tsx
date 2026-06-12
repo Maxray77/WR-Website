@@ -8,6 +8,22 @@ import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import type { NormalizedPost } from "@/lib/blog";
 
+/**
+ * Restrict blog link targets to safe schemes. Blog content comes from Sanity
+ * authors or static data — not anonymous users — but a compromised author
+ * account could otherwise inject a `javascript:` / `data:` link that runs on
+ * click. Allow relative/anchor links, http(s) and mailto; everything else → "#".
+ */
+function safeHref(href: string | undefined | null): string {
+  const t = (href ?? "").trim();
+  if (!t) return "#";
+  const scheme = t.match(/^([a-z][a-z0-9+.\-]*):/i)?.[1]?.toLowerCase();
+  if (scheme && scheme !== "http" && scheme !== "https" && scheme !== "mailto") {
+    return "#";
+  }
+  return t;
+}
+
 const portableTextComponents: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
@@ -48,8 +64,8 @@ const portableTextComponents: PortableTextComponents = {
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
     link: ({ value, children }) => {
-      const href: string = value?.href ?? "#";
-      const isExternal = /^https?:\/\//i.test(href);
+      const href = safeHref(value?.href);
+      const isExternal = /^(https?:|mailto:)/i.test(href);
       if (isExternal) {
         return (
           <a
@@ -143,8 +159,9 @@ function renderMarkdownLinks(text: string, key: number) {
     if (match.index > lastIndex) {
       parts.push(text.slice(lastIndex, match.index));
     }
-    const [, label, href] = match;
-    const isExternal = /^https?:\/\//i.test(href);
+    const [, label, rawHref] = match;
+    const href = safeHref(rawHref);
+    const isExternal = /^(https?:|mailto:)/i.test(href);
     parts.push(
       isExternal ? (
         <a

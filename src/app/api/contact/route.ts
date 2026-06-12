@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkRateLimit, storeSubmission } from "@/lib/redis";
+import { checkRateLimit, clientIp, storeSubmission } from "@/lib/redis";
 
 // Input length limits to prevent abuse
 const MAX_NAME_LENGTH = 200;
@@ -11,7 +11,7 @@ const MAX_MESSAGE_LENGTH = 5000;
 export async function POST(req: NextRequest) {
   try {
     // Rate limiting
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const ip = clientIp(req.headers);
     const { allowed } = await checkRateLimit("contact", ip);
     if (!allowed) {
       return NextResponse.json(

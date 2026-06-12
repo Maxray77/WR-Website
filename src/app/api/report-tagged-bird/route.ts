@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkRateLimit, storeSubmission } from "@/lib/redis";
+import { checkRateLimit, clientIp, storeSubmission } from "@/lib/redis";
 
 const MAX_FIELD_LENGTH = 500;
 const MAX_NOTES_LENGTH = 3000;
@@ -9,8 +9,7 @@ const MAX_PHOTO_SIZE = 10 * 1024 * 1024; // 10 MB
 export async function POST(req: NextRequest) {
   try {
     // Rate limiting — reuse the contact limiter (5/hr per IP)
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const ip = clientIp(req.headers);
     const { allowed } = await checkRateLimit("contact", ip);
     if (!allowed) {
       return NextResponse.json(

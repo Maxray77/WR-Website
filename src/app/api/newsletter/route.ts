@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkRateLimit, redis } from "@/lib/redis";
+import { checkRateLimit, clientIp, redis } from "@/lib/redis";
 
 const MAX_EMAIL_LENGTH = 254; // RFC 5321
 
 export async function POST(req: NextRequest) {
   try {
     // Rate limiting
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const ip = clientIp(req.headers);
     const { allowed } = await checkRateLimit("newsletter", ip);
     if (!allowed) {
       return NextResponse.json(
