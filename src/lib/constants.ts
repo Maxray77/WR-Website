@@ -1,6 +1,6 @@
 // ─── Impact Stats ───
 export const IMPACT_STATS = [
-  { number: 39000, suffix: "+", label: "Birds Rescued Since 2010" },
+  { number: 40000, suffix: "+", label: "Birds Rescued Since 2010" },
   { number: 106, suffix: "+", label: "Species Treated" },
   { number: 20, suffix: "+", label: "Years of Service" },
   { number: 26, suffix: "", label: "International Awards" },
@@ -300,7 +300,7 @@ export const RESCUE_BY_YEAR = [
   { year: 2023, total: 3398 },
   { year: 2024, total: 3670 },
   { year: 2025, total: 4184 },
-  { year: 2026, total: 1807 }, // Partial year (Jan 1 – 13 May)
+  { year: 2026, total: 2392 }, // Partial year (Jan 1 – June 18)
 ];
 
 // ─── Donation Amounts ───

@@ -16,17 +16,17 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Social: Instagram @wildliferescueindia | Facebook: facebook.com/wildliferescue.in
 
 ## Impact Numbers
-- 39,000+ birds rescued since 2010
+- 40,000+ birds rescued since 2010 (crossed the 40,000 milestone on 13 June 2026 — the 40,000th rescue was a Shikra)
 - 106+ species treated
 - 20+ years of service
 - 26 international awards
 - 2025 set the all-time record: 4,184 birds rescued
-- 2026 so far (Jan 1 – 13 May): 1,807 birds rescued
+- 2026 so far (Jan 1 – June 18): 2,392 birds rescued
 - May 2024 was the single-month record: 720 birds
 - Rescue network includes 10+ partner organizations
 
 ## Rescue Numbers by Year
-2010: 362 | 2011: 1,011 | 2012: 1,346 | 2013: 1,324 | 2014: 1,974 | 2015: 2,306 | 2016: 2,365 | 2017: 2,113 | 2018: 2,083 | 2019: 2,565 | 2020: 2,489 | 2021: 2,815 | 2022: 3,500 | 2023: 3,398 | 2024: 3,670 | 2025: 4,184 | 2026: 1,807 (partial year, through 13 May)
+2010: 362 | 2011: 1,011 | 2012: 1,346 | 2013: 1,324 | 2014: 1,974 | 2015: 2,306 | 2016: 2,365 | 2017: 2,113 | 2018: 2,083 | 2019: 2,565 | 2020: 2,489 | 2021: 2,815 | 2022: 3,500 | 2023: 3,398 | 2024: 3,670 | 2025: 4,184 | 2026: 2,392 (partial year, through June 18)
 
 ## Team
 - Mohammad Saud — President & Co-Founder. Self-taught wildlife rehabilitator who developed novel surgical techniques for repairing wings damaged by kite strings, now adopted by rehabilitators worldwide.

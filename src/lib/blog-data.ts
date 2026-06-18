@@ -24,28 +24,28 @@ export interface BlogPost {
  */
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "39000th-rescue-shikra",
-    title: "Bird Number 39,000 — A Shikra Finds Her Way Home",
+    slug: "40000th-rescue-shikra",
+    title: "Bird Number 40,000 — A Shikra Finds Her Way Home",
     excerpt:
-      "We have crossed a milestone we once thought unimaginable. Our 39,000th rescue is a Shikra — a small but fierce Sparrow Hawk — brought to us injured and now on the road to recovery.",
-    date: "2026-04-30",
+      "We have crossed a milestone we once thought unimaginable. Our 40,000th rescue is a Shikra — a small but fierce Sparrow Hawk — brought to us injured and now on the road to recovery.",
+    date: "2026-06-13",
     author: "Nadeem Shehzad",
     category: "Milestone",
     readTime: "3 min",
-    image: "/blog/39000-shikra.jpg",
-    content: `Thirty-nine thousand.
+    image: "/blog/40000-shikra.jpeg",
+    content: `Forty thousand.
 
-That number represents 39,000 individual lives — each one a bird brought to us injured, sick, or orphaned, and given a second chance. Today, we reached that milestone with a Shikra, the small but fiercely determined Sparrow Hawk that is one of Delhi's most common — and most overlooked — raptors.
+That number represents 40,000 individual lives — each one a bird brought to us injured, sick, or orphaned, and given a second chance. Today, we reached that milestone with a Shikra, the small but fiercely determined Sparrow Hawk that is one of Delhi's most common — and most overlooked — raptors.
 
-## Meet Bird Number 39,000
+## Meet Bird Number 40,000
 
-She came in with an injury to her wing, likely from a collision. Small, alert, and already fighting back the moment our team touched her — exactly what you want to see in a Shikra. Her spirit was intact.
+She came in with an injured shoulder — most likely from striking a glass window pane, one of the most common hazards for fast-flying birds in a city of glass and concrete. Small, alert, and already fighting back the moment our team touched her — exactly what you want to see in a Shikra. She is now in our care and well on her way to recovery.
 
 The Shikra (*Accipiter badius*) is a compact hawk found across the Indian subcontinent. Despite being widespread in urban Delhi, they are fragile birds. Collisions with vehicles, glass windows, and overhead wires are the most common reasons they reach us. They arrive looking far more broken than they are — and with the right care, most of them recover fully.
 
 This one will too.
 
-## What 39,000 Actually Means
+## What 40,000 Actually Means
 
 Since 2010, Wildlife Rescue has treated birds from over 106 species. The count includes Black Kites — our most frequent patient — alongside Barn Owls, Egyptian Vultures, Steppe Eagles, Painted Storks, and dozens of other species that share the sky above Delhi.
 
@@ -55,7 +55,7 @@ It represents fifteen years of work by Nadeem, Saud, and the entire Wildlife Res
 
 ## What Comes Next
 
-Bird number 39,001 is probably already on its way to us as you read this. That is the nature of this work — there is no finish line, only the next rescue.
+Bird number 40,001 is probably already on its way to us as you read this. That is the nature of this work — there is no finish line, only the next rescue.
 
 If you want to be part of what comes next, consider making a donation. Every contribution — however small — helps us keep the doors open, the medicines stocked, and the aviaries ready for the next bird that needs us.
 

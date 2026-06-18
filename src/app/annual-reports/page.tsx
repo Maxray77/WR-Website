@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 
 export default function AnnualReportsPage() {
   const maxRescue = Math.max(...RESCUE_BY_YEAR.map((r) => r.total));
-  const totalRescued = RESCUE_BY_YEAR.reduce((sum, r) => sum + r.total, 0);
 
   return (
     <>
@@ -43,7 +42,7 @@ export default function AnnualReportsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
               { icon: <TrendingUp size={24} />, stat: "12x", label: "Growth in 15 years", sub: "362 → 4,184 birds/year" },
-              { icon: <Users size={24} />, stat: `${totalRescued.toLocaleString()}+`, label: "Total birds rescued", sub: "2026 partial through 13 May" },
+              { icon: <Users size={24} />, stat: "40,000+", label: "Total birds rescued", sub: "Crossed 40,000 on 13 June 2026" },
               { icon: <TrendingUp size={24} />, stat: "17.7%", label: "Compound annual growth", sub: "Consistent acceleration" },
             ].map((m) => (
               <div key={m.label} className="bg-white rounded-xl p-6 border border-gray-100 text-center">

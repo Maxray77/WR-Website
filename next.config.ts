@@ -32,6 +32,12 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // 39,000 milestone post superseded by the 40,000 milestone (2026-06).
+      {
+        source: "/blog/39000th-rescue-shikra",
+        destination: "/blog/40000th-rescue-shikra",
+        permanent: true,
+      },
       // Old facility page split into /clinic + /enclosures (2026-04-29).
       // Default redirect lands on /clinic; users can navigate to /enclosures from there.
       {
