@@ -222,6 +222,26 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-18 — **40,000-rescue milestone rolled out across the site.** WR crossed 40,000 cases received — the **40,000th rescue was a Shikra on 13 June 2026** (case #40,000, an injured shoulder, likely a glass-window strike; in care + recovering). Code committed `80f51cd` on `main` (pushed, Vercel auto-deploys); the live Sanity blog post was updated separately via the Sanity API.
+
+### What landed (2026-06-18)
+
+1. **"39,000+" → "40,000+" site-wide (`80f51cd`)** — homepage impact counter (`IMPACT_STATS` in `constants.ts`), `Footer.tsx`, `metadata.ts` (page/OG/Twitter), `JsonLd.tsx`, homepage hero caption (`page.tsx`), `/treatments` stat, `bird-brothers` copy (×2), and `wingman-prompt.ts` (+ a milestone note: "40,000th was a Shikra, 13 June 2026").
+2. **`/annual-reports` (`80f51cd`)** — "Total birds rescued" stat hardcoded to **"40,000+"** with sub "Crossed 40,000 on 13 June 2026" (removed the now-unused `totalRescued` sum). **2026 intake bar 1,807 → 2,392** (`RESCUE_BY_YEAR` in `constants.ts`, Jan 1 – Jun 18). New `RESCUE_BY_YEAR` sum = 39,712 (chart bars are real per-year; the cumulative stat is the rounded official milestone — the gap is post-Jun-1 cases + the known serial-vs-audited reconciliation gap).
+3. **Milestone blog post — 39,000 → 40,000.** Static fallback (`blog-data.ts`): slug `39000th-rescue-shikra` → `40000th-rescue-shikra`, title/excerpt/body → 40,000, date `2026-06-13`, "Meet Bird Number 40,000" para rewritten (injured shoulder / glass-window strike / in care & recovering), image → `/blog/40000-shikra.jpeg` (the milestone graphic, 1280×960). **LIVE Sanity** updated via API: created `post.40000th-rescue-shikra` (image asset `image-ddd585ce…-1280x960`), deleted `post.39000th-rescue-shikra` (+ draft). Homepage "From Our Blog" auto-features it (newest-post-first, data-driven) — verified live via curl on `www.raptorrescue.org`.
+4. **Redirect (`80f51cd`)** — `next.config.ts` 308 `/blog/39000th-rescue-shikra` → `/blog/40000th-rescue-shikra` (goes live with this deploy; until then the old slug is a soft-404/200).
+
+### Gotchas + carry-forward (2026-06-18)
+
+- **TWO 2026 register files exist.** `Data/Intake Records/2026/Cases 2026.xlsx` ends **Jun 1** (#39,856, 2,207 cases) — stale. `Data/Current Year/Cases 2026.xlsx` is **authoritative** (ends Jun 18, #37,650→#40,041, 2,392 cases; **#40,000 = Shikra, 2026-06-13**). Use **Current Year** for future updates.
+- **Sanity blog cache is `revalidate: false` + tags** (`src/sanity/lib/fetch.ts`). The all-posts query is pinned until `revalidateTag("post")` fires via the `/api/revalidate` webhook — which points at **production**. So **local `npm run dev` keeps showing the old post** even after `rm -rf .next/cache`; **production refreshed correctly** (the Sanity webhook fires on API mutations too). Don't trust the local preview for blog freshness — verify against production.
+- **`INTAKE_TOTAL = 39,681` left UNCHANGED** (`intake-data.ts`) — it's the deduped Master-DB **species-analysis denominator** (drives `/annual-reports` "Who We Rescue" percentages), NOT a "cases received" figure, and isn't shown to visitors. Bumping it alone breaks the percentages; a proper refresh means re-running the Master Intake pipeline, **which reverts the 156→138 species dedup** (applied directly to the generated TS). ~1% change — recommend leaving it; do a careful pipeline pass (re-applying the dedup) only if exact-current percentages are wanted.
+- **Milestone graphic** is `public/blog/40000-shikra.jpeg` (4:3, the designed poster). A real photo of the 40,000th bird also exists at `C:\Users\maxra\Pictures\40k case.jpeg` (525 KB) if a swap to a true rescue photo is preferred. Orphaned `public/blog/39000-shikra.jpg` (63 KB) is now unused.
+
+---
+
+**Previous session (2026-06-12) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-12 — **Security audit + remediation.** Ran a full audit (7-dimension multi-agent sweep + manual verification). Shipped 5 fixes in two commits `6128372` (Next.js bump) + `e2ef3e5` (hardening) on `main` (pushed, Vercel auto-deploys).
 
 ### What landed (2026-06-12) — security
