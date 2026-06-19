@@ -792,10 +792,17 @@ export default function VulturesPage() {
 
           {/* Egyptian Vultures in our care — photo gallery */}
           <div className="mt-12">
-            <h3 className="text-lg font-bold text-charcoal mb-5 font-[family-name:var(--font-poppins)]">
+            <h3 className="text-lg font-bold text-charcoal mb-2 font-[family-name:var(--font-poppins)]">
               <Bird size={20} className="inline text-teal mr-2 -mt-0.5" />
               Egyptian Vultures in Our Care
             </h3>
+            <Link
+              href="/egyptian-vultures"
+              className="inline-flex items-center gap-1.5 mb-6 text-teal font-semibold text-sm hover:text-teal-dark transition-colors"
+            >
+              Visit our dedicated Egyptian Vulture page
+              <ArrowRight size={15} />
+            </Link>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
               {EGYPTIAN_VULTURE_PHOTOS.map((photo, i) => (
                 <div

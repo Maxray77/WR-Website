@@ -25,6 +25,8 @@ export interface Species {
   video?: { src: string; caption: string };
   /** Multiple video clips for the species detail page */
   videos?: { src: string; caption: string }[];
+  /** Optional cross-link to a dedicated deep-dive page for this species */
+  featureLink?: { href: string; label: string };
 }
 
 export const SPECIES_LIST: Species[] = [
@@ -111,6 +113,7 @@ export const SPECIES_LIST: Species[] = [
       { src: "/species/egyptian-vulture-hero.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue — an endangered scavenger with distinctive white plumage and yellow face" },
       { src: "/species/egyptian-vulture-01.jpg", alt: "Egyptian Vulture in care at Wildlife Rescue — Sultan, an endangered bird receiving treatment for septicemia" },
     ],
+    featureLink: { href: "/egyptian-vultures", label: "Explore our dedicated Egyptian Vulture page" },
   },
   {
     slug: "shikra",

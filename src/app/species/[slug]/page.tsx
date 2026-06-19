@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin, Utensils, Ruler, Brain, AlertTriangle, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Utensils, Ruler, Brain, AlertTriangle, Lightbulb } from "lucide-react";
 import DonateButton from "@/components/DonateButton";
 import { SPECIES_LIST, getSpeciesBySlug } from "@/lib/species-data";
 
@@ -127,6 +127,21 @@ export default async function SpeciesProfilePage({
           </div>
         </div>
       </section>
+
+      {/* ─── Dedicated feature page cross-link ─── */}
+      {species.featureLink && (
+        <section className="bg-offwhite pt-8">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Link
+              href={species.featureLink.href}
+              className="flex items-center justify-between gap-4 bg-white border border-teal/20 rounded-xl px-6 py-4 shadow-sm hover:border-teal hover:shadow transition-all group"
+            >
+              <span className="font-semibold text-teal-dark">{species.featureLink.label}</span>
+              <ArrowRight size={18} className="text-teal shrink-0 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* ─── Info Sections ─── */}
       <section className="py-16 lg:py-24">
