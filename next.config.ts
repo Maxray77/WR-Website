@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
       "public/treatments/*.mov",
       "public/facility/*.mp4",
       "public/facility/*.mov",
+      "public/egyptian-vultures/**/*",
     ],
   },
 

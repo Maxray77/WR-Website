@@ -6,14 +6,89 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react"
 import { CONTACT } from "@/lib/constants";
 import NewsletterSignup from "./NewsletterSignup";
 
+type FooterLink = { href: string; label: string; external?: boolean };
+
+// Full site map — every public page, grouped. Keep in sync with the routes.
+const FOOTER_SECTIONS: { title: string; links: FooterLink[] }[] = [
+  {
+    title: "Our Work",
+    links: [
+      { href: "/our-specialty", label: "Our Specialty" },
+      { href: "/clinic", label: "Our Clinic" },
+      { href: "/enclosures", label: "Bird Enclosures" },
+      { href: "/treatments", label: "Treatments" },
+      { href: "/conditions", label: "Conditions We Treat" },
+      { href: "/nwra-2025", label: "NWRA Symposium 2025" },
+    ],
+  },
+  {
+    title: "Species & Conservation",
+    links: [
+      { href: "/species", label: "Species We Treat" },
+      { href: "/vultures", label: "Vulture Conservation" },
+      { href: "/egyptian-vultures", label: "Egyptian Vultures" },
+      { href: "/annual-reports", label: "Annual Reports" },
+      { href: "/financials", label: "Financial Transparency" },
+    ],
+  },
+  {
+    title: "Media & Stories",
+    links: [
+      { href: "/all-that-breathes", label: "All That Breathes" },
+      { href: "/special-cases", label: "Rescue Stories" },
+      { href: "/gallery", label: "Photo Gallery" },
+      { href: "/videos", label: "Video Clips" },
+      { href: "/blog", label: "Blog" },
+      { href: "/media", label: "Press & Awards" },
+      { href: "/bird-brothers", label: "Bird Brothers Book" },
+      { href: "/history", label: "Our Early Days" },
+    ],
+  },
+  {
+    title: "Get Involved",
+    links: [
+      { href: "/about", label: "About Us" },
+      { href: "/donate", label: "Donate" },
+      { href: "/contact", label: "Contact Us" },
+      { href: "/report-tagged-bird", label: "Report a Tagged Bird" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { href: "/privacy-policy", label: "Privacy Policy" },
+      { href: "/refund-policy", label: "Refund Policy" },
+      { href: "/terms", label: "Terms of Service" },
+      { href: "/wr-brochure.pdf", label: "CSR Brochure (PDF)", external: true },
+    ],
+  },
+];
+
+function FooterLinkItem({ link }: { link: FooterLink }) {
+  const className = "text-teal-light hover:text-white text-sm transition-colors";
+  return (
+    <li>
+      {link.external ? (
+        <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+          {link.label}
+        </a>
+      ) : (
+        <Link href={link.href} className={className}>
+          {link.label}
+        </Link>
+      )}
+    </li>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-teal-dark text-white">
-      {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        {/* Top: brand + contact + newsletter */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12 pb-10 mb-10 border-b border-white/10">
           {/* About */}
-          <div>
+          <div className="lg:col-span-2">
             <Image
               src="/logo-white.png"
               alt="Wildlife Rescue"
@@ -21,7 +96,7 @@ export default function Footer() {
               height={60}
               className="mb-3 object-contain"
             />
-            <p className="text-teal-light text-sm leading-relaxed mb-4">
+            <p className="text-teal-light text-sm leading-relaxed mb-4 max-w-md">
               The world&apos;s largest raptor rescue facility, based in Delhi, India.
               Featured in the Oscar-nominated documentary &quot;All That Breathes.&quot;
               40,000+ birds rescued since 2010.
@@ -37,45 +112,6 @@ export default function Footer() {
                 <Youtube size={16} />
               </a>
             </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-bold mb-4 font-[family-name:var(--font-poppins)]">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { href: "/about", label: "About Us" },
-                { href: "/our-specialty", label: "Our Specialty" },
-                { href: "/species", label: "Species" },
-                { href: "/donate", label: "Donate" },
-                { href: "/media", label: "Press & Media" },
-                { href: "/all-that-breathes", label: "All That Breathes" },
-                { href: "/wr-brochure.pdf", label: "CSR Brochure (PDF)", external: true },
-                { href: "/contact", label: "Contact" },
-                { href: "/refund-policy", label: "Refund Policy" },
-                { href: "/terms", label: "Terms of Service" },
-                { href: "/privacy-policy", label: "Privacy Policy" },
-              ].map((link) => (
-                <li key={link.href}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-teal-light hover:text-white text-sm transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link href={link.href} className="text-teal-light hover:text-white text-sm transition-colors">
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact */}
@@ -116,6 +152,22 @@ export default function Footer() {
             </p>
             <NewsletterSignup variant="inline" />
           </div>
+        </div>
+
+        {/* Site map — every page */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+          {FOOTER_SECTIONS.map((section) => (
+            <div key={section.title}>
+              <h3 className="text-sm font-bold mb-4 font-[family-name:var(--font-poppins)] uppercase tracking-wide text-white/90">
+                {section.title}
+              </h3>
+              <ul className="space-y-2">
+                {section.links.map((link) => (
+                  <FooterLinkItem key={link.href} link={link} />
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
