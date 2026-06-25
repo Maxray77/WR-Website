@@ -11,7 +11,8 @@
     "sanity:dev": "sanity dev",
     "sanity:deploy": "sanity deploy",
     "blog:snapshot": "node scripts/generate-blog-snapshot.mjs",
-    "blog:migrate": "node scripts/migrate-blog-to-sanity.mjs"
+    "blog:migrate": "node scripts/migrate-blog-to-sanity.mjs",
+    "stats": "node scripts/site-stats.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.53",

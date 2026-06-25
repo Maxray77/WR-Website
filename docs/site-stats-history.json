@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2026-06-25",
+    "birdsRescued": 40000,
+    "routeTemplates": 32,
+    "apiEndpoints": 10,
+    "components": 26,
+    "tsFiles": 111,
+    "linesOfCode": 23473,
+    "images": 254,
+    "imageMB": 51.4,
+    "videos": 39,
+    "videoMB": 265.6,
+    "pdfs": 10,
+    "publicMB": 378.4,
+    "speciesProfiles": 15,
+    "conditions": 7,
+    "blogPostsStatic": 6,
+    "intakeSpecies": 138,
+    "gitCommits": 422
+  }
+]
