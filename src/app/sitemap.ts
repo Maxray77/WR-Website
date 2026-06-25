@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/media`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/nwra-2025`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
     { url: `${BASE_URL}/report-tagged-bird`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/education-outreach`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/bird-brothers`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE_URL}/privacy-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },

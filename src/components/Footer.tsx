@@ -50,6 +50,7 @@ const FOOTER_SECTIONS: { title: string; links: FooterLink[] }[] = [
       { href: "/about", label: "About Us" },
       { href: "/donate", label: "Donate" },
       { href: "/contact", label: "Contact Us" },
+      { href: "/education-outreach", label: "Education & Outreach" },
       { href: "/report-tagged-bird", label: "Report a Tagged Bird" },
     ],
   },

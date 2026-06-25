@@ -222,6 +222,27 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-06-19 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer (SHIPPED & live), plus a header-nav restructure that is LOCAL-ONLY WIP (uncommitted, NOT pushed — pending a design decision).**
+
+### Shipped this session (pushed to `main`, Vercel auto-deploys)
+
+1. **`/egyptian-vultures` page (`0b6f037`)** — dedicated Egyptian Vulture deep-dive: hero (Endangered · 35+ rescued since 2020 · 73% release) → why it matters (decline / dual jeopardy / tool use) → per-year intake + conditions (manja 77%) + outcomes (73%) → **"Egyptian Vultures in Flight" (9 videos)** → 11-photo care gallery → propatagium-repair story → donate CTA. Server component, inline metadata. Data in new `src/lib/egyptian-vulture-data.ts`. **Note:** a "Sultan" case-study section was built then REMOVED at user's request — they'll supply a replacement case study later.
+2. **9 EV flight videos** — compressed ~686 MB → ~56 MB (720p/480p H.264 + faststart) into **`public/egyptian-vultures/`** (`ev-flight-01..06`, `ev-flight-07-portrait`, `ev-flight-08`, `ev-flight-09`). **Captions are placeholders** — user may swap in their own wording. `next.config.ts` excludes `public/egyptian-vultures/**/*` from serverless function tracing. **Source clips:** `C:\Users\maxra\Documents\Wildlife Rescue\Egyptian Vultures\Flights\Upload` (re-compress via the bundled imageio-ffmpeg recipe if updated).
+3. **Grouped site-map footer (`0b6f037`)** — `Footer.tsx` rewritten so **every page is reachable from the footer**, in 5 columns: Our Work / Species & Conservation / Media & Stories / Get Involved / Legal (brand + contact + newsletter + socials kept on top, via a new `FOOTER_SECTIONS` array).
+4. **Cross-links (`f664728`)** — `/vultures` gets a "Visit our dedicated Egyptian Vulture page" link above its EV gallery; `/species/egyptian-vulture` gets a callout banner via a new optional **`Species.featureLink`** field (only renders for EV). `/vultures` otherwise left intact per user.
+5. Header "Our Work" dropdown + `sitemap.ts` updated for `/egyptian-vultures`; 308 redirect not needed.
+6. **`/education-outreach` page (SHIPPED 2026-06-19)** — school education programme (environment, wildlife, urban ecology, manja/kite-flying safety) from the **20 June 2026 session at Infinity Learning Centre, Wazirabad**, led by **Samia & Mohammad Umar**. Hero → what-we-teach (4 cards) → 9 event photos → drawing-contest + gift-distribution callouts → 10 children's drawings → team credit → CTA. Data in new `src/lib/education-data.ts`; assets in `public/education/` (`event-01..05,07..10` + `drawing-01..10` — the certificate photo `event-06` was removed at user's request to keep the event grid an odd 9). Wired into the **footer** ("Get Involved") + `sitemap.ts`. **Pushed WITHOUT the header change** (see WIP below), so the new page is reachable via footer + URL but is NOT yet in the header nav — the header link ships with the finalized nav.
+
+### LOCAL-ONLY WIP — do NOT assume it's live (uncommitted in working tree, NOT pushed)
+
+- **Header nav restructure** (`src/components/Header.tsx`, **uncommitted**) — collapsed the old crowded bar (9 links + 2 dropdowns) into **5 grouped dropdowns**: About / Our Work / Birds & Conservation / Media & Reports / Get Involved. Dropped "Home" (logo links home), added a red "Injured bird?" desktop quick-link, moved Annual Reports + Financials together, moved Report-a-Tagged-Bird into Get Involved, and rewrote the mobile menu into matching grouped sections. Verified on `localhost:3000` (tsc clean, no console errors). It is in the working tree only — `localhost` shows it, production does not.
+- **⏳ PENDING DECISION (user, 2026-06-19) — discuss before finalizing:** pull **"All That Breathes"** and **"Egyptian Vultures"** OUT of the dropdown lists and make them their own **top-level** nav items. NOT yet implemented. Next step: make that change, re-verify, then commit + push the whole header restructure together.
+- A visual mockup of the 5-menu structure was shown to the user via the visualize widget (no file on disk).
+
+---
+
+**Previous session (2026-06-18) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-18 — **40,000-rescue milestone rolled out across the site.** WR crossed 40,000 cases received — the **40,000th rescue was a Shikra on 13 June 2026** (case #40,000, an injured shoulder, likely a glass-window strike; in care + recovering). Code committed `80f51cd` on `main` (pushed, Vercel auto-deploys); the live Sanity blog post was updated separately via the Sanity API.
 
 ### What landed (2026-06-18)
