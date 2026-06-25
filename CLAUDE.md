@@ -222,7 +222,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-06-19 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer (SHIPPED & live), plus a finalized header-nav restructure with All That Breathes + Egyptian Vultures promoted to top-level (SHIPPED 2026-06-25).**
+**Last updated by:** Claude Code — 2026-06-25 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer, a new `/education-outreach` school page, a finalized header nav (All That Breathes + Egyptian Vultures promoted to top-level), and a website stats report with over-time tracking — all SHIPPED & live.**
 
 ### Shipped this session (pushed to `main`, Vercel auto-deploys)
 
@@ -232,6 +232,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 4. **Cross-links (`f664728`)** — `/vultures` gets a "Visit our dedicated Egyptian Vulture page" link above its EV gallery; `/species/egyptian-vulture` gets a callout banner via a new optional **`Species.featureLink`** field (only renders for EV). `/vultures` otherwise left intact per user.
 5. Header "Our Work" dropdown + `sitemap.ts` updated for `/egyptian-vultures`; 308 redirect not needed.
 6. **`/education-outreach` page (SHIPPED 2026-06-19)** — school education programme (environment, wildlife, urban ecology, manja/kite-flying safety) from the **20 June 2026 session at Infinity Learning Centre, Wazirabad**, led by **Samia & Mohammad Umar**. Hero → what-we-teach (4 cards) → 9 event photos → drawing-contest + gift-distribution callouts → 10 children's drawings → team credit → CTA. Data in new `src/lib/education-data.ts`; assets in `public/education/` (`event-01..05,07..10` + `drawing-01..10` — the certificate photo `event-06` was removed at user's request to keep the event grid an odd 9). Wired into the **footer** ("Get Involved"), `sitemap.ts`, and — with the finalized nav (`e000f9a`) — the **header** "Get Involved" dropdown. (Originally pushed as `f2b337e` without the header; the header link landed with the finalized nav.)
+7. **Website stats report + over-time tracking (`0f13f2b`)** — new `npm run stats` (`scripts/site-stats.mjs`) gathers pages / code / media / content / git metrics, appends a dated snapshot to `docs/site-stats-history.json`, and regenerates the report `docs/SITE-STATS.md`. Baseline captured 2026-06-25 (71 pages, 254 images, 39 videos, 23.4k LOC, 422 commits, 40,000 birds). Run periodically — or set up a monthly scheduled agent (offered, not yet wired) — to build a trend.
 
 ### Header nav — FINALIZED & SHIPPED (2026-06-25)
 
