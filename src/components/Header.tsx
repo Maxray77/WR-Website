@@ -11,67 +11,60 @@ interface NavItem {
   children?: { href: string; label: string }[];
 }
 
+// Two flagship items — "All That Breathes" (the Oscar-nominated documentary)
+// and "Egyptian Vultures" (our endangered-species page) — are promoted to
+// top-level. Everything else lives in grouped dropdowns. "Home" is dropped
+// (the logo links home); Donate is the standalone CTA below.
 const NAV_ITEMS: NavItem[] = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  {
+    label: "About",
+    children: [
+      { href: "/about", label: "About Us" },
+      { href: "/history", label: "Our Early Days" },
+      { href: "/bird-brothers", label: "Bird Brothers Book" },
+      { href: "/media", label: "Press & Awards" },
+    ],
+  },
   { href: "/all-that-breathes", label: "All That Breathes" },
+  { href: "/egyptian-vultures", label: "Egyptian Vultures" },
   {
     label: "Our Work",
     children: [
       { href: "/our-specialty", label: "Our Specialty" },
-      { href: "/nwra-2025", label: "NWRA Symposium 2025" },
       { href: "/clinic", label: "Our Clinic" },
       { href: "/enclosures", label: "Bird Enclosures" },
       { href: "/treatments", label: "Treatments" },
       { href: "/conditions", label: "Conditions We Treat" },
-      { href: "/vultures", label: "Vulture Conservation" },
-      { href: "/egyptian-vultures", label: "Egyptian Vultures" },
-      { href: "/species", label: "Species We Treat" },
-      { href: "/special-cases", label: "Rescue Stories" },
-      { href: "/financials", label: "Financial Transparency" },
+      { href: "/nwra-2025", label: "NWRA Symposium 2025" },
     ],
   },
-  { href: "/annual-reports", label: "Annual Report" },
   {
-    label: "Media",
+    label: "Birds & Conservation",
+    children: [
+      { href: "/species", label: "Species We Treat" },
+      { href: "/vultures", label: "Vulture Conservation" },
+      { href: "/special-cases", label: "Rescue Stories" },
+    ],
+  },
+  {
+    label: "Media & Reports",
     children: [
       { href: "/gallery", label: "Photo Gallery" },
       { href: "/videos", label: "Video Clips" },
-      { href: "/history", label: "Our Early Days" },
-      { href: "/media", label: "Press & Awards" },
-      { href: "/bird-brothers", label: "Bird Brothers Book" },
+      { href: "/blog", label: "Blog" },
+      { href: "/annual-reports", label: "Annual Reports" },
+      { href: "/financials", label: "Financial Transparency" },
     ],
   },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact Us" },
-  { href: "/report-tagged-bird", label: "Report A Tagged Bird" },
-];
-
-// Flat list for mobile
-const MOBILE_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/all-that-breathes", label: "All That Breathes" },
-  { href: "/our-specialty", label: "Our Specialty" },
-  { href: "/nwra-2025", label: "NWRA Symposium 2025" },
-  { href: "/clinic", label: "Our Clinic" },
-  { href: "/enclosures", label: "Bird Enclosures" },
-  { href: "/treatments", label: "Treatments" },
-  { href: "/conditions", label: "Conditions We Treat" },
-  { href: "/vultures", label: "Vulture Conservation" },
-  { href: "/egyptian-vultures", label: "Egyptian Vultures" },
-  { href: "/species", label: "Species We Treat" },
-  { href: "/special-cases", label: "Rescue Stories" },
-  { href: "/annual-reports", label: "Annual Rescue Reports" },
-  { href: "/financials", label: "Financial Transparency" },
-  { href: "/gallery", label: "Photo Gallery" },
-  { href: "/videos", label: "Video Clips" },
-  { href: "/history", label: "Our Early Days" },
-  { href: "/media", label: "Press & Awards" },
-  { href: "/bird-brothers", label: "Bird Brothers Book" },
-  { href: "/blog", label: "Blog & News" },
-  { href: "/contact", label: "Contact Us" },
-  { href: "/report-tagged-bird", label: "Report A Tagged Bird" },
+  {
+    label: "Get Involved",
+    children: [
+      { href: "/contact", label: "Contact Us" },
+      { href: "/education-outreach", label: "Education & Outreach" },
+      { href: "/report-tagged-bird", label: "Report a Tagged Bird" },
+      { href: "/donate", label: "Donate" },
+    ],
+  },
 ];
 
 function DropdownMenu({ item }: { item: NavItem }) {
@@ -92,7 +85,7 @@ function DropdownMenu({ item }: { item: NavItem }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-4 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light"
+        className="flex items-center gap-1 px-2.5 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light whitespace-nowrap"
       >
         {item.label}
         <ChevronDown
@@ -102,7 +95,7 @@ function DropdownMenu({ item }: { item: NavItem }) {
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 py-2 min-w-[200px] z-50">
+        <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 py-2 min-w-[210px] z-50">
           {item.children!.map((child) => (
             <Link
               key={child.href}
@@ -147,7 +140,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden xl:flex items-center gap-0">
             {NAV_ITEMS.map((item) =>
               item.children ? (
                 <DropdownMenu key={item.label} item={item} />
@@ -155,7 +148,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href!}
-                  className="px-4 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light"
+                  className="px-2.5 py-2 text-charcoal hover:text-teal font-medium text-sm transition-colors rounded-lg hover:bg-teal-light whitespace-nowrap"
                 >
                   {item.label}
                 </Link>
@@ -164,17 +157,17 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-2 shrink-0">
             <Link
               href="/donate"
-              className="bg-amber hover:bg-amber-light text-charcoal font-semibold px-6 py-2.5 rounded-full text-sm transition-all hover:shadow-lg hover:scale-105"
+              className="bg-amber hover:bg-amber-light text-charcoal font-semibold px-5 py-2.5 rounded-full text-sm transition-all hover:shadow-lg hover:scale-105 whitespace-nowrap"
             >
               Donate Now
             </Link>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             <Link
               href="/donate"
               className="bg-amber hover:bg-amber-light text-charcoal font-semibold px-4 py-2 rounded-full text-xs transition-all"
@@ -192,20 +185,40 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Nav — grouped to match the desktop menus */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg max-h-[80vh] overflow-y-auto">
-          <nav className="px-4 py-4 space-y-1">
-            {MOBILE_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 text-charcoal hover:text-teal hover:bg-teal-light rounded-lg font-medium transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+        <div className="xl:hidden bg-white border-t border-gray-100 shadow-lg max-h-[80vh] overflow-y-auto">
+          <nav className="px-4 py-4 space-y-4">
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <div key={item.label}>
+                  <p className="px-4 text-xs font-bold uppercase tracking-wide text-slate mb-1">
+                    {item.label}
+                  </p>
+                  <div className="space-y-0.5">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-4 py-2.5 text-charcoal hover:text-teal hover:bg-teal-light rounded-lg font-medium transition-colors"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href!}
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-3 text-charcoal hover:text-teal hover:bg-teal-light rounded-lg font-semibold transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             <Link
               href="/donate"
               onClick={() => setMobileOpen(false)}
@@ -218,7 +231,7 @@ export default function Header() {
               className="flex items-center justify-center gap-2 px-4 py-3 text-danger font-semibold mt-1"
             >
               <Phone size={16} />
-              Contact Us: +91 98100 29698
+              Injured bird? Call +91 98100 29698
             </a>
           </nav>
         </div>

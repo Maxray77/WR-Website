@@ -222,7 +222,7 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
-**Last updated by:** Claude Code — 2026-06-19 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer (SHIPPED & live), plus a header-nav restructure that is LOCAL-ONLY WIP (uncommitted, NOT pushed — pending a design decision).**
+**Last updated by:** Claude Code — 2026-06-19 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer (SHIPPED & live), plus a finalized header-nav restructure with All That Breathes + Egyptian Vultures promoted to top-level (SHIPPED 2026-06-25).**
 
 ### Shipped this session (pushed to `main`, Vercel auto-deploys)
 
@@ -233,11 +233,11 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 5. Header "Our Work" dropdown + `sitemap.ts` updated for `/egyptian-vultures`; 308 redirect not needed.
 6. **`/education-outreach` page (SHIPPED 2026-06-19)** — school education programme (environment, wildlife, urban ecology, manja/kite-flying safety) from the **20 June 2026 session at Infinity Learning Centre, Wazirabad**, led by **Samia & Mohammad Umar**. Hero → what-we-teach (4 cards) → 9 event photos → drawing-contest + gift-distribution callouts → 10 children's drawings → team credit → CTA. Data in new `src/lib/education-data.ts`; assets in `public/education/` (`event-01..05,07..10` + `drawing-01..10` — the certificate photo `event-06` was removed at user's request to keep the event grid an odd 9). Wired into the **footer** ("Get Involved") + `sitemap.ts`. **Pushed WITHOUT the header change** (see WIP below), so the new page is reachable via footer + URL but is NOT yet in the header nav — the header link ships with the finalized nav.
 
-### LOCAL-ONLY WIP — do NOT assume it's live (uncommitted in working tree, NOT pushed)
+### Header nav — FINALIZED & SHIPPED (2026-06-25)
 
-- **Header nav restructure** (`src/components/Header.tsx`, **uncommitted**) — collapsed the old crowded bar (9 links + 2 dropdowns) into **5 grouped dropdowns**: About / Our Work / Birds & Conservation / Media & Reports / Get Involved. Dropped "Home" (logo links home), added a red "Injured bird?" desktop quick-link, moved Annual Reports + Financials together, moved Report-a-Tagged-Bird into Get Involved, and rewrote the mobile menu into matching grouped sections. Verified on `localhost:3000` (tsc clean, no console errors). It is in the working tree only — `localhost` shows it, production does not.
-- **⏳ PENDING DECISION (user, 2026-06-19) — discuss before finalizing:** pull **"All That Breathes"** and **"Egyptian Vultures"** OUT of the dropdown lists and make them their own **top-level** nav items. NOT yet implemented. Next step: make that change, re-verify, then commit + push the whole header restructure together.
-- A visual mockup of the 5-menu structure was shown to the user via the visualize widget (no file on disk).
+- **Header restructure shipped** (`src/components/Header.tsx`). Final top bar: **About ▾ · All That Breathes · Egyptian Vultures · Our Work ▾ · Birds & Conservation ▾ · Media & Reports ▾ · Get Involved ▾ · Donate Now**. Per the user, **All That Breathes** and **Egyptian Vultures** are top-level (pulled out of their dropdowns); "Home" dropped (logo links home); Education & Outreach lives under Get Involved; Annual Reports + Financials grouped under Media & Reports; Report-a-Tagged-Bird under Get Involved.
+- **Fit decision (user chose "hamburger under 1280px"):** 7 top-level items don't fit a standard bar, so the full desktop nav shows only at **≥1280px** (`hidden xl:flex`); below 1280 it's the grouped hamburger menu (`xl:hidden`), with the two flagships pinned on top + an "Injured bird? Call …" tel link. The desktop "Injured bird?" quick-link was dropped to make room (it can't fit alongside 7 full-label items in the 1280-wide max-w-7xl container) — still in the mobile menu + Contact page. Verified: fits 1208/1208 at 1280, hamburger below; `tsc` + production build clean (71 pages).
+- Earlier a 5-menu mockup was shown via the visualize widget; this finalized version promotes the two flagships out of the dropdowns.
 
 ---
 
