@@ -49,7 +49,7 @@ const FINANCIAL_TABLE: FinSection[] = [
       { label: "Fixed Assets — Net Book Value (WDV)", values: ["₹1,90,448", "₹2,93,098", "₹3,17,701", "₹4,67,208", "₹15,56,533"] },
       { label: "Cash & Bank balances",       values: ["₹2,19,589", "₹3,49,273", "₹5,98,438", "₹4,46,409", "₹1,16,375"] },
       { label: "Security Deposit",           values: ["₹40,000",   "₹40,000",   "₹40,000",   "₹40,000",   "₹40,000"] },
-      { label: "Total Assets",               values: ["₹4,50,837", "₹6,82,361", "₹9,55,849", "₹9,76,566", "₹19,14,374"], usd: ["~$6,076", "~$9,159", "~$11,919", "~$11,794", "~$22,655"], bold: true },
+      { label: "Total Assets³",              values: ["₹4,50,837", "₹6,82,361", "₹9,55,849", "₹9,76,566", "₹19,14,374"], usd: ["~$6,076", "~$9,159", "~$11,919", "~$11,794", "~$22,655"], bold: true },
       { label: "Capital Fund (closing)",     values: ["₹2,31,513", "₹3,86,692", "₹6,87,283", "₹7,55,694", "₹11,77,998"] },
       { label: "Unsecured Loans (closing)",  values: ["₹1,32,844", "₹1,32,444", "₹1,32,444", "₹1,01,942", "₹44,122"] },
     ],
@@ -180,6 +180,9 @@ export default function FinancialsPage() {
             </p>
             <p>
               <sup>2</sup> Total 5-year Fixed Asset Additions: ₹18,53,170. The major FY 2024-25 capex (₹12,70,749) reflects the purchase of an Ambulance (₹10,15,000), Anaesthesia Machine (₹1,41,116), Oxygen Concentrator (₹57,000) and other clinic equipment.
+            </p>
+            <p>
+              <sup>3</sup> Selected balance sheet lines are shown for clarity and do not sum to Total Assets. Total Assets is the audited figure and includes other assets — such as receivables and advances — that are not itemised above; minor differences in individual years are being reconciled against the source statements. For the complete balance sheet, please see the audited financial statements.
             </p>
             <p>
               Figures compiled from audited consolidated financial statements (A. Rehman & Associates, Chartered Accountants). Direct vs Indirect Expense classification varies year-on-year in the source statements; Total Expenditure is the directly comparable measure.
