@@ -78,7 +78,7 @@ export default function FinancialsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { stat: "₹42.7L", label: "Annual budget (2024-25)", sub: "~US$ 50,493" },
-              { stat: "5x", label: "Budget growth", sub: "FY 2020-21 → FY 2024-25" },
+              { stat: "2x", label: "Income growth", sub: "FY 2020-21 → FY 2024-25" },
               { stat: "₹4.22L", label: "FY 2024-25 surplus", sub: "Reinvested into operations" },
               { stat: "₹12.7L", label: "FY 2024-25 capex", sub: "Ambulance + clinic equipment" },
             ].map((m) => (
