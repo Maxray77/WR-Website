@@ -421,6 +421,17 @@ export default function DonateClient() {
                         <ArrowRight size={16} className="text-amber shrink-0 mt-1" />
                       </a>
                     </div>
+                    <p className="text-center text-xs text-slate mt-4">
+                      Have a donor-advised fund, or giving through a foundation? See legal recipient details, EIN, and DAF/grant instructions under the{" "}
+                      <button
+                        type="button"
+                        onClick={() => { setActiveTab("us"); trackEvent("donation_tab_view", { tab: "us", tab_label: "US Donors" }); document.getElementById("donation-tabs")?.scrollIntoView({ behavior: "smooth" }); }}
+                        className="text-teal underline hover:text-teal-dark font-medium"
+                      >
+                        US Donors
+                      </button>{" "}
+                      tab.
+                    </p>
                 </div>
               </div>
             )}
@@ -517,6 +528,36 @@ export default function DonateClient() {
                     >
                       Donate via GoFundMe
                     </a>
+                  </div>
+                </div>
+
+                {/* Legal recipient details + DAF + foundation giving */}
+                <div className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+                  <h3 className="font-bold text-charcoal mb-3 flex items-center gap-2">
+                    <Shield size={18} className="text-teal" />
+                    US Tax-Deductible Giving — Legal Details
+                  </h3>
+                  <div className="grid sm:grid-cols-2 gap-2 text-sm mb-4">
+                    <p><span className="text-slate">Legal recipient:</span> <span className="font-semibold text-charcoal">{CONTACT.usFiscalSponsor.name}</span></p>
+                    <p><span className="text-slate">EIN:</span> <span className="font-semibold text-charcoal font-mono">{CONTACT.usFiscalSponsor.ein}</span></p>
+                    <p><span className="text-slate">Tax status:</span> <span className="font-semibold text-charcoal">501(c)(3) — donations tax-deductible in the USA</span></p>
+                    <p><span className="text-slate">Recognition:</span> <span className="font-semibold text-charcoal">2026 Candid Platinum Seal of Transparency</span></p>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-100">
+                    <p className="font-semibold text-charcoal text-sm mb-1">Give through a donor-advised fund</p>
+                    <p className="text-sm text-slate leading-relaxed">
+                      If you have a donor-advised fund at Fidelity Charitable, Schwab Charitable, Vanguard Charitable, a community foundation, or any other sponsor, you can recommend a grant to{" "}
+                      <strong className="text-charcoal">{CONTACT.usFiscalSponsor.name}</strong>, EIN{" "}
+                      <span className="font-mono">{CONTACT.usFiscalSponsor.ein}</span>. Please ask your sponsor to note &quot;Wildlife Rescue, Delhi&quot; in the grant purpose so we can acknowledge it correctly.
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-gray-100">
+                    <p className="font-semibold text-charcoal text-sm mb-1">Note for US foundations</p>
+                    <p className="text-sm text-slate leading-relaxed">
+                      Grants to {CONTACT.usFiscalSponsor.name} are domestic grants to a US 501(c)(3), so no equivalency determination or expenditure responsibility is required.
+                    </p>
                   </div>
                 </div>
               </div>
