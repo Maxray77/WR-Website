@@ -299,7 +299,7 @@ export const RESCUE_BY_YEAR = [
   { year: 2022, total: 3500 },
   { year: 2023, total: 3398 },
   { year: 2024, total: 3670 },
-  { year: 2025, total: 4184 },
+  { year: 2025, total: 4214 },
   { year: 2026, total: 2392 }, // Partial year (Jan 1 – June 18)
 ];
 
@@ -341,7 +341,7 @@ export const TIMELINE = [
   { year: "2020", title: "COVID Resilience", description: "Despite India's strict lockdown, Wildlife Rescue never closes. Annual intake drops only 3%. \"Even during a global pandemic, we never closed our doors.\"" },
   { year: "2022", title: "All That Breathes", description: "The Oscar-nominated documentary brings global attention. Intake jumps 24% to 3,500 birds. Wins Sundance Grand Jury Prize and Cannes Golden Eye." },
   { year: "2023", title: "Oscar Nomination", description: "All That Breathes nominated for Best Documentary Feature at the 95th Academy Awards, BAFTA, and DGA Awards." },
-  { year: "2025", title: "Record Year", description: "4,184 birds rescued — the highest annual total ever. May 2024 set the single-month record with 720 birds. The rescue network grows to 10+ partner organizations." },
+  { year: "2025", title: "Record Year", description: "4,214 birds rescued — the highest annual total ever. May 2024 set the single-month record with 720 birds. The rescue network grows to 10+ partner organizations." },
 ];
 
 // ─── Featured Rescue Stories (placeholder) ───

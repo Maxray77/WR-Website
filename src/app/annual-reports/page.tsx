@@ -14,7 +14,7 @@ import { ANNUAL_REPORTS } from "@/lib/annual-reports-data";
 export const metadata: Metadata = {
   title: "Annual Rescue Reports",
   description:
-    "Wildlife Rescue's annual rescue reports — 16 years of intake data, growth phases, and downloadable yearly reports. From 362 birds in 2010 to 4,184 in 2025.",
+    "Wildlife Rescue's annual rescue reports — 16 years of intake data, growth phases, and downloadable yearly reports. From 362 birds in 2010 to 4,214 in 2025.",
 };
 
 export default function AnnualReportsPage() {
@@ -41,7 +41,7 @@ export default function AnnualReportsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
-              { icon: <TrendingUp size={24} />, stat: "12x", label: "Growth in 15 years", sub: "362 → 4,184 birds/year" },
+              { icon: <TrendingUp size={24} />, stat: "12x", label: "Growth in 15 years", sub: "362 → 4,214 birds/year" },
               { icon: <Users size={24} />, stat: "40,000+", label: "Total birds rescued", sub: "Crossed 40,000 on 13 June 2026" },
               { icon: <TrendingUp size={24} />, stat: "17.7%", label: "Compound annual growth", sub: "Consistent acceleration" },
             ].map((m) => (
@@ -118,7 +118,7 @@ export default function AnnualReportsPage() {
               { phase: "Phase 2", period: "2011–2014", title: "Explosive Growth", birds: "1,011–1,974/year", description: "The Charity Birds Hospital partnership ignites. Volume nearly triples in 3 years. In 2013, the rescue moves from Old Delhi to a dedicated facility in Wazirabad Village. Species diversity grows from 9 to 42." },
               { phase: "Phase 3", period: "2015–2018", title: "Consolidation", birds: "~2,083–2,365/year", description: "Operations stabilize and professionalize. Partner network solidifies around 5 core organizations." },
               { phase: "Phase 4", period: "2019–2021", title: "Renewed Growth", birds: "2,489–2,815/year", description: "COVID barely dents operations (−3% in 2020). New partners emerge. Prem Bhawan grows 5x." },
-              { phase: "Phase 5", period: "2022–2025", title: "Documentary Era", birds: "3,398–4,184/year", description: "All That Breathes brings global attention. Intake jumps 24% in 2022. 2025 is the highest year ever. 10+ partner organizations active." },
+              { phase: "Phase 5", period: "2022–2025", title: "Documentary Era", birds: "3,398–4,214/year", description: "All That Breathes brings global attention. Intake jumps 24% in 2022. 2025 is the highest year ever. 10+ partner organizations active." },
             ].map((phase) => (
               <div key={phase.phase} className="bg-white rounded-xl p-6 border border-gray-100 flex flex-col sm:flex-row gap-4">
                 <div className="shrink-0 sm:w-40">
