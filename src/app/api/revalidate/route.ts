@@ -7,11 +7,19 @@
  *
  * Configure in Sanity:
  *   1. https://sanity.io/manage → API → Webhooks → Create
- *   2. URL: https://wildlife-rescue-website.vercel.app/api/revalidate
+ *   2. URL: https://www.raptorrescue.org/api/revalidate
  *   3. Trigger on: Create / Update / Delete (for posts, authors, categories)
  *   4. Filter: _type in ["post", "author", "category"]
  *   5. Projection: { _type, slug }
  *   6. Secret: same value as SANITY_REVALIDATE_SECRET in Vercel env vars
+ *
+ * ⚠️ Use the production domain above. This comment previously named
+ * `wildlife-rescue-website.vercel.app`, which now returns 404
+ * DEPLOYMENT_NOT_FOUND — a webhook pointed there fails silently, so Sanity
+ * edits appear to "not publish" until the next deploy re-prerenders the pages.
+ * If content edits ever stop showing up, check the webhook URL here first:
+ * an unsigned POST to this endpoint should return 401 "Invalid signature"
+ * (401 = reachable + secret set; 404 = wrong URL; 500 = secret missing).
  */
 import { NextResponse, type NextRequest } from "next/server";
 import { revalidateTag } from "next/cache";
