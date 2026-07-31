@@ -41,7 +41,7 @@ export default function AnnualReportsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
-              { icon: <TrendingUp size={24} />, stat: "12x", label: "Growth in 15 years", sub: "362 → 4,214 birds/year" },
+              { icon: <TrendingUp size={24} />, stat: "11.6x", label: "Growth in 15 years", sub: "362 → 4,214 birds/year" },
               { icon: <Users size={24} />, stat: "40,000+", label: "Total birds rescued", sub: "Crossed 40,000 on 13 June 2026" },
               { icon: <TrendingUp size={24} />, stat: "17.7%", label: "Compound annual growth", sub: "Consistent acceleration" },
             ].map((m) => (

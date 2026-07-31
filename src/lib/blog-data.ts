@@ -65,7 +65,7 @@ If you want to be part of what comes next, consider making a donation. Every con
     slug: "wr-annual-report-2025",
     title: "Wildlife Rescue Annual Report 2025",
     excerpt:
-      "Our 2025 annual report — a record year with 4,214 birds rescued across 53 species. Download the infographic or the full detailed PDF below.",
+      "Our 2025 annual report — a record year with 4,214 birds across 4,184 cases, spanning 51 species. Download the infographic or the full detailed PDF below.",
     date: "2026-04-16",
     author: "Wildlife Rescue",
     category: "Annual Update",
@@ -73,10 +73,10 @@ If you want to be part of what comes next, consider making a donation. Every con
     image: "/annual-reports/infographic-2025.jpg",
     pdfUrl: "/wr-annual-report.pdf",
     annualReportYear: 2025,
-    content: `Wildlife Rescue's 2025 Annual Report provides a comprehensive overview of a record-breaking year — our biggest ever, with 4,214 birds rescued.
+    content: `Wildlife Rescue's 2025 Annual Report provides a comprehensive overview of a record-breaking year — our biggest ever, with 4,214 birds across 4,184 cases.
 
 **What's inside:**
-- Total birds rescued and treated across 34+ species
+- Total birds rescued and treated across 51 species
 - Species breakdown and long-term trends
 - Financial statements and donor acknowledgments
 - Facility upgrades, new equipment, and surgical advances
@@ -96,9 +96,9 @@ Download the full 2025 report using the link above.`,
     readTime: "5 min",
     image: "/scaling-avian-impact-cover.jpg",
     pdfUrl: "/scaling-avian-impact.pdf",
-    content: `2025 was a landmark year for Wildlife Rescue. For the first time, we crossed the 4,000-bird threshold — treating 4,214 birds across 34+ species.
+    content: `2025 was a landmark year for Wildlife Rescue. For the first time, we crossed the 4,000-bird threshold — treating 4,214 birds across 4,184 cases, spanning 51 species.
 
-This represents a 24% increase over 2024 and marks our 12x growth since 2010, when we treated just 362 birds from our home in Old Delhi's Walled City.
+This represents a 14.4% increase over 2024 and marks our 11.6x growth since 2010, when we treated just 362 birds from our home in Old Delhi's Walled City.
 
 **What drove the record:**
 - Expanded partner network: 10+ organizations now send us injured birds
@@ -106,7 +106,7 @@ This represents a 24% increase over 2024 and marks our 12x growth since 2010, wh
 - The "All That Breathes" documentary continued to drive public awareness
 - Community reporting increased significantly through WhatsApp
 
-**The busiest month:** May 2025, with 720 birds in a single month — an average of 23 birds per day. Our team worked around the clock.
+**The busiest month:** May 2025, with 656 birds — around 21 a day. Our team worked around the clock.
 
 **Looking ahead:** We're preparing for an even bigger 2026 with facility upgrades, new equipment, and expanded team capacity. Thank you to every donor and volunteer who made 2025 possible.`,
   },
@@ -171,7 +171,7 @@ This trip was made possible by **Raptor Rescue and Research Inc.** — Wildlife 
     readTime: "4 min",
     content: `When Wildlife Rescue started, we were primarily a Black Kite rescue operation. Black Kites still make up about 80% of our intake — but the remaining 20% tells an important story.
 
-**Species diversity has grown from 9 species in 2010 to 34+ species in 2025.**
+**Species diversity has grown from 9 species in 2010 to 51 species in 2025.**
 
 **Notable additions in recent years:**
 - Egyptian Vulture (IUCN Endangered) — ~7 per year, every individual is critical

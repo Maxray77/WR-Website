@@ -38,14 +38,15 @@ export const ANNUAL_REPORTS: AnnualReport[] = [
     year: 2025,
     headline: "A Second Chance at Flight",
     summary:
-      "A landmark year — 4,214 birds rescued across 53 species, new high-tech equipment (digital X-ray, ICU incubators, ultrasonic scalpel), and the launch of our EV ambulance for greener rescue logistics.",
+      "A landmark year — 4,214 birds across 4,184 cases, spanning 51 species, new high-tech equipment (digital X-ray, ICU incubators, ultrasonic scalpel), and the launch of our EV ambulance for greener rescue logistics.",
     infographicImage: "/annual-reports/infographic-2025.jpg",
     infographicPdf: "/annual-reports/wr-annual-infographic-2025.pdf",
     coverImage: "/annual-reports/cover-2025.jpg",
     fullReportPdf: "/wr-annual-report.pdf",
     keyStats: [
       { label: "Birds Rescued", value: "4,214" },
-      { label: "Species", value: "53" },
+      { label: "Cases", value: "4,184" },
+      { label: "Species", value: "51" },
       { label: "Black Kites", value: "3,341" },
       { label: "Egyptian Vultures", value: "8" },
     ],

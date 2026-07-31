@@ -20,7 +20,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - 106+ species treated
 - 20+ years of service
 - 26 international awards
-- 2025 set the all-time record: 4,214 birds rescued
+- 2025 set the all-time record: 4,214 birds across 4,184 cases, spanning 51 species (the two numbers differ because 30 birds were logged under a single case)
 - 2026 so far (Jan 1 – June 18): 2,392 birds rescued
 - May 2024 was the single-month record: 720 birds
 - Rescue network includes 10+ partner organizations

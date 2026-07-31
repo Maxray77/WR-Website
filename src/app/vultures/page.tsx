@@ -131,7 +131,7 @@ const WR_INTAKE_DATA = [
   { year: "2022", vultures: 4, total: 3385 },
   { year: "2023", vultures: 5, total: 3383 },
   { year: "2024", vultures: 7, total: 3685 },
-  { year: "2025", vultures: 8, total: 4184 },
+  { year: "2025", vultures: 8, total: 4214 },
 ];
 
 // Egyptian Vulture case analysis, 2020–2025 (35 documented cases).
