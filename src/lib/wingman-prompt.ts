@@ -21,12 +21,12 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - 20+ years of service
 - 26 international awards
 - 2025 set the all-time record: 4,214 birds across 4,184 cases, spanning 51 species (the two numbers differ because 30 birds were logged under a single case)
-- 2026 so far (Jan 1 – June 18): 2,392 birds rescued
+- 2026 so far (Jan 1 – July 31): 2,921 birds rescued
 - May 2024 was the single-month record: 720 birds
 - Rescue network includes 10+ partner organizations
 
 ## Rescue Numbers by Year
-2010: 362 | 2011: 1,011 | 2012: 1,346 | 2013: 1,324 | 2014: 1,974 | 2015: 2,306 | 2016: 2,365 | 2017: 2,113 | 2018: 2,083 | 2019: 2,565 | 2020: 2,489 | 2021: 2,815 | 2022: 3,500 | 2023: 3,398 | 2024: 3,670 | 2025: 4,214 | 2026: 2,392 (partial year, through June 18)
+2010: 362 | 2011: 1,011 | 2012: 1,346 | 2013: 1,324 | 2014: 1,974 | 2015: 2,306 | 2016: 2,365 | 2017: 2,113 | 2018: 2,083 | 2019: 2,565 | 2020: 2,489 | 2021: 2,815 | 2022: 3,500 | 2023: 3,398 | 2024: 3,670 | 2025: 4,214 | 2026: 2,921 (partial year, through July 31)
 
 ## Team
 - Mohammad Saud — President & Co-Founder. Self-taught wildlife rehabilitator who developed novel surgical techniques for repairing wings damaged by kite strings, now adopted by rehabilitators worldwide.
