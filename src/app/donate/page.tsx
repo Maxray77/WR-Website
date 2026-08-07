@@ -15,6 +15,7 @@ import { Card, Container, Section, SectionHeading } from "@/components/ui";
 import DonateForm from "@/components/DonateForm";
 import { pageMetadata } from "@/lib/metadata";
 import {
+  NY_CHARITY,
   ORG,
   ORG_ADDRESS_ONE_LINE,
   OTHER_WAYS_TO_GIVE,
@@ -42,6 +43,10 @@ const FAQ = [
   {
     q: "Is my gift tax-deductible?",
     a: `Yes. ${ORG.name} is a 501(c)(3) organization recognised by the IRS, EIN ${ORG.ein}. Contributions are deductible in the United States to the extent permitted by law. No goods or services are provided in exchange for your gift.`,
+  },
+  {
+    q: "Are you registered to solicit donations?",
+    a: `Yes. We are registered with the New York State Charities Bureau as a ${NY_CHARITY.statuteType.toLowerCase()} registrant, No. ${NY_CHARITY.regNumber}, which places us under the supervision of the state Attorney General and requires an annual ${NY_CHARITY.annualForm} filing on top of our federal return. ${NY_CHARITY.disclosure}`,
   },
   {
     q: "Will I get a receipt?",
@@ -254,6 +259,7 @@ export default async function DonatePage({
                 ["Legal name", ORG.name],
                 ["Tax ID (EIN)", ORG.ein],
                 ["Tax status", ORG.status],
+                ["NY charity registration", `No. ${NY_CHARITY.regNumber}`],
                 ["Mailing address", ORG_ADDRESS_ONE_LINE],
               ].map(([label, value]) => (
                 <div key={label}>

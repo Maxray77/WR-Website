@@ -67,7 +67,13 @@ Sources for the numbers currently on the site:
 
 - Financials — IRS Form 990-EZ for FY ending 31 Dec 2024, filed 4 Nov 2025.
   Mirrored at ProPublica Nonprofit Explorer.
-- Board names and titles — the same filing.
+- New York registration — Notice of Registration from the NY Attorney
+  General's Charities Bureau, 8 Sept 2025. Reg. No. 51-02-33, Dual registrant,
+  CHAR500 filed annually.
+- Board names and titles — supplied by the organisation. Note these are the
+  *current* officers and differ from the FY2024 return, which lists the
+  officers who served that year. The site says so explicitly on `/about` and
+  `/impact` so a donor comparing the two is not confused.
 - Partner caseload figures — published by Wildlife Rescue at raptorrescue.org.
 - Film awards — public award records.
 
@@ -147,8 +153,9 @@ partner Wildlife Rescue.
 2. **Filenames should describe the photograph, not the story you want to tell
    with it.**
 
-Missing and worth adding: portraits of Suzie Gilbert and Linda McDaniel (the
-About page currently shows elegant initial monograms in their place).
+Missing and worth adding: portraits of Julie Collins and Luis Perez (the About
+page currently shows initial monograms in their place — drop a file in
+`public/img/` and set `image` on the board member in `constants.ts`).
 
 ---
 
@@ -168,13 +175,24 @@ Any Node host works — nothing here depends on Vercel-specific APIs.
   top of `NEWS_POSTS` in `src/lib/news.ts`. The existing four are accurate but
   were drafted during the build and should be reviewed in the board's own
   voice before launch.
-- **Two addresses exist for the organisation.** The live Squarespace site and
-  this build use the Waynesboro, Virginia address; the IRS filing lists New
-  York. Confirm which is correct and update `ORG.address` in
-  `src/lib/constants.ts`.
+- **Board bios are duty descriptions, not biographies.** Julie Collins and
+  Luis Perez have no published biography on file, so their entries describe
+  only what each office is responsible for. Nothing personal has been invented.
+  Replace them in `BOARD` in `src/lib/constants.ts` when real bios arrive.
+- **Nadeem Shehzad is listed as Secretary while Luis Perez is listed as
+  Treasurer & Acting Secretary,** which is what was specified. If the intent
+  was that Nadeem is now a Director without portfolio, change his `role` in
+  `BOARD`.
+- **The Virginia address has been removed entirely.** The organisation's
+  address is the New York one. The specific street line
+  (`351 E 50th St, Apt 2`) came from project records rather than the
+  registration document — worth a glance to confirm the apartment number.
 - **Two email addresses exist.** `info@raptorrescueusa.org` is used as primary
   throughout; the long-standing `raptorrescueusa@gmail.com` appears as a
   secondary on the contact page. Both are in `ORG` in `constants.ts`.
+- **New York solicitation disclosure** appears in the footer, the donate FAQ
+  and the terms. It is required of registered charities soliciting in NY and
+  should stay verbatim (`NY_CHARITY.disclosure`).
 - **Giving tier descriptions deliberately avoid per-bird cost claims.** They
   describe what a gift supports rather than asserting a unit price we cannot
   substantiate from the partner's audited accounts. If real unit costs become

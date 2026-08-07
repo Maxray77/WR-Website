@@ -12,6 +12,7 @@ import { pageMetadata } from "@/lib/metadata";
 import {
   BOARD,
   FINANCIALS,
+  NY_CHARITY,
   ORG,
   ORG_ADDRESS_ONE_LINE,
   PARTNER,
@@ -20,7 +21,7 @@ import {
 export const metadata = pageMetadata({
   title: "Who We Are",
   description:
-    "The board of Raptor Rescue and Research Inc. — president Suzie Gilbert, a wild bird rehabilitator of thirty years; secretary Nadeem Shehzad of Wildlife Rescue Delhi; and treasurer Linda McDaniel.",
+    "The board of Raptor Rescue and Research Inc. — president Julie Collins; secretary Nadeem Shehzad, co-founder of Wildlife Rescue in Delhi; and treasurer Luis Perez. A 501(c)(3) registered with the New York State Charities Bureau.",
   path: "/about",
   image: "/img/nwra-speakers.jpg",
 });
@@ -46,9 +47,17 @@ const FACTS = [
   { label: "Status", value: ORG.status },
   { label: "EIN", value: ORG.ein },
   { label: "IRS ruling year", value: String(ORG.rulingYear) },
+  {
+    label: "NY State charity registration",
+    value: `No. ${NY_CHARITY.regNumber} — ${NY_CHARITY.statuteType} registrant, ${NY_CHARITY.bureau}`,
+  },
+  {
+    label: "NY annual filing",
+    value: `Form ${NY_CHARITY.annualForm}, due 4.5 months after fiscal year end`,
+  },
   { label: "Registered address", value: ORG_ADDRESS_ONE_LINE },
   {
-    label: "Most recent filing",
+    label: "Most recent federal filing",
     value: `Form ${FINANCIALS.formType}, FY ${FINANCIALS.fiscalYear}`,
   },
 ];
@@ -58,12 +67,12 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="Who we are"
-        title="A rehabilitator, a surgeon and an accountant walk into a nonprofit."
+        title="Three directors, and nobody drawing a salary to fundraise."
         intro={
           <>
-            Three directors, no paid staff, no office. The people who run this
-            charity have either spent decades treating injured birds or spent
-            their careers making sure the money is accounted for.
+            Raptor Rescue and Research is run by a volunteer board. There is no
+            American office and no development department — which is how a gift
+            made here arrives, very nearly whole, at a clinic in Delhi.
           </>
         }
         image="/img/nwra-speakers.jpg"
@@ -107,68 +116,76 @@ export default function AboutPage() {
             title="The people responsible."
             intro={
               <>
-                Officers as reported on our most recent Form{" "}
-                {FINANCIALS.formType}.
+                The current officers of the corporation. Two of the three serve
+                without any compensation at all.
               </>
             }
           />
 
           <div className="mt-16 space-y-16">
-            {BOARD.map((member, i) => (
-              <article
-                key={member.name}
-                className={`grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-14 ${
-                  i % 2 === 1 ? "lg:grid-cols-[1fr_280px]" : ""
-                }`}
-              >
-                <div
-                  className={`relative mx-auto aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-2xl lg:mx-0 ${
-                    i % 2 === 1 ? "lg:order-2" : ""
+            {BOARD.map((member, i) => {
+              // Alternate which side the portrait sits on. Emit exactly one
+              // grid-cols class — two conflicting ones resolve by stylesheet
+              // order, not class order, and silently squeeze the text column.
+              const reversed = i % 2 === 1;
+              return (
+                <article
+                  key={member.name}
+                  className={`grid gap-10 lg:gap-14 ${
+                    reversed
+                      ? "lg:grid-cols-[1fr_280px]"
+                      : "lg:grid-cols-[280px_1fr]"
                   }`}
                 >
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      sizes="280px"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <Monogram name={member.name} />
-                  )}
-                </div>
-
-                <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-                  <p className="eyebrow text-ember">{member.role}</p>
-                  <h3 className="mt-3 text-3xl text-ink">{member.name}</h3>
-                  <div className="prose-r3 mt-5 text-ash">
-                    {member.bio.map((para) => (
-                      <p key={para.slice(0, 40)}>{para}</p>
-                    ))}
+                  <div
+                    className={`relative mx-auto aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-2xl lg:mx-0 ${
+                      reversed ? "lg:order-2" : ""
+                    }`}
+                  >
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        sizes="280px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <Monogram name={member.name} />
+                    )}
                   </div>
-                  {member.links?.length ? (
-                    <div className="mt-5 flex flex-wrap gap-4">
-                      {member.links.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-ember hover:text-ember-dark"
-                        >
-                          {link.label}
-                          <ExternalLink
-                            className="h-4 w-4"
-                            aria-hidden="true"
-                          />
-                        </a>
+
+                  <div className={reversed ? "lg:order-1" : ""}>
+                    <p className="eyebrow text-ember">{member.role}</p>
+                    <h3 className="mt-3 text-3xl text-ink">{member.name}</h3>
+                    <div className="prose-r3 mt-5 text-ash">
+                      {member.bio.map((para) => (
+                        <p key={para.slice(0, 40)}>{para}</p>
                       ))}
                     </div>
-                  ) : null}
-                </div>
-              </article>
-            ))}
+                    {member.links?.length ? (
+                      <div className="mt-5 flex flex-wrap gap-4">
+                        {member.links.map((link) => (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-ember hover:text-ember-dark"
+                          >
+                            {link.label}
+                            <ExternalLink
+                              className="h-4 w-4"
+                              aria-hidden="true"
+                            />
+                          </a>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
           <p className="mt-16 rounded-2xl border border-line bg-sand p-6 text-sm leading-relaxed text-ash">
@@ -183,7 +200,10 @@ export default function AboutPage() {
             >
               public
             </a>
-            .
+            . Please note that our most recent filing covers FY{" "}
+            {FINANCIALS.fiscalYear} and therefore lists the officers who served
+            during that year; the board above is the current one, and will
+            appear on our next return.
           </p>
         </Container>
       </Section>
@@ -213,11 +233,7 @@ export default function AboutPage() {
                 compensation to any interested director is disclosed on our
                 return.
               </p>
-              <ButtonLink
-                href="/wildlife-rescue"
-                tone="gold"
-                className="mt-8"
-              >
+              <ButtonLink href="/wildlife-rescue" tone="gold" className="mt-8">
                 About the partnership
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </ButtonLink>

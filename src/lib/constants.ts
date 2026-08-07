@@ -22,10 +22,10 @@ export const ORG = {
   url: "https://www.raptorrescueusa.org",
 
   address: {
-    street: "63 Mountain View Dr.",
-    city: "Waynesboro",
-    state: "VA",
-    zip: "22980",
+    street: "351 E 50th St, Apt 2",
+    city: "New York",
+    state: "NY",
+    zip: "10022",
     country: "USA",
   },
 
@@ -38,6 +38,29 @@ export const ORG = {
 } as const;
 
 export const ORG_ADDRESS_ONE_LINE = `${ORG.address.street}, ${ORG.address.city}, ${ORG.address.state} ${ORG.address.zip}`;
+
+/* -------------------------------------------------------------------------- */
+/*  New York State charity registration                                       */
+/*  Source: Notice of Registration, Office of the Attorney General,           */
+/*  Charities Bureau, dated 8 September 2025.                                 */
+/* -------------------------------------------------------------------------- */
+
+export const NY_CHARITY = {
+  regNumber: "51-02-33",
+  /** Registered under both Article 7-A and the EPTL. */
+  statuteType: "Dual",
+  annualForm: "CHAR500",
+  registeredOn: "September 8, 2025",
+  registryUrl: "https://ag.ny.gov/charities",
+  bureau: "New York State Office of the Attorney General, Charities Bureau",
+  bureauAddress: "28 Liberty Street, New York, NY 10005",
+  /**
+   * Disclosure New York requires of registered charities that solicit in the
+   * state. Keep it verbatim on donor-facing pages.
+   */
+  disclosure:
+    "Upon request, a copy of the latest annual report may be obtained from the organization or from the Office of the Attorney General, Charities Bureau, 28 Liberty Street, New York, NY 10005.",
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /*  Navigation                                                                */
@@ -103,8 +126,17 @@ export const FINANCE_NOTES = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/*  Board of Directors                                                        */
-/*  Names and titles as reported on the FY2024 Form 990-EZ.                   */
+/*  Board of Directors — current                                              */
+/*                                                                            */
+/*  NOTE: the FY2024 Form 990-EZ still lists the previous officers (Suzie     */
+/*  Gilbert, President; Linda McDaniel, Treasurer). The board below is the    */
+/*  current one and will appear on the next annual return. Keep the wording   */
+/*  on /impact aligned with that, so a donor comparing the site to the filing */
+/*  is not confused.                                                          */
+/*                                                                            */
+/*  TODO: Julie Collins and Luis Perez need real biographies and portraits.   */
+/*  The text below describes only the duties of each office — nothing         */
+/*  personal has been invented.                                               */
 /* -------------------------------------------------------------------------- */
 
 export type BoardMember = {
@@ -117,14 +149,12 @@ export type BoardMember = {
 
 export const BOARD: BoardMember[] = [
   {
-    name: "Suzie Gilbert",
+    name: "Julie Collins",
     role: "President",
     bio: [
-      "Suzie Gilbert has been a wild bird rehabilitator for more than thirty years. After a decade at the Hudson Valley Raptor Center she founded Flyaway, Inc., her own 501(c)(3) wild bird rehabilitation organization, and ran it for fifteen years.",
-      "She is the author of Flyaway: How a Wild Bird Rehabber Sought Adventure and Found Her Wings (HarperCollins), the children's book Hawk Hill (Chronicle Books), and the novel Unflappable (Perch Press). She writes and speaks widely on wildlife rehabilitation and the people who do it.",
-      "She leads Raptor Rescue and Research because she has spent a career watching what a handful of determined rehabilitators can accomplish — and because she believes the work happening in Delhi deserves an American partner.",
+      "Julie Collins serves as President of Raptor Rescue and Research Inc., chairing the board and leading the organization's strategy for funding raptor rehabilitation abroad.",
+      "The President is responsible for convening the board, approving the grants we make to partner organizations, and ensuring that the discretion and control we are required to exercise over our funds is exercised in fact as well as on paper.",
     ],
-    links: [{ label: "suziegilbert.com", href: "https://suziegilbert.com" }],
   },
   {
     name: "Nadeem Shehzad",
@@ -137,11 +167,11 @@ export const BOARD: BoardMember[] = [
     ],
   },
   {
-    name: "Linda McDaniel",
-    role: "Treasurer",
+    name: "Luis Perez",
+    role: "Treasurer & Acting Secretary",
     bio: [
-      "Linda McDaniel serves as Treasurer, with responsibility for the organization's financial controls, recordkeeping and annual IRS filing.",
-      "She oversees the stewardship of every contribution we receive and ensures our grants to partner organizations are documented, restricted where donors intend, and reported accurately.",
+      "Luis Perez serves as Treasurer and Acting Secretary, with responsibility for the organization's financial controls, recordkeeping and statutory filings.",
+      "That covers our annual Form 990 with the Internal Revenue Service and our CHAR500 with the New York State Charities Bureau, as well as the acknowledgement letters donors rely on at tax time. He oversees the stewardship of every contribution we receive and ensures our grants to partner organizations are documented and reported accurately.",
     ],
   },
 ];

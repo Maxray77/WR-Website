@@ -126,7 +126,7 @@ export const NEWS_POSTS: NewsPost[] = [
       { type: "h2", text: "Small on purpose" },
       {
         type: "p",
-        text: "We are a three-person board and we intend to stay lean. There is no office to rent in the United States and no fundraising staff to pay. That is not modesty for its own sake — it is the mechanism by which a gift made in Virginia turns into antibiotics, sutures and aviary feed in Wazirabad.",
+        text: "We are a three-person board and we intend to stay lean. There is no office to rent in the United States and no fundraising staff to pay. That is not modesty for its own sake — it is the mechanism by which a gift made in New York turns into antibiotics, sutures and aviary feed in Wazirabad.",
       },
       {
         type: "p",

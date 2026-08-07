@@ -31,7 +31,7 @@ export const baseMetadata: Metadata = {
     "donate to raptor rescue",
     "Nadeem Shehzad",
     "Mohammad Saud",
-    "Suzie Gilbert",
+    "New York registered charity",
   ],
   authors: [{ name: ORG.name }],
   creator: ORG.name,

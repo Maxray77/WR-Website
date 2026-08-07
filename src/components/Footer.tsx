@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { FINANCIALS, ORG, ORG_ADDRESS_ONE_LINE, SOCIAL } from "@/lib/constants";
+import {
+  FINANCIALS,
+  NY_CHARITY,
+  ORG,
+  ORG_ADDRESS_ONE_LINE,
+  SOCIAL,
+} from "@/lib/constants";
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from "./SocialIcons";
 import { Logo } from "./Logo";
 
@@ -150,14 +156,22 @@ export default function Footer() {
           <p className="max-w-4xl text-sm leading-relaxed text-bone/55">
             {ORG.name} is a {ORG.status} recognised by the Internal Revenue
             Service. <span className="text-bone/75">EIN {ORG.ein}.</span>{" "}
-            Contributions are tax-deductible in the United States to the extent
-            permitted by law. No goods or services are provided in exchange for
-            your gift.
+            Registered with the New York State Charities Bureau,{" "}
+            <span className="text-bone/75">
+              Reg. No. {NY_CHARITY.regNumber}
+            </span>
+            . Contributions are tax-deductible in the United States to the
+            extent permitted by law. No goods or services are provided in
+            exchange for your gift.
+          </p>
+          <p className="mt-3 max-w-4xl text-xs leading-relaxed text-bone/40">
+            {NY_CHARITY.disclosure}
           </p>
 
           <div className="mt-6 flex flex-col gap-4 text-sm text-bone/55 sm:flex-row sm:items-center sm:justify-between">
+            {/* ORG.name already ends in "Inc." — no extra full stop. */}
             <p>
-              © {year} {ORG.name}. All rights reserved.
+              © {year} {ORG.name} All rights reserved.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <Link

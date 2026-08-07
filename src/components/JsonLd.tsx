@@ -1,4 +1,4 @@
-import { BOARD, FILM, ORG, PARTNER, SOCIAL } from "@/lib/constants";
+import { BOARD, FILM, NY_CHARITY, ORG, PARTNER, SOCIAL } from "@/lib/constants";
 import { SITE_URL } from "@/lib/metadata";
 
 /**
@@ -59,11 +59,18 @@ export default function JsonLd() {
         datePublished: String(FILM.year),
         award: FILM.awards.map((a) => `${a.name} — ${a.detail} (${a.year})`),
       },
-      identifier: {
-        "@type": "PropertyValue",
-        propertyID: "EIN",
-        value: ORG.ein,
-      },
+      identifier: [
+        {
+          "@type": "PropertyValue",
+          propertyID: "EIN",
+          value: ORG.ein,
+        },
+        {
+          "@type": "PropertyValue",
+          propertyID: "New York State Charities Bureau registration",
+          value: NY_CHARITY.regNumber,
+        },
+      ],
     },
     {
       "@type": "WebSite",

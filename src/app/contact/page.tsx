@@ -3,7 +3,12 @@ import { Card, Container, Section, SectionHeading } from "@/components/ui";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import { pageMetadata } from "@/lib/metadata";
-import { ORG, ORG_ADDRESS_ONE_LINE, PARTNER } from "@/lib/constants";
+import {
+  NY_CHARITY,
+  ORG,
+  ORG_ADDRESS_ONE_LINE,
+  PARTNER,
+} from "@/lib/constants";
 
 export const metadata = pageMetadata({
   title: "Contact Us",
@@ -89,6 +94,7 @@ export default function ContactPage() {
                     ["Legal name", ORG.name],
                     ["EIN", ORG.ein],
                     ["Status", ORG.status],
+                    ["NY charity reg.", `No. ${NY_CHARITY.regNumber}`],
                   ].map(([label, value]) => (
                     <div key={label}>
                       <dt className="text-xs font-semibold uppercase tracking-wider text-ash">

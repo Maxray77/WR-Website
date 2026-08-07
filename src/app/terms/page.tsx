@@ -1,7 +1,12 @@
 import LegalPage from "@/components/LegalPage";
 import type { LegalSection } from "@/components/LegalPage";
 import { pageMetadata } from "@/lib/metadata";
-import { ORG, ORG_ADDRESS_ONE_LINE, PARTNER } from "@/lib/constants";
+import {
+  NY_CHARITY,
+  ORG,
+  ORG_ADDRESS_ONE_LINE,
+  PARTNER,
+} from "@/lib/constants";
 
 export const metadata = pageMetadata({
   title: "Terms of Use",
@@ -35,13 +40,21 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "About us",
     body: (
-      <p>
-        {ORG.name} is a {ORG.status} recognised by the United States Internal
-        Revenue Service, EIN {ORG.ein}, with a mailing address at{" "}
-        {ORG_ADDRESS_ONE_LINE}. We raise funds in the United States and make
-        grants to organisations engaged in the rescue, treatment and release of
-        birds of prey.
-      </p>
+      <>
+        <p>
+          {ORG.name} is a {ORG.status} recognised by the United States Internal
+          Revenue Service, EIN {ORG.ein}, with a mailing address at{" "}
+          {ORG_ADDRESS_ONE_LINE}. We raise funds in the United States and make
+          grants to organisations engaged in the rescue, treatment and release
+          of birds of prey.
+        </p>
+        <p>
+          We are registered with the New York State Charities Bureau as
+          registration No. {NY_CHARITY.regNumber} and file a{" "}
+          {NY_CHARITY.annualForm} with the state each year.{" "}
+          {NY_CHARITY.disclosure}
+        </p>
+      </>
     ),
   },
   {
@@ -200,10 +213,10 @@ const SECTIONS: LegalSection[] = [
     heading: "Governing law",
     body: (
       <p>
-        These terms are governed by the laws of the Commonwealth of Virginia and
-        the United States, without regard to conflict-of-law principles. Any
-        dispute will be brought in the state or federal courts located in
-        Virginia.
+        These terms are governed by the laws of the State of New York and the
+        United States, without regard to conflict-of-law principles. Any
+        dispute will be brought in the state or federal courts located in New
+        York County, New York.
       </p>
     ),
   },

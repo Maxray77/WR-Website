@@ -61,17 +61,37 @@ work.
 - **`.gitignore` ignores `.env*`,** so `.env.example` needs its explicit
   negation (already present).
 
+## Governance facts that are easy to get wrong
+
+- **The current board differs from the last IRS filing.** Current officers:
+  Julie Collins (President), Nadeem Shehzad (Secretary), Luis Perez (Treasurer
+  & Acting Secretary). The FY2024 Form 990-EZ still lists Suzie Gilbert and
+  Linda McDaniel, because it covers a year they served. Both `/about` and
+  `/impact` say this explicitly — do not delete those sentences, they are what
+  stops a donor thinking the site contradicts the filing.
+- **Julie's and Luis's bios describe their offices, not their lives.** No
+  biographical detail has been invented. Do not add any without a source.
+- **The organisation is in New York, not Virginia.** The VA address is gone;
+  do not reintroduce it. Governing law in the terms is New York.
+- **NY charity registration No. 51-02-33**, Dual registrant, CHAR500 annually,
+  registered 8 Sept 2025. In `NY_CHARITY` in `constants.ts`. The
+  `disclosure` string is a NY legal requirement — keep it verbatim.
+- **28 Liberty Street is the Attorney General's address, not ours.** It
+  appears only inside the required disclosure sentence.
+
 ## Open questions for the client
 
-- Which mailing address is current — Waynesboro VA (live site) or New York
-  (IRS filing)?
+- Portraits and real bios for Julie Collins and Luis Perez.
+- Should Nadeem stay titled "Secretary" alongside Luis as "Acting Secretary",
+  or become a Director?
+- Confirm the apartment number on the New York address.
 - Which email should be primary — `info@` or the long-standing gmail?
-- Portraits for Suzie Gilbert and Linda McDaniel (monograms stand in for now).
 - Should the four drafted news posts be rewritten in the board's own voice?
 - Real per-gift unit costs, if the partner's accounts can substantiate them.
 
 ## Current status
 
-**2026-08-07 — initial build complete.** 22 routes, production build and
-typecheck clean, ESLint clean, all pages visually verified at 1440px and
-390px. Not yet deployed; no Stripe or Resend credentials configured.
+**2026-08-07 — initial build complete, then updated for the board change and
+the New York registration.** 22 routes, production build and typecheck clean,
+ESLint clean, pages visually verified at 1440px and 390px. Not yet deployed;
+no Stripe or Resend credentials configured.

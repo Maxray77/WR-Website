@@ -12,6 +12,7 @@ import {
   BOARD,
   FINANCE_NOTES,
   FINANCIALS,
+  NY_CHARITY,
   ORG,
   PARTNER,
 } from "@/lib/constants";
@@ -55,6 +56,12 @@ const ACCOUNTABILITY = [
     body: `Confirm our 501(c)(3) status and eligibility to receive tax-deductible contributions directly with the IRS using EIN ${ORG.ein}.`,
     href: "https://apps.irs.gov/app/eos/",
     cta: "Verify with the IRS",
+  },
+  {
+    title: "NY State Charities Bureau",
+    body: `We are registered with the New York Attorney General as a ${NY_CHARITY.statuteType.toLowerCase()} registrant, No. ${NY_CHARITY.regNumber}, and file a ${NY_CHARITY.annualForm} every year. Our entry appears on the state's public registry.`,
+    href: NY_CHARITY.registryUrl,
+    cta: "Search the NY registry",
   },
 ];
 
@@ -205,7 +212,7 @@ export default function ImpactPage() {
         <Container>
           <SectionHeading
             eyebrow="Where it lands"
-            title="Dollars in Virginia, medicine in Wazirabad."
+            title="Dollars in New York, medicine in Wazirabad."
             tone="light"
             intro={
               <>
@@ -256,7 +263,7 @@ export default function ImpactPage() {
             title="Independent records, not our word for it."
             align="center"
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {ACCOUNTABILITY.map((item) => (
               <Card key={item.title} className="flex flex-col">
                 <FileText className="h-6 w-6 text-ember" aria-hidden="true" />
@@ -304,9 +311,26 @@ export default function ImpactPage() {
                 ))}
               </ul>
               <p className="mt-6 leading-relaxed text-ash">
-                Officers and directors as reported on our Form{" "}
-                {FINANCIALS.formType} for FY {FINANCIALS.fiscalYear}. Our
-                President and Treasurer serve without compensation.
+                The current officers of the corporation. Our President and
+                Treasurer serve without compensation, and any compensation paid
+                to an officer is disclosed in full on our annual return. Our
+                most recent return covers FY {FINANCIALS.fiscalYear} and so
+                lists the officers who served that year.
+              </p>
+              <p className="mt-4 leading-relaxed text-ash">
+                We are also registered with the{" "}
+                <a
+                  href={NY_CHARITY.registryUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-ember underline decoration-ember/30 underline-offset-4"
+                >
+                  New York State Charities Bureau
+                </a>{" "}
+                as registration No. {NY_CHARITY.regNumber}, which places us
+                under the supervision of the state Attorney General and
+                requires a {NY_CHARITY.annualForm} filing every year in
+                addition to our federal return.
               </p>
               <ButtonLink href="/about" tone="outline" className="mt-7">
                 Meet the board
