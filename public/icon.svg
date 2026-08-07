@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <circle cx="24" cy="24" r="24" fill="#0d1b26"/>
+  <path d="M6.5 31.5c6-1.2 10.6-4.2 14.2-9.1" stroke="#dfa23c" stroke-width="1.75" stroke-linecap="round" opacity=".55" fill="none"/>
+  <path d="M41.5 16.5c-6 1.2-10.6 4.2-14.2 9.1" stroke="#dfa23c" stroke-width="1.75" stroke-linecap="round" opacity=".55" fill="none"/>
+  <text x="24" y="24" text-anchor="middle" dominant-baseline="central" fill="#fbf9f5" font-family="Georgia,'Times New Roman',serif" font-size="19" font-weight="600" letter-spacing=".5">R3</text>
+</svg>

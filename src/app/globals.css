@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==========================================================================
+   Raptor Rescue and Research Inc. — brand tokens
+   Tailwind v4: colors live here in @theme, NOT in a tailwind.config file.
+   Palette is deliberately distinct from our partner Wildlife Rescue's
+   teal/amber so the two organisations read as siblings, not clones.
+   ========================================================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Dark surfaces — dusk sky */
+  --color-ink: #0d1b26;
+  --color-ink-2: #16303f;
+  --color-ink-3: #1f4053;
+
+  /* Mid tones */
+  --color-slate: #3a5a6b;
+  --color-ash: #5f7180;
+
+  /* Accents — raptor plumage */
+  --color-ember: #b5501c;
+  --color-ember-dark: #8f3e14;
+  --color-ember-light: #f6ece5;
+  --color-gold: #dfa23c;
+  --color-gold-light: #f7edd9;
+
+  /* Light surfaces — bone and sand */
+  --color-bone: #fbf9f5;
+  --color-sand: #f0e9de;
+  --color-line: #e4dcd0;
+
+  /* Text */
+  --color-graphite: #1c2a33;
+
+  --font-display: var(--font-serif);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* offset anchor targets for the sticky header */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-graphite);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible focus ring everywhere, for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-ink);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Small uppercase label that sits above a section heading */
+  .eyebrow {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Long-form body copy inside narrative sections */
+  .prose-r3 > p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+  }
+  .prose-r3 > p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
