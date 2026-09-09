@@ -188,6 +188,22 @@ points at localhost. It covers overflow to the waiting list, FIFO promotion, the
 skip-a-large-party rule, capacity increases, duplicate emails, token-guarded
 cancellation, and a ten-way concurrent booking race that must never oversell.
 
+### About `npm audit`
+
+`npm audit` reports four **moderate** advisories, all the same one: an esbuild
+dev-server issue reaching us through `drizzle-kit`'s old `@esbuild-kit/*`
+dependencies.
+
+**Do not run `npm audit fix --force` here.** Its "fix" is to downgrade
+`drizzle-kit` from 0.31 to 0.18, which is years old and would break
+`npm run db:push`. The advisory only affects esbuild's own dev server, which
+this project never starts, and `drizzle-kit` is a devDependency that never ships
+to production. It clears itself when drizzle-kit drops the old loader upstream.
+
+There should be **no high-severity** findings — `drizzle-orm` is pinned at
+0.45.2 or later, which closes the SQL-identifier injection advisory
+(GHSA-gpj5-g38j-94v9).
+
 ---
 
 ## Using this outside the monorepo
