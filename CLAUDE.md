@@ -222,6 +222,70 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-09-09 — **New `screening-plan-app/` — a standalone registration + waiting-list app for All That Breathes community screenings. On branch `claude/screening-plan-app-jmq51m`, NOT on `main`, NOT deployed yet.**
+
+### Screening Plan App (2026-09-09) — built, tested, running locally
+
+A self-contained Next.js 16 app in `screening-plan-app/`. It shares nothing with the
+website except the brand palette — separate project, separate database, separate deploy.
+Lives on branch `claude/screening-plan-app-jmq51m` (commits `0df03f2`, `a4bc912`).
+
+**What it does.** Public: browse screenings by city with live seat counts → reserve free
+seats → emailed confirmation with a booking reference and QR door pass → self-service
+cancel. When a screening fills, registrations join a waiting list and are confirmed
+**automatically**, oldest first, whenever a seat is released or capacity is raised (a
+party larger than the seats just freed is skipped rather than blocking the queue).
+Admin (`/admin`, password): create/edit screenings, add attendees by hand for phone
+bookings and walk-ins, cancel on someone's behalf, check in at the door, printable A4
+door list, CSV export, cancel a whole screening with automatic notification to everyone
+booked. Five branded emails: confirmed / waitlisted / promoted / cancelled /
+screening-cancelled.
+
+**Stack + the one architectural decision.** Next.js 16 App Router, TypeScript, Tailwind
+v4, Drizzle ORM → **Postgres** (Neon), Resend for email. Postgres rather than Upstash
+Redis specifically because seat allocation needs real transactions: each booking takes a
+row lock on the screening (`SELECT … FOR UPDATE`) so two people clicking "reserve" on the
+last seat can never both get it. A ten-way concurrent booking race is covered by the test
+suite and confirms it never oversells.
+
+**Verified, not assumed.** `tsc`, `eslint`, `next build` all clean; `scripts/smoke-test.ts`
+runs 22 assertions against a live Postgres (FIFO promotion, the skip-a-large-party rule,
+capacity increases, duplicate emails, token-guarded cancellation, the concurrency race);
+plus a Playwright walkthrough of the whole public and admin flow.
+
+**Current state (end of session).** User cloned `screening-plan-app/` out to
+`C:\Users\maxra\Documents\Code\Screening Plan App` (a plain folder, **no git history**
+— so future fixes must be applied by hand or re-cloned, not `git pull`ed). Created a Neon
+project **Screening-Plan** (AWS Singapore) on their own Neon account under the "Wildlife
+Rescue" org. Running locally at `localhost:3000` with the three seeded sample screenings.
+`RESEND_API_KEY` deliberately left blank — emails print to the console instead of sending,
+so the wording can be reviewed before anything reaches a real person.
+
+**Carry-forward.**
+- **Not deployed.** Vercel deploy is the next step: same env vars as `.env.local`, plus
+  `RESEND_API_KEY`, plus `NEXT_PUBLIC_SITE_URL` set to the live URL (booking links in
+  emails are built from it), then `npm run db:push` once against the production DB.
+- **No delete for screenings** — only Draft (hides it) or Cancel. Deliberate, so an
+  attendee list can't be wiped by accident, but it means the three seed screenings will
+  sit in the admin list. User was asked whether they want a delete button for
+  booking-free screenings or a one-line cleanup command; **awaiting their answer**.
+- **Single shared admin password**, not per-person logins. Fine for a few staff; if
+  city organisers each need their own access that's a real piece of work.
+- **`npm audit` shows 4 moderate advisories** — one esbuild dev-server issue via
+  `drizzle-kit`'s old deps. **Do not run `npm audit fix --force`**: it downgrades
+  drizzle-kit 0.31 → 0.18 and breaks `db:push`. Dev-only, devDependency, never ships.
+  There should be no HIGH findings (`drizzle-orm` pinned ≥ 0.45.2).
+- Ideas parked in the README: 24h reminder email via Vercel Cron, QR scanning at the
+  door, per-city organiser logins, post-screening thank-you with a donation link.
+
+**Gotcha worth remembering:** `.env.example` ships `DATABASE_URL="postgresql://user:password@host/db"`
+as a placeholder. Left unreplaced it fails with `getaddrinfo ENOTFOUND host` — Node
+looking up a machine literally named "host". Confusing error for a missing config value.
+
+---
+
+**Previous session (2026-06-25) retained below for context:**
+
 **Last updated by:** Claude Code — 2026-06-25 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer, a new `/education-outreach` school page, a finalized header nav (All That Breathes + Egyptian Vultures promoted to top-level), and a website stats report with over-time tracking — all SHIPPED & live.**
 
 ### Shipped this session (pushed to `main`, Vercel auto-deploys)
