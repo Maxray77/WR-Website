@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Wildlife Rescue brand palette */
+  --color-teal: #0a6e5c;
+  --color-teal-dark: #064e41;
+  --color-teal-light: #e8f5f1;
+  --color-amber: #e8a317;
+  --color-amber-light: #f5d060;
+  --color-amber-soft: #fff8e7;
+  --color-charcoal: #1a1a2e;
+  --color-slate: #6b7280;
+  --color-offwhite: #f9fafb;
+  --color-line: #e8ecef;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --radius-xl2: 1.125rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-offwhite);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+/* Focus ring consistent with the brand */
+*:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Inputs */
+.field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field::placeholder {
+  color: #9aa3af;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgb(10 110 92 / 0.12);
+}
+.field[aria-invalid="true"] {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.1);
+}
+.field-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin-bottom: 0.35rem;
+}
+.field-error {
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  color: #dc2626;
+}
+.field-hint {
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  color: var(--color-slate);
+}
+
+/* Card surface */
+.card {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl2);
+  box-shadow: 0 1px 2px rgb(16 24 40 / 0.04);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-rise {
+  animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: attendee lists / door sheets */
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .card { box-shadow: none; border-color: #d5d9de; }
+}
