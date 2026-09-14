@@ -307,7 +307,7 @@ export const RESCUE_BY_YEAR = [
   { year: 2019, total: 2565 },
   { year: 2020, total: 2489 },
   { year: 2021, total: 2815 },
-  { year: 2022, total: 3500 },
+  { year: 2022, total: 3385 },
   { year: 2023, total: 3398 },
   { year: 2024, total: 3670 },
   { year: 2025, total: 4214 },
@@ -354,7 +354,7 @@ export const TIMELINE = [
   { year: "2013", title: "Move to Wazirabad", description: "Wildlife Rescue relocates from its founding home in Old Delhi to a larger facility in Wazirabad Village, North Delhi — making room for more birds and better infrastructure." },
   { year: "2014", title: "National Recognition", description: "Sparrow Award from Wipro Nature Forever Society. FIAPO Special Award. Included in Limca Book of Records. 1,974 birds rescued." },
   { year: "2020", title: "COVID Resilience", description: "Despite India's strict lockdown, Wildlife Rescue never closes. Annual intake drops only 3%. \"Even during a global pandemic, we never closed our doors.\"" },
-  { year: "2022", title: "All That Breathes", description: "The Oscar-nominated documentary brings global attention. Intake jumps 24% to 3,500 birds. Wins Sundance Grand Jury Prize and Cannes Golden Eye." },
+  { year: "2022", title: "All That Breathes", description: "The Oscar-nominated documentary brings global attention. Intake jumps over 20% to 3,385 birds. Wins Sundance Grand Jury Prize and Cannes Golden Eye." },
   { year: "2023", title: "Oscar Nomination", description: "All That Breathes nominated for Best Documentary Feature at the 95th Academy Awards, BAFTA, and DGA Awards." },
   { year: "2025", title: "Record Year", description: "4,214 birds across 4,184 cases, spanning 51 species — the highest annual total ever. May 2024 set the single-month record with 720 birds. The rescue network grows to 10+ partner organizations." },
 ];
