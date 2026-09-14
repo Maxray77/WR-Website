@@ -117,7 +117,7 @@ export const pageMetadata = {
     title:
       "All That Breathes — The Oscar-Nominated Documentary About Wildlife Rescue",
     description:
-      "All That Breathes (dir. Shaunak Sen) follows Nadeem Shehzad and Mohammad Saud as they treat Delhi's falling black kites. Winner of the Sundance Grand Jury Prize, Cannes L'Œil d'Or (Golden Eye), Peabody Award, Gotham, Jackson Wild — 26 international awards. Academy Award and BAFTA nominee for Best Documentary Feature.",
+      "All That Breathes (dir. Shaunak Sen) follows Nadeem Shehzad and Mohammad Saud as they treat Delhi's falling black kites. Winner of the Sundance Grand Jury Prize, Cannes L'Œil d'Or (Golden Eye), Peabody Award, Gotham, Jackson Wild — 24 international awards. Academy Award and BAFTA nominee for Best Documentary Feature.",
     alternates: { canonical: "/all-that-breathes" },
   },
   gallery: {

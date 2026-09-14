@@ -181,7 +181,7 @@ export default async function Home() {
                 >
                   &quot;All That Breathes&quot;
                 </Link>
-                , winner of 26 international awards including the Sundance Grand
+                , winner of 24 international awards including the Sundance Grand
                 Jury Prize and the Cannes Golden Eye.
               </p>
               <Link

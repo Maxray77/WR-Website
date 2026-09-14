@@ -19,7 +19,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - 41,000+ birds rescued since 2010 (crossed the 40,000 milestone on 13 June 2026 — the 40,000th rescue was a Shikra)
 - 106+ species treated
 - 20+ years of service
-- 26 international awards
+- 24 international awards (IMDb: 24 wins, 44 nominations)
 - 2025 set the all-time record: 4,214 birds across 4,184 cases, spanning 51 species (the two numbers differ because 30 birds were logged under a single case)
 - 2026 so far (Jan 1 – July 31): 2,921 birds rescued
 - May 2024 was the single-month record: 720 birds
