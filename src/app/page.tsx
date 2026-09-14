@@ -170,8 +170,8 @@ export default async function Home() {
                 In the early 1990s, brothers Nadeem and Saud found an injured
                 Black Kite in Old Delhi. When hospitals refused to treat it —
                 &quot;we do not treat carnivorous birds&quot; — they decided to
-                learn themselves. What started at home has grown into the
-                world&apos;s largest raptor rescue operation.
+                learn themselves. What started at home has grown into one
+                of the world&apos;s largest raptor rescue operations.
               </p>
               <p className="mt-4 text-slate leading-relaxed">
                 As featured in the Oscar-nominated documentary{" "}

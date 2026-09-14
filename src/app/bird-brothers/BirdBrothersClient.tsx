@@ -273,8 +273,9 @@ export default function BirdBrothersClient() {
               surgery returning to the skies.
             </p>
             <p className="text-charcoal font-semibold">
-              Today, Wildlife Rescue has grown into the world&apos;s largest
-              raptor rescue facility, with over 41,000 birds rescued since 2010.
+              Today, Wildlife Rescue has grown into one of the world&apos;s
+              largest raptor rescue facilities, with over 41,000 birds rescued
+              since 2010.
             </p>
           </div>
         </div>
@@ -603,9 +604,9 @@ export default function BirdBrothersClient() {
             The Real Bird Brothers
           </h2>
           <p className="mt-4 text-white/80 max-w-2xl mx-auto leading-relaxed">
-            This book tells the origin story of Wildlife Rescue — now the
-            world&apos;s largest raptor rescue facility with over 41,000 birds
-            rescued since 2010. Nadeem and Saud continue their work every day in
+            This book tells the origin story of Wildlife Rescue — now one of
+            the world&apos;s largest raptor rescue facilities, with over 41,000
+            birds rescued since 2010. Nadeem and Saud continue their work every day in
             Delhi, and every purchase helps raise awareness for raptor
             conservation.
           </p>

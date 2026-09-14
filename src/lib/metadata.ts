@@ -19,11 +19,11 @@ export const siteMetadata: Metadata = {
   },
   title: {
     default:
-      "Wildlife Rescue — World's Largest Raptor Rescue | Delhi, India",
+      "Wildlife Rescue — One of the World's Largest Raptor Rescues | Delhi",
     template: "%s | Wildlife Rescue",
   },
   description:
-    "Wildlife Rescue is the world's largest raptor rescue facility, treating 41,000+ birds since 2010 in Delhi, India. Founded by Nadeem Shehzad and Mohammad Saud, subjects of the Oscar-nominated documentary 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody Award). Donations are 80(G) tax-deductible in India and 501(c)(3) tax-deductible in the US via R3.",
+    "Wildlife Rescue is one of the world's largest raptor rescue facilities, treating 41,000+ birds since 2010 in Delhi, India. Founded by Nadeem Shehzad and Mohammad Saud, subjects of the Oscar-nominated documentary 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody Award). Donations are 80(G) tax-deductible in India and 501(c)(3) tax-deductible in the US via R3.",
   keywords: [
     "wildlife rescue",
     "raptor rescue",
@@ -54,7 +54,7 @@ export const siteMetadata: Metadata = {
     type: "website",
     siteName: "Wildlife Rescue",
     title:
-      "Wildlife Rescue — World's Largest Raptor Rescue | Delhi, India",
+      "Wildlife Rescue — One of the World's Largest Raptor Rescues | Delhi",
     description:
       "41,000+ birds rescued since 2010. Subjects of the Oscar-nominated 'All That Breathes' (Sundance, Cannes, Peabody). Help us heal Delhi's birds of prey.",
     url: BASE_URL,
@@ -71,7 +71,7 @@ export const siteMetadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Wildlife Rescue — World's Largest Raptor Rescue | Delhi, India",
+      "Wildlife Rescue — One of the World's Largest Raptor Rescues | Delhi",
     description:
       "41,000+ birds rescued since 2010. Subjects of Oscar-nominated 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody).",
     site: "@wildliferescueindia",
@@ -104,7 +104,7 @@ export const pageMetadata = {
   donate: {
     title: "Donate — 80(G) & 501(c)(3) Tax-Deductible Giving",
     description:
-      "Support the world's largest raptor rescue. Indian donors get 80(G) tax exemption (Reg. AAATW2352B25DL02). US donors give via Raptor Rescue & Research Inc. (EIN 87-3289299, 501(c)(3)). Pay via Razorpay, UPI, GoFundMe, bank transfer, or cheque.",
+      "Support one of the world's largest raptor rescues. Indian donors get 80(G) tax exemption (Reg. AAATW2352B25DL02). US donors give via Raptor Rescue & Research Inc. (EIN 87-3289299, 501(c)(3)). Pay via Razorpay, UPI, GoFundMe, bank transfer, or cheque.",
     alternates: { canonical: "/donate" },
   },
   contact: {
@@ -123,7 +123,7 @@ export const pageMetadata = {
   gallery: {
     title: "Photo Gallery — Rescued Birds of Delhi",
     description:
-      "Photographs from the world's largest raptor rescue: black kites, owls, vultures and other birds of prey in treatment, surgery, recovery, and release at our Delhi clinic.",
+      "Photographs from one of the world's largest raptor rescues: black kites, owls, vultures and other birds of prey in treatment, surgery, recovery, and release at our Delhi clinic.",
     alternates: { canonical: "/gallery" },
   },
   media: {

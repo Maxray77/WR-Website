@@ -315,12 +315,16 @@ export const RESCUE_BY_YEAR = [
 ];
 
 // ─── Donation Amounts ───
+// The INR and USD ladders must stay in step: a donor who converts should see
+// the same claim priced the same. The four shared claims sit at a flat
+// 1:100 (₹1,000 = $10, ₹2,500 = $25, ₹5,000 = $50, ₹10,000 = $100).
+// If you change a tier on one ladder, change its twin on the other.
 export const DONATION_AMOUNTS_INR = [
   { amount: 100, label: "Every rupee helps" },
-  { amount: 500, label: "Feeds one bird for a week" },
-  { amount: 1000, label: "Covers medicine for one raptor" },
-  { amount: 2500, label: "Covers surgery for one bird" },
-  { amount: 5000, label: "Sponsors a full rehabilitation" },
+  { amount: 1000, label: "Feeds one bird for a week" },
+  { amount: 2500, label: "Covers medicine for one raptor" },
+  { amount: 5000, label: "Covers surgery for one bird" },
+  { amount: 10000, label: "Sponsors a full rehabilitation" },
 ];
 
 export const DONATION_AMOUNTS_USD = [

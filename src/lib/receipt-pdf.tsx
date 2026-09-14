@@ -355,7 +355,7 @@ function ReceiptDocument({ record, pan }: ReceiptProps) {
           <Image src={LOGO_PATH} style={styles.logo} />
           <View style={styles.orgBlock}>
             <Text style={styles.orgName}>{ORG.name}</Text>
-            <Text style={styles.orgTagline}>The world's largest raptor rescue facility</Text>
+            <Text style={styles.orgTagline}>One of the world's largest raptor rescue facilities</Text>
             <Text style={styles.orgMeta}>{ORG.registeredOffice}</Text>
             <Text style={styles.orgMeta}>
               {ORG.phone}  •  {ORG.email}  •  {ORG.website}

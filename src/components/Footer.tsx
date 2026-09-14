@@ -98,7 +98,7 @@ export default function Footer() {
               className="mb-3 object-contain"
             />
             <p className="text-teal-light text-sm leading-relaxed mb-4 max-w-md">
-              The world&apos;s largest raptor rescue facility, based in Delhi, India.
+              One of the world&apos;s largest raptor rescue facilities, based in Delhi, India.
               Featured in the Oscar-nominated documentary &quot;All That Breathes.&quot;
               41,000+ birds rescued since 2010.
             </p>

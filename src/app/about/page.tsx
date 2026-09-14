@@ -36,7 +36,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Our Journey"
-            subtitle="From a home in Old Delhi to the world's largest raptor rescue."
+            subtitle="From a home in Old Delhi to one of the world's largest raptor rescues."
           />
 
           <div className="relative">

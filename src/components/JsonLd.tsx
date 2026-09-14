@@ -22,7 +22,7 @@ export function OrganizationJsonLd() {
     },
     image: `${SITE_URL}/founders-combined.jpg`,
     description:
-      "Wildlife Rescue is the world's largest raptor rescue and rehabilitation facility. Based in Delhi, India, we have treated 41,000+ injured birds since 2010 across 106+ species. Featured in the Oscar-nominated documentary 'All That Breathes'.",
+      "Wildlife Rescue is one of the world's largest raptor rescue and rehabilitation facilities. Based in Delhi, India, we have treated 41,000+ injured birds since 2010 across 106+ species. Featured in the Oscar-nominated documentary 'All That Breathes'.",
     slogan: "Every Wing Deserves a Second Chance",
     foundingDate: "1990",
     foundingLocation: {
@@ -152,7 +152,7 @@ export function WebsiteJsonLd() {
     alternateName: "Raptor Rescue Delhi",
     url: SITE_URL,
     description:
-      "Wildlife Rescue — the world's largest raptor rescue. Rescuing, rehabilitating, and releasing birds of prey in Delhi since the early 1990s.",
+      "Wildlife Rescue — one of the world's largest raptor rescues. Rescuing, rehabilitating, and releasing birds of prey in Delhi since the early 1990s.",
     inLanguage: "en",
     publisher: {
       "@id": `${SITE_URL}/#organization`,

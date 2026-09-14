@@ -109,7 +109,7 @@ const RESCUED_RELEASED_VIDEOS = [
     src: "/clips/rescued-released/combined-04.mp4",
     title: "Rescued &amp; Released — Vol. 4",
     description:
-      "Inside the world&apos;s largest raptor rescue facility — surgery, recovery, slow release, and freedom regained.",
+      "Inside one of the world&apos;s largest raptor rescue facilities — surgery, recovery, slow release, and freedom regained.",
   },
 ];
 
