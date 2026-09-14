@@ -222,6 +222,67 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-09-14 — **Website corrections Round 4.** Six commits on branch `claude/pensive-gauss-hzc81j` — **NOT merged, NOT deployed.** Production still shows the old figures until someone merges to `main`. **Do not merge before 21 September 2026** (see "Deploy gate" below).
+
+### ⚠️ Deploy gate — read before merging
+
+The 41,000+ figure is true from about **21 September 2026**, not before. The register passed case #41,021 on 29 August, but case numbers run ahead of birds: at that point the arithmetic gave 40,702 cases / 40,732 birds. At ~11–12 birds a day the **bird count crosses 41,000 around 19–21 September**. The code is finished and waiting; only the merge date matters. Merging earlier publishes a claim that is not yet true.
+
+### Shipped to the branch (6 commits, oldest first)
+
+| Commit | What |
+|---|---|
+| `938c726` | 41,000+ site-wide · CSR-1/12A/FCRA in footer · webhook doc fix |
+| `73fbb69` | Donation ladders at 1:100 · "one of the world's largest" ×16 |
+| `206f5ee` | ATB awards 26 → 24 |
+| `2df5e65` | 2022 intake → 3,385 |
+| `34a0808` | Intake growth chart on `/conditions` · retired the "3,500+" claim |
+| `ce2ff28` | 2021 intake → 2,767 · 2022 growth exact at 22% |
+
+1. **40,000+ → 41,000+ (`938c726`)** — every live claim: meta/OG/Twitter descriptions, footer tagline, JSON-LD org description, homepage hero caption, the animated counter target (`IMPACT_STATS[0]`), `/treatments`, `/annual-reports`, `/bird-brothers` ×2, Wingman. **Deliberately left at 40,000:** `/blog/40000th-rescue-shikra` + its 308 redirect (historical milestone, permalinked), the "Crossed 40,000 on 13 June 2026" sub-caption and matching Wingman note (accurate records), and the ₹40,000 security deposit in `/financials` (currency).
+2. **Footer registrations (`938c726`)** — an Indian company's CSR officer checks **CSR-1** to decide whether they may lawfully route CSR funds to WR, and it was not on the site at all. Footer legal line now carries 80(G) · 12A · MCA CSR-1 · FCRA on an India row, US 501(c)(3)/EIN on its own row. Numbers live in a new **`REGISTRATIONS`** const in `constants.ts`, not hardcoded in the component.
+3. **Donation ladders (`73fbb69`)** — INR and USD made the same four claims at prices 1.9×–2.4× apart; a US donor paying $50 and an Indian donor paying ₹2,500 were told they were buying the same thing. Per Nadeem, INR now tracks USD at a flat **1:100**: ₹1,000/$10, ₹2,500/$25, ₹5,000/$50, ₹10,000/$100. ₹100 "every rupee helps" stays as the unmatched entry tier. **A comment on the constant records the 1:100 rule — keep the two ladders in step.** Wingman had its own hardcoded copy of the old ladder; synced.
+4. **"One of the world's largest" (`73fbb69`)** — the bare superlative rested on a single 2024 Clarion India headline. Softened in all 16 places (page title, meta/OG/Twitter, both JSON-LD blocks, footer, `/about` subtitle, homepage, `/videos`, `/bird-brothers` ×2, the 80(G) receipt letterhead, Wingman). The Clarion headline in the press list is left verbatim — it is a quotation.
+5. **Awards 26 → 24 (`206f5ee`)** — `AWARDS_WON` holds 24 entries; **IMDb (tt16377862) reports 24 wins & 44 nominations**, matching entry-for-entry. "26" was unsourced. The 2024 Peabody entry is correct as dated (announced 9 May 2024, confirmed with Nadeem). `/all-that-breathes` "12 Major Nominations" left alone — 12 listed, heading and list agree.
+6. **Growth chart + "3,500+" retired (`34a0808`)** — `/conditions` claimed "3,500+ birds every year" in 3 places; untrue for 2022 (3,385) and 2023 (3,398). Replaced with the stronger true story: **11.6× growth since 2010**. New **`IntakeGrowthChart.tsx`** + a "The Need Keeps Growing" section.
+
+### The growth chart — two things not to break
+
+- **Partial years are excluded.** `RESCUE_BY_YEAR` now has a typed **`RescueYear`** interface with a **`partial?: boolean`** flag; 2026 carries `partial: true`. The chart filters on it. Plotting a part-year beside full years draws a cliff that reads as intake collapsing. **When 2026 is finalised, just drop the flag — the chart extends itself, no code change.**
+- **Every label is HTML positioned by percentage over the SVG, not `<text>` inside it.** First version used SVG `<text>`; it looked fine on desktop and was **unreadable on a phone** — the SVG scales ~830px → ~350px and drags its own text down with it, so 12px rendered at ~5px. **SVG text does not survive responsive scaling and it fails silently.** Verified by screenshot at 1280px and 390px. Don't "simplify" the labels back into the SVG.
+- The line plots the **real series, dips included** (2013, 2017–18, 2020), with the caption explaining them. The same data is already a bar chart on `/annual-reports`; a smoothed line would contradict it.
+
+### Data settled this session — and how
+
+**2022 = 3,385.** Register opens at case #23,013 on 1 Jan, closes at #26,397 on 31 Dec → 26,397 − 23,013 + 1 = 3,385.
+
+**2021 = 2,767** (from `Annual2021.xlsx`), confirmed **five ways**: the file's stated total; its 12 monthly figures sum to 2,767; its 42-species breakdown also sums to 2,767; the case-number chain (2020 closes #20,245, 2022 opens #23,013 → 23,012 − 20,246 + 1 = 2,767); and `annual-reports-data.ts` already read "2021 In Numbers — 2,767 Birds, 42 Species" with Black Kites at 2,362 (85.4%), matching the sheet exactly.
+
+**2022 growth is now exact: 22%** — (3,385 − 2,767) / 2,767 = 22.3%. The old "24%" was computed from two wrong inputs at once (3,500 against 2,815).
+
+> **Pattern worth acting on:** in all three corrections this session (2021, 2022, the awards count) **the site already held the right answer somewhere and the wrong one elsewhere.** `constants.ts` drifts while `intake-data.ts` and `annual-reports-data.ts` stay accurate. A one-off reconciliation script comparing `RESCUE_BY_YEAR` against those two would catch the next one before a visitor does.
+
+### Carry-forward
+
+- **MERGE ON/AFTER 21 SEPT**, then re-run the brief's verification against production: fetch `/`, `/about`, `/conditions` with a cache-busting query and confirm 41,000+ / 22% / the chart / CSR-1 in the rendered footer.
+- **Sanity webhook (Round 3 carry-over, still unverified).** This session's container blocks egress to both `raptorrescue.org` and `sanity.io`, so the delivery log could not be read. Check `sanity.io/manage` → project `ivyjyqwz` → API → Webhooks. `curl -X POST https://www.raptorrescue.org/api/revalidate` should return **401** (reachable + secret set); **404** means it is still pointed at the dead `wildlife-rescue-website.vercel.app` host. **`docs/sanity-setup.md` was the likely cause — it still instructed operators to use the vercel.app URL; corrected in `938c726`.**
+- **`intake-data.ts` still says 2021 = 2,774** (true value 2,767). Left deliberately: the file header marks it auto-generated from the Master Intake Database, so a hand edit is lost on the next export, and its `YEARLY_INTAKE` is **not rendered anywhere** — invisible to visitors. Durable fix belongs in `build_master_intake.py`, alongside the species-dedup note already carried below.
+- **Education & outreach photos** — Nadeem to supply. **Image spec given to him:** progressive JPEG, **4:3**, event photos 1600×1200, drawings ~1800px long edge, **≤350 KB each**, into repo `public/education/` as `event-NN.jpg` / `drawing-NN.jpg` continuing the existing numbering; one line of description per photo for alt text. **Consent:** the nine children's photos already live show identifiable schoolchildren — confirm Infinity Learning Centre gave publication permission, retroactively for those and before adding more.
+- **Donation ladder tradeoff:** the cheapest claim-bearing INR tier doubled (₹500 → ₹1,000). If Indian conversion drops, the other direction is cutting USD to $5/$12/$25/$50 — a two-minute change, but change **both** ladders together.
+- **Lint baseline is 25 problems / 7 errors / 18 warnings**, all pre-existing (`receipt-pdf.tsx`, `DonateClient.tsx`, `DonorDetailsModal.tsx`, `all-that-breathes/page.tsx`). Nothing from this session. Verify against this number, not zero.
+
+### Decisions Nadeem made this session (don't re-litigate)
+
+- **Steppe Eagle stays.** The standing "do not use the Steppe Eagle" rule does **not** apply to the website. It remains the site-wide `og:image`, homepage hero slide 1, and an Instagram tile. Untouched.
+- **Phone number was already correct.** `+91 98100 29698` is the **WR Helpline** — a genuine third line, not a transposition. Nadeem = 9810639698, Saud = 9810129698, both personal mobiles that do **not** belong on the site.
+- **"One of the world's largest"**, not "the world's largest".
+- **INR tiers follow USD**, not the reverse.
+
+---
+
+**Previous session (2026-06-25) retained below for context:**
+
+
 **Last updated by:** Claude Code — 2026-06-25 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer, a new `/education-outreach` school page, a finalized header nav (All That Breathes + Egyptian Vultures promoted to top-level), and a website stats report with over-time tracking — all SHIPPED & live.**
 
 ### Shipped this session (pushed to `main`, Vercel auto-deploys)
