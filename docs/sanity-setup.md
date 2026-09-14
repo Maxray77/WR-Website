@@ -85,7 +85,7 @@ The site is hosted on Vercel and needs the same env vars there.
 3. Add each of the five env vars (same names + values as `.env.local`). Apply to **Production, Preview, and Development**.
 4. Trigger a redeploy: Deployments tab → latest → ⋯ → **Redeploy**.
 
-Once redeployed, the live site at https://wildlife-rescue-website.vercel.app/blog will be reading from Sanity.
+Once redeployed, the live site at https://www.raptorrescue.org/blog will be reading from Sanity.
 
 ### Step 7: Set up the publish webhook (instant updates)
 
@@ -93,7 +93,7 @@ Without this, posts can take up to 5 minutes to appear after publishing. With it
 
 1. Sanity Manage → API → **Webhooks** → **+ Create webhook**.
    - **Name:** `Vercel revalidate`
-   - **URL:** `https://wildlife-rescue-website.vercel.app/api/revalidate`
+   - **URL:** `https://www.raptorrescue.org/api/revalidate`
    - **Trigger on:** Create, Update, Delete (check all 3)
    - **Filter:** `_type in ["post", "author", "category"]`
    - **Projection:**
@@ -124,7 +124,7 @@ Once the admin completes Part 1, here's the everyday workflow.
 
 ### Open the Studio
 
-Go to **https://wildlife-rescue-website.vercel.app/studio** and sign in.
+Go to **https://www.raptorrescue.org/studio** and sign in.
 
 ### Create a new post
 
@@ -178,7 +178,7 @@ Same workflow but in the **Category** field. Try to reuse existing categories wh
 ## Useful links
 
 - **Sanity Manage:** https://www.sanity.io/manage
-- **Studio (live):** https://wildlife-rescue-website.vercel.app/studio
+- **Studio (live):** https://www.raptorrescue.org/studio
 - **Sanity docs — Studio basics:** https://www.sanity.io/docs/studio
 - **Sanity docs — Portable Text editing:** https://www.sanity.io/docs/portable-text-editor
 

@@ -1,6 +1,6 @@
 // ─── Impact Stats ───
 export const IMPACT_STATS = [
-  { number: 40000, suffix: "+", label: "Birds Rescued Since 2010" },
+  { number: 41000, suffix: "+", label: "Birds Rescued Since 2010" },
   { number: 106, suffix: "+", label: "Species Treated" },
   { number: 20, suffix: "+", label: "Years of Service" },
   { number: 26, suffix: "", label: "International Awards" },
@@ -25,6 +25,17 @@ export const CONTACT = {
     address: "351 E, 50th St. Apt. # 2, New York, NY – 10022, USA",
     phone: "773-536-9698",
   },
+};
+
+// ─── Statutory Registrations ───
+// Indian registrations a CSR officer or donor's accountant looks for.
+// CSR-1 is the one that determines whether a company may lawfully route CSR funds to us.
+export const REGISTRATIONS = {
+  reg80G: "AAATW2352B25DL02",
+  reg12A: "AAATW2352B25DL01",
+  csr1: "CSR00099128",
+  fcra: "231661878",
+  pan: "AAATW2352B",
 };
 
 // ─── Team Members ───
