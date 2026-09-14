@@ -294,7 +294,15 @@ export const MEDIA_LOGOS: { name: string; url?: string }[] = [
 ];
 
 // ─── Rescue Numbers by Year ───
-export const RESCUE_BY_YEAR = [
+export interface RescueYear {
+  year: number;
+  total: number;
+  /** True while the year is still in progress. Charts of the trend must exclude
+   *  these — a part-year plotted next to full years reads as a collapse. */
+  partial?: boolean;
+}
+
+export const RESCUE_BY_YEAR: RescueYear[] = [
   { year: 2010, total: 362 },
   { year: 2011, total: 1011 },
   { year: 2012, total: 1346 },
@@ -311,7 +319,7 @@ export const RESCUE_BY_YEAR = [
   { year: 2023, total: 3398 },
   { year: 2024, total: 3670 },
   { year: 2025, total: 4214 },
-  { year: 2026, total: 2921 }, // Partial year (Jan 1 – July 31)
+  { year: 2026, total: 2921, partial: true }, // Partial year (Jan 1 – July 31)
 ];
 
 // ─── Donation Amounts ───

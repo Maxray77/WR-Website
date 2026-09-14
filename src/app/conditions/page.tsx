@@ -14,13 +14,14 @@ import {
   Camera,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import IntakeGrowthChart from "@/components/IntakeGrowthChart";
 import DonateButton from "@/components/DonateButton";
 import { CONDITIONS_LIST } from "@/lib/conditions-data";
 
 export const metadata: Metadata = {
   title: "Conditions We Treat — Medical Cases at Wildlife Rescue",
   description:
-    "From manja string lacerations to fractures, orphans, avian pox, and septicemia — learn about the medical conditions Wildlife Rescue treats in 3,500+ birds each year.",
+    "From manja string lacerations to fractures, orphans, avian pox, and septicemia — learn about the medical conditions Wildlife Rescue treats. Intake has grown 11.6x since 2010, reaching 4,214 birds in 2025.",
 };
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -96,8 +97,9 @@ export default function ConditionsPage() {
             Conditions We Treat
           </h1>
           <p className="mt-4 text-xl text-white/80 max-w-2xl mx-auto">
-            3,500+ birds every year. From manja lacerations to fractures,
-            orphans, and infectious diseases — every case gets expert care.
+            More birds reach us every year — 4,214 in 2025 alone. From manja
+            lacerations to fractures, orphans, and infectious diseases, every
+            case gets expert care.
           </p>
         </div>
       </section>
@@ -107,7 +109,7 @@ export default function ConditionsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-3 gap-6">
             {[
-              { stat: "3,500+", label: "Cases per year" },
+              { stat: "4,214", label: "Birds in 2025" },
               { stat: "106+", label: "Species treated" },
               { stat: "20+", label: "Years of expertise" },
             ].map((item) => (
@@ -119,6 +121,26 @@ export default function ConditionsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── Growth: intake rises year on year ─── */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="The Need Keeps Growing"
+            subtitle="Every year, more of Delhi's birds find their way to our clinic."
+          />
+          <div className="mt-10">
+            <IntakeGrowthChart />
+          </div>
+          <p className="mt-8 text-slate leading-relaxed text-center max-w-2xl mx-auto">
+            Delhi&apos;s skies are getting harder to survive. Glass towers, power lines
+            and above all manja — the glass-coated kite string that severs a wing
+            in flight — put more birds on our table every year. The rise in this
+            chart is not a rise in our reach alone; it is the cost of a city
+            growing faster than the wildlife inside it can adapt.
+          </p>
         </div>
       </section>
 
