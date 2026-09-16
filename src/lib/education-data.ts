@@ -18,10 +18,7 @@ export const EDU_EVENT = {
 
 /** Photos from the awareness session with the students. */
 export const EVENT_PHOTOS: EduImage[] = [
-  { src: "/education/event-01.jpg", alt: "Wildlife Rescue's awareness session with school children at Infinity Learning Centre, Wazirabad" },
   { src: "/education/event-02.jpg", alt: "Students learning about Delhi's birds and urban wildlife at the Wildlife Rescue session" },
-  { src: "/education/event-03.jpg", alt: "Wildlife Rescue educators teaching children about the environment and wildlife" },
-  { src: "/education/event-04.jpg", alt: "School children engaged in the Wildlife Rescue education and outreach programme" },
   { src: "/education/event-05.jpg", alt: "A student at the Wildlife Rescue awareness session at Infinity Learning Centre" },
   { src: "/education/event-07.jpg", alt: "Interactive learning during the Wildlife Rescue school outreach session" },
   { src: "/education/event-08.jpg", alt: "Students taking part in the Wildlife Rescue environment and wildlife class" },
