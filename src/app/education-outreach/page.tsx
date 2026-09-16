@@ -14,14 +14,15 @@ import {
   ArrowRight,
   Calendar,
   MapPin,
+  School,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import { EDU_EVENT, EVENT_PHOTOS, DRAWINGS } from "@/lib/education-data";
+import { EDU_SESSIONS, EDU_TOTALS, LATEST_SESSION } from "@/lib/education-data";
 
 export const metadata: Metadata = {
   title: "Education & Outreach — Teaching Delhi's Children About Wildlife",
   description:
-    "Wildlife Rescue's school education programme teaches children about the environment, urban wildlife, and the dangers of manja (glass-coated kite string). See photos and children's drawings from our awareness session at Infinity Learning Centre, Wazirabad.",
+    "Wildlife Rescue's school education programme has taught children at seven Delhi schools about the environment, urban wildlife, and the dangers of manja (glass-coated kite string). See photos and children's drawings from every session.",
   alternates: { canonical: "/education-outreach" },
 };
 
@@ -55,8 +56,8 @@ export default function EducationOutreachPage() {
       <section className="relative bg-charcoal text-white">
         <div className="absolute inset-0">
           <Image
-            src="/education/event-01.jpg"
-            alt="Wildlife Rescue's education and outreach session with school children"
+            src="/education/navjyoti/navjyoti-01.jpg"
+            alt="School children at a Wildlife Rescue education and outreach session in Delhi"
             fill
             priority
             className="object-cover opacity-40"
@@ -77,10 +78,13 @@ export default function EducationOutreachPage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
             <span className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5">
-              <Calendar size={15} className="text-amber-light" /> {EDU_EVENT.date}
+              <School size={15} className="text-amber-light" /> {EDU_TOTALS.schools} Delhi schools
             </span>
             <span className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5">
-              <MapPin size={15} className="text-amber-light" /> {EDU_EVENT.venue}, {EDU_EVENT.area}
+              <Calendar size={15} className="text-amber-light" /> {EDU_TOTALS.firstDate} &ndash; {EDU_TOTALS.latestDate}
+            </span>
+            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5">
+              <MapPin size={15} className="text-amber-light" /> Wazirabad &amp; north Delhi
             </span>
           </div>
         </div>
@@ -98,11 +102,14 @@ export default function EducationOutreachPage() {
             education and outreach programme, Wildlife Rescue visits schools to
             help students understand the wildlife that shares their city — and
             the everyday hazards, like glass-coated manja string, that put it at
-            risk. Our session at {EDU_EVENT.venue}, {EDU_EVENT.area}, was led by{" "}
-            <strong className="text-charcoal">{EDU_EVENT.conductors[0]}</strong> and{" "}
-            <strong className="text-charcoal">{EDU_EVENT.conductors[1]}</strong>{" "}
-            of Wildlife Rescue, and ended with a drawing contest and gift
-            distribution celebrating what the children had learned.
+            risk. Between {EDU_TOTALS.firstDate} and {EDU_TOTALS.latestDate} we
+            took the same lesson into{" "}
+            <strong className="text-charcoal">
+              {EDU_TOTALS.schools} schools across Delhi
+            </strong>
+            , taught in English and Hindi, and every session ended the same way:
+            a drawing contest in which the children put back what they had just
+            learned.
           </p>
         </div>
       </section>
@@ -130,35 +137,43 @@ export default function EducationOutreachPage() {
         </div>
       </section>
 
-      {/* ─── Inside the classroom (event photos) ─── */}
+      {/* ─── Where we have taught ─── */}
       <section className="py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="Inside the Classroom"
-            subtitle={`Our awareness session at ${EDU_EVENT.venue}, ${EDU_EVENT.area}.`}
+            title="Where We Have Taught"
+            subtitle="The same lesson, school by school. Newest first."
           />
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
-            {EVENT_PHOTOS.map((p) => (
-              <div key={p.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
-                <Image
-                  src={p.src}
-                  alt={p.alt}
-                  fill
-                  sizes="(max-width: 640px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
+
+          <ol className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {EDU_SESSIONS.map((sn) => (
+              <li
+                key={sn.slug}
+                className="bg-white rounded-xl border border-gray-100 p-5 flex items-start gap-3"
+              >
+                <School size={20} className="text-teal shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-bold text-charcoal text-sm leading-snug font-[family-name:var(--font-poppins)]">
+                    {sn.school}
+                  </h3>
+                  <time dateTime={sn.dateISO} className="block text-xs text-slate mt-1">
+                    {sn.date}
+                  </time>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* ─── Drawing contest ─── */}
+      {/* ─── Session galleries ─── */}
+      {/* Only sessions whose media has been prepared are rendered. A school with
+          empty photos and drawings still appears in the list above. */}
       <section className="py-16 lg:py-24 bg-offwhite">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="What the Children Drew"
-            subtitle="After the session, students drew what they had learned — and the best became a drawing contest."
+            title="Inside the Classroom"
+            subtitle="Photographs from the sessions, and the drawings the children made afterwards."
           />
 
           <div className="max-w-3xl mx-auto mb-12 flex flex-col sm:flex-row gap-4">
@@ -166,38 +181,82 @@ export default function EducationOutreachPage() {
               <Palette className="text-amber shrink-0" size={22} />
               <p className="text-sm text-slate leading-relaxed">
                 <strong className="text-charcoal">A drawing contest.</strong>{" "}
-                Each child put what they had learned onto paper — birds, trees,
-                clean skies, and the dangers of manja.
+                Each child put what they had learned onto paper &mdash; birds,
+                kite string, glue traps, cage traps instead of poison.
               </p>
             </div>
             <div className="flex-1 bg-white rounded-xl border border-gray-100 p-5 flex items-start gap-3">
               <Gift className="text-teal shrink-0" size={22} />
               <p className="text-sm text-slate leading-relaxed">
                 <strong className="text-charcoal">Gifts for everyone.</strong>{" "}
-                The session ended with a gift distribution, celebrating every
-                young artist and their new role as a wildlife ally.
+                Sessions end with prizes and a gift distribution, celebrating
+                every young artist and their new role as a wildlife ally.
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {DRAWINGS.map((d, i) => (
-              <figure key={d.src} className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
-                <div className="relative aspect-[4/3] bg-offwhite">
-                  <Image
-                    src={d.src}
-                    alt={d.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-contain"
-                  />
-                </div>
-                <figcaption className="px-4 py-2.5 text-xs text-slate italic border-t border-gray-100">
-                  Drawing #{i + 1} — a young student&apos;s view of wildlife &amp; the environment
-                </figcaption>
-              </figure>
+          <div className="space-y-16">
+            {EDU_SESSIONS.filter((sn) => sn.photos.length || sn.drawings.length).map((sn) => (
+              <article key={sn.slug}>
+                <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-gray-200 pb-3 mb-6">
+                  <h3 className="text-xl font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                    {sn.school}
+                  </h3>
+                  <time dateTime={sn.dateISO} className="text-sm text-slate">
+                    {sn.date}
+                  </time>
+                </header>
+
+                {sn.photos.length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                    {sn.photos.map((ph) => (
+                      <div key={ph.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
+                        <Image
+                          src={ph.src}
+                          alt={ph.alt}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {sn.drawings.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+                    {sn.drawings.map((dw, i) => (
+                      <figure
+                        key={dw.src}
+                        className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm"
+                      >
+                        <div className="relative aspect-[4/3] bg-offwhite">
+                          <Image
+                            src={dw.src}
+                            alt={dw.alt}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-contain"
+                          />
+                        </div>
+                        <figcaption className="px-4 py-2.5 text-xs text-slate italic border-t border-gray-100">
+                          {["First place", "Second place", "Third place"][i] ??
+                            "Contest entry"}{" "}
+                          &mdash; {sn.school}
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                )}
+              </article>
             ))}
           </div>
+
+          <p className="mt-12 text-center text-xs text-slate italic max-w-2xl mx-auto">
+            Children&apos;s faces are blurred and no student is named. Drawings
+            are shown with the entrant&apos;s name, class and roll number
+            removed.
+          </p>
         </div>
       </section>
 
@@ -213,11 +272,13 @@ export default function EducationOutreachPage() {
                 Led by our outreach team
               </h3>
               <p className="mt-2 text-slate leading-relaxed text-sm">
-                This session was conducted by{" "}
-                <strong className="text-charcoal">{EDU_EVENT.conductors[0]}</strong> and{" "}
-                <strong className="text-charcoal">{EDU_EVENT.conductors[1]}</strong>{" "}
-                of Wildlife Rescue, who bring the work of the clinic into
-                classrooms across Delhi.
+                Our sessions are led by{" "}
+                <strong className="text-charcoal">Samia</strong> and{" "}
+                <strong className="text-charcoal">Mohammad Umar</strong> of
+                Wildlife Rescue, who bring the work of the clinic into
+                classrooms across Delhi. The most recent session was at{" "}
+                <strong className="text-charcoal">{LATEST_SESSION.school}</strong>{" "}
+                on {LATEST_SESSION.date}.
               </p>
             </div>
           </div>
