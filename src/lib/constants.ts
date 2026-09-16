@@ -25,6 +25,16 @@ export const CONTACT = {
     address: "351 E, 50th St. Apt. # 2, New York, NY – 10022, USA",
     phone: "773-536-9698",
   },
+  /* Statutory registrations. MCA CSR-1 is the one an Indian company's CSR
+     officer checks to confirm we can lawfully receive CSR funds, so it must
+     stay visible in the footer alongside 80G, 12A and FCRA. */
+  registrations: {
+    section80G: "AAATW2352B25DL02",
+    section12A: "AAATW2352B25DL01",
+    csr1: "CSR00099128",
+    fcra: "231661878",
+    pan: "AAATW2352B",
+  },
 };
 
 // ─── Team Members ───
