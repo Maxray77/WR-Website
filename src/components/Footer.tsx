@@ -100,7 +100,7 @@ export default function Footer() {
             <p className="text-teal-light text-sm leading-relaxed mb-4 max-w-md">
               The world&apos;s largest raptor rescue facility, based in Delhi, India.
               Featured in the Oscar-nominated documentary &quot;All That Breathes.&quot;
-              40,000+ birds rescued since 2010.
+              41,000+ birds rescued since 2010.
             </p>
             <div className="flex gap-3">
               <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
@@ -179,9 +179,17 @@ export default function Footer() {
             <p>
               &copy; {new Date().getFullYear()} Wildlife Rescue. All rights reserved.
             </p>
-            <p className="text-center">
-              India: 80(G) Tax Exempt Reg. No. AAATW2352B25DL02 &nbsp;|&nbsp; USA: 501(c)(3) via {CONTACT.usFiscalSponsor.name} (EIN: {CONTACT.usFiscalSponsor.ein})
-            </p>
+            <div className="text-center space-y-1">
+              <p>
+                India: 80(G) Tax Exempt Reg. No. {CONTACT.registrations.section80G}
+                &nbsp;|&nbsp; 12A: {CONTACT.registrations.section12A}
+                &nbsp;|&nbsp; MCA CSR-1: {CONTACT.registrations.csr1}
+                &nbsp;|&nbsp; FCRA: {CONTACT.registrations.fcra}
+              </p>
+              <p>
+                USA: 501(c)(3) via {CONTACT.usFiscalSponsor.name} (EIN: {CONTACT.usFiscalSponsor.ein})
+              </p>
+            </div>
           </div>
         </div>
       </div>

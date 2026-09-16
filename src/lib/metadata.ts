@@ -23,7 +23,7 @@ export const siteMetadata: Metadata = {
     template: "%s | Wildlife Rescue",
   },
   description:
-    "Wildlife Rescue is the world's largest raptor rescue facility, treating 40,000+ birds since 2010 in Delhi, India. Founded by Nadeem Shehzad and Mohammad Saud, subjects of the Oscar-nominated documentary 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody Award). Donations are 80(G) tax-deductible in India and 501(c)(3) tax-deductible in the US via R3.",
+    "Wildlife Rescue is the world's largest raptor rescue facility, treating 41,000+ birds since 2010 in Delhi, India. Founded by Nadeem Shehzad and Mohammad Saud, subjects of the Oscar-nominated documentary 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody Award). Donations are 80(G) tax-deductible in India and 501(c)(3) tax-deductible in the US via R3.",
   keywords: [
     "wildlife rescue",
     "raptor rescue",
@@ -56,7 +56,7 @@ export const siteMetadata: Metadata = {
     title:
       "Wildlife Rescue — World's Largest Raptor Rescue | Delhi, India",
     description:
-      "40,000+ birds rescued since 2010. Subjects of the Oscar-nominated 'All That Breathes' (Sundance, Cannes, Peabody). Help us heal Delhi's birds of prey.",
+      "41,000+ birds rescued since 2010. Subjects of the Oscar-nominated 'All That Breathes' (Sundance, Cannes, Peabody). Help us heal Delhi's birds of prey.",
     url: BASE_URL,
     locale: "en_US",
     images: [
@@ -73,7 +73,7 @@ export const siteMetadata: Metadata = {
     title:
       "Wildlife Rescue — World's Largest Raptor Rescue | Delhi, India",
     description:
-      "40,000+ birds rescued since 2010. Subjects of Oscar-nominated 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody).",
+      "41,000+ birds rescued since 2010. Subjects of Oscar-nominated 'All That Breathes' (Sundance Grand Jury Prize, Cannes Golden Eye, Peabody).",
     site: "@wildliferescueindia",
     creator: "@wildliferescueindia",
     images: [OG_IMAGE],
@@ -129,7 +129,7 @@ export const pageMetadata = {
   media: {
     title: "Media & Press — Wildlife Rescue in the News",
     description:
-      "Wildlife Rescue and founders Nadeem Shehzad & Mohammad Saud in the press — 50+ articles and broadcasts, the Oscar-nominated 'All That Breathes', and international awards coverage. Press kit and media enquiries.",
+      "Wildlife Rescue and founders Nadeem Shehzad & Mohammad Saud in the press — 140+ articles and broadcasts, the Oscar-nominated 'All That Breathes', and international awards coverage. Press kit and media enquiries.",
     alternates: { canonical: "/media" },
   },
   birdBrothers: {

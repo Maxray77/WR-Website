@@ -87,7 +87,7 @@ export default async function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute bottom-8 left-0 right-0 text-center">
           <p className="text-white/90 text-sm sm:text-base font-semibold tracking-wide uppercase">
-            Steppe Eagle — One of 40,000+ Birds Rescued
+            Steppe Eagle — One of 41,000+ Birds Rescued
           </p>
         </div>
       </section>
@@ -464,7 +464,7 @@ export default async function Home() {
               href="/media"
               className="inline-flex items-center gap-2 text-amber hover:text-amber-light text-sm font-semibold transition-colors"
             >
-              View all 50+ media features <ArrowRight size={14} />
+              View all 140+ media features <ArrowRight size={14} />
             </Link>
           </div>
         </div>

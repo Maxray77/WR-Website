@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Play, ExternalLink } from "lucide-react";
+import { Play, ExternalLink, Mic, Headphones } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
@@ -15,6 +15,56 @@ const FEATURED_VIDEO = {
   embedUrl: "https://www.youtube.com/embed/GoTlULspDyY",
   source: "HBO Documentary Films",
 };
+
+/* Of the sixteen audiovisual items on record, these four feature Nadeem or Saud
+   themselves rather than the documentary's director. The Green Flame is the
+   most substantial: a full hour of the founders explaining the work. */
+const FOUNDER_RECORDINGS = [
+  {
+    title: "Wildlife Rescue with the All That Breathes Brothers",
+    source: "The Green Flame, Episode 103",
+    date: "August 2024",
+    duration: "61 min",
+    description:
+      "The most complete recording of the founders in their own words — both brothers, at length, on how the clinic works and what the birds arrive with.",
+    url: "https://greenflame.libsyn.com/wildlife-rescue-with-all-that-breathes-brothers-nadeem-shehzad-and-muhammad-saud",
+    kind: "Podcast",
+    featured: true,
+  },
+  {
+    title: "Filmed at the clinic with Nadeem and Saud",
+    source: "NewsClick",
+    date: "July 2023",
+    duration: "23 min",
+    description:
+      "A visit to the Wazirabad clinic, with both founders walking through the treatment of admitted raptors.",
+    url: "https://www.youtube.com/watch?v=-wqjVwgewg0",
+    kind: "Interview",
+    featured: false,
+  },
+  {
+    title: "Nadeem Shehzad in conversation",
+    source: "Raptor Aid CIO (UK)",
+    date: "October 2020",
+    duration: "67 min",
+    description:
+      "A long-form talk hosted by a UK raptor charity, recorded before the documentary's release.",
+    url: "https://www.youtube.com/watch?v=G-qSZ5AhKS0",
+    kind: "Interview",
+    featured: false,
+  },
+  {
+    title: "Wildlife Rescue on NDTV",
+    source: "NDTV",
+    date: "June 2022",
+    duration: "7 min",
+    description:
+      "Indian national broadcast segment featuring the founders and the rescue operation.",
+    url: "https://www.youtube.com/watch?v=PSYtuydBrYk",
+    kind: "Broadcast",
+    featured: false,
+  },
+];
 
 const VIDEOS = [
   {
@@ -210,6 +260,83 @@ export default function VideosPage() {
             <p className="text-white/60 text-sm mt-1">
               {FEATURED_VIDEO.description}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── In Their Own Words ─── */}
+      <section className="py-16 lg:py-24 bg-offwhite">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="In Their Own Words"
+            subtitle="Recordings in which Nadeem and Saud speak for themselves about the work — not interviews about the film."
+          />
+
+          {FOUNDER_RECORDINGS.filter((r) => r.featured).map((rec) => (
+            <a
+              key={rec.url}
+              href={rec.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block bg-gradient-to-br from-teal to-teal-dark rounded-2xl p-6 lg:p-8 mb-6 hover:shadow-xl transition-all"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+                <div className="w-14 h-14 shrink-0 bg-amber rounded-full flex items-center justify-center">
+                  <Headphones size={26} className="text-charcoal" />
+                </div>
+                <div className="flex-1">
+                  <span className="inline-block bg-amber text-charcoal text-xs font-bold px-3 py-1 rounded-full">
+                    Start here &middot; {rec.duration}
+                  </span>
+                  <h3 className="mt-3 text-xl lg:text-2xl font-bold text-white font-[family-name:var(--font-poppins)] leading-snug">
+                    {rec.title}
+                  </h3>
+                  <p className="text-amber-light text-sm font-semibold mt-1">
+                    {rec.source} &middot; {rec.date}
+                  </p>
+                  <p className="text-white/80 text-sm mt-3 leading-relaxed max-w-2xl">
+                    {rec.description}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 mt-4 text-sm font-bold text-white group-hover:text-amber-light transition-colors">
+                    Listen to the full episode <ExternalLink size={14} />
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+
+          <div className="grid sm:grid-cols-3 gap-5">
+            {FOUNDER_RECORDINGS.filter((r) => !r.featured).map((rec) => (
+              <a
+                key={rec.url}
+                href={rec.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-xl p-5 border border-gray-100 hover:border-teal/30 hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-light text-teal border border-teal/20">
+                    <Mic size={12} />
+                    {rec.kind}
+                  </span>
+                  <span className="text-xs text-slate font-semibold">
+                    {rec.duration}
+                  </span>
+                </div>
+                <h3 className="text-sm font-bold text-charcoal leading-snug font-[family-name:var(--font-poppins)]">
+                  {rec.title}
+                </h3>
+                <p className="text-xs text-teal font-bold uppercase tracking-wider mt-1.5">
+                  {rec.source}
+                </p>
+                <p className="text-xs text-slate mt-2 leading-relaxed flex-1">
+                  {rec.description}
+                </p>
+                <span className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-teal group-hover:text-teal-dark transition-colors">
+                  Watch &middot; {rec.date} <ExternalLink size={12} />
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       </section>

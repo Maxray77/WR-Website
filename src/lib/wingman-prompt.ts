@@ -16,7 +16,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - Social: Instagram @wildliferescueindia | Facebook: facebook.com/wildliferescue.in
 
 ## Impact Numbers
-- 40,000+ birds rescued since 2010 (crossed the 40,000 milestone on 13 June 2026 — the 40,000th rescue was a Shikra)
+- 41,000+ birds rescued since 2010 (crossed the 40,000 milestone on 13 June 2026 — the 40,000th rescue was a Shikra)
 - 106+ species treated
 - 20+ years of service
 - 26 international awards

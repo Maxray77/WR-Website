@@ -13,6 +13,10 @@ import {
   Filter,
   Globe,
   Calendar,
+  BookOpen,
+  GraduationCap,
+  Archive,
+  Radio,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 
@@ -75,6 +79,90 @@ const AWARDS = [
     detail:
       "First international presentation of Wildlife Rescue's self-developed surgical technique for manja-injured raptors.",
   },
+];
+
+/* ─── Professional & Academic Recognition ─── */
+/* Distinct from press coverage and film awards: sector bodies, a general-science
+   journal, and library-review boards assessing the work itself. */
+interface RecognitionItem {
+  source: string;
+  detail: string;
+  url: string;
+}
+
+const RECOGNITION: RecognitionItem[] = [
+  {
+    source: "International Wildlife Rehabilitation Council",
+    detail:
+      "The IWRC's executive director names Nadeem Shehzad and Mohammad Saud as IWRC members, and presents Wildlife Rescue as representative of the global wildlife-rehabilitation profession.",
+    url: "https://theiwrc.org/all-that-breathes-award-winning-wildlife-rehabilitation-documentary/",
+  },
+  {
+    source: "Science (AAAS)",
+    detail:
+      "The documentary recording our work was reviewed in one of the two leading general science journals.",
+    url: "https://doi.org/10.1126/science.abo3606",
+  },
+  {
+    source: "Anthroposphere: The Oxford Climate Review",
+    detail:
+      "An interview by a Cambridge geographer recording the founders' four-category taxonomy of manja collision injuries, with a matched surgical repair protocol for each category.",
+    url: "https://www.anthroposphere.co.uk/post/all-that-breathes",
+  },
+  {
+    source: "UCL Urban Laboratory, Bartlett Faculty of the Built Environment",
+    detail:
+      "Lecture programme describing the black kite as \u201cessential to the ecosystem of New Delhi\u201d.",
+    url: "https://www.ucl.ac.uk/bartlett/events/2023/jun/shaunak-sen-cities-imaginaries-lecture-2023",
+  },
+  {
+    source: "School Library Journal",
+    detail:
+      "Starred review of Bird Brothers, A Delhi Story, the children's book about the founders' work.",
+    url: "https://www.slj.com/review/bird-brothers-a-delhi-story-100004602",
+  },
+  {
+    source: "Junior Library Guild \u00b7 CCBC \u00b7 Bank Street College",
+    detail:
+      "Bird Brothers, A Delhi Story is a Junior Library Guild Gold Standard Selection 2025, a CCBC Choice 2026, and a Bank Street Best Children's Book of the Year 2026.",
+    url: "https://www.orcabook.com/Bird-Brothers-A-Delhi-Story",
+  },
+];
+
+/* Peer-reviewed academic writing ABOUT the documentary and the work it records.
+   These are not Wildlife Rescue's own research — do not present them as such. */
+const ACADEMIC_PAPERS: { journal: string; year: number; url: string }[] = [
+  { journal: "European Journal of Cultural Studies", year: 2025, url: "https://doi.org/10.1177/13675494251317637" },
+  { journal: "American Anthropologist", year: 2025, url: "https://doi.org/10.1111/aman.70025" },
+  { journal: "Environmental Communication", year: 2024, url: "https://doi.org/10.1080/17524032.2024.2395893" },
+  { journal: "Journal of Religion & Film", year: 2022, url: "https://doi.org/10.32873/uno.dc.jrf.26.01.014" },
+];
+
+/* ─── Offline Archive ─── */
+/* Press and broadcast coverage held only as physical scans and recordings.
+   No links exist for these. Rights note: listing outlet/date/headline is fine;
+   do NOT publish scans of the newspaper pages themselves without written
+   permission from the publisher. */
+interface ArchiveItem {
+  year: number;
+  outlet: string;
+  format: "Print" | "Broadcast";
+  note?: string;
+}
+
+const ARCHIVE: ArchiveItem[] = [
+  { year: 2024, outlet: "Frankfurter Allgemeine Zeitung", format: "Print", note: "\u201cMilans Br\u00fcder\u201d by Till F\u00e4hnders \u2014 a full page 9 in Germany's paper of record" },
+  { year: 2020, outlet: "Animal Planet", format: "Broadcast" },
+  { year: 2019, outlet: "Deutsche Welle", format: "Broadcast", note: "Germany's international broadcaster, publishing in 30 languages" },
+  { year: 2017, outlet: "BBC Wildlife Magazine", format: "Print", note: "\u201cKite Club\u201d" },
+  { year: 2014, outlet: "Asianet News", format: "Broadcast", note: "Malayalam" },
+  { year: 2012, outlet: "The Dinamani", format: "Print", note: "Tamil" },
+  { year: 2012, outlet: "DD Kashir", format: "Broadcast", note: "Kashmiri" },
+  { year: 2010, outlet: "NDTV", format: "Broadcast" },
+  { year: 2010, outlet: "Zee News", format: "Broadcast" },
+  { year: 2010, outlet: "CNN-IBN", format: "Broadcast" },
+  { year: 2010, outlet: "Sahara NCR", format: "Broadcast" },
+  { year: 2008, outlet: "Hindustan Times, HT City", format: "Print", note: "\u201cPrey Mercy\u201d \u2014 the earliest item in our press record" },
 ];
 
 /* ─── Full Media Coverage Data ─── */
@@ -148,7 +236,7 @@ const MEDIA_COVERAGE: MediaItem[] = [
   { outlet: "BirdSpot", year: 2022, title: "All That Breathes: Two Brothers on a Mission", url: "https://www.birdspot.co.uk/a-little-bird/events/all-that-breathes-two-brothers-on-a-mission-to-save-the-black-kite", category: "Niche & Specialist" },
   { outlet: "Book of Achievers", year: 2021, title: "Trio Urge Safer Skies for Birds", url: "https://bookofachievers.com/articles/trio-urge-safer-skies-for-birds-stop-the-kite-glass-thread-or-maanja-to-save-birds", category: "Niche & Specialist" },
   { outlet: "ZDNet", year: 2013, title: "In Delhi, Two Brothers Become Saviors of Wild Birds", url: "https://www.zdnet.com/article/in-delhi-two-brothers-become-saviors-of-wild-birds/", category: "Niche & Specialist" },
-  { outlet: "BBC Wildlife Magazine", year: 2017, title: "Delhi's Raptor Rescuers — Print Feature", category: "Niche & Specialist" },
+  { outlet: "BBC Wildlife Magazine", year: 2017, title: "Kite Club", category: "Niche & Specialist" },
 ];
 
 const CATEGORIES: ("All" | MediaCategory)[] = [
@@ -193,7 +281,7 @@ const EARLY_YEARS: { year: number; items: EarlyPress[] }[] = [
   {
     year: 2008,
     items: [
-      { date: "3 Jun 2008", outlet: "Hindustan Times", type: "print", note: "First ever newspaper feature on the brothers' rescue work" },
+      { date: "3 Jun 2008", outlet: "Hindustan Times, HT City", type: "print", note: "“Prey Mercy” — the first newspaper feature on the brothers’ rescue work, and the start of our press record" },
     ],
   },
   {
@@ -270,21 +358,21 @@ export default function MediaClient() {
       <section className="bg-gradient-to-br from-charcoal to-gray-900 py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block bg-amber/20 text-amber-light px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-            Oscar-Nominated &bull; 50+ Features Worldwide
+            Oscar-Nominated &bull; 140+ Features Worldwide
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-[family-name:var(--font-poppins)]">
             Media & Press
           </h1>
           <p className="mt-4 text-xl text-white/70 max-w-2xl mx-auto">
             From a home rescue operation to an Academy Award nomination — our
-            story in the world&apos;s press.
+            story in the world&apos;s press, beginning in June 2008.
           </p>
 
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 mt-10">
             <div className="text-center">
               <p className="text-3xl font-bold text-amber font-[family-name:var(--font-poppins)]">
-                {MEDIA_COVERAGE.length}+
+                140+
               </p>
               <p className="text-sm text-white/50 mt-1">Media Features</p>
             </div>
@@ -296,7 +384,7 @@ export default function MediaClient() {
             </div>
             <div className="text-center">
               <p className="text-3xl font-bold text-amber font-[family-name:var(--font-poppins)]">
-                15+
+                19
               </p>
               <p className="text-sm text-white/50 mt-1">Years of Coverage</p>
             </div>
@@ -358,12 +446,79 @@ export default function MediaClient() {
         </div>
       </section>
 
+      {/* ─── Professional & Academic Recognition ─── */}
+      <section className="py-16 lg:py-24 bg-offwhite border-t border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Professional & Academic Recognition"
+            subtitle="Beyond the press and the film awards — how our field, the sciences and the library world assess the work."
+          />
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {RECOGNITION.map((item) => (
+              <a
+                key={item.source}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-xl p-5 border border-gray-100 hover:border-teal/30 hover:shadow-lg hover:-translate-y-0.5 transition-all flex gap-4"
+              >
+                <GraduationCap size={20} className="text-teal shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-bold text-charcoal text-sm leading-snug font-[family-name:var(--font-poppins)]">
+                    {item.source}
+                  </h3>
+                  <p className="text-sm text-slate mt-1.5 leading-relaxed">
+                    {item.detail}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-teal group-hover:text-teal-dark transition-colors">
+                    View source <ExternalLink size={12} />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Academic writing ABOUT the work — explicitly not our own research */}
+          <div className="mt-10 bg-white rounded-xl p-6 border border-gray-100">
+            <div className="flex items-center gap-2.5">
+              <BookOpen size={18} className="text-amber shrink-0" />
+              <h3 className="font-bold text-charcoal text-sm font-[family-name:var(--font-poppins)]">
+                Academic writing on the work
+              </h3>
+            </div>
+            <p className="text-sm text-slate mt-2 leading-relaxed">
+              Peer-reviewed papers published by other scholars examining
+              &ldquo;All That Breathes&rdquo; and the rescue work it records. These
+              are independent academic studies, not research authored by Wildlife
+              Rescue.
+            </p>
+            <ul className="mt-4 space-y-2">
+              {ACADEMIC_PAPERS.map((paper) => (
+                <li key={paper.url}>
+                  <a
+                    href={paper.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm text-charcoal hover:text-teal transition-colors"
+                  >
+                    <span className="font-semibold">{paper.journal}</span>
+                    <span className="text-slate">({paper.year})</span>
+                    <ExternalLink size={12} className="text-slate" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Interactive Media Coverage ─── */}
       <section className="bg-offwhite py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Media Coverage"
-            subtitle={`${MEDIA_COVERAGE.length} features across international and Indian media — click any article to read it.`}
+            subtitle={`${MEDIA_COVERAGE.length} features with a live link, drawn from 140+ verified items since 2008 — click any article to read it.`}
           />
 
           {/* Category Filters */}
@@ -579,6 +734,82 @@ export default function MediaClient() {
               Online / TV
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Offline Archive ─── */}
+      {/* Rights: outlet, date and headline only. Do NOT publish page scans here
+          without written permission from the publisher (FAZ, BBC Wildlife). */}
+      <section className="py-16 lg:py-24 bg-white border-t border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="From the Archive"
+            subtitle="Coverage that never went online — held as newspaper scans and broadcast recordings at Wildlife Rescue. All but one predate the documentary. Available on request."
+          />
+
+          {/* The two lines that answer a funder's unspoken questions */}
+          <div className="grid sm:grid-cols-2 gap-4 mb-10">
+            <div className="bg-teal-light rounded-xl p-5 border border-teal/10">
+              <Globe size={18} className="text-teal mb-2" />
+              <p className="text-sm text-charcoal font-semibold leading-relaxed">
+                Covered in four Indian languages — Hindi, Tamil, Malayalam and
+                Kashmiri.
+              </p>
+            </div>
+            <div className="bg-amber-light/25 rounded-xl p-5 border border-amber/20">
+              <Radio size={18} className="text-amber-800 mb-2" />
+              <p className="text-sm text-charcoal font-semibold leading-relaxed">
+                Zee News, NDTV, CNN-IBN and Animal Planet filmed at the clinic
+                before the documentary was made.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {ARCHIVE.map((item, i) => (
+              <div
+                key={`${item.outlet}-${item.year}-${i}`}
+                className="flex items-start gap-4 bg-offwhite rounded-xl p-4 border border-gray-100"
+              >
+                <span className="shrink-0 w-14 text-center text-xs font-bold text-teal bg-white rounded-md py-1.5 border border-teal/15">
+                  {item.year}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-sm font-bold text-charcoal font-[family-name:var(--font-poppins)]">
+                      {item.outlet}
+                    </p>
+                    <span
+                      className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+                        item.format === "Print"
+                          ? "bg-amber-light/30 text-amber-800 border-amber/20"
+                          : "bg-teal-light text-teal border-teal/20"
+                      }`}
+                    >
+                      {item.format === "Print" ? (
+                        <Newspaper size={10} />
+                      ) : (
+                        <Tv size={10} />
+                      )}
+                      {item.format}
+                    </span>
+                  </div>
+                  {item.note && (
+                    <p className="text-xs text-slate mt-1 leading-relaxed">
+                      {item.note}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-6 text-xs text-slate italic flex items-start gap-2">
+            <Archive size={14} className="shrink-0 mt-0.5" />
+            A selection from the physical archive. Scans and recordings are held
+            at Wildlife Rescue and can be made available to funders, journalists
+            and researchers on request.
+          </p>
         </div>
       </section>
 

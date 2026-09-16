@@ -68,6 +68,9 @@ const BUY_LINKS = [
   },
 ];
 
+/* Note: the Kirkus and Booklist starred reviews shown on Orca's site belong to
+   Rina Singh's earlier titles (Once, a Bird and Holi Colors) — NOT to this book.
+   School Library Journal is the only star for Bird Brothers. Do not add others. */
 const AWARDS = [
   {
     name: "Junior Library Guild Gold Standard Selection",
@@ -75,19 +78,29 @@ const AWARDS = [
     icon: "gold",
   },
   {
+    name: "School Library Journal — Starred Review",
+    year: "2025",
+    icon: "star",
+  },
+  {
     name: "CCBC Choices",
     year: "2026",
     icon: "blue",
   },
   {
-    name: "PADIBA (Pan Asian Diverse Illustrator/Book Award)",
+    name: "CCBC Best Books for Kids & Teens",
+    year: "2026",
+    icon: "blue",
+  },
+  {
+    name: "Bank Street College Best Children's Books of the Year",
     year: "2026",
     icon: "purple",
   },
   {
-    name: "School Library Journal — Starred Review",
-    year: "2025",
-    icon: "star",
+    name: "PADIBA (Pan Asian Diverse Illustrator/Book Award) — Commended",
+    year: "2026",
+    icon: "purple",
   },
 ];
 
@@ -274,7 +287,7 @@ export default function BirdBrothersClient() {
             </p>
             <p className="text-charcoal font-semibold">
               Today, Wildlife Rescue has grown into the world&apos;s largest
-              raptor rescue facility, with over 40,000 birds rescued since 2010.
+              raptor rescue facility, with over 41,000 birds rescued since 2010.
             </p>
           </div>
         </div>
@@ -374,7 +387,7 @@ export default function BirdBrothersClient() {
             subtitle="Bird Brothers has been recognized by leading children's literature organizations."
           />
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {AWARDS.map((award) => (
               <div
                 key={award.name}
@@ -604,7 +617,7 @@ export default function BirdBrothersClient() {
           </h2>
           <p className="mt-4 text-white/80 max-w-2xl mx-auto leading-relaxed">
             This book tells the origin story of Wildlife Rescue — now the
-            world&apos;s largest raptor rescue facility with over 40,000 birds
+            world&apos;s largest raptor rescue facility with over 41,000 birds
             rescued since 2010. Nadeem and Saud continue their work every day in
             Delhi, and every purchase helps raise awareness for raptor
             conservation.
