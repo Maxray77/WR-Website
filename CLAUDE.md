@@ -222,6 +222,73 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-09-16 — **Round 5 media sweep + Round 4 tasks 1 & 3 SHIPPED, all nine `/education-outreach` photos face-blurred, and the page rebuilt as a seven-school programme record.** `main` = `7e9debb` (pushed, Vercel auto-deploys). Branch `claude/busy-hypatia-hlnxiy` is in sync with `main`.
+
+### Shipped this session (all live on `main`)
+
+1. **Round 5 media sweep (`f3b6c51`)** — "50+ media features" → **"140+"** (homepage, `/media` hero, `metadata.ts`; the `50+ volunteers` line in `blog-data.ts` is unrelated and untouched). Press coverage now starts **June 2008**, not 2010 — years-of-coverage stat `15+` → **19**. Nine outlets added to the homepage **"As Featured In"** strip with **Science (AAAS) placed first**. New **"Professional & Academic Recognition"** section on `/media` (IWRC, Science, Anthroposphere, UCL Urban Laboratory, School Library Journal, JLG/CCBC/Bank Street) plus four peer-reviewed papers labelled as *independent academic writing about the work*, never WR's own research. New **"From the Archive"** section (12 items, no links, no scans — rights unresolved with FAZ/BBC Wildlife). Two titles corrected from the archive: BBC Wildlife Magazine 2017 is **"Kite Club"**; the 3 Jun 2008 HT City clipping is **"Prey Mercy"**. `/videos` gained **"In Their Own Words"** (the only four recordings where Nadeem or Saud speak, Green Flame Ep. 103 featured). `/bird-brothers` gained CCBC Best Books 2026 + Bank Street 2026; PADIBA marked Commended.
+2. **Round 4 task 1 (`834cc57`)** — **40,000+ → 41,000+** in 11 places (impact counter, footer, JSON-LD, hero caption, `/treatments`, `/annual-reports`, `/bird-brothers` ×2, Wingman, page/OG/Twitter descriptions). Nadeem chose to ship ahead of the ~19–21 Sep crossing, knowingly.
+3. **Round 4 task 3 (`d274bff`)** — **MCA CSR-1 `CSR00099128`** and **FCRA `231661878`** added to the footer (now two lines), plus 12A. Numbers moved into `CONTACT.registrations` in `constants.ts`.
+4. **Face-blur pass (`0bcf035`, `d87f304`)** — the nine `/education-outreach` photos had been public since June with **children's faces unblurred**. All reprocessed; `event-01/03/04` deleted because blurring them safely destroyed the photographs.
+5. **Seven-school programme page (`d755804`, merged `7e9debb`)** — `/education-outreach` rebuilt from one event to a programme record; Sabrang + Nav Jyoti media added.
+
+### Nadeem's decisions this session (do not re-litigate)
+
+- **Steppe Eagle stays.** The fact-check rule covers written applications, not the website. og:image and hero slide 1 unchanged.
+- **Phone `9810029698` is the helpline**, not a typo. Confirmed independently by the whiteboard in `event-07/08` and the WR slide in `sabrang-02`. Leave it.
+- **41,000+ deployed immediately**, ahead of the crossing date.
+- **No child is named anywhere** — captions read First/Second/Third place only.
+
+### School education programme — 7 schools, Jun–Sep 2026
+
+| # | School | Date | Media |
+|---|---|---|---|
+| 1 | Infinity Learning Centre | 20 Jun 2026 | 6 photos + 10 drawings — live |
+| 2 | ABC Modern School | 28 Jul 2026 | none (files never transferred) |
+| 3 | Convent of Modern Education | 12 Aug 2026 | none |
+| 4 | Giggling Toddler's School | 20 Aug 2026 | none |
+| 5 | Rama Public Sr. Sec. School | 1 Sep 2026 *(from a child's hand-dated sheet — unconfirmed)* | none |
+| 6 | Sabrang Public School | 5 Sep 2026 | 3 photos + 3 drawings |
+| 7 | Nav Jyoti Model School | 7 Sep 2026 | 3 photos + 3 drawings |
+
+All seven are listed with dates on the page; only the three with media render a gallery. Adding a school = one entry in `EDU_SESSIONS` (`src/lib/education-data.ts`).
+
+**Curriculum evidenced in the photos** (useful for proposals): a numbered bilingual English/Hindi deck — module 3 is glue traps; Manja; affected species (Pigeon/Crow/Myna/Black Kite); a crow cost-benefit slide; a quiz slide; the helpline number; and a **"Take the Pledge — I am a Wildlife Defender"** closing slide. Sessions led by **Samia** and **Mohammad Umar**.
+
+### CRITICAL — media handling rules for school photos
+
+- **`scripts/prep-school-media.py`** does the whole pass: HEIC→JPEG, EXIF rotate, resize 1600px, face blur, and redaction of the **NAME / CLASS / ROLL NO.** block on drawings. Per-school box files live at `scripts/face-blur-boxes-*.json`.
+- **Needs `opencv-python-headless==4.10.x`** — OpenCV 5 ships no Haar cascades. Also `pillow-heif` (iPhone photos arrive as HEIC behind a `.jpg` extension).
+- **Haar detection is a FIRST PASS, never the guarantee.** It reliably misses downward-angled faces — the default pose when children are drawing. **Every output must be reviewed by eye**; ~23 hand-placed boxes were needed for the Infinity set alone, and a WR staff member was missed entirely in `event-08`.
+- **Use `exclude` zones over projector screens.** The detector read slide text as faces and blurred a digit out of the helpline number in `sabrang-02`. It also read a toy dog as a face in `navjyoti-02` — **always crop the original and check what is under a false positive before excluding it**; that particular smear was incidentally covering several real children's faces.
+- **Faces are not the only PII.** Certificates (`event-10`), school ID cards on lanyards, and the name fields on drawing sheets in overhead shots all carry names. Blur them too.
+- **Dense candid shots do not survive blurring.** `event-01/03/04` and one Nav Jyoti photo were dropped because covering every face meant smearing most of the frame. Back-of-room shots are far better material and need almost no blurring — prefer them.
+
+### Carry-forward — REPORT-ONLY items awaiting Nadeem's decision
+
+- **Donation ladders disagree.** `/donate` tells a US donor $50 and an Indian donor ₹2,500 buy the same thing; at ₹95/$ the American pays ~1.9–2.4× more across all four tiers. The INR ladder also has a fifth tier (₹100) with no USD counterpart. **Do not fix unilaterally** — Nadeem decides whether INR rises, USD falls, or the claims are reworded.
+- **"26 international awards" is unevidenced.** Appears in **four** places: `page.tsx:184`, `wingman-prompt.ts:22`, `metadata.ts:120`, and `IMPACT_STATS` in `constants.ts:6` (drives the homepage counter). IMDb as of 16 Sep 2026 says 24 wins / 44 nominations. Cross-check against `CSR\All That Breathes - Awards and Recognition.pdf` before changing.
+- **"World's largest raptor rescue"** — 12 occurrences. Origin traced to a citable press source already in our own media list: **Clarion India, 2024, "Muslim Brothers Set Up World's Largest Bird Clinic"**. Caveat: it says *bird clinic*, the site says *raptor rescue facility*. Press attestation, not an audited ranking.
+- **2022 intake is stale in TWO places** — `/about` timeline says *"Intake jumps 24% to 3,500 birds"* and `RESCUE_BY_YEAR` in `constants.ts` also holds 3500 (feeds the `/annual-reports` chart). Settled figure is **3,385**, which makes the growth **+20.2%, not 24%** — so both numbers move together or neither does.
+
+### Carry-forward — unfinished work
+
+- **22 URLs published unverified.** Round 5 VERIFY step 1 (every URL returns 200) could not be run: this session's egress proxy 403s every external host, for curl and WebFetch alike. Worth a click-through before the proposals go out.
+- **Seven of the nine new outlets are in the homepage strip only, not the `/media` grid** — CSM, France 24, Democracy Now, Variety, THR, Outlook India, The Wire. Grid entries need a real headline and the brief forbids inventing them. Supply the seven headlines and it is a two-minute addition.
+- **Archive is 12 of 37 items.** The rest are in `Documents\Wildlife Rescue\CSR\Offline-Press-Archive-Inventory.md`, which never reached this session.
+- **`vercel.app` is not zero** (Round 4 required zero). Two hits, both code not content: the CSRF origin allowlist in `src/middleware.ts:13` and an explanatory comment in `src/app/api/revalidate/route.ts:17`. The allowlist entry points at a dead 404 alias — removing it is safe and marginally reduces CSRF surface. **Not done; awaiting a yes.**
+- **Sanity webhook still unverified** (Round 4 §1). No access to `sanity.io/manage` from here. If it still points at the dead `.vercel.app` URL, Sanity blog edits will silently do nothing until the next deploy.
+- **"Children reached" figure is deliberately absent** from `/education-outreach`. The Rama and Nav Jyoti photos show 60–80 children per frame, so a real total is likely several hundred — but it is Nadeem's number to give, not one to estimate.
+- **Four schools listed without galleries** (ABC, Convent, Giggling, Rama). Nadeem confirmed no further files are coming. If they should not be listed at all, cutting them to three is a one-line change.
+
+### Gotchas discovered this session
+
+- **This remote session cannot read the user's machine.** `G:\...` and `C:\Users\...` paths are invisible; **pasted images never reach the filesystem** (only the model sees them). Only real *file attachments* land in `/root/.claude/uploads/`. **Zips work** — Sabrang came through at 5.7 MB; larger ones were rejected, so split photos and drawings into separate zips, or push from the local clone.
+- **A deleted `public/` image does not fail the build.** Removing `event-01.jpg` left the `/education-outreach` hero 404 on production for about an hour because nothing type-checks image paths. **After deleting any asset, grep `src/` for its filename.**
+- The `prebuild` Sanity manifest regenerates with `"dataset": ""` when Sanity env vars are absent — **always `git checkout -- public/studio/static/` before committing** after a local build.
+
+---
+
 **Last updated by:** Claude Code — 2026-06-25 — **New dedicated `/egyptian-vultures` page + comprehensive site-map footer, a new `/education-outreach` school page, a finalized header nav (All That Breathes + Egyptian Vultures promoted to top-level), and a website stats report with over-time tracking — all SHIPPED & live.**
 
 ### Shipped this session (pushed to `main`, Vercel auto-deploys)
