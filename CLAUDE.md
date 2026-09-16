@@ -244,10 +244,10 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 | # | School | Date | Media |
 |---|---|---|---|
 | 1 | Infinity Learning Centre | 20 Jun 2026 | 6 photos + 10 drawings — live |
-| 2 | ABC Modern School | 28 Jul 2026 | none (files never transferred) |
-| 3 | Convent of Modern Education | 12 Aug 2026 | none |
-| 4 | Giggling Toddler's School | 20 Aug 2026 | none |
-| 5 | Rama Public Sr. Sec. School | 1 Sep 2026 *(from a child's hand-dated sheet — unconfirmed)* | none |
+| 2 | ABC Modern School | 28 Jul 2026 | **awaiting zip** — 5 drawings + 4 photos |
+| 3 | Convent of Modern Education | 12 Aug 2026 | **awaiting zip** — 4 drawings + 4 photos |
+| 4 | Giggling Toddler's School | 20 Aug 2026 | **awaiting zip** — 3 drawings + 7 photos |
+| 5 | Rama Public Sr. Sec. School | 1 Sep 2026 *(from a child's hand-dated sheet — unconfirmed)* | **awaiting zip** — 3 drawings + 3 photos |
 | 6 | Sabrang Public School | 5 Sep 2026 | 3 photos + 3 drawings |
 | 7 | Nav Jyoti Model School | 7 Sep 2026 | 3 photos + 3 drawings |
 
@@ -279,11 +279,21 @@ All seven are listed with dates on the page; only the three with media render a 
 - **`vercel.app` is not zero** (Round 4 required zero). Two hits, both code not content: the CSRF origin allowlist in `src/middleware.ts:13` and an explanatory comment in `src/app/api/revalidate/route.ts:17`. The allowlist entry points at a dead 404 alias — removing it is safe and marginally reduces CSRF surface. **Not done; awaiting a yes.**
 - **Sanity webhook still unverified** (Round 4 §1). No access to `sanity.io/manage` from here. If it still points at the dead `.vercel.app` URL, Sanity blog edits will silently do nothing until the next deploy.
 - **"Children reached" figure is deliberately absent** from `/education-outreach`. The Rama and Nav Jyoti photos show 60–80 children per frame, so a real total is likely several hundred — but it is Nadeem's number to give, not one to estimate.
-- **Four schools listed without galleries** (ABC, Convent, Giggling, Rama). Nadeem confirmed no further files are coming. If they should not be listed at all, cutting them to three is a one-line change.
+- **FIRST JOB NEXT SESSION — four schools still need their media.** They are listed on `/education-outreach` with dates but render no gallery, because their files never reached the filesystem (they were pasted as images, not attached). **21 images are waiting:**
+
+| School | Awaiting | Notes on the material |
+|---|---|---|
+| ABC Modern School | 5 drawings + 4 photos | Photos 3 & 4 (glue-trap module, the Wildlife Defender pledge slide) are the strong ones; the two wide candids are dense and may not survive blurring. |
+| Convent of Modern Education | 4 drawings + 4 photos | Best drawings of the whole set — glue traps, rat poison vs cage trap, kites crossed out. Photos are back-of-room, so minimal blurring. |
+| Giggling Toddler's School | 3 drawings + 7 photos | **The winners line-up is the single best photo sent** — four children with prizes. Needs 4 face blurs **plus the school ID card on the second boy's lanyard**. |
+| Rama Public Sr. Sec. School | 3 drawings + 3 photos | Largest audiences (60–80 children). All three shot from the back, so barely any blurring needed. |
+
+  Ask Nadeem to re-attach the four zips (see the size note in Gotchas — do not tell him to split them). Each school is then one run of `scripts/prep-school-media.py`, an eye-check of every output, and one entry in `EDU_SESSIONS`.
 
 ### Gotchas discovered this session
 
-- **This remote session cannot read the user's machine.** `G:\...` and `C:\Users\...` paths are invisible; **pasted images never reach the filesystem** (only the model sees them). Only real *file attachments* land in `/root/.claude/uploads/`. **Zips work** — Sabrang came through at 5.7 MB; larger ones were rejected, so split photos and drawings into separate zips, or push from the local clone.
+- **This remote session cannot read the user's machine.** `G:\...` and `C:\Users\...` paths are invisible; **pasted images never reach the filesystem** (only the model sees them, so they can be described but never saved, compressed, blurred or committed). Only real *file attachments* land in `/root/.claude/uploads/`.
+- **ZIPS ARE THE WAY, AND THEY ARE NOT SIZE-LIMITED AT ~6 MB.** Sabrang came through at 5.4 MB and **Nav Jyoti at 25.3 MB** — both fine. A Rama zip was rejected once, which looked like a size cap and was mis-recorded as one; on the evidence it was a transient failure. **Do not advise splitting zips. Just retry the attachment.** Pushing from the local clone remains the guaranteed fallback.
 - **A deleted `public/` image does not fail the build.** Removing `event-01.jpg` left the `/education-outreach` hero 404 on production for about an hour because nothing type-checks image paths. **After deleting any asset, grep `src/` for its filename.**
 - The `prebuild` Sanity manifest regenerates with `"dataset": ""` when Sanity env vars are absent — **always `git checkout -- public/studio/static/` before committing** after a local build.
 
