@@ -268,6 +268,9 @@ export const WATCH_AGGREGATOR_URL =
 
 // ─── Featured In Media ───
 export const MEDIA_LOGOS: { name: string; url?: string }[] = [
+  // Science (AAAS) leads: the only general-science journal in our coverage, and
+  // the single most relevant credential for a conservation or scientific funder.
+  { name: "Science (AAAS)", url: "https://doi.org/10.1126/science.abo3606" },
   { name: "The New York Times", url: "https://www.nytimes.com/2020/02/07/science/kites-birds-conservation-india.html" },
   { name: "BBC", url: "https://www.bbc.com/news/world-asia-india-60329561" },
   { name: "CNN", url: "https://edition.cnn.com/2022/10/14/asia/all-that-breathes-black-kites-new-delhi-spc-intl-c2e" },
@@ -275,9 +278,17 @@ export const MEDIA_LOGOS: { name: string; url?: string }[] = [
   { name: "The Guardian", url: "https://www.theguardian.com/culture/2023/feb/06/stricken-smog-oscar-tipped-delhis-bird-hospital-all-that-breathes" },
   { name: "The Washington Post", url: "https://www.washingtonpost.com/movies/2022/11/14/all-that-breathes-movie-review/" },
   { name: "Al Jazeera", url: "https://www.aljazeera.com/gallery/2014/6/6/in-pictures-treating-delhis-birds-of-prey" },
+  { name: "Christian Science Monitor", url: "https://www.csmonitor.com/World/Asia-South-Central/2022/1026/In-Pictures-The-brothers-saving-India-s-unappreciated-scavenger-birds" },
+  { name: "France 24 / AFP", url: "https://www.france24.com/en/live-news/20220131-birds-of-a-feather-india-s-raptor-rescuing-brothers" },
+  { name: "Democracy Now!", url: "https://www.democracynow.org/2023/2/2/all_that_breathes_shaunak_sen" },
+  { name: "Variety", url: "https://variety.com/2022/film/global/hbo-all-that-breathes-sundance-cannes-1235271685/" },
+  { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/movies/movie-reviews/all-that-breathes-review-1235083507/" },
   { name: "The Hindu", url: "https://www.thehindu.com/news/cities/Delhi/mending-broken-wings/article6211516.ece" },
   { name: "Hindustan Times", url: "https://www.hindustantimes.com/cities/delhi-news/fight-for-the-flight-of-black-kites-101643882432209.html" },
   { name: "NDTV", url: "https://swachhindia.ndtv.com/album-detail/all-that-breathes-shaunak-sens-film-that-won-at-cannes-is-a-story-of-these-two-brothers-from-delhi-102581/" },
+  { name: "Outlook India", url: "https://www.outlookindia.com/national/all-that-breathes-delhis-black-kites-two-brothers-and-a-film-news-406894" },
+  { name: "The Wire", url: "https://thewire.in/culture/film/director-shaunak-sen-all-that-breathes-interview" },
+  { name: "Business Standard", url: "https://www.business-standard.com/article/specials/delhi-s-bird-rescuers-114101600850_1.html" },
   { name: "Down To Earth", url: "https://www.downtoearth.org.in/environment/helpline-for-birds-2010" },
   { name: "Scroll.in", url: "https://scroll.in/reel/1015815/in-all-that-breathes-brothers-who-rescue-birds-and-a-struggle-for-human-survival" },
 ];

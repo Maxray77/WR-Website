@@ -129,7 +129,7 @@ export const pageMetadata = {
   media: {
     title: "Media & Press — Wildlife Rescue in the News",
     description:
-      "Wildlife Rescue and founders Nadeem Shehzad & Mohammad Saud in the press — 50+ articles and broadcasts, the Oscar-nominated 'All That Breathes', and international awards coverage. Press kit and media enquiries.",
+      "Wildlife Rescue and founders Nadeem Shehzad & Mohammad Saud in the press — 140+ articles and broadcasts, the Oscar-nominated 'All That Breathes', and international awards coverage. Press kit and media enquiries.",
     alternates: { canonical: "/media" },
   },
   birdBrothers: {

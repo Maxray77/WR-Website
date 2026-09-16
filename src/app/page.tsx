@@ -464,7 +464,7 @@ export default async function Home() {
               href="/media"
               className="inline-flex items-center gap-2 text-amber hover:text-amber-light text-sm font-semibold transition-colors"
             >
-              View all 50+ media features <ArrowRight size={14} />
+              View all 140+ media features <ArrowRight size={14} />
             </Link>
           </div>
         </div>
