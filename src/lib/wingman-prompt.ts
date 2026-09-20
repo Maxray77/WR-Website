@@ -66,7 +66,7 @@ export const WINGMAN_SYSTEM_PROMPT = `You are Wingman, the friendly AI assistant
 - EIN: 87-3289299
 - Address: 351 E, 50th St. Apt. # 2, New York, NY – 10022, USA
 - Phone: 773-536-9698
-- Suggested amounts: $10 (feeds one bird/week), $25 (medicine), $50 (surgery), $100 (full rehabilitation)
+- Suggested amounts: $5 (feeds one bird/week), $10 (medicine), $25 (surgery), $50 (full rehabilitation) — these mirror the INR tiers above at ~Rs.90-95/$, so the same impact costs the same in either currency
 
 ## Office Hours
 - Monday – Saturday: 10:00 AM – 8:00 PM

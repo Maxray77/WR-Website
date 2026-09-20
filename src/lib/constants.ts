@@ -333,11 +333,15 @@ export const DONATION_AMOUNTS_INR = [
   { amount: 5000, label: "Sponsors a full rehabilitation" },
 ];
 
+// USD tiers mirror the INR tiers above at ~Rs.90-95/$ so the same impact claim
+// costs an international donor the same as an Indian donor:
+//   $5 = Rs.500 | $10 = Rs.1,000 | $25 = Rs.2,500 | $50 = Rs.5,000
+// If the INR ladder changes, re-derive these — the labels must stay paired.
 export const DONATION_AMOUNTS_USD = [
-  { amount: 10, label: "Feeds one bird for a week" },
-  { amount: 25, label: "Covers medicine for one raptor" },
-  { amount: 50, label: "Covers surgery for one bird" },
-  { amount: 100, label: "Sponsors a full rehabilitation" },
+  { amount: 5, label: "Feeds one bird for a week" },
+  { amount: 10, label: "Covers medicine for one raptor" },
+  { amount: 25, label: "Covers surgery for one bird" },
+  { amount: 50, label: "Sponsors a full rehabilitation" },
 ];
 
 // ─── Bank Details ───
