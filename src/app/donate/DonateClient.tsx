@@ -682,9 +682,24 @@ export default function DonateClient() {
                     <p><span className="text-slate">EIN:</span> <span className="font-semibold text-charcoal font-mono">{CONTACT.usFiscalSponsor.ein}</span></p>
                     <p><span className="text-slate">Mailing address:</span> <span className="font-semibold text-charcoal">{CONTACT.usFiscalSponsor.address}</span></p>
                   </div>
-                  <p className="text-sm text-slate leading-relaxed">
+                  <p className="text-sm text-slate leading-relaxed mb-4">
                     Please ask your sponsor to note &quot;Wildlife Rescue, Delhi&quot; in the grant purpose
                     so we can acknowledge it correctly.
+                  </p>
+                  <a
+                    href={NONCASH_GIVING.dafPageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                    onClick={() => trackEvent("donation_method_click", { method: "DAF", currency: "USD" })}
+                  >
+                    Start a DAF grant
+                    <ArrowRight size={16} />
+                  </a>
+                  <p className="text-xs text-slate mt-3 leading-relaxed">
+                    Fidelity Charitable, DAF Giving 360 and BNY Charitable can start the grant in one
+                    click from R3&apos;s page. Every other sponsor takes the recommendation from its own
+                    portal using the details above.
                   </p>
                 </div>
 

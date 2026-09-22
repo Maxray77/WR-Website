@@ -489,8 +489,11 @@ export const FESTIVAL_SELECTIONS = [
      URL confirmed in a browser. The crypto card does not render while it is
      null: a dead donation link is worse than no link. */
 export const NONCASH_GIVING = {
-  /* R3 handles US gifts; saud@ handles Indian ones. */
-  contactEmail: "nshehzad@raptorrescueusa.org",
+  /* R3's own shared inbox, which is what raptorrescueusa.org publishes for the
+     same request — one address for a stock gift whichever site the donor came
+     through, and a shared box rather than one person's, since gift processing
+     has to survive someone being away. saud@ still handles Indian gifts. */
+  contactEmail: "info@raptorrescueusa.org",
   brokerage: null as null | {
     firm: string;
     dtcNumber: string;
@@ -498,4 +501,9 @@ export const NONCASH_GIVING = {
     accountNumber: string;
   },
   everyOrgUrl: null as string | null,
+  /* R3's donate page runs a live DAF Direct widget (Fidelity Charitable, DAF
+     Giving 360, BNY Charitable start the grant in one click). We link to it
+     rather than copying the widget's settings blob here, so there is one
+     canonical DAF path and nothing to drift. */
+  dafPageUrl: "https://www.raptorrescueusa.org/donate",
 };

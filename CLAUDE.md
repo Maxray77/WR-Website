@@ -247,6 +247,21 @@ Both live in `NONCASH_GIVING` (`src/lib/constants.ts`, bottom of file). Filling 
 
 **`everyOrgUrl` is null because it could not be verified from this session — every.org 403s this environment on every path, including with a browser user-agent.** A dead link on a donation page is worse than no link, so the card stays hidden rather than shipping an unchecked URL. This is the same failure mode as the 22 unverified URLs already carried forward from Round 5.
 
+### Follow-up same day — R3 site now carries the same options, and the two sites were aligned
+
+Nadeem asked for this on **both** sites. Working on `Maxray77/r3-website` (branch `claude/amazing-johnson-a9wt9p`) turned up that **R3's `/donate` already had appreciated stock and DAF** — and its DAF was *better* than ours, because it runs a live **DAF Direct** widget where Fidelity Charitable, DAF Giving 360 and BNY Charitable start a grant in one click. R3 also already had employer matching, qualified charitable distributions and bequests, which we do not.
+
+So the R3 work was sharpening, not building: the stock card gained the *transfer-don't-sell* warning and a mailto CTA, and a crypto card was added behind R3's own `href: ""` filter idiom (the same one that hides the unconfigured Square card), so it stays hidden until a verified provider URL is set.
+
+Two changes here on the WR side so a donor meets **one** set of instructions whichever site they land on:
+
+- **Stock contact `nshehzad@` → `info@raptorrescueusa.org`.** That is the inbox R3's own site publishes for this exact request, and a shared box survives someone being away — gift processing should not depend on one person. `saud@` still handles Indian gifts.
+- **The DAF card now links to R3's DAF Direct** (`NONCASH_GIVING.dafPageUrl`) instead of leaving a WR donor to do it by hand. We link rather than copy the widget's encoded settings blob, so there is one canonical DAF path and nothing to drift.
+
+`https://www.raptorrescueusa.org/donate` was **verified live** before being linked: HTTP 200, apex 308s to www, DAF Direct present on the page. It is not an unchecked URL like the Every.org one.
+
+**Note for whoever touches the R3 repo next:** its `CLAUDE.md` claimed `raptorrescueusa.org` still points at Squarespace. That is stale and has been corrected there — the domain is on Vercel and serves the `r3-website` project.
+
 ### Carry-forward — what Nadeem/Saud need to do off-site
 
 - **Open a brokerage account for R3** (Fidelity or Schwab; needs a board resolution + EIN documents, a few weeks). Then fill in `brokerage`. This is the item with real money attached — appreciated stock is the standard year-end vehicle for US donors.
