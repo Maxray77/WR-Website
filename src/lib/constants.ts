@@ -471,3 +471,31 @@ export const FESTIVAL_SELECTIONS = [
   "San Diego Asian Film Festival", "DokuFest Kosovo", "Camden",
   "IFI Documentary Festival", "MakeDox", "ArchiFest Singapore",
 ];
+
+// ─── Non-Cash Giving (US only) ───
+/* Appreciated securities, donor-advised funds and crypto.
+   All three route through R3, our US 501(c)(3) — NEVER the Indian trust.
+   FCRA requires every foreign contribution to land in the designated SBI
+   New Delhi FCRA account, and a broker transfer or a crypto wallet payment
+   cannot satisfy that. Do not add an Indian-entity path here.
+
+   Two fields are deliberately null, and each gates the card that needs it:
+
+   - `brokerage` — null until R3's brokerage account is open. While null, the
+     stock card asks the donor to email R3 to arrange the transfer. Fill in the
+     four fields and the card publishes the DTC details instead. Nothing else
+     needs to change.
+   - `everyOrgUrl` — null until R3's Every.org profile has been claimed and the
+     URL confirmed in a browser. The crypto card does not render while it is
+     null: a dead donation link is worse than no link. */
+export const NONCASH_GIVING = {
+  /* R3 handles US gifts; saud@ handles Indian ones. */
+  contactEmail: "nshehzad@raptorrescueusa.org",
+  brokerage: null as null | {
+    firm: string;
+    dtcNumber: string;
+    accountName: string;
+    accountNumber: string;
+  },
+  everyOrgUrl: null as string | null,
+};

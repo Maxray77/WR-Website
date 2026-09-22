@@ -222,6 +222,46 @@ RAZORPAY_WEBHOOK_SECRET=...           # Razorpay webhook HMAC secret
 
 ## Current Status
 
+**Last updated by:** Claude Code — 2026-09-22 — **New `Stock & DAF` tab on `/donate`: appreciated-securities and donor-advised-fund giving for US donors, with crypto built but switched off until a provider URL is verified.** Branch `claude/amazing-johnson-a9wt9p`.
+
+### Shipped this session
+
+**Non-cash giving tab (`/donate?tab=noncash`)** — new ninth tab, sitting right after **US Donors**, covering the three US giving routes we had no path for:
+
+1. **Appreciated stock & securities** — leads with the point that actually matters: *transfer the shares, do not sell them first*, because selling and donating the proceeds triggers exactly the capital-gains tax the route avoids. Until R3 has a brokerage account, the card asks the donor to email `nshehzad@raptorrescueusa.org` and shows the legal name + EIN their broker will ask for. Also tells donors to announce the gift — **DTC transfers arrive with no donor name attached**, so an unannounced one cannot be acknowledged.
+2. **Donor-advised fund** — works today with no setup on either side: recommend a grant to R3, EIN 87-3289299, noting "Wildlife Rescue, Delhi" as the purpose. This content was previously buried as a footnote at the bottom of the US Donors tab; that block is now a short pointer button into the new tab, so there is **one canonical copy, not two that drift**.
+3. **Cryptocurrency** — card is written and wired, but **renders only when `NONCASH_GIVING.everyOrgUrl` is non-null**, which it is not. See the blocker below.
+
+### CRITICAL — why everything routes through R3, never the Indian trust
+
+**FCRA.** The Indian trust may receive foreign contributions only as money paid into its designated SBI New Delhi FCRA account. A broker transfer or a crypto wallet payment cannot satisfy that, so securities and digital assets must be received by **Raptor Rescue and Research Inc.** in the USA, liquidated there, and remitted. This is written into the comment block above `NONCASH_GIVING` in `constants.ts` and stated on the page itself. **Do not add an Indian-entity path to this tab.**
+
+### Two null fields, each gating its own card — this is deliberate
+
+Both live in `NONCASH_GIVING` (`src/lib/constants.ts`, bottom of file). Filling either in is a one-line change; nothing else moves.
+
+| Field | Fill in when | Effect |
+|---|---|---|
+| `brokerage` | R3's brokerage account is open | Stock card publishes firm / DTC number / account name / account number instead of the email-to-arrange copy |
+| `everyOrgUrl` | R3's Every.org profile is claimed **and the URL opened in a browser** | The crypto card appears |
+
+**`everyOrgUrl` is null because it could not be verified from this session — every.org 403s this environment on every path, including with a browser user-agent.** A dead link on a donation page is worse than no link, so the card stays hidden rather than shipping an unchecked URL. This is the same failure mode as the 22 unverified URLs already carried forward from Round 5.
+
+### Carry-forward — what Nadeem/Saud need to do off-site
+
+- **Open a brokerage account for R3** (Fidelity or Schwab; needs a board resolution + EIN documents, a few weeks). Then fill in `brokerage`. This is the item with real money attached — appreciated stock is the standard year-end vehicle for US donors.
+- **Claim R3's Every.org profile**, confirm the URL loads, and hand it over for `everyOrgUrl`. Every.org is free and covers crypto, stock and DAF; an *unclaimed* profile still collects but disburses by cheque to the IRS address on file, which is slow — claiming it and attaching a bank account is the point.
+- **Write a gift-acceptance policy for R3** before the first non-cash gift arrives, stating what R3 will and will not accept and that non-cash gifts are liquidated on receipt. Small 501(c)(3)s get burned by not having this when something odd shows up.
+- **Crypto admin burden is real, and asymmetric with stock** — the IRS treats crypto as property, not a publicly traded security, so a gift over $5,000 needs a *qualified appraisal*, R3 must sign Form 8283 Part V, and because auto-conversion sells immediately, R3 must then file **Form 8282**. Stock has none of this. The page says so in the crypto card. Worth weighing before paying for a crypto platform: the sector's headline numbers come from a handful of crypto-native charities.
+
+### Unrelated finding from the same session — R3 domain
+
+`raptorrescueusa.org` is on Google Cloud DNS with the apex A record already pointed at Vercel (`216.198.79.1`) and `www` CNAMEd to `cname.vercel-dns.com`, so **Vercel's "point your nameservers at us" prompt is optional and was declined** — switching would move the Microsoft 365 MX, SPF, `MS=` verification and `autodiscover` records too, risking donor-facing email for no functional gain. If it is ever done: create all eight records in Vercel DNS **first**, verify, then flip nameservers.
+
+**Also found: DKIM is not configured on `raptorrescueusa.org`** (`selector1`/`selector2._domainkey` return nothing) and DMARC sits at `p=none`. That is a live deliverability weakness for a domain sending donor correspondence and receipts. Turning DKIM on in the Microsoft 365 admin centre is a separate, worthwhile task.
+
+---
+
 **Last updated by:** Claude Code — 2026-09-16 — **Round 5 media sweep + Round 4 tasks 1 & 3 SHIPPED, all nine `/education-outreach` photos face-blurred, and the page rebuilt as a seven-school programme record.** `main` = `7e9debb` (pushed, Vercel auto-deploys). Branch `claude/busy-hypatia-hlnxiy` is in sync with `main`.
 
 ### Shipped this session (all live on `main`)

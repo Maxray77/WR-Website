@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight } from "lucide-react";
+import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight, TrendingUp } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import UsdAmountGrid from "@/components/UsdAmountGrid";
 import DonorDetailsModal, { type DonorFormData } from "@/components/DonorDetailsModal";
@@ -13,12 +13,14 @@ import {
   BANK_DETAILS,
   CONTACT,
   FEATURED_RESCUES,
+  NONCASH_GIVING,
 } from "@/lib/constants";
 
 const TABS = [
   { id: "online", label: "Online", icon: <CreditCard size={16} /> },
   { id: "bank", label: "Bank Transfer", icon: <Building2 size={16} /> },
   { id: "us", label: "US Donors", icon: <Globe size={16} /> },
+  { id: "noncash", label: "Stock & DAF", icon: <TrendingUp size={16} /> },
   { id: "gofundme", label: "GoFundMe", icon: <Send size={16} /> },
   { id: "patreon", label: "Patreon", icon: <Heart size={16} /> },
   { id: "cheque", label: "Mail Cheque", icon: <Mail size={16} /> },
@@ -545,12 +547,17 @@ export default function DonateClient() {
                   </div>
 
                   <div className="pt-4 border-t border-gray-100">
-                    <p className="font-semibold text-charcoal text-sm mb-1">Give through a donor-advised fund</p>
-                    <p className="text-sm text-slate leading-relaxed">
-                      If you have a donor-advised fund at Fidelity Charitable, Schwab Charitable, Vanguard Charitable, a community foundation, or any other sponsor, you can recommend a grant to{" "}
-                      <strong className="text-charcoal">{CONTACT.usFiscalSponsor.name}</strong>, EIN{" "}
-                      <span className="font-mono">{CONTACT.usFiscalSponsor.ein}</span>. Please ask your sponsor to note &quot;Wildlife Rescue, Delhi&quot; in the grant purpose so we can acknowledge it correctly.
+                    <p className="font-semibold text-charcoal text-sm mb-1">Stock, donor-advised funds and crypto</p>
+                    <p className="text-sm text-slate leading-relaxed mb-3">
+                      Giving appreciated shares or recommending a grant from a donor-advised fund often costs you less than the same gift in cash, because you avoid the capital gains tax.
                     </p>
+                    <button
+                      onClick={() => { setActiveTab("noncash"); trackEvent("donation_tab_view", { tab: "noncash", tab_label: "Stock & DAF" }); document.getElementById("donation-tabs")?.scrollIntoView({ behavior: "smooth" }); }}
+                      className="inline-flex items-center gap-1 text-teal hover:text-teal-dark font-semibold text-sm"
+                    >
+                      See stock &amp; DAF instructions
+                      <ArrowRight size={14} />
+                    </button>
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-gray-100">
@@ -559,6 +566,165 @@ export default function DonateClient() {
                       Grants to {CONTACT.usFiscalSponsor.name} are domestic grants to a US 501(c)(3), so no equivalency determination or expenditure responsibility is required.
                     </p>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "noncash" && (
+              <div>
+                <h2 className="text-2xl font-bold text-charcoal mb-2 font-[family-name:var(--font-poppins)]">
+                  Stock, Donor-Advised Funds &amp; Crypto
+                </h2>
+                <p className="text-slate mb-6 max-w-2xl">
+                  These are routes for US taxpayers. Every gift on this page is received by{" "}
+                  <strong className="text-charcoal">{CONTACT.usFiscalSponsor.name}</strong>, our US
+                  501(c)(3), and funds the same clinic in Delhi. Indian donors get no tax benefit from
+                  these routes and should use the Online or Bank Transfer tabs instead.
+                </p>
+
+                {/* Appreciated securities — the highest-value non-cash route for most US donors */}
+                <div className="bg-teal-light rounded-xl p-6 border-2 border-teal/20 mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <TrendingUp size={20} className="text-teal" />
+                    <h3 className="font-bold text-charcoal">Appreciated Stock &amp; Securities</h3>
+                  </div>
+                  <p className="text-sm text-charcoal leading-relaxed mb-4">
+                    If you have held shares, ETFs or mutual funds for more than a year and they have gone
+                    up in value, giving them directly is usually worth more than giving cash. You pay no
+                    capital gains tax on the increase, and you can still deduct the full market value.
+                  </p>
+
+                  <div className="bg-amber/10 border border-amber/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-charcoal leading-relaxed">
+                      <strong>Transfer the shares — do not sell them first.</strong> Selling and then
+                      donating the proceeds triggers exactly the capital gains tax that giving the shares
+                      themselves avoids.
+                    </p>
+                  </div>
+
+                  {NONCASH_GIVING.brokerage ? (
+                    <div className="bg-white rounded-lg p-4 space-y-1 text-sm mb-4">
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-slate">Brokerage firm</span>
+                        <span className="font-semibold text-charcoal">{NONCASH_GIVING.brokerage.firm}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-slate">DTC number</span>
+                        <span className="font-semibold text-charcoal font-mono">{NONCASH_GIVING.brokerage.dtcNumber}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-slate">Account name</span>
+                        <span className="font-semibold text-charcoal">{NONCASH_GIVING.brokerage.accountName}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2">
+                        <span className="text-slate">Account number</span>
+                        <span className="font-semibold text-charcoal font-mono">{NONCASH_GIVING.brokerage.accountNumber}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-white rounded-lg p-4 mb-4">
+                      <p className="text-sm text-charcoal leading-relaxed">
+                        To arrange a stock gift, email{" "}
+                        <a
+                          href={`mailto:${NONCASH_GIVING.contactEmail}?subject=Stock%20donation`}
+                          className="text-teal hover:text-teal-dark font-semibold underline"
+                          onClick={() => trackEvent("donation_method_click", { method: "Stock", currency: "USD" })}
+                        >
+                          {NONCASH_GIVING.contactEmail}
+                        </a>{" "}
+                        and we will send your broker the transfer instructions. Your broker will ask for
+                        the receiving organization&apos;s legal name and EIN:
+                      </p>
+                      <div className="mt-3 space-y-1 text-sm">
+                        <p><span className="text-slate">Legal recipient:</span> <span className="font-semibold text-charcoal">{CONTACT.usFiscalSponsor.name}</span></p>
+                        <p><span className="text-slate">EIN:</span> <span className="font-semibold text-charcoal font-mono">{CONTACT.usFiscalSponsor.ein}</span></p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="bg-white rounded-lg p-4">
+                    <p className="font-semibold text-charcoal text-sm mb-1">Please tell us it is coming</p>
+                    <p className="text-sm text-slate leading-relaxed">
+                      Broker transfers arrive with no donor name attached, so an unannounced gift can sit
+                      unidentified. Email{" "}
+                      <a
+                        href={`mailto:${NONCASH_GIVING.contactEmail}?subject=Stock%20donation`}
+                        className="text-teal hover:text-teal-dark font-semibold underline"
+                      >
+                        {NONCASH_GIVING.contactEmail}
+                      </a>{" "}
+                      with your name, the security and the number of shares, and we will match it to you
+                      and send your acknowledgement.
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate mt-4 leading-relaxed">
+                    R3 sells donated securities promptly on receipt. Your gift is valued on the date the
+                    shares reach R3&apos;s account, not the date you instruct your broker. Publicly traded
+                    securities need no appraisal, and R3 provides the written acknowledgement your
+                    accountant needs for IRS Form 8283.
+                  </p>
+                </div>
+
+                {/* Donor-advised funds — works today, no setup needed on either side */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <PieChart size={20} className="text-teal" />
+                    <h3 className="font-bold text-charcoal">Donor-Advised Fund</h3>
+                  </div>
+                  <p className="text-sm text-charcoal leading-relaxed mb-4">
+                    If you give through Fidelity Charitable, Schwab Charitable, Vanguard Charitable, a
+                    community foundation or any other sponsor, you can recommend a grant to us today. Most
+                    sponsors let you search for the organization by EIN.
+                  </p>
+                  <div className="bg-offwhite rounded-lg p-4 space-y-2 text-sm mb-4">
+                    <p><span className="text-slate">Legal recipient:</span> <span className="font-semibold text-charcoal">{CONTACT.usFiscalSponsor.name}</span></p>
+                    <p><span className="text-slate">EIN:</span> <span className="font-semibold text-charcoal font-mono">{CONTACT.usFiscalSponsor.ein}</span></p>
+                    <p><span className="text-slate">Mailing address:</span> <span className="font-semibold text-charcoal">{CONTACT.usFiscalSponsor.address}</span></p>
+                  </div>
+                  <p className="text-sm text-slate leading-relaxed">
+                    Please ask your sponsor to note &quot;Wildlife Rescue, Delhi&quot; in the grant purpose
+                    so we can acknowledge it correctly.
+                  </p>
+                </div>
+
+                {/* Crypto renders only once a verified provider URL is configured. */}
+                {NONCASH_GIVING.everyOrgUrl && (
+                  <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Globe size={20} className="text-teal" />
+                      <h3 className="font-bold text-charcoal">Cryptocurrency</h3>
+                    </div>
+                    <p className="text-sm text-charcoal leading-relaxed mb-4">
+                      Donate Bitcoin, Ethereum and other major tokens through Every.org, which receives the
+                      gift on R3&apos;s behalf, converts it to US dollars and issues your tax receipt.
+                    </p>
+                    <a
+                      href={NONCASH_GIVING.everyOrgUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block w-full sm:w-auto text-center bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                      onClick={() => trackEvent("donation_method_click", { method: "Crypto", currency: "USD" })}
+                    >
+                      Donate Cryptocurrency
+                    </a>
+                    <p className="text-xs text-slate mt-4 leading-relaxed">
+                      The IRS treats cryptocurrency as property rather than as a publicly traded security,
+                      so a gift worth more than $5,000 needs a qualified appraisal for you to claim the
+                      deduction. Email us before sending a gift that size and we will walk through it
+                      with you.
+                    </p>
+                  </div>
+                )}
+
+                <div className="bg-offwhite rounded-xl p-5">
+                  <p className="text-sm text-slate leading-relaxed">
+                    <strong className="text-charcoal">Why these gifts go to R3.</strong> Wildlife
+                    Rescue&apos;s Indian trust may receive foreign contributions only as money paid into
+                    its designated FCRA bank account, so it cannot accept securities or digital assets
+                    directly. R3 receives them in the USA, converts them to cash and funds the same clinic
+                    in Delhi — and you get a US 501(c)(3) receipt.
+                  </p>
                 </div>
               </div>
             )}
