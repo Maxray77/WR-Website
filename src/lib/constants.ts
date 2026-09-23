@@ -500,6 +500,21 @@ export const NONCASH_GIVING = {
     accountName: string;
     accountNumber: string;
   },
+  /* Crypto is received by R3, like everything else here. Two different things
+     hide under the word, and the card keeps them apart:
+
+     - Stablecoins (USDC and the like) can be paid straight through R3's Stripe
+       checkout once stablecoins are enabled in its Stripe Dashboard. Stripe
+       settles them as US dollars, so it is a CASH gift — convenient, but with
+       none of the capital-gains advantage donors usually come for.
+     - Appreciated Bitcoin or Ethereum is a genuine non-cash gift and has to be
+       arranged directly. It avoids capital gains but needs a qualified
+       appraisal above $5,000, and R3 must then file Form 8282 on conversion.
+
+     We deliberately name no third-party crypto platform. The earlier plan to
+     use Every.org was dropped: its URL could not be verified from the build
+     environment (it 403s datacenter egress), and Stripe covers the stablecoin
+     case with no new vendor, no subscription and no grant-and-disburse delay. */
   everyOrgUrl: null as string | null,
   /* R3's donate page runs a live DAF Direct widget (Fidelity Charitable, DAF
      Giving 360, BNY Charitable start the grant in one click). We link to it

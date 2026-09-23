@@ -262,6 +262,33 @@ Two changes here on the WR side so a donor meets **one** set of instructions whi
 
 **Note for whoever touches the R3 repo next:** its `CLAUDE.md` claimed `raptorrescueusa.org` still points at Squarespace. That is stale and has been corrected there — the domain is on Vercel and serves the `r3-website` project.
 
+### 2026-09-23 — crypto shipped on both sites, and Every.org dropped
+
+**Crypto is now live on `/donate?tab=noncash` and on R3's `/donate`.** It took a different shape than planned, because two different things hide under the word and the tax treatment is opposite:
+
+| Route | What it is | Tax |
+|---|---|---|
+| **Stablecoins** (USDC etc.) | Paid straight through R3's existing Stripe checkout | **A cash gift** — Stripe settles it as US dollars. No capital-gains advantage. |
+| **Appreciated BTC/ETH** | Arranged by email, a genuine non-cash gift | Avoids capital gains, but needs a **qualified appraisal above $5,000** and a Form 8282 on conversion |
+
+The card names both and says plainly that **if a donor holds coin and stock and the choice is open, the shares are the simpler gift** — no appraisal.
+
+**Every.org was dropped.** Its URL still could not be verified (it 403s this environment's datacenter egress, retried 2026-09-23 with a browser UA). More to the point it became unnecessary: Stripe covers the stablecoin case with **no new vendor, no subscription, and no grant-and-disburse delay**, and the gift stays a direct donation to R3 rather than a grant from Every.org.
+
+**The one switch left:** `STABLECOIN_CHECKOUT` in R3's `src/lib/constants.ts` is `false`. Enable stablecoins in **R3's Stripe Dashboard**, then flip it to `true`. Verified in Stripe's docs: `/api/checkout` deliberately does not pin `payment_method_types`, so the crypto option appears in Checkout **with no deploy** — the flag only controls whether R3's card names it. Nothing on the WR side needs changing; its card routes to R3 either way.
+
+Also fixed drift: `wingman-prompt.ts` still carried `nshehzad@`, now `info@raptorrescueusa.org` everywhere.
+
+### TO DO — Vercel deployment storage (raised 2026-09-22, deferred by Nadeem)
+
+The free tier's 10 GB Deployment Storage hit 100%. **Cause was not traffic** — `public/` is **381 MB** (266 MB of it video, 61 MB PDFs) and Vercel retained 30 copies, one per deployment ≈ 11.4 GB.
+
+Nadeem ran `npx vercel remove wildlife-rescue-website --safe --yes` → **21 removed, 9 remain, ~3.4 GB**, back under the cap. Production survived (`--safe` skips aliased deployments); site verified 200 on all routes afterwards. Note it also removed the previous-production rollback candidate, which carried no alias — redeploy any `main` commit to recreate one.
+
+**This bought time, not a fix.** At 381 MB per build the cap returns in ~26 deployments. The durable fix is **moving the 266 MB of video out of `public/` to Cloudflare R2** (10 GB free, no egress fees), which takes builds to ~115 MB and roughly triples the headroom. Needs an R2 bucket + credentials from Nadeem; then repoint paths in `species-data.ts`, `treatments-data.ts`, `egyptian-vulture-data.ts` and `/videos`. **Do not delete `next.config.ts`'s `outputFileTracingExcludes` while doing this.**
+
+Secondary: 7 of the 9 surviving deployments are previews of long-dead `claude/*` branches holding ~2.7 GB, spared only because each still has a branch alias. Safe to delete individually for more headroom.
+
 ### Carry-forward — what Nadeem/Saud need to do off-site
 
 - **Open a brokerage account for R3** (Fidelity or Schwab; needs a board resolution + EIN documents, a few weeks). Then fill in `brokerage`. This is the item with real money attached — appreciated stock is the standard year-end vehicle for US donors.

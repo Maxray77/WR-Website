@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight, TrendingUp } from "lucide-react";
+import { Heart, CreditCard, Building2, Smartphone, Globe, Send, Mail, Shield, PieChart, FileCheck, FileText, ArrowRight, TrendingUp, Coins } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import UsdAmountGrid from "@/components/UsdAmountGrid";
 import DonorDetailsModal, { type DonorFormData } from "@/components/DonorDetailsModal";
@@ -703,34 +703,60 @@ export default function DonateClient() {
                   </p>
                 </div>
 
-                {/* Crypto renders only once a verified provider URL is configured. */}
-                {NONCASH_GIVING.everyOrgUrl && (
-                  <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Globe size={20} className="text-teal" />
-                      <h3 className="font-bold text-charcoal">Cryptocurrency</h3>
-                    </div>
-                    <p className="text-sm text-charcoal leading-relaxed mb-4">
-                      Donate Bitcoin, Ethereum and other major tokens through Every.org, which receives the
-                      gift on R3&apos;s behalf, converts it to US dollars and issues your tax receipt.
+                {/* Two different things hide under "crypto" and this card keeps them
+                    apart — see the note above NONCASH_GIVING in constants.ts. */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Coins size={20} className="text-teal" />
+                    <h3 className="font-bold text-charcoal">Cryptocurrency</h3>
+                  </div>
+                  <p className="text-sm text-charcoal leading-relaxed mb-4">
+                    Crypto is received by R3, like the other gifts on this page. Which route suits you
+                    depends on what you hold.
+                  </p>
+
+                  <div className="bg-offwhite rounded-lg p-4 mb-3">
+                    <p className="font-semibold text-charcoal text-sm mb-1">Stablecoins</p>
+                    <p className="text-sm text-slate leading-relaxed">
+                      If you hold USDC or a similar stablecoin, you can pay straight through R3&apos;s
+                      checkout from any wallet. It reaches us as US dollars, which makes it a cash gift —
+                      convenient, but without the tax advantage below.
                     </p>
                     <a
-                      href={NONCASH_GIVING.everyOrgUrl}
+                      href={NONCASH_GIVING.dafPageUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block w-full sm:w-auto text-center bg-teal hover:bg-teal-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                      onClick={() => trackEvent("donation_method_click", { method: "Crypto", currency: "USD" })}
+                      className="inline-flex items-center gap-2 mt-3 text-teal hover:text-teal-dark font-semibold text-sm"
+                      onClick={() => trackEvent("donation_method_click", { method: "Stablecoin", currency: "USD" })}
                     >
-                      Donate Cryptocurrency
+                      Go to R3&apos;s donate page
+                      <ArrowRight size={14} />
                     </a>
-                    <p className="text-xs text-slate mt-4 leading-relaxed">
-                      The IRS treats cryptocurrency as property rather than as a publicly traded security,
-                      so a gift worth more than $5,000 needs a qualified appraisal for you to claim the
-                      deduction. Email us before sending a gift that size and we will walk through it
-                      with you.
+                  </div>
+
+                  <div className="bg-offwhite rounded-lg p-4">
+                    <p className="font-semibold text-charcoal text-sm mb-1">Appreciated Bitcoin or Ethereum</p>
+                    <p className="text-sm text-slate leading-relaxed">
+                      Giving coin you have held at a gain avoids the capital gains tax you would pay by
+                      selling it first — the same logic as the stock route above. Email{" "}
+                      <a
+                        href={`mailto:${NONCASH_GIVING.contactEmail}?subject=Crypto%20donation`}
+                        className="text-teal hover:text-teal-dark font-semibold underline"
+                        onClick={() => trackEvent("donation_method_click", { method: "Crypto", currency: "USD" })}
+                      >
+                        {NONCASH_GIVING.contactEmail}
+                      </a>{" "}
+                      and we will arrange the transfer.
                     </p>
                   </div>
-                )}
+
+                  <p className="text-xs text-slate mt-4 leading-relaxed">
+                    Coin is treated as property rather than as a publicly traded security, so a gift worth
+                    more than $5,000 needs a qualified appraisal before you can claim the deduction. Stock
+                    carries no such requirement — if you hold both and the choice is open, the shares are
+                    the simpler gift.
+                  </p>
+                </div>
 
                 <div className="bg-offwhite rounded-xl p-5">
                   <p className="text-sm text-slate leading-relaxed">
